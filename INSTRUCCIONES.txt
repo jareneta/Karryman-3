@@ -1,0 +1,7 @@
+KARRYMAN SCREENER V2
+1. Reemplazar discovery.py y discovery.html en la raíz de GitHub (main).
+2. El workflow existente sigue funcionando, sin modificarlo.
+3. Para pasar de 120 a 300 acciones por ejecución: editar .github/workflows/discovery.yml y cambiar DISCOVERY_BATCH: '120' a DISCOVERY_BATCH: '300' si aparece esa línea. Si no aparece, añadir env: DISCOVERY_BATCH: '300' al paso de python discovery.py.
+4. Ejecutar Actions > Karryman Discovery > Run workflow.
+5. Abrir https://jareneta.github.io/Karryman-3/discovery.html
+AVISO: preselección técnica rotativa, NO screener de fundamentales ni cobertura exhaustiva diaria. Los candidatos acumulados pueden tener datos de sesiones anteriores.
