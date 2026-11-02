@@ -32,11 +32,11 @@ def evaluate(x):
         "annual_revenue_growth_over_10":check(x.get("revenue_growth_pct"),10),
         "eps_over_minus_1":check(x.get("eps_ttm"),-1),
         # Not available reliably from Discovery; never assert that these pass.
-        "zero_dividend_yield":None,
-        "quarterly_revenue_growth_over_10":None,
+        "zero_dividend_yield":None if number(x.get("dividend_yield")) is None else number(x["dividend_yield"])==0,
+        "quarterly_revenue_growth_over_10":check(x.get("quarterly_revenue_growth_pct"),10),
         "quarterly_revenue_growth_comparison_over_10":None,
         "revenue_growth_this_year_over_10":None,
-        "above_ma20":None,
+        "above_ma20":None if number(x.get("close")) is None or number(x.get("ma20")) is None else number(x["close"])>number(x["ma20"]),
     }
     # Finviz is only a complementary signal, not an entry gate.
     finviz_support=x.get("finviz_proxy") is True
@@ -67,7 +67,7 @@ def main():
         "discovery_candidates":len(items),
         "primary_candidates":len(eligible),
         "complete_verified_matches":sum(x["stock_analysis_status"]=="CUMPLE" for x in eligible),
-        "notes":"No se ha reproducido todavía el screener completo de Stock Analysis. Solo se filtran candidatas Discovery. Datos de dividendos, crecimiento trimestral, MA20 y otros pendientes; nunca se asumen cumplidos. Finviz solo ordena como complemento. No hay órdenes.",
+        "notes":"No se ha reproducido todavía el screener completo de Stock Analysis. Solo se filtran candidatas Discovery. Los campos no disponibles se marcan pendientes; métricas de crecimiento pueden tener definiciones distintas a Stock Analysis; nunca se asumen cumplidos. Finviz solo ordena como complemento. No hay órdenes.",
         "candidates":eligible[:100],
         "orders_enabled":False,
     }
