@@ -6,8 +6,6 @@ current watchlist, which would introduce selection/survivorship bias.
 import argparse,json
 from datetime import datetime,timezone
 from pathlib import Path
-import pandas as pd
-import yfinance as yf
 from backtest import run,Config
 
 DEFAULT=['SPY','QQQ','AAPL','MSFT','NVDA','AMZN','GOOGL','META']
@@ -30,6 +28,8 @@ def independent_holdout(rows, fraction=.30):
             'baseline':outcome,'buy_hold_return_pct':buy_hold_return(rows[boundary:])}
 
 def main():
+    import pandas as pd
+    import yfinance as yf
     p=argparse.ArgumentParser()
     p.add_argument('--symbols',nargs='+',default=DEFAULT)
     p.add_argument('--period',default='5y')
