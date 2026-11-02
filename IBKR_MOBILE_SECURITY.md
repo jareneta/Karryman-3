@@ -1,6 +1,6 @@
 # IBKR móvil: límites de seguridad y puesta en marcha
 
-Estado: **NO CONECTADO**. El panel estático de GitHub Pages no puede operar de forma segura directamente contra la sesión autenticada de Interactive Brokers.
+Estado: **FLUJO MANUAL SIN SERVIDOR IMPLEMENTADO; CONEXIÓN AUTOMÁTICA NO DISPONIBLE**. El panel estático de GitHub Pages no puede operar de forma segura directamente contra la sesión autenticada de Interactive Brokers.
 
 ## Disponible hoy sin servidor
 - Importación privada de snapshot JSON desde el almacenamiento del móvil en `cartera.html`.
@@ -8,7 +8,14 @@ Estado: **NO CONECTADO**. El panel estático de GitHub Pages no puede operar de 
 - Riesgo estimado por cierre y borradores paper guardados únicamente en el navegador.
 - Sin transferencia de credenciales, números de cuenta, posiciones ni órdenes a GitHub.
 
-## Requisitos obligatorios para conexión automática
+## Flujo elegido: introducción manual en IBKR Mobile
+- Abrir `review.html`, revisar únicamente propuestas A+ técnicas confirmadas y crear un borrador local si pasa el control de riesgo.
+- Abrir `manual_order.html`, elegir borrador y completar las cuatro verificaciones obligatorias.
+- Copiar la ficha local, abrir IBKR Mobile e introducir la operación manualmente, revisando de nuevo el precio y el tamaño.
+- Confirmar el estado de la orden únicamente dentro de IBKR. Actualizar `cartera.html` manualmente tras cualquier ejecución.
+- Ningún botón del sitio envía órdenes, confirma ejecuciones o transmite la cartera a terceros.
+
+## Requisitos obligatorios para conexión automática (no seleccionada)
 1. Elegir y autorizar un servicio privado de ejecución accesible desde Android, separado del repositorio público.
 2. Autenticar IBKR mediante el flujo oficial admitido por el servicio, sin guardar contraseñas en el navegador ni en GitHub Actions.
 3. Almacenar tokens exclusivamente en el backend privado, cifrados y con renovación y revocación.
