@@ -22,7 +22,11 @@ def run(rows, cfg=Config()):
     volume >=1.4x prior 50d volume. Stop = prior 10d low.
     At most one position; long-only; no borrowing.
     """
-    if cfg.initial_equity<=0 or not 0<cfg.risk_fraction<=.01 or cfg.max_holding_sessions<1:
+    if (not isfinite(cfg.initial_equity) or cfg.initial_equity<=0
+        or not isfinite(cfg.risk_fraction) or not 0<cfg.risk_fraction<=.01
+        or not isfinite(cfg.slippage_fraction) or not 0<=cfg.slippage_fraction<1
+        or not isfinite(cfg.commission_per_order) or cfg.commission_per_order<0
+        or cfg.max_holding_sessions<1):
         raise ValueError('Invalid backtest config')
     equity=cfg.initial_equity
     trades=[]
