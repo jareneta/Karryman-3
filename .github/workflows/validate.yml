@@ -8,14 +8,14 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
       - name: Python syntax
-        run: python -m compileall -q discovery.py screener.py setups.py review.py
+        run: python -m compileall -q discovery.py screener.py setups.py review.py backtest.py backtest_report.py
       - name: Offline screener tests
         run: python -m unittest discover -s tests -v
       - name: Browser risk engine tests
@@ -26,3 +26,13 @@ jobs:
         run: pip install -r requirements.txt
       - name: Live market smoke test (3 symbols)
         run: python tests/live_market_smoke.py
+      - name: Historical research smoke test (2 symbols, no orders)
+        run: python backtest_report.py --symbols SPY QQQ --period 5y --output data/backtest_ci.json
+      - name: Archive historical research
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: karryman-backtest-ci
+          path: data/backtest_ci.json
+          if-no-files-found: ignore
+          retention-days: 14
