@@ -27,6 +27,18 @@ def independent_holdout(rows, fraction=.30):
     return {'start_index':boundary,'sessions':len(rows)-boundary,
             'baseline':outcome,'buy_hold_return_pct':buy_hold_return(rows[boundary:])}
 
+def summarize(results):
+    """Descriptive cross-symbol summary, NOT a multi-asset portfolio return."""
+    if not results:
+        return {'symbols':0,'symbols_with_trades':0,'total_trades':0,
+                'symbols_positive':0,'symbols_outperform_buy_hold':0}
+    return {'symbols':len(results),
+            'symbols_with_trades':sum(x['trade_count']>0 for x in results),
+            'total_trades':sum(x['trade_count'] for x in results),
+            'symbols_positive':sum(x['return_pct']>0 for x in results),
+            'symbols_outperform_buy_hold':sum(x['excess_vs_buy_hold_pct_points']>0 for x in results),
+            'holdout_symbols_with_trades':sum(bool(x.get('holdout_30pct')) and x['holdout_30pct']['baseline']['trade_count']>0 for x in results)}
+
 def main():
     import pandas as pd
     import yfinance as yf
@@ -63,9 +75,9 @@ def main():
     payload={'schema_version':1,'generated_utc':datetime.now(timezone.utc).isoformat(),
        'source':'Yahoo Finance/yfinance historical adjusted daily prices',
        'method':'Mechanical 30-session breakout, next-session open, single-symbol independent runs, 1% max initial equity risk, 0.1% entry/exit slippage and $1 each-side commissions; independent last-30% holdout with warmup and reset equity',
-       'limitations':'Exploratory baseline only; NOT Karryman A+, not portfolio backtest, holdout is descriptive only (not a prospective untouched validation); buy-and-hold assumes full exposure and is not risk-matched; no delisted securities, no tax/FX/earnings filter, no statistical edge established.',
+       'limitations':'Exploratory baseline only; NOT Karryman A+, not portfolio backtest, holdout is descriptive only (not a prospective untouched validation); buy-and-hold assumes full exposure and is not risk-matched; no delisted securities, no tax/FX/earnings filter, no statistical edge established; cross-symbol summary is NOT a portfolio return.',
        'symbols_requested':list(dict.fromkeys(args.symbols)),
-       'symbols_completed':len(results),'failures':failures,'results':results}
+       'symbols_completed':len(results),'summary':summarize(results),'failures':failures,'results':results}
     out=Path(args.output);out.parent.mkdir(parents=True,exist_ok=True)
     out.write_text(json.dumps(payload,indent=2,ensure_ascii=False),encoding='utf-8')
     print(f'Backtest completado: {len(results)} símbolos; fallos {len(failures)}')
