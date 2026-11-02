@@ -44,6 +44,11 @@ class BacktestTests(unittest.TestCase):
         self.assertEqual(result['trade_count'],1)
     def test_bad_ohlcv_rejected(self):
         with self.assertRaises(ValueError):run([row(l=102)])
+    def test_invalid_costs_rejected(self):
+        for cfg in (Config(slippage_fraction=-.01),Config(slippage_fraction=1),
+                    Config(commission_per_order=-1),Config(initial_equity=float('nan'))):
+            with self.subTest(cfg=cfg):
+                with self.assertRaises(ValueError):run([],cfg)
     def test_risk_over_one_percent_rejected(self):
         with self.assertRaises(ValueError):run([],Config(risk_fraction=.05))
 
