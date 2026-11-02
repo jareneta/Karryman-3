@@ -1,0 +1,12 @@
+KARRYMAN 3.0 - ANDROID (GRATIS)
+
+1. Abre index.html desde Archivos o Chrome para usar la versión local.
+2. Para instalarla como aplicación en Android, publica la carpeta completa en un alojamiento estático HTTPS gratuito (por ejemplo GitHub Pages) y abre esa URL en Chrome. Menú de Chrome > Instalar aplicación o Añadir a pantalla de inicio. La instalación PWA y el modo offline requieren HTTPS (o localhost); abrir el HTML como archivo no los activa.
+3. En Datos, configura patrimonio, cambio EUR/USD y riesgo. Exporta una copia de seguridad JSON periódicamente. Los datos se guardan en el navegador de ese dispositivo.
+4. En Screener, importa CSV con cabeceras symbol,close,ema20,ma50,ma200,high20,volume_ratio. Los filtros utilizan esos valores, NO cotizaciones en directo.
+5. En Cartera, actualiza cantidades, costes, precios y stops con datos de IBKR Mobile. Los valores iniciales son ejemplos históricos y pueden estar desactualizados.
+6. En Operaciones, calcula tamaño con efectivo disponible y riesgo máximo 1%. Guarda el plan y ejecuta MANUALMENTE desde IBKR Mobile, solo después de verificar el cierre.
+
+LIMITACIONES: No conecta automáticamente con IBKR, no descarga precios, no envía órdenes, no valida de manera automática una base de seis semanas ni calcula indicadores a partir de OHLCV. La lista contiene 27 tickers únicos (24 Stock Analysis + MAX/HURN/SPT). No es asesoramiento financiero.
+
+PRIVACIDAD: No introduzcas contraseñas de IBKR. Los datos locales pueden perderse al borrar los datos del navegador.
