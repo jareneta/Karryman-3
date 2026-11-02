@@ -1,12 +1,17 @@
 name: Karryman 4 End-to-End Research
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '30 8 * * 6'
   pull_request:
     branches: [main]
     paths:
       - '.github/workflows/full-pipeline.yml'
 permissions:
-  contents: read
+  contents: write
+concurrency:
+  group: karryman-full-pipeline
+  cancel-in-progress: false
 jobs:
   full-pipeline:
     runs-on: ubuntu-latest
@@ -42,6 +47,17 @@ jobs:
       - name: Validate public output flags
         run: |
           python -c "import json; d=json.load(open('data/review.json')); assert d['orders_enabled'] is False and d['broker_connected'] is False and all(x['order_enabled'] is False for x in d['candidates']); print('Validated review:',d['review_count'])"
+      - name: Publish public analysis to mobile app
+        if: github.event_name != 'pull_request'
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/discovery.json data/discovery_state.json data/discovery_watchlist.json data/discovery_fundamentals.json data/screener.json data/setups.json data/review.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Publicar análisis integral Karryman 4.0'
+            git pull --rebase origin main
+            git push origin HEAD:main
+          fi
       - name: Archive research output (never positions or credentials)
         if: always()
         uses: actions/upload-artifact@v4
