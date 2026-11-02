@@ -21,4 +21,5 @@ function normalize(payload){
  return {nlv:String(nlv),positions:cleaned};
 }
 root.KarrymanImport={normalize};
+if(typeof module==='object'&&module.exports)module.exports={normalize};
 })(typeof module==='object'&&module.exports?module.exports:window);
