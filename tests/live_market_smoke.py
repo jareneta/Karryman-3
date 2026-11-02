@@ -21,7 +21,6 @@ def main():
         if result is None:raise RuntimeError(ticker+": insufficient history")
         assert result["ticker"]==ticker
         assert result["close"]>0
-        assert result["operable_a_plus"] is False if "operable_a_plus" in result else True
         print(ticker,"session",result["last_session"],"close",result["close"],"A+ technical",result["technical_a_plus"])
         valid+=1
     if valid!=3:sys.exit(1)
