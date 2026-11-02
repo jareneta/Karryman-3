@@ -16,14 +16,14 @@ jobs:
           python-version: '3.11'
       - name: Python syntax
         run: python -m compileall -q discovery.py screener.py setups.py review.py backtest.py backtest_report.py aplus_backtest.py
+      - name: Install research dependencies
+        run: pip install -r requirements.txt
       - name: Offline screener tests
         run: python -m unittest discover -s tests -v
       - name: Browser risk engine tests
         run: |
           node tests/risk.test.cjs
           node tests/paper.test.cjs
-      - name: Install market dependencies
-        run: pip install -r requirements.txt
       - name: Live market smoke test (3 symbols)
         run: python tests/live_market_smoke.py
       - name: Historical research smoke test (2 symbols, no orders)
