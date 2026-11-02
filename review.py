@@ -50,7 +50,7 @@ def main():
     existing = {x["ticker"] for x in result}
     for x in signals.get("symbols", []):
         ticker = x.get("ticker")
-        if x.get("status") != "senal" or ticker in existing:
+        if x.get("status") != "senal" or ticker in existing or not fresh_session(x.get("last_session")):
             continue
         close, stop = valid_price(x.get("close")), valid_price(x.get("stop_reference"))
         if not close or not stop or stop >= close:
