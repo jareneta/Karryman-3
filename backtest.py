@@ -31,6 +31,7 @@ def run(rows, cfg=Config()):
         o,h,l,c,v=[float(row[k]) for k in ('open','high','low','close','volume')]
         if not all(isfinite(z) and z>0 for z in (o,h,l,c,v)) or l>min(o,c) or h<max(o,c):
             raise ValueError(f'Invalid OHLCV at row {i}')
+        exited_today=False
         if position is not None:
             position['bars']+=1
             exit_price=None
@@ -53,8 +54,9 @@ def run(rows, cfg=Config()):
                 trades.append({**position,'exit_index':i,'exit':round(exit_price,4),
                     'pnl':round(pnl,2),'exit_reason':reason,'equity_after':round(equity,2)})
                 position=None
+                exited_today=True
         # Signal from previous close, executed at today's open.
-        if position is None and i>=201:
+        if position is None and not exited_today and i>=201:
             prev=rows[i-1]
             closes=[float(x['close']) for x in rows[i-201:i]]
             highs=[float(x['high']) for x in rows[i-31:i-1]]
@@ -76,6 +78,25 @@ def run(rows, cfg=Config()):
                         position={'signal_index':i-1,'entry_index':i,'entry':round(entry,4),
                             'stop':round(stop,4),'target':round(entry+2*(entry-stop),4),
                             'shares':shares,'bars':0}
+                        # The new position is open from today's opening print.
+                        # An intraday stop on the ENTRY day must be counted;
+                        # assume the stop fills before any target if both hit.
+                        if l<=stop:
+                            fill=stop*(1-cfg.slippage_fraction)
+                            pnl=shares*(fill-entry)-2*cfg.commission_per_order
+                            equity+=pnl
+                            trades.append({**position,'exit_index':i,'exit':round(fill,4),
+                                'pnl':round(pnl,2),'exit_reason':'entry_day_stop',
+                                'equity_after':round(equity,2)})
+                            position=None
+                        elif h>=position['target']:
+                            fill=position['target']*(1-cfg.slippage_fraction)
+                            pnl=shares*(fill-entry)-2*cfg.commission_per_order
+                            equity+=pnl
+                            trades.append({**position,'exit_index':i,'exit':round(fill,4),
+                                'pnl':round(pnl,2),'exit_reason':'entry_day_target_2r',
+                                'equity_after':round(equity,2)})
+                            position=None
     if position is not None:
         last=float(rows[-1]['close'])*(1-cfg.slippage_fraction)
         pnl=position['shares']*(last-position['entry'])-2*cfg.commission_per_order
