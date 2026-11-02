@@ -1,6 +1,6 @@
 """Karryman 4.0: weekly public-data watchlist review. No broker access or orders."""
 import json
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 from pathlib import Path
 
 DATA = Path("data")
@@ -17,13 +17,20 @@ def valid_price(x):
     except (TypeError, ValueError):
         return None
 
+def fresh_session(value, days=5):
+    try:
+        day=datetime.fromisoformat(str(value)).date()
+        return timedelta(0)<=datetime.now(timezone.utc).date()-day<=timedelta(days=days)
+    except (ValueError, TypeError):
+        return False
+
 def main():
     setups = read("setups.json")
     signals = read("signals.json")
     result = []
     for x in setups.get("candidates", []):
         close, stop = valid_price(x.get("close")), valid_price(x.get("stop_reference"))
-        if not close or not stop or stop >= close:
+        if not close or not stop or stop >= close or not fresh_session(x.get('last_session')):
             continue
         technical = x.get("technical_a_plus") is True
         fundamentals = x.get("fundamental_status") == "CUMPLE"
@@ -68,6 +75,7 @@ def main():
         "technical_a_plus_count": sum(x["technical_a_plus"] for x in result),
         "broker_connected": False, "orders_enabled": False,
         "portfolio_analyzed": False,
+        "freshness_policy": "Solo sesiones con antigüedad máxima de 5 días naturales; no se muestran referencias históricas caducadas.",
         "notes": "Referencias informativas basadas en cierres históricos. No hay verificación completa de fundamentales, earnings, stops de cartera ni ejecución de órdenes. No publicar datos IBKR.",
         "candidates": result
     }
