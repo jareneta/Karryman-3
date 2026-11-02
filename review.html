@@ -6,7 +6,7 @@ function saveDecision(ticker,status){const d=decisions();d[ticker]={status,updat
 function positionSize(x){
   let portfolio={};try{portfolio=JSON.parse(localStorage.getItem('karryman_portfolio_v1')||'{}')}catch{}
   const typed=Number($('nlv').value);
-  if(typed>0)portfolio.nlv=typed;
+  if(typed>0&&!(Number(portfolio.nlv)>0))portfolio.nlv=typed;
   if(!$('nlv').value&&Number(portfolio.nlv)>0)$('nlv').value=portfolio.nlv;
   const report=KarrymanRisk.assess(portfolio,x,1);
   return report.eligible
