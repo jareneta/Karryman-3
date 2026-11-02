@@ -31,7 +31,7 @@ jobs:
       - name: Scan market
         env:
           DISCOVERY_BATCH: '400'
-          FUNDAMENTAL_LOOKUPS: '12'
+          FUNDAMENTAL_LOOKUPS: '50'
         run: python discovery.py
 
       - name: Commit outputs
