@@ -20,6 +20,6 @@ jobs:
           git add data/screener.json
           if ! git diff --cached --quiet; then
             git commit -m "Actualizar preselección SA"
-            git pull --rebase origin main
-            git push
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
           fi
