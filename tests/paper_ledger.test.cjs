@@ -1,0 +1,14 @@
+const assert=require('node:assert/strict');
+const ledger=require('../paper_ledger.js');
+const values=new Map();
+const storage={getItem:k=>values.get(k)||null,setItem:(k,v)=>values.set(k,v),removeItem:k=>values.delete(k)};
+const ticket={type:'SIMULACION_LOCAL',status:'BORRADOR_NO_ENVIADO',side:'BUY',ticker:'MSFT',quantity:2,reference_entry:100,reference_stop:95,signal_session:'2026-10-30',estimated_risk_usd:10};
+assert.equal(ledger.read(storage).length,0);
+ledger.save(storage,ticket);
+assert.equal(ledger.read(storage).length,1);
+assert.throws(()=>ledger.save(storage,ticket),/existe/);
+assert.throws(()=>ledger.save(storage,{...ticket,status:'ENVIADA'}),/válido/);
+assert.throws(()=>ledger.save(storage,{...ticket,quantity:-2}),/válido/);
+ledger.clear(storage);
+assert.equal(ledger.read(storage).length,0);
+console.log('Paper ledger tests passed');
