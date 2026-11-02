@@ -11,6 +11,7 @@ class BacktestTests(unittest.TestCase):
         self.assertEqual(result['final_equity'],10000)
         self.assertIsNone(result['expectancy_usd'])
         self.assertEqual(result['max_closed_trade_drawdown_pct'],0)
+        self.assertEqual(result['exposure_pct'],0)
     def test_signal_uses_previous_close_and_next_open(self):
         bars=[row(o=100+i*.1,h=101+i*.1,l=99+i*.1,c=100+i*.1) for i in range(201)]
         bars[200]=row(o=125,h=128,l=124,c=127,v=2000000)
@@ -33,6 +34,8 @@ class BacktestTests(unittest.TestCase):
         self.assertEqual(trade['entry_index'],201)
         self.assertEqual(trade['exit_index'],201)
         self.assertEqual(trade['exit_reason'],'entry_day_stop')
+        self.assertGreater(result['exposure_pct'],0)
+        self.assertLess(result['exposure_pct'],1)
         self.assertLess(trade['pnl'],0)
         self.assertLess(result['expectancy_usd'],0)
         self.assertGreater(result['max_closed_trade_drawdown_pct'],0)
