@@ -1,9 +1,6 @@
-KARRYMAN 3.0 - CARTERA LOCAL
-1. Subir cartera.html a la raíz de https://github.com/Jareneta/Karryman-3
-2. Esperar despliegue GitHub Pages.
-3. Abrir https://jareneta.github.io/Karryman-3/cartera.html
-4. Introducir patrimonio, efectivo y posiciones, o importar un CSV compatible.
-5. Introducir stops manualmente. El riesgo es orientativo y no cubre gaps.
-6. Para integrarlo en el centro de control, añadir un enlace a cartera.html en index.html. NO sobrescribir index.html.
-SEGURIDAD: la cartera se guarda en localStorage del navegador. No subir extractos ni credenciales al repositorio público.
-NOTA: el CSV debe tener al menos ticker,quantity,average_price. También admite Symbol,Quantity,Cost Basis Price. No admite todos los formatos complejos de IBKR.
+Karryman 3.0: integración de Mi cartera.
+Sube SOLO index.html a la raíz de Jareneta/Karryman-3, sustituyendo el anterior.
+No borres cartera.html ni otros archivos.
+La pestaña Mi cartera mostrará cartera.html dentro del panel; también ofrece abrir a pantalla completa.
+Los datos se guardan en el navegador; no hay conexión automática a IBKR.
+Si guardaste posiciones en el formulario antiguo de index.html, no se migran automáticamente.
