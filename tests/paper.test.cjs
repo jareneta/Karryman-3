@@ -1,0 +1,17 @@
+const assert=require('node:assert/strict');
+const fs=require('node:fs'),vm=require('node:vm');
+const ctx={};ctx.globalThis=ctx;
+vm.runInNewContext(fs.readFileSync('risk.js','utf8'),ctx);
+vm.runInNewContext(fs.readFileSync('paper.js','utf8'),ctx);
+const portfolio={nlv:3000,cash:1000,positions:[]};
+const proposal={ticker:'XYZ',entry_reference:50,stop_reference:47,last_session:'2026-11-02'};
+const t=ctx.KarrymanPaper.create(proposal,portfolio,'2026-11-02T20:00:00Z');
+assert.equal(t.quantity,10);
+assert.equal(t.status,'BORRADOR_NO_ENVIADO');
+assert.equal(t.estimated_risk_usd,30);
+assert.equal(t.estimated_portfolio_risk_pct,1);
+assert.equal(t.type,'SIMULACION_LOCAL');
+assert.throws(()=>ctx.KarrymanPaper.create({...proposal,last_session:'2026-10-20'},portfolio,'2026-11-02T20:00:00Z'));
+assert.throws(()=>ctx.KarrymanPaper.create(proposal,{...portfolio,cash:-100},'2026-11-02T20:00:00Z'));
+assert.throws(()=>ctx.KarrymanPaper.create({...proposal,ticker:'BAD!'},portfolio,'2026-11-02T20:00:00Z'));
+console.log('Paper ticket tests passed');

@@ -1,0 +1,25 @@
+name: Karryman SA Screener
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 10 * * 1-5'
+permissions:
+  contents: write
+jobs:
+  screener:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Screen cached candidates
+        run: python screener.py
+      - name: Commit public screener data
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/screener.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Actualizar preselección SA"
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi

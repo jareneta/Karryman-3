@@ -1,0 +1,56 @@
+name: Karryman 4 End-to-End Research
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    paths:
+      - '.github/workflows/full-pipeline.yml'
+permissions:
+  contents: read
+jobs:
+  full-pipeline:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+      - name: Test engines
+        run: |
+          python -m unittest discover -s tests -v
+          node tests/risk.test.cjs
+          node tests/paper.test.cjs
+          node tests/paper_ledger.test.cjs
+          node tests/ibkr_import.test.cjs
+          node tests/reconcile.test.cjs
+      - name: Discover US universe batch
+        env:
+          DISCOVERY_BATCH: '400'
+          FUNDAMENTAL_LOOKUPS: '12'
+        run: python discovery.py
+      - name: Rank candidates
+        run: python screener.py
+      - name: Analyze technical A+ setups
+        env:
+          SETUP_MAX_SYMBOLS: '80'
+        run: python setups.py
+      - name: Generate mobile weekly review
+        run: python review.py
+      - name: Validate public output flags
+        run: |
+          python -c "import json; d=json.load(open('data/review.json')); assert d['orders_enabled'] is False and d['broker_connected'] is False and all(x['order_enabled'] is False for x in d['candidates']); print('Validated review:',d['review_count'])"
+      - name: Archive research output (never positions or credentials)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: karryman4-public-research-preview
+          path: |
+            data/discovery.json
+            data/screener.json
+            data/setups.json
+            data/review.json
+          if-no-files-found: warn
+          retention-days: 7

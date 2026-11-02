@@ -4,7 +4,7 @@ name: Karryman Discovery
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 8 * * 6'
+    - cron: '0 9,21 * * 1-5'
 
 permissions:
   contents: write
@@ -30,8 +30,8 @@ jobs:
 
       - name: Scan market
         env:
-          DISCOVERY_BATCH: '150'
-          FUNDAMENTAL_LOOKUPS: '15'
+          DISCOVERY_BATCH: '400'
+          FUNDAMENTAL_LOOKUPS: '12'
         run: python discovery.py
 
       - name: Commit outputs
@@ -41,7 +41,7 @@ jobs:
           git add data/discovery.json data/discovery_state.json data/discovery_watchlist.json data/discovery_fundamentals.json
           if ! git diff --cached --quiet; then
             git commit -m "Actualizar Karryman Screener 3.0"
-            git pull --rebase origin main
-            git push
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
           fi
           

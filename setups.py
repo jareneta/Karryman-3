@@ -1,5 +1,6 @@
 """Karryman A+ research screener: objective daily OHLCV rules, NOT investment advice."""
 import json, math, os, time
+import screener
 from pathlib import Path
 from datetime import datetime, timezone
 import pandas as pd
@@ -76,9 +77,11 @@ def calculate(t, raw, spy):
 
 def main():
     if not SOURCE.exists():raise RuntimeError('Falta data/discovery.json; ejecutar primero Discovery')
+    screener.main()
+    screened=json.loads((DATA/'screener.json').read_text(encoding='utf-8'))
     source=json.loads(SOURCE.read_text(encoding='utf-8'))
-    entries=source.get('candidates',[])
-    entries=[x for x in entries if x.get('ticker') and x.get('fundamental_status')!='NO_CUMPLE'][:LIMIT]
+    approved={x['ticker'] for x in screened.get('candidates',[]) if x.get('stock_analysis_status')!='DESCARTADA'}
+    entries=[x for x in source.get('candidates',[]) if x.get('ticker') in approved][:LIMIT]
     tickers=list(dict.fromkeys(x['ticker'] for x in entries))
     spy_df=yf.download('SPY',period='18mo',auto_adjust=True,progress=False,threads=False)
     if spy_df.empty:raise RuntimeError('No se pudo descargar SPY para fuerza relativa')
@@ -113,6 +116,8 @@ def main():
     payload={'schema_version':1,'generated_utc':datetime.now(timezone.utc).isoformat(),
       'source':'Yahoo Finance OHLCV vía yfinance; SPY para fuerza relativa',
       'source_discovery_generated_utc':source.get('generated_utc'),
+      'screener_generated_utc':screened.get('generated_utc'),
+      'screening_policy':'Stock Analysis principal, Finviz complemento. Candidatas pendientes de comprobaciones no son señales operables.',
       'symbols_requested':len(tickers),'symbols_processed':processed,'results_count':len(results),
       'technical_a_plus_count':sum(x['technical_a_plus'] for x in results),'errors':errors[:20],
       'notes':'Base >=30 sesiones; profundidad <=25%; contracción rango 20 vs 10 sesiones; volumen seco 5 vs 20; RS 63 sesiones vs SPY. A+ técnico es heurístico, no validado estadísticamente. Sin earnings ni autorización de órdenes. Los datos fundamentales pueden estar desactualizados.',
