@@ -15,6 +15,6 @@ class APlusComparisonTests(unittest.TestCase):
         self.assertEqual(s["intraday"]["profit_factor"],2)
         self.assertEqual(s["intraday"]["mean_pnl_usd_per_trade"],2.5)
         self.assertEqual(s["close_next_open"]["win_rate_pct"],0)
-        self.assertIsNone(s["close_next_open"]["profit_factor"])
+        self.assertEqual(s["close_next_open"]["profit_factor"],0.0)
 
 if __name__=="__main__":unittest.main()
