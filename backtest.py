@@ -114,11 +114,18 @@ def run(rows, cfg=Config()):
         balance=trade['equity_after']
         peak=max(peak,balance)
         max_drawdown_pct=max(max_drawdown_pct,100*(peak-balance)/peak)
+    # Fraction of calendar trading sessions with an open position, estimated
+    # from trade entry/exit indices; same-session round trips count one day.
+    active_sessions=set()
+    for trade in trades:
+        active_sessions.update(range(trade['entry_index'],trade['exit_index']+1))
+    exposure_pct=round(100*len(active_sessions)/len(rows),2) if rows else 0.0
     wins=sum(t['pnl']>0 for t in trades)
     gains=sum(max(0,t['pnl']) for t in trades)
     losses=sum(max(0,-t['pnl']) for t in trades)
     return {'strategy':'baseline_30d_breakout_next_open','trades':trades,
-        'trade_count':len(trades),'win_rate_pct':round(100*wins/len(trades),2) if trades else None,
+        'trade_count':len(trades),'exposure_sessions':len(active_sessions),
+        'exposure_pct':exposure_pct,'win_rate_pct':round(100*wins/len(trades),2) if trades else None,
         'profit_factor':round(gains/losses,3) if losses else None,
         'expectancy_usd':round(sum(t['pnl'] for t in trades)/len(trades),2) if trades else None,
         'max_closed_trade_drawdown_pct':round(max_drawdown_pct,2),
