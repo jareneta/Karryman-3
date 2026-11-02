@@ -24,3 +24,8 @@
 5. Requerir aprobación explícita por orden, límites de precio, cuenta y cantidad; nunca enviar órdenes automáticamente por señales no verificadas.
 
 **Estado:** no hay conexión ni órdenes IBKR. No se ha demostrado ventaja matemática.
+
+## Comparativa A+ de stops (investigación)
+- `aplus_backtest.py` permite `stop_mode='intraday'` o `stop_mode='close_next_open'`; en este último caso una ruptura por cierre se ejecuta a la siguiente apertura, con riesgo de hueco.
+- `aplus_stop_report.py` y `.github/workflows/aplus-compare.yml` preparan un informe de 5 años sobre SPY, QQQ, AAPL y MSFT. El workflow es manual y no se ejecuta por sí solo en la rama de desarrollo.
+- **No hay resultados históricos de este informe hasta que se ejecute el workflow.** El modo intradía incorpora objetivo +2R, mientras que el modo por cierre no; por tanto, la diferencia no identifica exclusivamente el efecto del stop. Se requiere una comparación controlada y muestra independiente antes de afirmar ventaja.
