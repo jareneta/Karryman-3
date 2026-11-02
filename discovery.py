@@ -45,6 +45,7 @@ def analyze(t,df):
     ma50=num(m50.iloc[-1]);ma200=num(m200.iloc[-1]);ema20=num(e20.iloc[-1]);ema10=num(e10.iloc[-1])
     if not all(x is not None for x in (ma50,ma200,ema20,ema10)):return None,'medias no disponibles'
     if not ma50>ma200:return None,'tendencia MA50/MA200'
+    ma20=num(c.rolling(20).mean().iloc[-1])
     high52=num(d.High.iloc[-252:].max())
     if not high52 or close<.85*high52:return None,'lejos de máximo 52S'
     if not close>ma50:return None,'precio bajo MA50'
@@ -68,7 +69,7 @@ def analyze(t,df):
     finviz_technical=close>2 and close>ema20 and close>ma50 and close>ma200 and dist<=10
     sa_technical=close>ema20 and close>ma50 and close>ma200 and all(p is not None and p>10 for p in (p3,p6,p12))
     score=round(30+max(0,20-dist)+min(vr,3)*6+(10 if tight else 0)+(10 if contract else 0)+(15 if status=='CONFIRMADA' else 5 if status=='PREPARANDO' else 0),1)
-    return {'ticker':t,'category':status,'setup':setup,'score_preliminar':score,'close':round(close,2),'avg_volume':round(avg),'volume_ratio':round(vr,2),'stop_reference':round(stop,2) if stop else None,'target_2r':round(close+2*(close-stop),2) if stop else None,'ema20':round(ema20,2),'ma50':round(ma50,2),'ma200':round(ma200,2),'distance_high_pct':round(dist,1),'return_3m_pct':round(p3,1) if p3 is not None else None,'return_6m_pct':round(p6,1) if p6 is not None else None,'return_12m_pct':round(p12,1) if p12 is not None else None,'finviz_technical':finviz_technical,'sa_technical':sa_technical,'last_session':str(d.index[-1].date())},None
+    return {'ticker':t,'category':status,'setup':setup,'score_preliminar':score,'close':round(close,2),'avg_volume':round(avg),'volume_ratio':round(vr,2),'stop_reference':round(stop,2) if stop else None,'target_2r':round(close+2*(close-stop),2) if stop else None,'ema20':round(ema20,2),'ma20':round(ma20,2) if ma20 is not None else None,'ma50':round(ma50,2),'ma200':round(ma200,2),'distance_high_pct':round(dist,1),'return_3m_pct':round(p3,1) if p3 is not None else None,'return_6m_pct':round(p6,1) if p6 is not None else None,'return_12m_pct':round(p12,1) if p12 is not None else None,'finviz_technical':finviz_technical,'sa_technical':sa_technical,'last_session':str(d.index[-1].date())},None
 
 def get_fundamentals(t,cache):
     cached=cache.get(t)
@@ -82,7 +83,10 @@ def get_fundamentals(t,cache):
         # Yahoo fields have different periods and may be absent; do not fabricate growth.
         growth=num(info.get('revenueGrowth'))
         eps=num(info.get('trailingEps'))
-        result={'checked_utc':datetime.now(timezone.utc).isoformat(),'market_cap':cap,'revenue_growth_pct':round(100*growth,2) if growth is not None else None,'eps_ttm':eps,'source':'Yahoo Finance info (indicative, not audited)'}
+        dividend=num(info.get('dividendYield'))
+        qgrowth=num(info.get('revenueQuarterlyGrowth'))
+        egrowth=num(info.get('earningsQuarterlyGrowth'))
+        result={'checked_utc':datetime.now(timezone.utc).isoformat(),'market_cap':cap,'revenue_growth_pct':round(100*growth,2) if growth is not None else None,'eps_ttm':eps,'dividend_yield':dividend,'quarterly_revenue_growth_pct':round(qgrowth*100,2) if qgrowth is not None else None,'quarterly_eps_growth_pct':round(egrowth*100,2) if egrowth is not None else None,'source':'Yahoo Finance info (indicative, not audited)'}
     except Exception as e:
         result={'checked_utc':datetime.now(timezone.utc).isoformat(),'market_cap':None,'revenue_growth_pct':None,'eps_ttm':None,'source':'unavailable','error':str(e)[:100]}
     cache[t]=result
@@ -93,7 +97,7 @@ def enrich(item,fund):
     cap_ok=None if cap is None else cap>=300e6
     growth_ok=None if growth is None else growth>10
     finviz_eps=None if eps is None else eps>-1  # Not the Finviz quarterly EPS growth filter.
-    item.update({'market_cap':cap,'revenue_growth_pct':growth,'eps_ttm':eps,'fundamentals_checked_utc':fund.get('checked_utc'),
+    item.update({'dividend_yield':fund.get('dividend_yield'),'quarterly_revenue_growth_pct':fund.get('quarterly_revenue_growth_pct'),'quarterly_eps_growth_pct':fund.get('quarterly_eps_growth_pct'),'market_cap':cap,'revenue_growth_pct':growth,'eps_ttm':eps,'fundamentals_checked_utc':fund.get('checked_utc'),
         'cap_pass':cap_ok,'growth_pass':growth_ok,'fundamental_status':'NO_VERIFICADO' if cap_ok is None or growth_ok is None else 'CUMPLE' if cap_ok and growth_ok else 'NO_CUMPLE',
         'finviz_proxy':item['finviz_technical'] and cap_ok is True and growth_ok is True,
         'sa_proxy':item['sa_technical'] and cap_ok is True and growth_ok is True and finviz_eps is True,
