@@ -29,7 +29,7 @@ jobs:
       - name: Discover US universe batch
         env:
           DISCOVERY_BATCH: '400'
-          FUNDAMENTAL_LOOKUPS: '12'
+          FUNDAMENTAL_LOOKUPS: '50'
         run: python discovery.py
       - name: Rank candidates
         run: python screener.py
