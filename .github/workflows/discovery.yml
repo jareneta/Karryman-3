@@ -19,27 +19,29 @@ jobs:
     timeout-minutes: 45
 
     steps:
-      - name: Descargar repositorio
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Preparar Python
-        uses: actions/setup-python@v5
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
-      - name: Instalar dependencias
+      - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Buscar y analizar acciones
+      - name: Scan market
+        env:
+          DISCOVERY_BATCH: '150'
+          FUNDAMENTAL_LOOKUPS: '15'
         run: python discovery.py
 
-      - name: Guardar resultados
+      - name: Commit outputs
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add data/
+          git add data/discovery.json data/discovery_state.json data/discovery_watchlist.json data/discovery_fundamentals.json
           if ! git diff --cached --quiet; then
-            git commit -m "Actualizar descubrimiento Karryman"
+            git commit -m "Actualizar Karryman Screener 3.0"
+            git pull --rebase origin main
             git push
           fi
           
