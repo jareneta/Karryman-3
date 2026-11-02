@@ -14,7 +14,7 @@ def candidate(**kwargs):
         return_3m_pct=15,return_6m_pct=18,return_12m_pct=24,
         distance_high_pct=8,ma20=37,ma50=35,ma200=30,
         revenue_growth_pct=18,quarterly_revenue_growth_pct=16,
-        eps_ttm=1,dividend_yield=0,finviz_proxy=False,score_preliminar=50)
+        eps_ttm=1,dividend_yield=0,finviz_verified_match=False,score_preliminar=50)
     x.update(kwargs)
     return x
 
@@ -30,7 +30,7 @@ class ScreenerTests(unittest.TestCase):
         x=evaluate(candidate(ma20=41))
         self.assertEqual(x["stock_analysis_status"],"DESCARTADA")
     def test_finviz_does_not_override_rejection(self):
-        x=evaluate(candidate(revenue_growth_pct=2,finviz_proxy=True))
+        x=evaluate(candidate(revenue_growth_pct=2,finviz_verified_match=True))
         self.assertTrue(x["finviz_complement"])
         self.assertEqual(x["stock_analysis_status"],"DESCARTADA")
     def test_end_to_end_public_json(self):
@@ -43,6 +43,17 @@ class ScreenerTests(unittest.TestCase):
             self.assertEqual(output["primary_candidates"],1)
             self.assertEqual(output["candidates"][0]["ticker"],"TEST")
             self.assertFalse(output["orders_enabled"])
+    def test_shortlist_caps_at_40_and_prioritizes_sa(self):
+        with tempfile.TemporaryDirectory() as temp:
+            root=Path(temp)
+            candidates=[candidate(ticker=f"X{i:03}",score_preliminar=i) for i in range(50)]
+            candidates[0]["finviz_verified_match"]=True
+            (root/"discovery.json").write_text(json.dumps({"candidates":candidates}),encoding="utf-8")
+            with patch.object(screener,"DATA",root):screener.main()
+            output=json.loads((root/"screener.json").read_text(encoding="utf-8"))
+            self.assertEqual(len(output["candidates"]),40)
+            self.assertEqual(output["candidates"][0]["ticker"],"X049")
+            self.assertNotIn("X000",[x["ticker"] for x in output["candidates"]])
     def test_no_orders(self):
         self.assertFalse(evaluate(candidate())["order_enabled"])
 if __name__=="__main__":unittest.main()
