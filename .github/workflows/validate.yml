@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Python syntax
-        run: python -m compileall -q discovery.py screener.py setups.py review.py backtest.py backtest_report.py
+        run: python -m compileall -q discovery.py screener.py setups.py review.py backtest.py backtest_report.py aplus_backtest.py
       - name: Offline screener tests
         run: python -m unittest discover -s tests -v
       - name: Browser risk engine tests
