@@ -1,5 +1,7 @@
 """Live Yahoo Finance smoke test, without modifying data/ or placing orders."""
 import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import yfinance as yf
 import pandas as pd
 from setups import calculate
