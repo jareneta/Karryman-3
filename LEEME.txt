@@ -1,21 +1,9 @@
-KARRYMAN DISCOVERY - EXTENSION, NO REEMPLAZA LA APP EXISTENTE
-
-Subir a la RAIZ de Karryman-3:
-  discovery.py
-  discovery.html
-
-Crear desde el editor de GitHub (ruta exacta):
-  .github/workflows/discovery.yml
-Usar el contenido del archivo del ZIP con ese nombre.
-
-No modificar index.html, auto.html, scanner.py ni scan.yml.
-El requirements.txt existente debe contener yfinance y pandas (ya los contiene en la instalación anterior).
-
-Ejecutar GitHub > Actions > Karryman Discovery > Run workflow.
-Al terminar debe aparecer data/discovery.json y data/discovery_state.json.
-Abrir https://jareneta.github.io/Karryman-3/discovery.html
-
-El proceso revisa 120 símbolos por ejecución en rotación. NO todo el mercado diario.
-Si Yahoo Finance bloquea consultas, el trabajo puede fallar y habrá que ajustar el tamaño del lote o la fuente.
-El ranking es HEURÍSTICO, no backtesteado. No valida ingresos, EPS, capitalización, noticias ni calendario de resultados.
-Los stops son referencias técnicas, no órdenes. Ninguna operación se envía a IBKR.
+KARRYMAN SETUPS A+
+1. Subir setups.py y setups.html a la raíz de GitHub.
+2. Crear .github/workflows/setups.yml con el contenido del ZIP (editor de GitHub).
+3. Actions > Karryman Setups A+ > Run workflow.
+4. Abrir https://jareneta.github.io/Karryman-3/setups.html
+No reemplazar discovery.py, discovery.html ni su workflow.
+Se basa en data/discovery.json y no amplía por sí mismo el universo.
+La detección A+ es heurística y no está validada estadísticamente.
+No comprueba el calendario de resultados ni envía órdenes.
