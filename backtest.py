@@ -103,12 +103,22 @@ def run(rows, cfg=Config()):
         equity+=pnl
         trades.append({**position,'exit_index':len(rows)-1,'exit':round(last,4),
             'pnl':round(pnl,2),'exit_reason':'end_of_data','equity_after':round(equity,2)})
+    # Closed-trade equity drawdown; excludes unrealized intratrade losses.
+    peak=cfg.initial_equity
+    max_drawdown_pct=0.0
+    for trade in trades:
+        balance=trade['equity_after']
+        peak=max(peak,balance)
+        max_drawdown_pct=max(max_drawdown_pct,100*(peak-balance)/peak)
     wins=sum(t['pnl']>0 for t in trades)
     gains=sum(max(0,t['pnl']) for t in trades)
     losses=sum(max(0,-t['pnl']) for t in trades)
     return {'strategy':'baseline_30d_breakout_next_open','trades':trades,
         'trade_count':len(trades),'win_rate_pct':round(100*wins/len(trades),2) if trades else None,
         'profit_factor':round(gains/losses,3) if losses else None,
+        'expectancy_usd':round(sum(t['pnl'] for t in trades)/len(trades),2) if trades else None,
+        'max_closed_trade_drawdown_pct':round(max_drawdown_pct,2),
+        'gross_profit_usd':round(gains,2),'gross_loss_usd':round(losses,2),
         'initial_equity':cfg.initial_equity,'final_equity':round(equity,2),
         'return_pct':round(100*(equity/cfg.initial_equity-1),2),
-        'limitations':'Single-symbol sequential baseline; no survivorship, corporate-action or out-of-sample controls. Not proof of edge.'}
+        'limitations':'Single-symbol sequential baseline; drawdown only at closed trades, not intratrade; no survivorship or corporate-action controls. Not proof of edge.'}
