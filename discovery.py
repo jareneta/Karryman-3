@@ -40,13 +40,13 @@ def analyze(t,df):
     d=df[['Open','High','Low','Close','Volume']].dropna()
     if len(d)<210:return None,'historial insuficiente'
     c=d.Close;v=d.Volume;close=num(c.iloc[-1]);avg=num(v.iloc[-51:-1].mean())
-    if close is None or avg is None or close<10 or avg<1000000 or close*avg<20000000:return None,'precio/liquidez'
+    if close is None or avg is None or close<5 or avg<500000:return None,'precio/liquidez'
     m50=c.rolling(50).mean();m200=c.rolling(200).mean();e10=c.ewm(span=10,adjust=False).mean();e20=c.ewm(span=20,adjust=False).mean()
     ma50=num(m50.iloc[-1]);ma200=num(m200.iloc[-1]);ema20=num(e20.iloc[-1]);ema10=num(e10.iloc[-1])
     if not all(x is not None for x in (ma50,ma200,ema20,ema10)):return None,'medias no disponibles'
-    if not ma50>ma200 or not close>ma200:return None,'tendencia MA50/MA200'
+    if not ma50>ma200:return None,'tendencia MA50/MA200'
     high52=num(d.High.iloc[-252:].max())
-    if not high52 or close<.90*high52:return None,'lejos de máximo 52S'
+    if not high52 or close<.85*high52:return None,'lejos de máximo 52S'
     if not close>ma50:return None,'precio bajo MA50'
     high30=float(d.High.iloc[-31:-1].max());low30=float(d.Low.iloc[-31:-1].min())
     tight=low30>0 and high30/low30-1<=.30
@@ -146,7 +146,7 @@ def main():
     cache={t:x for t,x in cache.items() if x.get('last_session','')>=cutoff and x.get('fundamental_status')!='NO_CUMPLE'}
     rank={'CONFIRMADA':0,'PREPARANDO':1,'VIGILANCIA':2}
     candidates=sorted(cache.values(),key=lambda x:(rank.get(x['category'],3),-x['score_preliminar']))[:500]
-    payload={'schema_version':3,'generated_utc':datetime.now(timezone.utc).isoformat(),'source':'Nasdaq Trader + Yahoo Finance (yfinance)','universe_size':len(symbols),'scanned_this_run':len(selected),'processed':processed,'errors_count':len(errors),'errors_sample':errors[:12],'filter_counts':counts,'fundamental_lookups':lookups,'watchlist_count':len(candidates),'scan_policy':'Rotación de hasta 400 símbolos por ejecución, dos veces al día de lunes a viernes; universo de cotizadas completo, lista de candidatas reducida por filtros','selection_method':'Selectivo: precio >=10 USD, volumen medio >=1M, volumen monetario >=20M USD/día, MA50>MA200, precio>MA50, distancia máximo 52S <=10%; capitalización >=300M y crecimiento ingresos >10% comprobados cuando disponibles','limitations':'Exploración rotativa, NO barrido completo. Perfiles Finviz/SA son aproximaciones técnicas, no réplicas exactas. EPS trimestral y crecimiento anual no comprobados. Sin validación de earnings, fortaleza relativa ni backtest.','candidates':candidates}
+    payload={'schema_version':3,'generated_utc':datetime.now(timezone.utc).isoformat(),'source':'Nasdaq Trader + Yahoo Finance (yfinance)','universe_size':len(symbols),'scanned_this_run':len(selected),'processed':processed,'errors_count':len(errors),'errors_sample':errors[:12],'filter_counts':counts,'fundamental_lookups':lookups,'watchlist_count':len(candidates),'scan_policy':'Rotación de hasta 400 símbolos por ejecución, dos veces al día de lunes a viernes; universo de cotizadas completo, lista de candidatas reducida por filtros','selection_method':'Equilibrado: precio >=5, volumen medio >=500k, MA50>MA200, precio>MA50, distancia máximo 52S <=15%; capitalización >=300M y crecimiento ingresos >10% comprobados cuando disponibles','limitations':'Exploración rotativa, NO barrido completo. Perfiles Finviz/SA son aproximaciones técnicas, no réplicas exactas. EPS trimestral y crecimiento anual no comprobados. Sin validación de earnings, fortaleza relativa ni backtest.','candidates':candidates}
     # Write results before advancing state; state only advances after a successful scan.
     OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding='utf-8')
     CACHE.write_text(json.dumps({'by_ticker':{x['ticker']:x for x in candidates}},ensure_ascii=False,indent=2),encoding='utf-8')
