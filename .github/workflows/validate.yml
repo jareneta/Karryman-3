@@ -24,6 +24,7 @@ jobs:
         run: |
           node tests/risk.test.cjs
           node tests/paper.test.cjs
+          node tests/paper_ledger.test.cjs
           node tests/ibkr_import.test.cjs
           node tests/reconcile.test.cjs
       - name: Live market smoke test (3 symbols)
