@@ -1,9 +1,10 @@
-KARRYMAN SETUPS A+
-1. Subir setups.py y setups.html a la raíz de GitHub.
-2. Crear .github/workflows/setups.yml con el contenido del ZIP (editor de GitHub).
-3. Actions > Karryman Setups A+ > Run workflow.
-4. Abrir https://jareneta.github.io/Karryman-3/setups.html
-No reemplazar discovery.py, discovery.html ni su workflow.
-Se basa en data/discovery.json y no amplía por sí mismo el universo.
-La detección A+ es heurística y no está validada estadísticamente.
-No comprueba el calendario de resultados ni envía órdenes.
+KARRYMAN 3.0 - PANEL UNIFICADO
+
+1. En GitHub, repositorio Jareneta/Karryman-3, haz copia de seguridad del index.html actual si quieres conservarlo.
+2. Sube el index.html de este ZIP a la raiz del repositorio y confirma la sustitucion del index.html anterior.
+3. NO sustituyas discovery.py, setups.py, scanner.py, los workflows ni los archivos de data.
+4. Abre https://jareneta.github.io/Karryman-3/ y recarga la pagina.
+
+Incluye Mercado, Oportunidades, Mi cartera (manual, guardada solo en el navegador) y Operaciones (calculadora, sin enviar ordenes).
+Lee los JSON existentes: data/discovery.json, data/setups.json, data/signals.json.
+No conecta con IBKR, no actualiza precios de cartera ni valida la calidad de las senales.
