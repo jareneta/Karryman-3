@@ -1,0 +1,13 @@
+{
+  "generated_utc": "2026-11-02T09:19:42.970168+00:00",
+  "source": "Nasdaq Trader symbol directories + Yahoo Finance via yfinance",
+  "universe_size": 4324,
+  "scanned_this_run": 120,
+  "processed": 120,
+  "errors_count": 0,
+  "offset_start": 0,
+  "coverage": "ROTATIVA: no se analiza todo el mercado en una ejecución",
+  "risk_notice": "Señales preliminares, no órdenes. Verificar sesión, gráficos, fundamentales, resultados y liquidez antes de operar.",
+  "candidates": [],
+  "errors_sample": []
+}
