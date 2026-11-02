@@ -24,6 +24,11 @@ class MobilePageTests(unittest.TestCase):
         self.assertIn('KarrymanPaperLedger.save(localStorage,ticket)',html)
         self.assertIn('BORRADOR', (ROOT/'paper_ledger.js').read_text(encoding='utf-8'))
         self.assertNotIn('ibkr.com/v1/api',html.lower())
+    def test_preliminary_signals_cannot_create_paper_draft(self):
+        html=(ROOT/'review.html').read_text(encoding='utf-8')
+        self.assertIn('paper.disabled=x.technical_a_plus!==true',html)
+        self.assertIn("if(x.technical_a_plus!==true)throw Error",html)
+        self.assertIn('Sin dimensionamiento: señal preliminar',html)
     def test_review_displays_no_broker_connection_claim(self):
         html=(ROOT/'review.html').read_text(encoding='utf-8')
         self.assertIn('NO conectada',html)
