@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Python syntax
-        run: python -m compileall -q discovery.py screener.py setups.py review.py backtest.py backtest_report.py aplus_backtest.py strategy_comparison.py
+        run: python -m compileall -q discovery.py screener.py setups.py review.py backtest.py backtest_report.py aplus_backtest.py strategy_comparison.py ibkr_readonly.py
       - name: Install research dependencies
         run: pip install -r requirements.txt
       - name: Offline screener tests
