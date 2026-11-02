@@ -16,4 +16,10 @@ assert.equal(assess({...p,positions:[{ticker:'ABC',qty:10,last:20,stop:null}]},{
 assert.equal(assess({...p,cash:-1},{ticker:'XYZ',entry_reference:50,stop_reference:47}).eligible,false);
 assert.equal(assess(p,{ticker:'ABC',entry_reference:50,stop_reference:47}).eligible,false);
 assert.equal(assess(p,{ticker:'XYZ',entry_reference:50,stop_reference:51}).eligible,false);
+const nearLimit={nlv:3000,cash:3000,positions:[{ticker:'ABC',qty:70,last:20,stop:18}]};
+const capped=assess(nearLimit,{ticker:'XYZ',entry_reference:50,stop_reference:47});
+assert.equal(capped.shares,3);
+assert.ok(capped.aggregateRisk<=150);
+assert.equal(assess({...nearLimit,positions:[{ticker:'ABC',qty:80,last:20,stop:18}]},{ticker:'XYZ',entry_reference:50,stop_reference:47}).eligible,false);
+assert.equal(assess(p,{ticker:'XYZ',entry_reference:50,stop_reference:47},1,0).eligible,false);
 console.log('Risk tests passed');
