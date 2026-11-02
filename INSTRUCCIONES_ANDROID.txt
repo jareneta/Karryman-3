@@ -1,0 +1,18 @@
+KARRYMAN SCREENER 3.0 — INSTALACIÓN ANDROID
+
+1. Descomprime este ZIP.
+2. Sube discovery.py y discovery.html a la RAÍZ del repositorio Jareneta/Karryman-3, reemplazando los anteriores.
+3. En GitHub, abre .github/workflows/discovery.yml y sustituye su contenido por el archivo .github/workflows/discovery.yml de este ZIP. IMPORTANTE: la ruta debe conservarse; el ZIP puede ocultar carpetas en Android. Alternativamente crea el archivo desde el editor de GitHub en esa ruta.
+4. Commit directamente en main.
+5. GitHub Actions > Karryman Discovery > Run workflow > main.
+6. Verifica ejecución verde y abre https://jareneta.github.io/Karryman-3/discovery.html
+
+DEPENDENCIAS: requirements.txt existente debe incluir yfinance y pandas. No cambies scanner.py, scan.yml, auto.html ni index.html.
+
+LÍMITES:
+- No copia el backend de Finviz ni de Stock Analysis. Replica aproximadamente sus filtros técnicos y parte de los fundamentales usando Yahoo Finance (fuente no oficial).
+- Barrido rotativo de 150 acciones por semana (configurable). No escanea todo el mercado en una ejecución.
+- Crecimiento de ingresos = revenueGrowth de Yahoo, que no equivale a todos los periodos de Finviz/SA.
+- Datos fundamentales faltantes quedan NO_VERIFICADO y no se dan por aprobados.
+- El score y los setups son preliminares, no hay backtest ni verificación de resultados empresariales, ni órdenes reales.
+- El escaneo de fundamentales puede fallar por límites de Yahoo; nunca inventa cifras.
