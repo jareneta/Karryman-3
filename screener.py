@@ -39,7 +39,7 @@ def evaluate(x):
         "above_ma20":None if number(x.get("close")) is None or number(x.get("ma20")) is None else number(x["close"])>number(x["ma20"]),
     }
     # Finviz is only a complementary signal, not an entry gate.
-    finviz_support=x.get("finviz_proxy") is True
+    finviz_support=x.get("finviz_verified_match") is True
     return {
         "ticker":x.get("ticker"),"last_session":x.get("last_session"),
         "close":x.get("close"),"category":x.get("category"),
@@ -58,7 +58,7 @@ def main():
     data=json.loads(source.read_text(encoding="utf-8"))
     items=[evaluate(x) for x in data.get("candidates",[]) if x.get("ticker")]
     eligible=[x for x in items if x["stock_analysis_status"]!="DESCARTADA"]
-    eligible.sort(key=lambda x:(not x["finviz_complement"],-x["passed"],-(number(x["technical_score"]) or 0)))
+    eligible.sort(key=lambda x:(-x["passed"],-(number(x["technical_score"]) or 0),not x["finviz_complement"],x["ticker"]))
     payload={
         "schema_version":1,"generated_utc":datetime.now(timezone.utc).isoformat(),
         "discovery_generated_utc":data.get("generated_utc"),
@@ -66,9 +66,11 @@ def main():
         "universe_scanned_this_run":data.get("scanned_this_run"),
         "discovery_candidates":len(items),
         "primary_candidates":len(eligible),
+        "shortlist_count":min(40,len(eligible)),
+        "shortlist_limit":40,
         "complete_verified_matches":sum(x["stock_analysis_status"]=="CUMPLE" for x in eligible),
-        "notes":"No se ha reproducido todavía el screener completo de Stock Analysis. Solo se filtran candidatas Discovery. Los campos no disponibles se marcan pendientes; métricas de crecimiento pueden tener definiciones distintas a Stock Analysis; nunca se asumen cumplidos. Finviz solo ordena como complemento. No hay órdenes.",
-        "candidates":eligible[:100],
+        "notes":"No se ha reproducido todavía el screener completo de Stock Analysis. Solo se filtran candidatas Discovery. Los campos no disponibles se marcan pendientes; métricas de crecimiento pueden tener definiciones distintas a Stock Analysis; nunca se asumen cumplidos. Finviz solo desempata si hay coincidencia verificada; no se consulta automáticamente Finviz. Máximo 40 candidatas. No hay órdenes.",
+        "candidates":eligible[:40],
         "orders_enabled":False,
     }
     (DATA/"screener.json").write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
