@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-11-02T23:48:59.313883+00:00",
-  "discovery_generated_utc": "2026-11-02T21:34:57.640934+00:00",
+  "generated_utc": "2026-11-03T11:00:26.467836+00:00",
+  "discovery_generated_utc": "2026-11-03T09:47:36.453377+00:00",
   "source": "Discovery cached Yahoo Finance data; approximation, not Stock Analysis/Finviz API",
   "universe_scanned_this_run": 400,
-  "discovery_candidates": 31,
+  "discovery_candidates": 46,
   "primary_candidates": 18,
   "shortlist_count": 18,
   "shortlist_limit": 40,
