@@ -1,0 +1,30 @@
+{
+  "source": "IBKR Stock Screener - capturas proporcionadas por usuario",
+  "created_utc": "2026-11-03",
+  "symbols": [
+    "NRIX",
+    "WAT",
+    "TGTX",
+    "HNGE",
+    "ARQT",
+    "CDNA",
+    "HALO",
+    "XMTR",
+    "CAI",
+    "BTSG",
+    "FLYW",
+    "AVPT",
+    "RELY",
+    "ROKU",
+    "MAX",
+    "FIGS",
+    "LFST",
+    "AMPL",
+    "EVER",
+    "SN",
+    "SIBN",
+    "CART",
+    "ATRC"
+  ],
+  "notes": "Lista de vigilancia, no recomendaciones ni señales A+. Requiere validación de precios, estructuras, volumen, fundamentales y resultados."
+}
