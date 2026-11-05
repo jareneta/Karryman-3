@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-11-05T07:31:03.564060+00:00",
-  "setups_generated_utc": "2026-11-05T07:31:03.463529+00:00",
+  "generated_utc": "2026-11-05T09:55:12.127550+00:00",
+  "setups_generated_utc": "2026-11-05T09:55:12.024533+00:00",
   "signals_generated_utc": "2026-11-05T00:12:08.746193+00:00",
-  "review_count": 36,
+  "review_count": 38,
   "technical_a_plus_count": 1,
   "broker_connected": false,
   "orders_enabled": false,
@@ -258,29 +258,6 @@
       "order_enabled": false
     },
     {
-      "ticker": "SLN",
-      "source": "Setups",
-      "last_session": "2026-11-04",
-      "pattern": "TENDENCIA",
-      "status": "VIGILAR",
-      "technical_a_plus": false,
-      "fundamentals_verified": false,
-      "entry_reference": 19.8,
-      "stop_reference": 19.6,
-      "target_2r_reference": 20.2,
-      "risk_per_share": 0.2,
-      "risk_pct": 1.01,
-      "rs_vs_spy_3m_pct": 68.922,
-      "pending_checks": [
-        "Validar cierre y vigencia",
-        "Resultados y noticias",
-        "Fundamentales",
-        "Riesgo agregado y cartera",
-        "Aprobación humana"
-      ],
-      "order_enabled": false
-    },
-    {
       "ticker": "CAI",
       "source": "Setups",
       "last_session": "2026-11-04",
@@ -419,6 +396,52 @@
       "order_enabled": false
     },
     {
+      "ticker": "BHC",
+      "source": "Setups",
+      "last_session": "2026-11-04",
+      "pattern": "PULLBACK_FORMACION",
+      "status": "VIGILAR",
+      "technical_a_plus": false,
+      "fundamentals_verified": false,
+      "entry_reference": 8.34,
+      "stop_reference": 6.2,
+      "target_2r_reference": 12.62,
+      "risk_per_share": 2.14,
+      "risk_pct": 25.66,
+      "rs_vs_spy_3m_pct": 41.097,
+      "pending_checks": [
+        "Validar cierre y vigencia",
+        "Resultados y noticias",
+        "Fundamentales",
+        "Riesgo agregado y cartera",
+        "Aprobación humana"
+      ],
+      "order_enabled": false
+    },
+    {
+      "ticker": "PRCH",
+      "source": "Setups",
+      "last_session": "2026-11-04",
+      "pattern": "PULLBACK_FORMACION",
+      "status": "VIGILAR",
+      "technical_a_plus": false,
+      "fundamentals_verified": true,
+      "entry_reference": 21.56,
+      "stop_reference": 16.14,
+      "target_2r_reference": 32.4,
+      "risk_per_share": 5.42,
+      "risk_pct": 25.14,
+      "rs_vs_spy_3m_pct": 39.617,
+      "pending_checks": [
+        "Validar cierre y vigencia",
+        "Resultados y noticias",
+        "Fundamentales",
+        "Riesgo agregado y cartera",
+        "Aprobación humana"
+      ],
+      "order_enabled": false
+    },
+    {
       "ticker": "AVPT",
       "source": "Setups",
       "last_session": "2026-11-04",
@@ -501,6 +524,29 @@
       "risk_per_share": 2.34,
       "risk_pct": 6.44,
       "rs_vs_spy_3m_pct": 28.108,
+      "pending_checks": [
+        "Validar cierre y vigencia",
+        "Resultados y noticias",
+        "Fundamentales",
+        "Riesgo agregado y cartera",
+        "Aprobación humana"
+      ],
+      "order_enabled": false
+    },
+    {
+      "ticker": "QNST",
+      "source": "Setups",
+      "last_session": "2026-11-04",
+      "pattern": "PULLBACK_FORMACION",
+      "status": "VIGILAR",
+      "technical_a_plus": false,
+      "fundamentals_verified": false,
+      "entry_reference": 19.26,
+      "stop_reference": 15.73,
+      "target_2r_reference": 26.32,
+      "risk_per_share": 3.53,
+      "risk_pct": 18.33,
+      "rs_vs_spy_3m_pct": 26.524,
       "pending_checks": [
         "Validar cierre y vigencia",
         "Resultados y noticias",
@@ -603,29 +649,6 @@
       "order_enabled": false
     },
     {
-      "ticker": "CDW",
-      "source": "Setups",
-      "last_session": "2026-11-04",
-      "pattern": "PULLBACK_FORMACION",
-      "status": "VIGILAR",
-      "technical_a_plus": false,
-      "fundamentals_verified": false,
-      "entry_reference": 168.75,
-      "stop_reference": 144.34,
-      "target_2r_reference": 217.57,
-      "risk_per_share": 24.41,
-      "risk_pct": 14.47,
-      "rs_vs_spy_3m_pct": 19.411,
-      "pending_checks": [
-        "Validar cierre y vigencia",
-        "Resultados y noticias",
-        "Fundamentales",
-        "Riesgo agregado y cartera",
-        "Aprobación humana"
-      ],
-      "order_enabled": false
-    },
-    {
       "ticker": "URBN",
       "source": "Setups",
       "last_session": "2026-11-04",
@@ -718,19 +741,42 @@
       "order_enabled": false
     },
     {
-      "ticker": "SGMT",
+      "ticker": "BTSG",
       "source": "Setups",
       "last_session": "2026-11-04",
       "pattern": "PULLBACK_FORMACION",
       "status": "VIGILAR",
       "technical_a_plus": false,
-      "fundamentals_verified": false,
-      "entry_reference": 9.99,
-      "stop_reference": 9.41,
-      "target_2r_reference": 11.15,
-      "risk_per_share": 0.58,
-      "risk_pct": 5.81,
-      "rs_vs_spy_3m_pct": 14.282,
+      "fundamentals_verified": true,
+      "entry_reference": 69.8,
+      "stop_reference": 58.03,
+      "target_2r_reference": 93.34,
+      "risk_per_share": 11.77,
+      "risk_pct": 16.86,
+      "rs_vs_spy_3m_pct": 15.161,
+      "pending_checks": [
+        "Validar cierre y vigencia",
+        "Resultados y noticias",
+        "Fundamentales",
+        "Riesgo agregado y cartera",
+        "Aprobación humana"
+      ],
+      "order_enabled": false
+    },
+    {
+      "ticker": "SWIM",
+      "source": "Setups",
+      "last_session": "2026-11-04",
+      "pattern": "TENDENCIA",
+      "status": "VIGILAR",
+      "technical_a_plus": false,
+      "fundamentals_verified": true,
+      "entry_reference": 8.18,
+      "stop_reference": 6.23,
+      "target_2r_reference": 12.08,
+      "risk_per_share": 1.95,
+      "risk_pct": 23.84,
+      "rs_vs_spy_3m_pct": 13.276,
       "pending_checks": [
         "Validar cierre y vigencia",
         "Resultados y noticias",
