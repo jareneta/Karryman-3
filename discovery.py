@@ -99,8 +99,8 @@ def enrich(item,fund):
     finviz_eps=None if eps is None else eps>-1  # Not the Finviz quarterly EPS growth filter.
     item.update({'dividend_yield':fund.get('dividend_yield'),'quarterly_revenue_growth_pct':fund.get('quarterly_revenue_growth_pct'),'quarterly_eps_growth_pct':fund.get('quarterly_eps_growth_pct'),'market_cap':cap,'revenue_growth_pct':growth,'eps_ttm':eps,'fundamentals_checked_utc':fund.get('checked_utc'),
         'cap_pass':cap_ok,'growth_pass':growth_ok,'fundamental_status':'NO_VERIFICADO' if cap_ok is None or growth_ok is None else 'CUMPLE' if cap_ok and growth_ok else 'NO_CUMPLE',
-        'finviz_proxy':item['finviz_technical'] and cap_ok is True and growth_ok is True,
-        'sa_proxy':item['sa_technical'] and cap_ok is True and growth_ok is True and finviz_eps is True,
+        'finviz_proxy':item.get('finviz_technical',False) and cap_ok is True and growth_ok is True,
+        'sa_proxy':item.get('sa_technical',False) and cap_ok is True and growth_ok is True and finviz_eps is True,
         'earnings_verified':False})
     item['a_plus_status']='PENDIENTE_VALIDACION' if item['category']=='CONFIRMADA' else 'SIN_CONFIRMACION'
     return item
