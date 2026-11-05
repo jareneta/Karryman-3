@@ -2,7 +2,7 @@
 import json, math, os, time
 import screener
 from pathlib import Path
-from datetime import datetime, timezone
+from datetime import datetime, timezone, timedelta
 import pandas as pd
 import yfinance as yf
 
@@ -75,6 +75,63 @@ def calculate(t, raw, spy):
         'stop_reference':n(stop),'risk_pct':n(risk),
         'target_2r':n(close+2*(close-stop)) if stop is not None else None}
 
+def verify_candidate(x):
+    """Best-effort automatic checks. Unknown data always blocks operational readiness."""
+    checks={}
+    checks['technical_close'] = bool(x.get('technical_a_plus') and x.get('status')=='CONFIRMADA'
+                                      and x.get('close') is not None and x.get('stop_reference') is not None)
+    checks['fundamental_basics'] = bool(x.get('fundamental_status')=='CUMPLE'
+        and (x.get('market_cap') or 0)>=300_000_000
+        and x.get('revenue_growth_pct') is not None and x['revenue_growth_pct']>10)
+    checks['risk_structure'] = bool(x.get('risk_pct') is not None and 0<x['risk_pct']<=12)
+    checks['earnings_clear'] = False
+    checks['business_quality'] = False
+    checks['position_size'] = False
+    checks['manual_approval'] = False
+    notes={}
+    if x.get('technical_a_plus'):
+        try:
+            info=yf.Ticker(x['ticker']).info or {}
+            debt=info.get('debtToEquity')
+            cashflow=info.get('freeCashflow')
+            margin=info.get('operatingMargins')
+            if all(isinstance(z,(int,float)) and math.isfinite(z) for z in (debt,cashflow,margin)):
+                checks['business_quality']=bool(debt<=150 and cashflow>0 and margin>0)
+                notes['business_quality']='Datos Yahoo: deuda/capital, flujo de caja libre y margen operativo; umbrales orientativos, no auditoría'
+            else:
+                notes['business_quality']='Datos financieros incompletos'
+            calendar=yf.Ticker(x['ticker']).calendar
+            earnings=calendar.get('Earnings Date') if isinstance(calendar,dict) else None
+            if not isinstance(earnings,(list,tuple)):earnings=[earnings] if earnings is not None else []
+            dates=[]
+            for e in earnings:
+                if hasattr(e,'date'):dates.append(e.date())
+                elif isinstance(e,str):
+                    try:dates.append(datetime.fromisoformat(e[:10]).date())
+                    except ValueError:pass
+            today=datetime.now(timezone.utc).date()
+            future=[d for d in dates if d>=today]
+            if future:
+                nearest=min(future)
+                notes['next_earnings_date']=nearest.isoformat()
+                checks['earnings_clear']=(nearest-today).days>14
+            else:
+                notes['earnings']='Fecha de resultados no verificada'
+        except Exception as exc:
+            notes['provider_error']=str(exc)[:120]
+    pending_names={'technical_close':'Confirmación técnica y cierre','fundamental_basics':'Fundamentales básicos',
+        'risk_structure':'Distancia al stop <=12%','earnings_clear':'Resultados: fecha verificada y más de 14 días',
+        'business_quality':'Calidad del negocio: deuda, margen y flujo de caja',
+        'position_size':'Tamaño de posición con capital, divisa y exposición actual',
+        'manual_approval':'Aprobación manual en IBKR'}
+    x['validation_checks']=checks
+    x['validation_notes']=notes
+    x['pending_checks']=[name for key,name in pending_names.items() if not checks[key]]
+    x['operable_a_plus']=False  # No automatizar aprobación humana ni afirmar conexión con IBKR.
+    x['pretrade_checks_passed']=all(checks[k] for k in ('technical_close','fundamental_basics',
+                                                       'risk_structure','earnings_clear','business_quality'))
+    return x
+
 def main():
     if not SOURCE.exists():raise RuntimeError('Falta data/discovery.json; ejecutar primero Discovery')
     screener.main()
@@ -103,8 +160,7 @@ def main():
                         x['market_cap']=previous.get('market_cap')
                         x['fundamentals_checked_utc']=previous.get('fundamentals_checked_utc')
                         # A+ operational readiness is separate from purely technical A+.
-                        x['operable_a_plus']=bool(x['technical_a_plus'] and x['fundamental_status']=='CUMPLE' and False)
-                        x['pending_checks']=['Resultados próximos','Verificación de datos fundamentales y cierre','Riesgo y cartera']
+                        verify_candidate(x)
                         results.append(x)
                     processed+=1
                 except Exception as exc:errors.append(f'{t}: {str(exc)[:100]}')
@@ -120,7 +176,7 @@ def main():
       'screening_policy':'Stock Analysis principal, Finviz complemento. Candidatas pendientes de comprobaciones no son señales operables.',
       'symbols_requested':len(tickers),'symbols_processed':processed,'results_count':len(results),
       'technical_a_plus_count':sum(x['technical_a_plus'] for x in results),'errors':errors[:20],
-      'notes':'Base >=30 sesiones; profundidad <=25%; contracción rango 20 vs 10 sesiones; volumen seco 5 vs 20; RS 63 sesiones vs SPY. A+ técnico es heurístico, no validado estadísticamente. Sin earnings ni autorización de órdenes. Los datos fundamentales pueden estar desactualizados.',
+      'notes':'Base >=30 sesiones; profundidad <=25%; contracción rango 20 vs 10 sesiones; volumen seco 5 vs 20; RS 63 sesiones vs SPY. A+ técnico es heurístico, no validado estadísticamente. Validación automática conservadora de earnings y calidad para A+; datos faltantes bloquean validación. Tamaño y aprobación manual en IBKR. Los datos pueden estar desactualizados.',
       'candidates':results}
     OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding='utf-8')
     print('Analizadas',processed,'A+ técnicos',payload['technical_a_plus_count'],'errores',len(errors))
