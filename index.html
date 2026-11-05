@@ -59,6 +59,11 @@ function drawCard(parent,x,compact){
  if(x.checks.length)add(card,"p","Falta: "+x.checks.join(" · "),"hint");
  else if(x.level<=1)add(card,"p","Pendiente: resultados, calidad del negocio, riesgo y autorización; verificar datos actualizados.","hint");
  add(card,"p","Motores: "+[...new Set(x.origin)].join(" + ")+" · "+stamp(x.generated),"hint");
+ if(x.level<=1&&Number(x.close)>Number(x.stop)&&Number(x.stop)>0){
+ const a=add(card,"a","Simular compra · riesgo 1%","btn");
+ a.href="virtual.html?source=aplus&ticker="+encodeURIComponent(x.ticker)+"&entry="+encodeURIComponent(x.close)+"&stop="+encodeURIComponent(x.stop);
+ a.style.display="inline-block";a.style.marginTop="8px";a.style.textDecoration="none";
+ }
 }
 function render(items){
  const root=el("cards");root.replaceChildren();
