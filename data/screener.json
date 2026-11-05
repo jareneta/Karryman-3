@@ -1,10 +1,10 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-11-05T18:07:02.189459+00:00",
-  "discovery_generated_utc": "2026-11-05T18:07:01.498080+00:00",
+  "generated_utc": "2026-11-05T21:11:11.364436+00:00",
+  "discovery_generated_utc": "2026-11-05T21:11:10.732400+00:00",
   "source": "Discovery cached Yahoo Finance data; approximation, not Stock Analysis/Finviz API",
   "universe_scanned_this_run": 400,
-  "discovery_candidates": 157,
+  "discovery_candidates": 159,
   "primary_candidates": 29,
   "shortlist_count": 29,
   "shortlist_limit": 80,
@@ -13,8 +13,8 @@
   "candidates": [
     {
       "ticker": "EW",
-      "last_session": "2026-11-04",
-      "close": 99.37,
+      "last_session": "2026-11-05",
+      "close": 100.79,
       "category": "CONFIRMADA",
       "checks": {
         "price_over_5": true,
@@ -43,7 +43,7 @@
       ],
       "stock_analysis_status": "PENDIENTE_VERIFICACION",
       "finviz_complement": false,
-      "technical_score": 87.0,
+      "technical_score": 84.3,
       "order_enabled": false
     },
     {
@@ -117,9 +117,9 @@
       "order_enabled": false
     },
     {
-      "ticker": "WAT",
-      "last_session": "2026-11-03",
-      "close": 459.9,
+      "ticker": "LFST",
+      "last_session": "2026-11-05",
+      "close": 13.43,
       "category": "PREPARANDO",
       "checks": {
         "price_over_5": true,
@@ -148,7 +148,7 @@
       ],
       "stock_analysis_status": "PENDIENTE_VERIFICACION",
       "finviz_complement": false,
-      "technical_score": 73.8,
+      "technical_score": 76.2,
       "order_enabled": false
     },
     {
@@ -472,9 +472,9 @@
       "order_enabled": false
     },
     {
-      "ticker": "ARQT",
-      "last_session": "2026-11-04",
-      "close": 34.05,
+      "ticker": "WAT",
+      "last_session": "2026-11-05",
+      "close": 453.12,
       "category": "VIGILANCIA",
       "checks": {
         "price_over_5": true,
@@ -503,7 +503,7 @@
       ],
       "stock_analysis_status": "PENDIENTE_VERIFICACION",
       "finviz_complement": false,
-      "technical_score": 63.6,
+      "technical_score": 61.0,
       "order_enabled": false
     },
     {
@@ -822,9 +822,9 @@
       "order_enabled": false
     },
     {
-      "ticker": "CLF",
-      "last_session": "2026-11-03",
-      "close": 14.14,
+      "ticker": "INTA",
+      "last_session": "2026-11-05",
+      "close": 44.1,
       "category": "VIGILANCIA",
       "checks": {
         "price_over_5": true,
