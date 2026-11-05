@@ -34,7 +34,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "PENDIENTE_VALIDACION"
+      "a_plus_status": "PENDIENTE_VALIDACION",
+      "sector": null
     },
     "FOX": {
       "ticker": "FOX",
@@ -70,7 +71,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "PENDIENTE_VALIDACION"
+      "a_plus_status": "PENDIENTE_VALIDACION",
+      "sector": null
     },
     "TXN": {
       "ticker": "TXN",
@@ -106,7 +108,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "PENDIENTE_VALIDACION"
+      "a_plus_status": "PENDIENTE_VALIDACION",
+      "sector": null
     },
     "OHI": {
       "ticker": "OHI",
@@ -142,7 +145,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "PENDIENTE_VALIDACION"
+      "a_plus_status": "PENDIENTE_VALIDACION",
+      "sector": null
     },
     "TBBB": {
       "ticker": "TBBB",
@@ -178,7 +182,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "SHEL": {
       "ticker": "SHEL",
@@ -214,7 +219,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "VSXY": {
       "ticker": "VSXY",
@@ -250,7 +256,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "ATRC": {
       "ticker": "ATRC",
@@ -281,7 +288,8 @@
       "fundamental_status": "CUMPLE",
       "finviz_proxy": false,
       "sa_proxy": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "BWIN": {
       "ticker": "BWIN",
@@ -316,7 +324,45 @@
       "a_plus_status": "SIN_CONFIRMACION",
       "dividend_yield": null,
       "quarterly_revenue_growth_pct": null,
-      "quarterly_eps_growth_pct": null
+      "quarterly_eps_growth_pct": null,
+      "sector": null
+    },
+    "MET": {
+      "ticker": "MET",
+      "category": "PREPARANDO",
+      "setup": "BASE",
+      "score_preliminar": 75.1,
+      "close": 102.89,
+      "avg_volume": 3060184,
+      "volume_ratio": 1.77,
+      "stop_reference": 97.09,
+      "target_2r": 114.5,
+      "ema20": 99.62,
+      "ma20": 99.91,
+      "ma50": 97.49,
+      "ma200": 84.99,
+      "distance_high_pct": 0.5,
+      "return_3m_pct": 3.5,
+      "return_6m_pct": 30.9,
+      "return_12m_pct": 34.4,
+      "finviz_technical": true,
+      "sa_technical": false,
+      "last_session": "2026-11-04",
+      "sector": "Financial Services",
+      "dividend_yield": 2.3,
+      "quarterly_revenue_growth_pct": null,
+      "quarterly_eps_growth_pct": 1.0,
+      "market_cap": 65384222720.0,
+      "revenue_growth_pct": 10.5,
+      "eps_ttm": 5.22,
+      "fundamentals_checked_utc": "2026-11-05T07:25:56.677176+00:00",
+      "cap_pass": true,
+      "growth_pass": true,
+      "fundamental_status": "CUMPLE",
+      "finviz_proxy": true,
+      "sa_proxy": false,
+      "earnings_verified": false,
+      "a_plus_status": "SIN_CONFIRMACION"
     },
     "NSC": {
       "ticker": "NSC",
@@ -352,7 +398,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "PR": {
       "ticker": "PR",
@@ -388,7 +435,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "CRBG": {
       "ticker": "CRBG",
@@ -424,7 +472,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "IHS": {
       "ticker": "IHS",
@@ -460,7 +509,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "WAT": {
       "ticker": "WAT",
@@ -496,7 +546,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "KYMR": {
       "ticker": "KYMR",
@@ -532,7 +583,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "OSCR": {
       "ticker": "OSCR",
@@ -568,7 +620,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "J": {
       "ticker": "J",
@@ -603,6 +656,44 @@
       "fundamental_status": "CUMPLE",
       "finviz_proxy": true,
       "sa_proxy": false,
+      "earnings_verified": false,
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
+    },
+    "FIVN": {
+      "ticker": "FIVN",
+      "category": "PREPARANDO",
+      "setup": "PULLBACK EN FORMACIÓN",
+      "score_preliminar": 71.5,
+      "close": 36.35,
+      "avg_volume": 1908456,
+      "volume_ratio": 0.95,
+      "stop_reference": 34.01,
+      "target_2r": 41.03,
+      "ema20": 35.78,
+      "ma20": 35.64,
+      "ma50": 34.63,
+      "ma200": 24.41,
+      "distance_high_pct": 9.1,
+      "return_3m_pct": 28.1,
+      "return_6m_pct": 66.0,
+      "return_12m_pct": 49.4,
+      "finviz_technical": true,
+      "sa_technical": true,
+      "last_session": "2026-11-04",
+      "sector": "Technology",
+      "dividend_yield": 0.0,
+      "quarterly_revenue_growth_pct": null,
+      "quarterly_eps_growth_pct": 191.8,
+      "market_cap": 2716200192.0,
+      "revenue_growth_pct": 10.3,
+      "eps_ttm": 0.69,
+      "fundamentals_checked_utc": "2026-11-05T07:25:56.837422+00:00",
+      "cap_pass": true,
+      "growth_pass": true,
+      "fundamental_status": "CUMPLE",
+      "finviz_proxy": true,
+      "sa_proxy": true,
       "earnings_verified": false,
       "a_plus_status": "SIN_CONFIRMACION"
     },
@@ -640,7 +731,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "BIIB": {
       "ticker": "BIIB",
@@ -671,7 +763,8 @@
       "fundamental_status": "CUMPLE",
       "finviz_proxy": false,
       "sa_proxy": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "IMO": {
       "ticker": "IMO",
@@ -707,7 +800,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "SBCF": {
       "ticker": "SBCF",
@@ -743,7 +837,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "ED": {
       "ticker": "ED",
@@ -779,7 +874,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "AVAH": {
       "ticker": "AVAH",
@@ -815,7 +911,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "UCB": {
       "ticker": "UCB",
@@ -851,7 +948,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "EPD": {
       "ticker": "EPD",
@@ -887,7 +985,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "ECL": {
       "ticker": "ECL",
@@ -923,7 +1022,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "RPRX": {
       "ticker": "RPRX",
@@ -959,7 +1059,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "EQH": {
       "ticker": "EQH",
@@ -995,7 +1096,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "MSI": {
       "ticker": "MSI",
@@ -1031,7 +1133,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "TGTX": {
       "ticker": "TGTX",
@@ -1066,6 +1169,44 @@
       "fundamental_status": "CUMPLE",
       "finviz_proxy": true,
       "sa_proxy": true,
+      "earnings_verified": false,
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
+    },
+    "ZETA": {
+      "ticker": "ZETA",
+      "category": "PREPARANDO",
+      "setup": "PULLBACK EN FORMACIÓN",
+      "score_preliminar": 67.9,
+      "close": 31.78,
+      "avg_volume": 6006386,
+      "volume_ratio": 0.66,
+      "stop_reference": 29.61,
+      "target_2r": 36.12,
+      "ema20": 32.29,
+      "ma20": 32.82,
+      "ma50": 31.64,
+      "ma200": 22.66,
+      "distance_high_pct": 11.1,
+      "return_3m_pct": 24.3,
+      "return_6m_pct": 84.4,
+      "return_12m_pct": 80.4,
+      "finviz_technical": false,
+      "sa_technical": false,
+      "last_session": "2026-11-04",
+      "sector": "Technology",
+      "dividend_yield": 0.0,
+      "quarterly_revenue_growth_pct": null,
+      "quarterly_eps_growth_pct": null,
+      "market_cap": 7921406976.0,
+      "revenue_growth_pct": 43.5,
+      "eps_ttm": -0.01,
+      "fundamentals_checked_utc": "2026-11-05T07:25:57.279665+00:00",
+      "cap_pass": true,
+      "growth_pass": true,
+      "fundamental_status": "CUMPLE",
+      "finviz_proxy": false,
+      "sa_proxy": false,
       "earnings_verified": false,
       "a_plus_status": "SIN_CONFIRMACION"
     },
@@ -1103,7 +1244,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "FAST": {
       "ticker": "FAST",
@@ -1139,7 +1281,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "MFC": {
       "ticker": "MFC",
@@ -1175,7 +1318,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "IOT": {
       "ticker": "IOT",
@@ -1211,7 +1355,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "ESNT": {
       "ticker": "ESNT",
@@ -1247,7 +1392,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "NUE": {
       "ticker": "NUE",
@@ -1283,7 +1429,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "MAR": {
       "ticker": "MAR",
@@ -1319,7 +1466,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "CURB": {
       "ticker": "CURB",
@@ -1355,7 +1503,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "EPR": {
       "ticker": "EPR",
@@ -1390,6 +1539,44 @@
       "fundamental_status": "CUMPLE",
       "finviz_proxy": true,
       "sa_proxy": false,
+      "earnings_verified": false,
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
+    },
+    "RSKD": {
+      "ticker": "RSKD",
+      "category": "PREPARANDO",
+      "setup": "PULLBACK EN FORMACIÓN",
+      "score_preliminar": 64.1,
+      "close": 8.81,
+      "avg_volume": 2128170,
+      "volume_ratio": 0.6,
+      "stop_reference": 8.31,
+      "target_2r": 9.81,
+      "ema20": 8.55,
+      "ma20": 8.67,
+      "ma50": 7.57,
+      "ma200": 5.46,
+      "distance_high_pct": 4.6,
+      "return_3m_pct": 69.7,
+      "return_6m_pct": 85.5,
+      "return_12m_pct": 85.1,
+      "finviz_technical": true,
+      "sa_technical": true,
+      "last_session": "2026-11-04",
+      "sector": null,
+      "dividend_yield": 0.0,
+      "quarterly_revenue_growth_pct": null,
+      "quarterly_eps_growth_pct": null,
+      "market_cap": 1148068096.0,
+      "revenue_growth_pct": 21.8,
+      "eps_ttm": -0.11,
+      "fundamentals_checked_utc": "2026-11-03T18:47:54.363786+00:00",
+      "cap_pass": true,
+      "growth_pass": true,
+      "fundamental_status": "CUMPLE",
+      "finviz_proxy": true,
+      "sa_proxy": true,
       "earnings_verified": false,
       "a_plus_status": "SIN_CONFIRMACION"
     },
@@ -1427,7 +1614,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "CP": {
       "ticker": "CP",
@@ -1463,7 +1651,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "OSBC": {
       "ticker": "OSBC",
@@ -1499,43 +1688,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
-    },
-    "RSKD": {
-      "ticker": "RSKD",
-      "category": "PREPARANDO",
-      "setup": "PULLBACK EN FORMACIÓN",
-      "score_preliminar": 61.5,
-      "close": 8.69,
-      "avg_volume": 2127352,
-      "volume_ratio": 0.38,
-      "stop_reference": 8.2,
-      "target_2r": 9.67,
-      "ema20": 8.53,
-      "ma20": 8.63,
-      "ma50": 7.52,
-      "ma200": 5.44,
-      "distance_high_pct": 5.8,
-      "return_3m_pct": 65.9,
-      "return_6m_pct": 80.4,
-      "return_12m_pct": 83.8,
-      "finviz_technical": true,
-      "sa_technical": true,
-      "last_session": "2026-11-03",
-      "dividend_yield": 0.0,
-      "quarterly_revenue_growth_pct": null,
-      "quarterly_eps_growth_pct": null,
-      "market_cap": 1148068096.0,
-      "revenue_growth_pct": 21.8,
-      "eps_ttm": -0.11,
-      "fundamentals_checked_utc": "2026-11-03T18:47:54.363786+00:00",
-      "cap_pass": true,
-      "growth_pass": true,
-      "fundamental_status": "CUMPLE",
-      "finviz_proxy": true,
-      "sa_proxy": true,
-      "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "SPOT": {
       "ticker": "SPOT",
@@ -1571,7 +1725,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "UMBF": {
       "ticker": "UMBF",
@@ -1601,6 +1756,44 @@
       "revenue_growth_pct": 13.0,
       "eps_ttm": 13.22,
       "fundamentals_checked_utc": "2026-11-05T01:18:18.387192+00:00",
+      "cap_pass": true,
+      "growth_pass": true,
+      "fundamental_status": "CUMPLE",
+      "finviz_proxy": false,
+      "sa_proxy": false,
+      "earnings_verified": false,
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
+    },
+    "TEL": {
+      "ticker": "TEL",
+      "category": "PREPARANDO",
+      "setup": "BASE",
+      "score_preliminar": 59.5,
+      "close": 220.22,
+      "avg_volume": 1987718,
+      "volume_ratio": 1.1,
+      "stop_reference": 204.63,
+      "target_2r": 251.4,
+      "ema20": 216.26,
+      "ma20": 215.6,
+      "ma50": 212.05,
+      "ma200": 211.47,
+      "distance_high_pct": 12.1,
+      "return_3m_pct": 2.8,
+      "return_6m_pct": 2.7,
+      "return_12m_pct": -9.8,
+      "finviz_technical": false,
+      "sa_technical": false,
+      "last_session": "2026-11-04",
+      "sector": null,
+      "dividend_yield": 1.43,
+      "quarterly_revenue_growth_pct": null,
+      "quarterly_eps_growth_pct": 35.7,
+      "market_cap": 62861991936.0,
+      "revenue_growth_pct": 11.9,
+      "eps_ttm": 11.07,
+      "fundamentals_checked_utc": "2026-11-03T18:47:57.210213+00:00",
       "cap_pass": true,
       "growth_pass": true,
       "fundamental_status": "CUMPLE",
@@ -1643,6 +1836,44 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
+    },
+    "GTLB": {
+      "ticker": "GTLB",
+      "category": "PREPARANDO",
+      "setup": "PULLBACK EN FORMACIÓN",
+      "score_preliminar": 59.3,
+      "close": 52.37,
+      "avg_volume": 4572626,
+      "volume_ratio": 0.66,
+      "stop_reference": 50.51,
+      "target_2r": 56.09,
+      "ema20": 53.7,
+      "ma20": 54.6,
+      "ma50": 50.72,
+      "ma200": 34.33,
+      "distance_high_pct": 9.7,
+      "return_3m_pct": 46.8,
+      "return_6m_pct": 115.6,
+      "return_12m_pct": 2.6,
+      "finviz_technical": false,
+      "sa_technical": false,
+      "last_session": "2026-11-04",
+      "sector": "Technology",
+      "dividend_yield": 0.0,
+      "quarterly_revenue_growth_pct": null,
+      "quarterly_eps_growth_pct": null,
+      "market_cap": 8725627904.0,
+      "revenue_growth_pct": 21.3,
+      "eps_ttm": -0.32,
+      "fundamentals_checked_utc": "2026-11-05T07:25:57.609178+00:00",
+      "cap_pass": true,
+      "growth_pass": true,
+      "fundamental_status": "CUMPLE",
+      "finviz_proxy": false,
+      "sa_proxy": false,
+      "earnings_verified": false,
       "a_plus_status": "SIN_CONFIRMACION"
     },
     "SPT": {
@@ -1679,7 +1910,8 @@
       "finviz_proxy": false,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "SAP": {
       "ticker": "SAP",
@@ -1715,7 +1947,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "PLSE": {
       "ticker": "PLSE",
@@ -1751,7 +1984,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "TOST": {
       "ticker": "TOST",
@@ -1787,7 +2021,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "VTR": {
       "ticker": "VTR",
@@ -1823,36 +2058,38 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
-    "TEL": {
-      "ticker": "TEL",
+    "NTSK": {
+      "ticker": "NTSK",
       "category": "PREPARANDO",
-      "setup": "BASE",
-      "score_preliminar": 54.2,
-      "close": 218.9,
-      "avg_volume": 1993550,
-      "volume_ratio": 0.31,
-      "stop_reference": 204.63,
-      "target_2r": 247.45,
-      "ema20": 215.76,
-      "ma20": 215.34,
-      "ma50": 211.65,
-      "ma200": 211.52,
-      "distance_high_pct": 12.7,
-      "return_3m_pct": 0.8,
-      "return_6m_pct": 6.6,
-      "return_12m_pct": -10.4,
+      "setup": "PULLBACK EN FORMACIÓN",
+      "score_preliminar": 54.5,
+      "close": 22.77,
+      "avg_volume": 6929930,
+      "volume_ratio": 0.72,
+      "stop_reference": 19.95,
+      "target_2r": 28.41,
+      "ema20": 22.23,
+      "ma20": 22.21,
+      "ma50": 18.84,
+      "ma200": 13.29,
+      "distance_high_pct": 14.8,
+      "return_3m_pct": 68.9,
+      "return_6m_pct": 115.8,
+      "return_12m_pct": -6.1,
       "finviz_technical": false,
       "sa_technical": false,
-      "last_session": "2026-11-03",
-      "dividend_yield": 1.43,
+      "last_session": "2026-11-04",
+      "sector": "Technology",
+      "dividend_yield": 0.0,
       "quarterly_revenue_growth_pct": null,
-      "quarterly_eps_growth_pct": 35.7,
-      "market_cap": 62861991936.0,
-      "revenue_growth_pct": 11.9,
-      "eps_ttm": 11.07,
-      "fundamentals_checked_utc": "2026-11-03T18:47:57.210213+00:00",
+      "quarterly_eps_growth_pct": null,
+      "market_cap": 9303542784.0,
+      "revenue_growth_pct": 29.2,
+      "eps_ttm": -1.52,
+      "fundamentals_checked_utc": "2026-11-05T07:25:57.744531+00:00",
       "cap_pass": true,
       "growth_pass": true,
       "fundamental_status": "CUMPLE",
@@ -1895,6 +2132,44 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
+    },
+    "SMA": {
+      "ticker": "SMA",
+      "category": "VIGILANCIA",
+      "setup": "TENDENCIA",
+      "score_preliminar": 67.5,
+      "close": 38.14,
+      "avg_volume": 757122,
+      "volume_ratio": 1.26,
+      "stop_reference": 34.02,
+      "target_2r": 46.39,
+      "ema20": 35.1,
+      "ma20": 34.69,
+      "ma50": 33.18,
+      "ma200": 32.0,
+      "distance_high_pct": 0.0,
+      "return_3m_pct": 12.0,
+      "return_6m_pct": 21.8,
+      "return_12m_pct": 16.4,
+      "finviz_technical": true,
+      "sa_technical": true,
+      "last_session": "2026-11-04",
+      "sector": "Real Estate",
+      "dividend_yield": 4.2,
+      "quarterly_revenue_growth_pct": null,
+      "quarterly_eps_growth_pct": null,
+      "market_cap": 2189696512.0,
+      "revenue_growth_pct": 11.4,
+      "eps_ttm": 0.53,
+      "fundamentals_checked_utc": "2026-11-05T07:25:58.034927+00:00",
+      "cap_pass": true,
+      "growth_pass": true,
+      "fundamental_status": "CUMPLE",
+      "finviz_proxy": true,
+      "sa_proxy": true,
+      "earnings_verified": false,
       "a_plus_status": "SIN_CONFIRMACION"
     },
     "REPL": {
@@ -1931,7 +2206,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "V": {
       "ticker": "V",
@@ -1967,7 +2243,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "UNP": {
       "ticker": "UNP",
@@ -2003,7 +2280,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "AVPT": {
       "ticker": "AVPT",
@@ -2034,6 +2312,44 @@
       "fundamental_status": "CUMPLE",
       "finviz_proxy": false,
       "sa_proxy": false,
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
+    },
+    "CCK": {
+      "ticker": "CCK",
+      "category": "VIGILANCIA",
+      "setup": "TENDENCIA",
+      "score_preliminar": 65.2,
+      "close": 124.78,
+      "avg_volume": 916310,
+      "volume_ratio": 0.89,
+      "stop_reference": 112.78,
+      "target_2r": 148.78,
+      "ema20": 116.71,
+      "ma20": 115.59,
+      "ma50": 112.99,
+      "ma200": 108.27,
+      "distance_high_pct": 0.1,
+      "return_3m_pct": 3.0,
+      "return_6m_pct": 24.2,
+      "return_12m_pct": 29.9,
+      "finviz_technical": true,
+      "sa_technical": false,
+      "last_session": "2026-11-04",
+      "sector": "Consumer Cyclical",
+      "dividend_yield": 1.12,
+      "quarterly_revenue_growth_pct": null,
+      "quarterly_eps_growth_pct": 5.1,
+      "market_cap": 13482662912.0,
+      "revenue_growth_pct": 15.9,
+      "eps_ttm": 7.17,
+      "fundamentals_checked_utc": "2026-11-05T07:25:58.501392+00:00",
+      "cap_pass": true,
+      "growth_pass": true,
+      "fundamental_status": "CUMPLE",
+      "finviz_proxy": true,
+      "sa_proxy": false,
+      "earnings_verified": false,
       "a_plus_status": "SIN_CONFIRMACION"
     },
     "ARQT": {
@@ -2070,7 +2386,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "CVI": {
       "ticker": "CVI",
@@ -2106,7 +2423,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "CAKE": {
       "ticker": "CAKE",
@@ -2137,7 +2455,8 @@
       "fundamental_status": "CUMPLE",
       "finviz_proxy": false,
       "sa_proxy": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "COKE": {
       "ticker": "COKE",
@@ -2173,7 +2492,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "OVV": {
       "ticker": "OVV",
@@ -2209,7 +2529,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "LNG": {
       "ticker": "LNG",
@@ -2245,7 +2566,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "OSPN": {
       "ticker": "OSPN",
@@ -2281,7 +2603,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "MSFT": {
       "ticker": "MSFT",
@@ -2317,7 +2640,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "GLBE": {
       "ticker": "GLBE",
@@ -2352,6 +2676,44 @@
       "fundamental_status": "CUMPLE",
       "finviz_proxy": true,
       "sa_proxy": false,
+      "earnings_verified": false,
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
+    },
+    "AMPL": {
+      "ticker": "AMPL",
+      "category": "VIGILANCIA",
+      "setup": "TENDENCIA",
+      "score_preliminar": 59.9,
+      "close": 17.19,
+      "avg_volume": 1707538,
+      "volume_ratio": 2.25,
+      "stop_reference": 15.65,
+      "target_2r": 20.26,
+      "ema20": 16.32,
+      "ma20": 16.34,
+      "ma50": 14.7,
+      "ma200": 9.71,
+      "distance_high_pct": 3.6,
+      "return_3m_pct": 59.6,
+      "return_6m_pct": 128.6,
+      "return_12m_pct": 73.1,
+      "finviz_technical": true,
+      "sa_technical": true,
+      "last_session": "2026-11-04",
+      "sector": null,
+      "dividend_yield": 0.0,
+      "quarterly_revenue_growth_pct": null,
+      "quarterly_eps_growth_pct": null,
+      "market_cap": 2147307264.0,
+      "revenue_growth_pct": 21.2,
+      "eps_ttm": -0.75,
+      "fundamentals_checked_utc": "2026-11-05T01:18:21.257073+00:00",
+      "cap_pass": true,
+      "growth_pass": true,
+      "fundamental_status": "CUMPLE",
+      "finviz_proxy": true,
+      "sa_proxy": true,
       "earnings_verified": false,
       "a_plus_status": "SIN_CONFIRMACION"
     },
@@ -2389,7 +2751,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "BRZE": {
       "ticker": "BRZE",
@@ -2420,7 +2783,8 @@
       "fundamental_status": "CUMPLE",
       "finviz_proxy": false,
       "sa_proxy": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "ASC": {
       "ticker": "ASC",
@@ -2456,7 +2820,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "CVLT": {
       "ticker": "CVLT",
@@ -2492,7 +2857,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "CAI": {
       "ticker": "CAI",
@@ -2527,7 +2893,8 @@
       "a_plus_status": "SIN_CONFIRMACION",
       "dividend_yield": null,
       "quarterly_revenue_growth_pct": null,
-      "quarterly_eps_growth_pct": null
+      "quarterly_eps_growth_pct": null,
+      "sector": null
     },
     "VNOM": {
       "ticker": "VNOM",
@@ -2563,7 +2930,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "WMG": {
       "ticker": "WMG",
@@ -2599,7 +2967,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "SU": {
       "ticker": "SU",
@@ -2635,7 +3004,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "PNC": {
       "ticker": "PNC",
@@ -2671,7 +3041,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "OABI": {
       "ticker": "OABI",
@@ -2707,7 +3078,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "GPN": {
       "ticker": "GPN",
@@ -2743,7 +3115,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "EQNR": {
       "ticker": "EQNR",
@@ -2779,7 +3152,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "SHOO": {
       "ticker": "SHOO",
@@ -2815,7 +3189,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "URBN": {
       "ticker": "URBN",
@@ -2851,7 +3226,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "AUPH": {
       "ticker": "AUPH",
@@ -2887,7 +3263,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "REGN": {
       "ticker": "REGN",
@@ -2923,7 +3300,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "RELY": {
       "ticker": "RELY",
@@ -2959,7 +3337,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "CDNA": {
       "ticker": "CDNA",
@@ -2995,7 +3374,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "NRIX": {
       "ticker": "NRIX",
@@ -3031,7 +3411,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "EXPO": {
       "ticker": "EXPO",
@@ -3067,7 +3448,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "S": {
       "ticker": "S",
@@ -3103,38 +3485,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
-    },
-    "AMPL": {
-      "ticker": "AMPL",
-      "category": "VIGILANCIA",
-      "setup": "TENDENCIA",
-      "score_preliminar": 52.8,
-      "close": 17.08,
-      "stop_reference": 14.63,
-      "target_2r": 21.98,
-      "volume_ratio": 1.17,
-      "ema20": 16.1,
-      "ma50": 14.47,
-      "ma200": 9.61,
-      "base_high": 17.84,
-      "distance_high_pct": 4.3,
-      "last_session": "2026-10-30",
-      "fundamentals_verified": false,
-      "earnings_verified": false,
-      "dividend_yield": 0.0,
-      "quarterly_revenue_growth_pct": null,
-      "quarterly_eps_growth_pct": null,
-      "market_cap": 2147307264.0,
-      "revenue_growth_pct": 21.2,
-      "eps_ttm": -0.75,
-      "fundamentals_checked_utc": "2026-11-05T01:18:21.257073+00:00",
-      "cap_pass": true,
-      "growth_pass": true,
-      "fundamental_status": "CUMPLE",
-      "finviz_proxy": false,
-      "sa_proxy": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "RGEN": {
       "ticker": "RGEN",
@@ -3170,7 +3522,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "JAZZ": {
       "ticker": "JAZZ",
@@ -3206,7 +3559,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "WK": {
       "ticker": "WK",
@@ -3242,7 +3596,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "BSY": {
       "ticker": "BSY",
@@ -3273,7 +3628,8 @@
       "fundamental_status": "CUMPLE",
       "finviz_proxy": false,
       "sa_proxy": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "TIC": {
       "ticker": "TIC",
@@ -3309,7 +3665,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "GEN": {
       "ticker": "GEN",
@@ -3345,7 +3702,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "PAYS": {
       "ticker": "PAYS",
@@ -3381,7 +3739,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "CBOE": {
       "ticker": "CBOE",
@@ -3417,7 +3776,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "CLF": {
       "ticker": "CLF",
@@ -3453,7 +3813,8 @@
       "finviz_proxy": true,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "CRWD": {
       "ticker": "CRWD",
@@ -3487,6 +3848,44 @@
       "growth_pass": true,
       "fundamental_status": "CUMPLE",
       "finviz_proxy": false,
+      "sa_proxy": false,
+      "earnings_verified": false,
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
+    },
+    "TRU": {
+      "ticker": "TRU",
+      "category": "VIGILANCIA",
+      "setup": "TENDENCIA",
+      "score_preliminar": 48.3,
+      "close": 82.13,
+      "avg_volume": 3000642,
+      "volume_ratio": 0.95,
+      "stop_reference": 73.4,
+      "target_2r": 99.59,
+      "ema20": 75.79,
+      "ma20": 74.78,
+      "ma50": 74.2,
+      "ma200": 73.87,
+      "distance_high_pct": 7.4,
+      "return_3m_pct": 3.9,
+      "return_6m_pct": 16.5,
+      "return_12m_pct": 1.3,
+      "finviz_technical": true,
+      "sa_technical": false,
+      "last_session": "2026-11-04",
+      "sector": "Financial Services",
+      "dividend_yield": 0.66,
+      "quarterly_revenue_growth_pct": null,
+      "quarterly_eps_growth_pct": 61.7,
+      "market_cap": 15662190592.0,
+      "revenue_growth_pct": 12.2,
+      "eps_ttm": 4.11,
+      "fundamentals_checked_utc": "2026-11-05T07:25:58.816647+00:00",
+      "cap_pass": true,
+      "growth_pass": true,
+      "fundamental_status": "CUMPLE",
+      "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
       "a_plus_status": "SIN_CONFIRMACION"
@@ -3525,7 +3924,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "CXT": {
       "ticker": "CXT",
@@ -3561,7 +3961,8 @@
       "finviz_proxy": true,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "SSL": {
       "ticker": "SSL",
@@ -3597,7 +3998,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "APPN": {
       "ticker": "APPN",
@@ -3633,7 +4035,8 @@
       "finviz_proxy": false,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "DHT": {
       "ticker": "DHT",
@@ -3669,7 +4072,8 @@
       "finviz_proxy": false,
       "sa_proxy": false,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "QLYS": {
       "ticker": "QLYS",
@@ -3705,7 +4109,8 @@
       "finviz_proxy": false,
       "sa_proxy": true,
       "earnings_verified": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     },
     "AZTA": {
       "ticker": "AZTA",
@@ -3736,7 +4141,8 @@
       "fundamental_status": "CUMPLE",
       "finviz_proxy": false,
       "sa_proxy": false,
-      "a_plus_status": "SIN_CONFIRMACION"
+      "a_plus_status": "SIN_CONFIRMACION",
+      "sector": null
     }
   }
 }
