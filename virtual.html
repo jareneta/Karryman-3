@@ -1,84 +1,76 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f7fb"><title>Karryman 4.0 · Cartera virtual</title><style>
 *{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#17263b;font:15px system-ui,sans-serif}main{max-width:950px;margin:auto;padding:18px 14px 65px}a{color:#1559a6}header{display:flex;gap:14px;align-items:center;background:linear-gradient(120deg,#fff,#e9f2ff);padding:14px;border:1px solid #d6dfeb;border-radius:17px}header img{width:62px;height:62px;border-radius:13px}h1{font-size:24px;margin:2px 0}h2{font-size:19px;margin:0 0 12px}.muted{color:#65758a;font-size:13px;line-height:1.5}.panel{background:#fff;border:1px solid #d6dfeb;border-radius:15px;padding:16px;margin:14px 0}.nav{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.nav a{padding:11px 14px;border:1px solid #d6dfeb;border-radius:10px;text-decoration:none;background:#fff}.nav .active{background:#1559a6;color:#fff}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.stat{background:#eef3f9;border-radius:11px;padding:13px}.stat strong{display:block;font-size:22px;margin-top:5px}.stat span{font-size:12px;color:#52647a}label{display:block;font-size:13px;font-weight:600;margin:8px 0}input,button{font:inherit;border:1px solid #b8c8da;border-radius:10px;padding:11px;background:#fff;color:#17263b;max-width:100%}input{width:100%;margin-top:5px}button{cursor:pointer}button.primary{background:#1559a6;color:#fff;border-color:#1559a6}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.position{border:1px solid #d6dfeb;border-left:4px solid #1559a6;border-radius:12px;padding:13px;margin:10px 0;background:#fcfdff}.position .top{display:flex;justify-content:space-between;gap:8px;align-items:center}.position .top strong{font-size:18px}.position .numbers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}.position .numbers span{display:block;font-size:12px;color:#65758a}.positive{color:#137447}.negative{color:#b42318}.message{min-height:20px}.small{font-size:12px}button:disabled{opacity:.5} @media(min-width:700px){.stats{grid-template-columns:repeat(4,1fr)}.fields{grid-template-columns:repeat(4,1fr)}}
-</style></head><body><main><header><img src="karryman-icon.svg" alt="Logo Karryman"><div><div class="muted">KARRYMAN · SIMULACIÓN SIN ÓRDENES REALES</div><h1>Cartera virtual 4.0</h1><div class="muted">Seguimiento de operaciones en papel</div></div></header><nav class="nav"><a href="./">Oportunidades</a><a href="virtual.html" class="active" aria-current="page">Cartera virtual</a><a href="cartera.html">Cartera IBKR manual</a></nav><section class="panel"><h2>Balance virtual</h2><div class="stats"><div class="stat"><span>Patrimonio estimado</span><strong id="equity">—</strong></div><div class="stat"><span>Efectivo</span><strong id="cashValue">—</strong></div><div class="stat"><span>Invertido a último precio</span><strong id="invested">—</strong></div><div class="stat"><span>Resultado total</span><strong id="totalPnl">—</strong></div></div><p class="muted">Las cotizaciones son manuales. El resultado incluye operaciones cerradas y posiciones abiertas; no incluye comisiones, dividendos, impuestos ni deslizamiento.</p><label>Capital inicial de simulación (USD)<input id="initial" type="number" min="1" step="0.01" value="3000"></label><div class="actions"><button id="setCapital">Guardar capital inicial</button><button id="export">Exportar copia JSON</button><button id="reset">Reiniciar simulación</button></div></section><section class="panel"><h2>Registrar operación virtual</h2><div class="fields"><label>Ticker<input id="ticker" maxlength="10" placeholder="RKLB" autocapitalize="characters"></label><label>Cantidad<input id="qty" type="number" min="1" step="1" placeholder="10"></label><label>Precio de ejecución $<input id="price" type="number" min="0.0001" step="any" placeholder="25"></label><label>Stop de seguimiento $<input id="stop" type="number" min="0" step="any" placeholder="22"></label></div><div class="panel" style="background:#eef3f9"><strong>Calculadora de riesgo 1%</strong><p id="riskDetails" class="muted">Introduce entrada y stop para calcular acciones.</p><button id="size" type="button">Calcular acciones</button></div><div class="actions"><button class="primary" id="buy">Simular compra</button><button id="sell">Simular venta</button></div><p id="message" class="message muted" role="status"></p></section><section class="panel"><h2>Posiciones abiertas</h2><p class="muted">Actualiza manualmente el último cierre y el stop de cada posición. Los cambios se guardan en este dispositivo.</p><div id="positions"></div></section><section class="panel"><h2>Historial de operaciones</h2><div id="history"></div><p class="muted">Datos almacenados solo en este navegador. Exporta una copia si cambias de móvil o borras los datos del navegador. No hay conexión con IBKR ni sincronización automática.</p></section></main><script>
+</style></head><body><main><header><img src="karryman-icon.svg" alt="Logo Karryman"><div><div class="muted">KARRYMAN · SEGUIMIENTO IBKR · SIN ÓRDENES</div><h1>Cartera IBKR · Riesgo 4.0</h1><div class="muted">Cartera importada y calculadora de entradas</div></div></header><nav class="nav"><a href="./">Oportunidades</a><a href="virtual.html" class="active" aria-current="page">Cartera virtual</a></nav><section class="panel"><h2>Actualizar cartera IBKR</h2><p class="muted">Importa un CSV de posiciones y saldos exportado desde IBKR. Los datos permanecen en este navegador; no se envían a ningún servidor. No hay conexión automática ni órdenes reales.</p><div class="actions"><label>Seleccionar CSV de IBKR<input id="ibkrFile" type="file" accept=".csv,text/csv"></label><button id="importIbkr" class="primary">Actualizar con IBKR</button></div><p id="importStatus" class="muted" role="status">Sin importar.</p><div class="stats"><div class="stat"><span>Patrimonio neto</span><strong id="equity">—</strong></div><div class="stat"><span>Efectivo disponible</span><strong id="cashValue">—</strong></div><div class="stat"><span>Valor posiciones</span><strong id="invested">—</strong></div><div class="stat"><span>Riesgo abierto estimado</span><strong id="totalPnl">—</strong></div></div><p class="muted">Importes en USD. Para divisas distintas se necesita conversión a USD. Revisa siempre el patrimonio y el efectivo antes de calcular entradas.</p><div class="fields"><label>Patrimonio neto USD<input id="ibkrEquity" type="number" min="0" step="any"></label><label>Efectivo disponible USD<input id="ibkrCash" type="number" min="0" step="any"></label></div><button id="saveBalances">Guardar saldos verificados</button></section><section class="panel"><h2>Calcular nueva entrada</h2><div class="fields"><label>Ticker<input id="ticker" maxlength="10" placeholder="RKLB" autocapitalize="characters"></label><label>Cantidad<input id="qty" type="number" min="1" step="1" placeholder="10"></label><label>Precio de ejecución $<input id="price" type="number" min="0.0001" step="any" placeholder="25"></label><label>Stop de seguimiento $<input id="stop" type="number" min="0" step="any" placeholder="22"></label></div><div class="panel" style="background:#eef3f9"><strong>Calculadora de riesgo 1% y peso</strong><p id="riskDetails" class="muted">Introduce entrada y stop para calcular acciones.</p><button id="size" type="button">Calcular acciones</button></div><p id="message" class="message muted" role="status">Calculadora de propuestas: no ejecuta compras ni modifica posiciones importadas.</p></section><section class="panel"><h2>Posiciones IBKR</h2><p class="muted">El stop se guarda localmente y no se envía a IBKR. El riesgo es una estimación, no una pérdida máxima garantizada.</p><div id="positions"></div></section></main><script>
 'use strict';
-const KEY='karryman_virtual_v1', $=id=>document.getElementById(id);
+const KEY='karryman_ibkr_import_v1', $=id=>document.getElementById(id);
 const fmt=n=>Number.isFinite(n)?new Intl.NumberFormat('es-ES',{style:'currency',currency:'USD'}).format(n):'—';
-const signed=n=>(n>=0?'+':'')+fmt(n);
-let state;
-try{state=JSON.parse(localStorage.getItem(KEY))}catch{}
-if(!state||!Number.isFinite(state.initial)||!Array.isArray(state.trades)||!Array.isArray(state.positions))state={initial:3000,trades:[],positions:[]};
+let state={equity:0,cash:0,positions:[],updated:null};
+try{const saved=JSON.parse(localStorage.getItem(KEY));if(saved&&Array.isArray(saved.positions))state=saved}catch{}
 function save(){localStorage.setItem(KEY,JSON.stringify(state));render()}
-function num(id){return Number($(id).value)}
-function fail(msg){$('message').textContent=msg}
-function getPosition(t){return state.positions.find(p=>p.ticker===t)}
+function csvRows(text){
+ const rows=[],line=[];let field='',quoted=false;
+ for(let i=0;i<text.length;i++){const ch=text[i];
+ if(ch==='"'){if(quoted&&text[i+1]==='"'){field+='"';i++}else quoted=!quoted}
+ else if(!quoted&&(ch===','||ch===';'||ch==='\t')){line.push(field.trim());field=''}
+ else if(!quoted&&(ch==='\n'||ch==='\r')){line.push(field.trim());if(line.some(Boolean))rows.push(line.slice());line.length=0;field='';if(ch==='\r'&&text[i+1]==='\n')i++}
+ else field+=ch}
+ line.push(field.trim());if(line.some(Boolean))rows.push(line);return rows
+}
+const numeric=x=>{const t=String(x??'').replace(/[$€\s]/g,'').replace(/,/g,'');return t===''?NaN:Number(t)};
+const normalize=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
+function parseIBKR(text){
+ const rows=csvRows(text.replace(/^\uFEFF/,''));let positions=[],equity=NaN,cash=NaN;
+ for(let j=0;j<rows.length;j++){
+  const row=rows[j],header=row.map(normalize);
+  const col=(names)=>header.findIndex(h=>names.some(n=>h===n));
+  const sym=col(['symbol','ticker','underlyingsymbol']),qty=col(['quantity','position','qty']),price=col(['markprice','marketprice','lastprice','closeprice','price']),avg=col(['costbasisprice','averageprice','avgprice','averagecost','costprice']),currency=col(['currency','currencyprimary']);
+  if(sym>=0&&qty>=0&&price>=0){
+   for(let k=j+1;k<rows.length;k++){const v=rows[k];if(v[0]==='Header'||v[0]==='SubTotal'||v[0]==='Total')continue;
+    const ticker=String(v[sym]||'').trim().toUpperCase(),n=numeric(v[qty]),last=numeric(v[price]),cost=avg>=0?numeric(v[avg]):last,ccy=currency>=0?String(v[currency]||'USD').toUpperCase():'USD';
+    if(!ticker||!Number.isFinite(n)||n<=0||!(last>0)||!Number.isFinite(cost))continue;
+    if(ccy!=='USD')continue;
+    if(!/^[A-Z0-9.\-]{1,15}$/.test(ticker))continue;
+    positions.push({ticker,qty:n,last,avg:cost,stop:null});
+   }break
+  }
+ }
+ if(!positions.length)throw Error('No se reconocieron posiciones. Exporta un CSV con columnas Symbol, Quantity, Market Price y Average Price. Solo se admiten posiciones largas en USD.');
+ const existing=new Map(state.positions.map(p=>[p.ticker,p]));
+ positions=positions.map(p=>({...p,stop:existing.get(p.ticker)?.stop??null}));
+ return {positions,equity,cash};
+}
 function calculateSize(){
- const entry=Number($('price').value),stop=Number($('stop').value);
- const cash=state.initial+state.trades.reduce((a,t)=>a+(t.side==='SELL'?1:-1)*t.qty*t.price,0);
- const equity=cash+state.positions.reduce((a,p)=>a+p.qty*p.last,0);
- if(!(entry>stop&&stop>0)){$('riskDetails').textContent='Entrada y stop deben ser positivos y el stop inferior a la entrada.';return}
- const maxRisk=equity*.01;
- const qty=Math.max(0,Math.min(Math.floor(maxRisk/(entry-stop)),Math.floor(cash/entry)));
+ const entry=Number($('price').value),stop=Number($('stop').value),equity=state.equity,cash=state.cash;
+ if(!(equity>0&&cash>=0)){$('riskDetails').textContent='Verifica patrimonio y efectivo IBKR primero.';return}
+ if(!(entry>stop&&stop>0)){$('riskDetails').textContent='La entrada debe superar al stop y ambos ser positivos.';return}
+ const budget=equity*.01,openRisk=state.positions.reduce((a,p)=>a+(p.stop>0?Math.max(0,p.last-p.stop)*p.qty:0),0);
+ const qty=Math.max(0,Math.min(Math.floor(budget/(entry-stop)),Math.floor(cash/entry)));
  $('qty').value=qty||'';
- $('riskDetails').textContent='Patrimonio '+fmt(equity)+' · Límite 1% '+fmt(maxRisk)+' · '+qty+' acciones · Riesgo estimado '+fmt(qty*(entry-stop))+'. Sin margen. No incluye gaps ni comisiones.';
-}
-$('size').addEventListener('click',calculateSize);
-const proposal=new URLSearchParams(location.search);
-if(proposal.get('source')==='aplus'){
- const t=proposal.get('ticker')||'',e=Number(proposal.get('entry')),st=Number(proposal.get('stop'));
- if(/^[A-Z][A-Z0-9.-]{0,9}$/.test(t)&&e>st&&st>0){
- $('ticker').value=t;$('price').value=e;$('stop').value=st;calculateSize();
- $('message').textContent='Propuesta A+ cargada para simulación. Comprueba cierre, resultados y stop antes de operar. No es una orden real.';
- }
-}
-function trade(side){
- const ticker=$('ticker').value.trim().toUpperCase(),qty=num('qty'),price=num('price'),stop=$('stop').value===''?null:num('stop');
- if(!/^[A-Z][A-Z0-9.\-]{0,9}$/.test(ticker)||!Number.isInteger(qty)||qty<=0||!Number.isFinite(price)||price<=0||stop!==null&&(!Number.isFinite(stop)||stop<0)){fail('Comprueba ticker, cantidad entera, precio y stop.');return}
- const p=getPosition(ticker);
- if(side==='SELL'&&(!p||p.qty<qty)){fail('No puedes vender más acciones de las que tienes.');return}
- const cash=state.initial+state.trades.reduce((a,t)=>a+(t.side==='SELL'?1:-1)*t.qty*t.price,0);
- if(side==='BUY'&&qty*price>cash+1e-8){fail('Efectivo virtual insuficiente. No se permite margen.');return}
- let realized=null;
- if(side==='BUY'){
-  if(p){p.avg=(p.avg*p.qty+price*qty)/(p.qty+qty);p.qty+=qty;if(stop!==null)p.stop=stop;p.last=price}
-  else state.positions.push({ticker,qty,avg:price,last:price,stop});
- }else{
-  realized=(price-p.avg)*qty;p.qty-=qty;p.last=price;
-  if(p.qty===0)state.positions=state.positions.filter(x=>x!==p);
- }
- state.trades.unshift({side,ticker,qty,price,realized,at:new Date().toISOString()});
- save();fail((side==='BUY'?'Compra':'Venta')+' virtual registrada. No se ha enviado ninguna orden real.');
+ $('riskDetails').textContent='Riesgo por acción: '+fmt(entry-stop)+' · 1% patrimonio: '+fmt(budget)+' · Tamaño: '+qty+' acciones · Importe: '+fmt(qty*entry)+' · Peso: '+(100*qty*entry/equity).toFixed(2)+'% · Riesgo entrada: '+fmt(qty*(entry-stop))+' ('+(100*qty*(entry-stop)/equity).toFixed(2)+'%) · Riesgo abierto con stops registrados: '+fmt(openRisk)+' · Riesgo conjunto estimado: '+fmt(openRisk+qty*(entry-stop))+'. Sin margen, comisiones ni gaps.';
 }
 function render(){
- $('initial').value=state.initial;
- const cash=state.initial+state.trades.reduce((a,t)=>a+(t.side==='SELL'?1:-1)*t.qty*t.price,0);
+ $('ibkrEquity').value=state.equity||'';$('ibkrCash').value=state.cash||'';
  const invested=state.positions.reduce((a,p)=>a+p.qty*p.last,0);
- const equity=cash+invested,pnl=equity-state.initial;
- $('cashValue').textContent=fmt(cash);$('invested').textContent=fmt(invested);$('equity').textContent=fmt(equity);$('totalPnl').textContent=signed(pnl);$('totalPnl').className=pnl>=0?'positive':'negative';
+ const risk=state.positions.reduce((a,p)=>a+(p.stop>0?Math.max(0,p.last-p.stop)*p.qty:0),0);
+ $('equity').textContent=state.equity>0?fmt(state.equity):'Sin verificar';
+ $('cashValue').textContent=fmt(state.cash);$('invested').textContent=fmt(invested);$('totalPnl').textContent=fmt(risk);
+ $('importStatus').textContent=state.updated?'Última importación: '+new Date(state.updated).toLocaleString('es-ES')+' · '+state.positions.length+' posiciones USD. Verifica saldos.':'Sin importar.';
  const root=$('positions');root.replaceChildren();
- if(!state.positions.length){const p=document.createElement('p');p.className='muted';p.textContent='Sin posiciones abiertas.';root.append(p)}
+ if(!state.positions.length){const p=document.createElement('p');p.textContent='Sin posiciones importadas.';root.append(p)}
  for(const p of state.positions){
   const card=document.createElement('div');card.className='position';
-  const top=document.createElement('div');top.className='top';
-  const name=document.createElement('strong');name.textContent=p.ticker+' · '+p.qty+' acciones';top.append(name);
-  const gain=document.createElement('strong');const profit=(p.last-p.avg)*p.qty;gain.textContent=signed(profit);gain.className=profit>=0?'positive':'negative';top.append(gain);card.append(top);
-  const info=document.createElement('div');info.className='numbers';
-  for(const [label,value] of [['Precio medio',fmt(p.avg)],['Valor actual',fmt(p.last*p.qty)],['P/L',signed(profit)],['Riesgo a stop',p.stop===null?'Sin stop':fmt(Math.max(0,p.last-p.stop)*p.qty)]]){const cell=document.createElement('div');const l=document.createElement('span');l.textContent=label;cell.append(l,document.createTextNode(value));info.append(cell)}
-  card.append(info);
-  const controls=document.createElement('div');controls.className='fields';
-  for(const [label,key] of [['Último cierre $','last'],['Stop $','stop']]){
-   const l=document.createElement('label');l.textContent=label;const inp=document.createElement('input');inp.type='number';inp.step='any';inp.min='0';inp.value=p[key]??'';inp.addEventListener('change',()=>{const val=inp.value===''&&key==='stop'?null:Number(inp.value);if(val!==null&&(!Number.isFinite(val)||val<0||key==='last'&&val<=0)){fail('Precio no válido');render();return}p[key]=val;save()});l.append(inp);controls.append(l)}
-  card.append(controls);root.append(card);
+  const title=document.createElement('strong');title.textContent=p.ticker+' · '+p.qty+' acciones';card.append(title);
+  const info=document.createElement('p');info.className='muted';info.textContent='Precio '+fmt(p.last)+' · Coste '+fmt(p.avg)+' · Valor '+fmt(p.qty*p.last)+' · Peso '+(state.equity>0?(100*p.qty*p.last/state.equity).toFixed(2)+'%':'sin patrimonio')+' · Riesgo hasta stop '+(p.stop>0?fmt(Math.max(0,p.last-p.stop)*p.qty):'sin stop');card.append(info);
+  const label=document.createElement('label');label.textContent='Stop de seguimiento USD';const input=document.createElement('input');input.type='number';input.step='any';input.min='0';input.value=p.stop??'';input.addEventListener('change',()=>{const v=input.value===''?null:Number(input.value);if(v!==null&&(!Number.isFinite(v)||v<0)){render();return}p.stop=v;save()});label.append(input);card.append(label);root.append(card)
  }
- const hist=$('history');hist.replaceChildren();
- if(!state.trades.length){const p=document.createElement('p');p.className='muted';p.textContent='Aún no hay operaciones virtuales.';hist.append(p)}
- for(const t of state.trades.slice(0,100)){
-  const row=document.createElement('div');row.className='position small';
-  row.textContent=new Date(t.at).toLocaleString('es-ES')+' · '+(t.side==='BUY'?'COMPRA':'VENTA')+' '+t.qty+' '+t.ticker+' a '+fmt(t.price)+(t.realized===null?'':' · Realizado: '+signed(t.realized));hist.append(row)}
 }
-$('buy').addEventListener('click',()=>trade('BUY'));$('sell').addEventListener('click',()=>trade('SELL'));
-$('setCapital').addEventListener('click',()=>{const v=num('initial');if(!Number.isFinite(v)||v<=0){fail('Capital inicial inválido');return}if(state.trades.length&&!confirm('Cambiar el capital inicial modificará el resultado histórico. ¿Continuar?'))return;state.initial=v;save();fail('Capital inicial actualizado.')});
-$('reset').addEventListener('click',()=>{if(!confirm('¿Borrar todas las operaciones y posiciones virtuales de este dispositivo?'))return;state={initial:3000,trades:[],positions:[]};save();fail('Simulación reiniciada.')});
-$('export').addEventListener('click',()=>{const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='karryman-cartera-virtual.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1000)});
-render();
+$('size').addEventListener('click',calculateSize);
+$('importIbkr').addEventListener('click',async()=>{const file=$('ibkrFile').files[0];if(!file){$('importStatus').textContent='Selecciona un CSV.';return}try{const parsed=parseIBKR(await file.text());state.positions=parsed.positions;state.updated=new Date().toISOString();save()}catch(e){$('importStatus').textContent=e.message}});
+$('saveBalances').addEventListener('click',()=>{const e=Number($('ibkrEquity').value),c=Number($('ibkrCash').value);if(!(e>0&&c>=0)){$('importStatus').textContent='Patrimonio o efectivo no válido.';return}state.equity=e;state.cash=c;save()});
+const params=new URLSearchParams(location.search);
+if(params.get('source')==='aplus'){
+ const t=params.get('ticker')||'',e=Number(params.get('entry')),st=Number(params.get('stop'));
+ if(/^[A-Z][A-Z0-9.-]{0,9}$/.test(t)&&e>st&&st>0){$('ticker').value=t;$('price').value=e;$('stop').value=st}
+}
+render();if(params.get('source')==='aplus')calculateSize();
 </script></body></html>
