@@ -1684,5 +1684,455 @@
     "quarterly_revenue_growth_pct": null,
     "quarterly_eps_growth_pct": 246.7,
     "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "FOX": {
+    "checked_utc": "2026-11-05T01:18:13.478683+00:00",
+    "market_cap": 25991401472.0,
+    "revenue_growth_pct": 22.3,
+    "eps_ttm": 4.7,
+    "dividend_yield": 0.97,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 57.4,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "VSXY": {
+    "checked_utc": "2026-11-05T01:18:13.632978+00:00",
+    "market_cap": 8690291712.0,
+    "revenue_growth_pct": 10.4,
+    "eps_ttm": 4.48,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 1043.8,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "ATRC": {
+    "checked_utc": "2026-11-05T01:18:13.850962+00:00",
+    "market_cap": 3333268224.0,
+    "revenue_growth_pct": 12.8,
+    "eps_ttm": 0.21,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "GBDC": {
+    "checked_utc": "2026-11-05T01:18:14.171239+00:00",
+    "market_cap": 3396242688.0,
+    "revenue_growth_pct": -14.0,
+    "eps_ttm": 0.66,
+    "dividend_yield": 10.36,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -36.7,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "J": {
+    "checked_utc": "2026-11-05T01:18:14.331976+00:00",
+    "market_cap": 18905929728.0,
+    "revenue_growth_pct": 34.5,
+    "eps_ttm": 3.01,
+    "dividend_yield": 0.9,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -24.0,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "ANF": {
+    "checked_utc": "2026-11-05T01:18:14.490619+00:00",
+    "market_cap": 7260097024.0,
+    "revenue_growth_pct": 4.8,
+    "eps_ttm": 11.58,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 29.9,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "WSBC": {
+    "checked_utc": "2026-11-05T01:18:14.650574+00:00",
+    "market_cap": 3807729920.0,
+    "revenue_growth_pct": 1.8,
+    "eps_ttm": 3.51,
+    "dividend_yield": 3.91,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 7.1,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "AMCR": {
+    "checked_utc": "2026-11-05T01:18:14.822001+00:00",
+    "market_cap": 22404366336.0,
+    "revenue_growth_pct": 25.9,
+    "eps_ttm": 2.38,
+    "dividend_yield": 5.54,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "BIIB": {
+    "checked_utc": "2026-11-05T01:18:14.983582+00:00",
+    "market_cap": 37614333952.0,
+    "revenue_growth_pct": 10.6,
+    "eps_ttm": 2.31,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "SMWB": {
+    "checked_utc": "2026-11-05T01:18:15.187367+00:00",
+    "market_cap": 777471104.0,
+    "revenue_growth_pct": 8.8,
+    "eps_ttm": -0.25,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "ED": {
+    "checked_utc": "2026-11-05T01:18:15.345268+00:00",
+    "market_cap": 44490387456.0,
+    "revenue_growth_pct": 13.2,
+    "eps_ttm": 6.07,
+    "dividend_yield": 3.04,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 25.2,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "RLJ": {
+    "checked_utc": "2026-11-05T01:18:15.546440+00:00",
+    "market_cap": 1948027392.0,
+    "revenue_growth_pct": 5.6,
+    "eps_ttm": 0.0,
+    "dividend_yield": 4.77,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 9.1,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "ECL": {
+    "checked_utc": "2026-11-05T01:18:15.698402+00:00",
+    "market_cap": 88350154752.0,
+    "revenue_growth_pct": 12.7,
+    "eps_ttm": 7.35,
+    "dividend_yield": 0.96,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -5.8,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "MAS": {
+    "checked_utc": "2026-11-05T01:18:15.907942+00:00",
+    "market_cap": 16736214016.0,
+    "revenue_growth_pct": 2.6,
+    "eps_ttm": 4.61,
+    "dividend_yield": 1.56,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 21.7,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "MFC": {
+    "checked_utc": "2026-11-05T01:18:16.065581+00:00",
+    "market_cap": 75973632000.0,
+    "revenue_growth_pct": 10.7,
+    "eps_ttm": 2.67,
+    "dividend_yield": 3.04,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 16.4,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "MMM": {
+    "checked_utc": "2026-11-05T01:18:16.226146+00:00",
+    "market_cap": 100024360960.0,
+    "revenue_growth_pct": 1.0,
+    "eps_ttm": 6.7,
+    "dividend_yield": 1.76,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 64.6,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "FHI": {
+    "checked_utc": "2026-11-05T01:18:16.380779+00:00",
+    "market_cap": 4859463680.0,
+    "revenue_growth_pct": 8.1,
+    "eps_ttm": 5.53,
+    "dividend_yield": 2.45,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 7.5,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "VISN": {
+    "checked_utc": "2026-11-05T01:18:16.604274+00:00",
+    "market_cap": 1485234176.0,
+    "revenue_growth_pct": -1.4,
+    "eps_ttm": 0.19,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 828.3,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "EPR": {
+    "checked_utc": "2026-11-05T01:18:16.775060+00:00",
+    "market_cap": 4655546368.0,
+    "revenue_growth_pct": 11.5,
+    "eps_ttm": 3.55,
+    "dividend_yield": 6.25,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 50.4,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "PFS": {
+    "checked_utc": "2026-11-05T01:18:16.933966+00:00",
+    "market_cap": 3067479040.0,
+    "revenue_growth_pct": 8.7,
+    "eps_ttm": 2.38,
+    "dividend_yield": 4.15,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -3.6,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "GME": {
+    "checked_utc": "2026-11-05T01:18:17.097219+00:00",
+    "market_cap": 12683154432.0,
+    "revenue_growth_pct": -18.7,
+    "eps_ttm": 1.52,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 77.2,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "TTEK": {
+    "checked_utc": "2026-11-05T01:18:17.346813+00:00",
+    "market_cap": 10482458624.0,
+    "revenue_growth_pct": -3.9,
+    "eps_ttm": 1.66,
+    "dividend_yield": 0.73,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -3.7,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "EGP": {
+    "checked_utc": "2026-11-05T01:18:17.501044+00:00",
+    "market_cap": 10808454144.0,
+    "revenue_growth_pct": 9.5,
+    "eps_ttm": 5.9,
+    "dividend_yield": 3.5,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 17.1,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "PD": {
+    "checked_utc": "2026-11-05T01:18:17.652991+00:00",
+    "market_cap": 1337047808.0,
+    "revenue_growth_pct": 0.8,
+    "eps_ttm": 2.02,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -51.7,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "SPOT": {
+    "checked_utc": "2026-11-05T01:18:17.855022+00:00",
+    "market_cap": 129059487744.0,
+    "revenue_growth_pct": 16.3,
+    "eps_ttm": 16.41,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -42.4,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "UMBF": {
+    "checked_utc": "2026-11-05T01:18:18.387192+00:00",
+    "market_cap": 10520201216.0,
+    "revenue_growth_pct": 13.0,
+    "eps_ttm": 13.22,
+    "dividend_yield": 1.47,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 47.7,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "UL": {
+    "checked_utc": "2026-11-05T01:18:18.764596+00:00",
+    "market_cap": 144103325696.0,
+    "revenue_growth_pct": 0.5,
+    "eps_ttm": 4.95,
+    "dividend_yield": 3.22,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -5.6,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "VTR": {
+    "checked_utc": "2026-11-05T01:18:18.928903+00:00",
+    "market_cap": 47170744320.0,
+    "revenue_growth_pct": 21.5,
+    "eps_ttm": 0.52,
+    "dividend_yield": 2.39,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -1.0,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "AVPT": {
+    "checked_utc": "2026-11-05T01:18:19.107984+00:00",
+    "market_cap": 3575455488.0,
+    "revenue_growth_pct": 22.0,
+    "eps_ttm": 0.32,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 921.9,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "CAKE": {
+    "checked_utc": "2026-11-05T01:18:19.262361+00:00",
+    "market_cap": 5752816128.0,
+    "revenue_growth_pct": 13.9,
+    "eps_ttm": 4.22,
+    "dividend_yield": 1.09,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 92.2,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "LNG": {
+    "checked_utc": "2026-11-05T01:18:19.418966+00:00",
+    "market_cap": 59631628288.0,
+    "revenue_growth_pct": 39.9,
+    "eps_ttm": 14.05,
+    "dividend_yield": 0.8,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 11.5,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "MSFT": {
+    "checked_utc": "2026-11-05T01:18:19.574815+00:00",
+    "market_cap": 4127478775808.0,
+    "revenue_growth_pct": 18.8,
+    "eps_ttm": 19.16,
+    "dividend_yield": 0.75,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 32.0,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "CHPT": {
+    "checked_utc": "2026-11-05T01:18:19.778986+00:00",
+    "market_cap": 306362208.0,
+    "revenue_growth_pct": 17.7,
+    "eps_ttm": -7.16,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "BRZE": {
+    "checked_utc": "2026-11-05T01:18:19.986574+00:00",
+    "market_cap": 5236697088.0,
+    "revenue_growth_pct": 26.2,
+    "eps_ttm": -1.03,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "VNOM": {
+    "checked_utc": "2026-11-05T01:18:20.150624+00:00",
+    "market_cap": 14748541952.0,
+    "revenue_growth_pct": 65.4,
+    "eps_ttm": 1.26,
+    "dividend_yield": 4.53,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "GPN": {
+    "checked_utc": "2026-11-05T01:18:20.314053+00:00",
+    "market_cap": 25427179520.0,
+    "revenue_growth_pct": 68.6,
+    "eps_ttm": 2.13,
+    "dividend_yield": 1.02,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -94.6,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "SHOO": {
+    "checked_utc": "2026-11-05T01:18:20.471496+00:00",
+    "market_cap": 3437859840.0,
+    "revenue_growth_pct": 19.1,
+    "eps_ttm": 2.02,
+    "dividend_yield": 1.91,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "ARHS": {
+    "checked_utc": "2026-11-05T01:18:20.643347+00:00",
+    "market_cap": 1864035200.0,
+    "revenue_growth_pct": 7.4,
+    "eps_ttm": 0.5,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 13.1,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "CDNA": {
+    "checked_utc": "2026-11-05T01:18:20.797064+00:00",
+    "market_cap": 4511323648.0,
+    "revenue_growth_pct": 39.3,
+    "eps_ttm": 2.37,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 1051.8,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "BOX": {
+    "checked_utc": "2026-11-05T01:18:21.054363+00:00",
+    "market_cap": 6043693568.0,
+    "revenue_growth_pct": 9.2,
+    "eps_ttm": 0.69,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 43.0,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "AMPL": {
+    "checked_utc": "2026-11-05T01:18:21.257073+00:00",
+    "market_cap": 2147307264.0,
+    "revenue_growth_pct": 21.2,
+    "eps_ttm": -0.75,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "WK": {
+    "checked_utc": "2026-11-05T01:18:21.464348+00:00",
+    "market_cap": 4785857024.0,
+    "revenue_growth_pct": 18.6,
+    "eps_ttm": 0.84,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "BSY": {
+    "checked_utc": "2026-11-05T01:18:21.620151+00:00",
+    "market_cap": 13183333376.0,
+    "revenue_growth_pct": 12.8,
+    "eps_ttm": 0.91,
+    "dividend_yield": 0.66,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 11.5,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "APPN": {
+    "checked_utc": "2026-11-05T01:18:21.791669+00:00",
+    "market_cap": 3568486912.0,
+    "revenue_growth_pct": 19.1,
+    "eps_ttm": -0.14,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "AZTA": {
+    "checked_utc": "2026-11-05T01:18:21.949207+00:00",
+    "market_cap": 1714660480.0,
+    "revenue_growth_pct": 12.0,
+    "eps_ttm": -2.47,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
   }
 }
