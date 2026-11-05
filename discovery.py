@@ -89,6 +89,8 @@ def get_fundamentals(t,cache):
         result={'checked_utc':datetime.now(timezone.utc).isoformat(),'sector':info.get('sector') or None,'market_cap':cap,'revenue_growth_pct':round(100*growth,2) if growth is not None else None,'eps_ttm':eps,'dividend_yield':dividend,'quarterly_revenue_growth_pct':round(qgrowth*100,2) if qgrowth is not None else None,'quarterly_eps_growth_pct':round(egrowth*100,2) if egrowth is not None else None,'source':'Yahoo Finance info (indicative, not audited)'}
     except Exception as e:
         result={'checked_utc':datetime.now(timezone.utc).isoformat(),'sector':cached.get('sector') if cached else None,'market_cap':None,'revenue_growth_pct':None,'eps_ttm':None,'source':'unavailable','error':str(e)[:100]}
+    if not result.get('sector') and cached and cached.get('sector'):
+        result['sector']=cached['sector']
     cache[t]=result
     return result,True
 
@@ -146,7 +148,7 @@ def main():
         old=fundcache.get(t)
         fresh=False
         if old:
-            try:fresh=datetime.now(timezone.utc)-datetime.fromisoformat(old['checked_utc'])<timedelta(days=7)
+            try:fresh=(datetime.now(timezone.utc)-datetime.fromisoformat(old['checked_utc'])<timedelta(days=7) and bool(old.get('sector')))
             except (ValueError,KeyError,TypeError):pass
         if fresh:
             fund=old
