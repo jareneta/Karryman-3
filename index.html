@@ -12,13 +12,33 @@ const format=v=>v==null||!Number.isFinite(Number(v))?"—":Number(v).toLocaleStr
 const when=v=>v?String(v).slice(0,16).replace("T"," ")+" UTC":"sin fecha";
 async function fetchJson(path){const response=await fetch(path+"?v="+Date.now(),{cache:"no-store"});if(!response.ok)throw Error(path+": HTTP "+response.status);return response.json()}
 function fundamental(x){if(x.cap_pass===false||x.growth_pass===false||x.fundamental_status==="NO_CUMPLE")return "Descartada (filtro básico)";if(x.fundamental_status==="CUMPLE"||x.cap_pass===true&&x.growth_pass===true)return "Apta (filtros básicos)";return "Revisar (sin validar)"}
-function collect(d,s,f){const map=new Map();function put(x,rank,origin,reason,stamp){if(!x.ticker)return;const ticker=String(x.ticker).toUpperCase();const old=map.get(ticker);if(old&&old.rank<=rank)return;map.set(ticker,{ticker,rank,origin,reason,stamp,setup:String(x.setup||"—").replaceAll("_"," "),close:x.close,stop:x.stop_reference,session:x.last_session,fundamental:fundamental(x)})}
-for(const x of s?.candidates||[]){const verified=x.operable_a_plus===true&&x.technical_a_plus===true&&x.earnings_verified===true&&x.fundamental_status==="CUMPLE";const near=x.technical_a_plus===true||x.status==="PREPARANDO";put(x,verified?0:near?1:2,"Detector A+",verified?"Verificaciones registradas; comprobar vigencia":x.technical_a_plus?"A+ técnica; faltan resultados y riesgo":near?"Estructura en formación; falta cierre confirmado":"Sin entrada confirmada",when(s.generated_utc))}
-for(const x of f?.symbols||[]){put(x,x.status==="senal"?1:2,"Lista fija","Aviso preliminar, no entrada validada",when(f.generated_utc))}
-for(const x of d?.candidates||[]){put(x,x.category==="CONFIRMADA"?1:2,"Discovery","Filtros preliminares, no entrada operable",when(d.generated_utc))}
-return [...map.values()].sort((a,b)=>a.rank-b.rank||a.ticker.localeCompare(b.ticker))}
+function collect(d,s,f){
+const map=new Map();
+function put(x,rank,origin,reason,stamp,priority){
+ if(!x.ticker)return;
+ const ticker=String(x.ticker).toUpperCase();
+ const old=map.get(ticker);
+ if(old&&(old.rank<rank||old.rank===rank&&old.priority>=priority))return;
+ map.set(ticker,{ticker,rank,priority,origin,reason,stamp,setup:String(x.setup||"—").replaceAll("_"," "),close:x.close,stop:x.stop_reference,session:x.last_session,fundamental:fundamental(x)});
+}
+for(const x of s?.candidates||[]){
+ const verified=x.operable_a_plus===true&&x.technical_a_plus===true&&x.earnings_verified===true&&x.fundamental_status==="CUMPLE";
+ const technical=x.technical_a_plus===true;
+ const preparing=x.status==="PREPARANDO";
+ const rank=verified?0:technical?1:preparing?2:3;
+ const reason=verified?"Validaciones registradas; comprobar vigencia":technical?"A+ técnica: faltan resultados, comprobación de riesgo y aprobación":preparing?"Patrón en formación; falta confirmar entrada por cierre":"Solo vigilancia: todavía no cumple el patrón";
+ put(x,rank,"Detector A+",reason,when(s.generated_utc),4);
+}
+for(const x of f?.symbols||[]){
+ put(x,3,"Lista fija",x.status==="senal"?"Aviso preliminar; pendiente de validación A+":"Solo seguimiento",when(f.generated_utc),1);
+}
+for(const x of d?.candidates||[]){
+ put(x,3,"Discovery",x.category==="CONFIRMADA"?"Filtros iniciales superados, sin confirmación A+":"Candidata en vigilancia",when(d.generated_utc),2);
+}
+return [...map.values()].sort((a,b)=>a.rank-b.rank||b.priority-a.priority||a.ticker.localeCompare(b.ticker));
+}
 function append(parent,tag,value,cls){const e=document.createElement(tag);e.textContent=value;if(cls)e.className=cls;parent.append(e);return e}
-function render(items){const root=byId("cards");root.replaceChildren();const labels=["Entrada confirmada","Cerca de entrada · falta confirmar","Vigilancia · esperar"];for(let rank=0;rank<3;rank++){const subset=items.filter(x=>x.rank===rank);append(root,"h3",labels[rank]+" ("+subset.length+")");if(!subset.length){append(root,"p",rank===0?"No hay entradas completamente verificadas.":"Sin candidatas en esta categoría.","muted");continue}for(const x of subset.slice(0,20)){const card=append(root,"article","","card");const top=append(card,"div","","top");const a=append(top,"a",x.ticker);a.href="https://finviz.com/quote.ashx?t="+encodeURIComponent(x.ticker);a.target="_blank";a.rel="noopener";append(top,"span",rank===0?"VALIDADA":rank===1?"PENDIENTE":"ESPERAR","status");const grid=append(card,"div","","details");for(const pair of [["Patrón",x.setup],["Fundamentales",x.fundamental],["Cierre",format(x.close)+" $"],["Stop orientativo",format(x.stop)+" $"],["Sesión",x.session||"sin verificar"]]){const cell=append(grid,"div","");append(cell,"small",pair[0]);append(cell,"strong",pair[1])}append(card,"p",x.reason,"hint");append(card,"p",x.origin+" · "+x.stamp,"hint")}}}
+function render(items){const root=byId("cards");root.replaceChildren();const labels=["Entrada confirmada","A+ técnica · pendiente de validación","Preparando entrada","Vigilancia · esperar"];for(let rank=0;rank<4;rank++){const subset=items.filter(x=>x.rank===rank);append(root,"h3",labels[rank]+" ("+subset.length+")");if(!subset.length){append(root,"p",rank===0?"No hay entradas completamente verificadas.":"Sin candidatas en esta categoría.","muted");continue}for(const x of subset.slice(0,20)){const card=append(root,"article","","card");const top=append(card,"div","","top");const a=append(top,"a",x.ticker);a.href="https://finviz.com/quote.ashx?t="+encodeURIComponent(x.ticker);a.target="_blank";a.rel="noopener";append(top,"span",rank===0?"VALIDADA":rank===1?"A+ TÉCNICA":rank===2?"PREPARANDO":"ESPERAR","status");const grid=append(card,"div","","details");for(const pair of [["Patrón",x.setup],["Fundamentales",x.fundamental],["Cierre",format(x.close)+" $"],["Stop orientativo",format(x.stop)+" $"],["Sesión",x.session||"sin verificar"]]){const cell=append(grid,"div","");append(cell,"small",pair[0]);append(cell,"strong",pair[1])}append(card,"p",x.reason,"hint");append(card,"p",x.origin+" · "+x.stamp,"hint")}}}
 async function load(){byId("error").textContent="";const result=await Promise.allSettled(["data/discovery.json","data/setups.json","data/signals.json"].map(fetchJson));const data=result.map(r=>r.status==="fulfilled"?r.value:null);const items=collect(data[0],data[1],data[2]);render(items);byId("updated").textContent="Detector: "+when(data[1]?.generated_utc)+" · Discovery: "+when(data[0]?.generated_utc);byId("marketInfo").textContent="Universo: "+format(data[0]?.universe_size)+" · Revisadas: "+format(data[0]?.scanned_this_run)+" · A+ técnicas: "+format(data[1]?.technical_a_plus_count);byId("sourceInfo").textContent="Discovery: "+when(data[0]?.generated_utc)+" · Lista fija: "+when(data[2]?.generated_utc);if(result.every(r=>r.status==="rejected"))byId("error").textContent="No se pudieron descargar los datos. Reintenta más tarde."}
 function tab(show){byId("signals").hidden=show!=="signals";byId("market").hidden=show!=="market";byId("tabSignals").classList.toggle("active",show==="signals");byId("tabMarket").classList.toggle("active",show==="market")}
 byId("tabSignals").addEventListener("click",()=>tab("signals"));byId("tabMarket").addEventListener("click",()=>tab("market"));byId("refresh").addEventListener("click",()=>load().catch(e=>byId("error").textContent=e.message));load().catch(e=>byId("error").textContent=e.message);
