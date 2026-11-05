@@ -58,7 +58,7 @@ def main():
     data=json.loads(source.read_text(encoding="utf-8"))
     items=[evaluate(x) for x in data.get("candidates",[]) if x.get("ticker")]
     eligible=[x for x in items if x["stock_analysis_status"]!="DESCARTADA"]
-    eligible.sort(key=lambda x:(-x["passed"],-(number(x["technical_score"]) or 0),not x["finviz_complement"],x["ticker"]))
+    eligible.sort(key=lambda x:({"CONFIRMADA":0,"PREPARANDO":1,"VIGILANCIA":2}.get(x.get("category"),3),-x["passed"],-(number(x["technical_score"]) or 0),not x["finviz_complement"],x["ticker"]))
     payload={
         "schema_version":1,"generated_utc":datetime.now(timezone.utc).isoformat(),
         "discovery_generated_utc":data.get("generated_utc"),
@@ -66,11 +66,11 @@ def main():
         "universe_scanned_this_run":data.get("scanned_this_run"),
         "discovery_candidates":len(items),
         "primary_candidates":len(eligible),
-        "shortlist_count":min(40,len(eligible)),
-        "shortlist_limit":40,
+        "shortlist_count":min(80,len(eligible)),
+        "shortlist_limit":80,
         "complete_verified_matches":sum(x["stock_analysis_status"]=="CUMPLE" for x in eligible),
-        "notes":"No se ha reproducido todavía el screener completo de Stock Analysis. Solo se filtran candidatas Discovery. Los campos no disponibles se marcan pendientes; métricas de crecimiento pueden tener definiciones distintas a Stock Analysis; nunca se asumen cumplidos. Finviz solo desempata si hay coincidencia verificada; no se consulta automáticamente Finviz. Máximo 40 candidatas. No hay órdenes.",
-        "candidates":eligible[:40],
+        "notes":"No se ha reproducido todavía el screener completo de Stock Analysis. Solo se filtran candidatas Discovery. Los campos no disponibles se marcan pendientes; métricas de crecimiento pueden tener definiciones distintas a Stock Analysis; nunca se asumen cumplidos. Finviz solo desempata si hay coincidencia verificada; no se consulta automáticamente Finviz. Máximo 80 candidatas, priorizando roturas y patrones en formación. No hay órdenes.",
+        "candidates":eligible[:80],
         "orders_enabled":False,
     }
     (DATA/"screener.json").write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
