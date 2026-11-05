@@ -75,7 +75,7 @@ def get_fundamentals(t,cache):
     cached=cache.get(t)
     if cached:
         try:
-            if datetime.now(timezone.utc)-datetime.fromisoformat(cached['checked_utc'])<timedelta(days=7):return cached,False
+            if datetime.now(timezone.utc)-datetime.fromisoformat(cached['checked_utc'])<timedelta(days=7) and cached.get('sector'):return cached,False
         except (KeyError,ValueError):pass
     try:
         info=yf.Ticker(t).info
@@ -86,9 +86,9 @@ def get_fundamentals(t,cache):
         dividend=num(info.get('dividendYield'))
         qgrowth=num(info.get('revenueQuarterlyGrowth'))
         egrowth=num(info.get('earningsQuarterlyGrowth'))
-        result={'checked_utc':datetime.now(timezone.utc).isoformat(),'market_cap':cap,'revenue_growth_pct':round(100*growth,2) if growth is not None else None,'eps_ttm':eps,'dividend_yield':dividend,'quarterly_revenue_growth_pct':round(qgrowth*100,2) if qgrowth is not None else None,'quarterly_eps_growth_pct':round(egrowth*100,2) if egrowth is not None else None,'source':'Yahoo Finance info (indicative, not audited)'}
+        result={'checked_utc':datetime.now(timezone.utc).isoformat(),'sector':info.get('sector') or None,'market_cap':cap,'revenue_growth_pct':round(100*growth,2) if growth is not None else None,'eps_ttm':eps,'dividend_yield':dividend,'quarterly_revenue_growth_pct':round(qgrowth*100,2) if qgrowth is not None else None,'quarterly_eps_growth_pct':round(egrowth*100,2) if egrowth is not None else None,'source':'Yahoo Finance info (indicative, not audited)'}
     except Exception as e:
-        result={'checked_utc':datetime.now(timezone.utc).isoformat(),'market_cap':None,'revenue_growth_pct':None,'eps_ttm':None,'source':'unavailable','error':str(e)[:100]}
+        result={'checked_utc':datetime.now(timezone.utc).isoformat(),'sector':cached.get('sector') if cached else None,'market_cap':None,'revenue_growth_pct':None,'eps_ttm':None,'source':'unavailable','error':str(e)[:100]}
     cache[t]=result
     return result,True
 
@@ -97,7 +97,7 @@ def enrich(item,fund):
     cap_ok=None if cap is None else cap>=300e6
     growth_ok=None if growth is None else growth>10
     finviz_eps=None if eps is None else eps>-1  # Not the Finviz quarterly EPS growth filter.
-    item.update({'dividend_yield':fund.get('dividend_yield'),'quarterly_revenue_growth_pct':fund.get('quarterly_revenue_growth_pct'),'quarterly_eps_growth_pct':fund.get('quarterly_eps_growth_pct'),'market_cap':cap,'revenue_growth_pct':growth,'eps_ttm':eps,'fundamentals_checked_utc':fund.get('checked_utc'),
+    item.update({'sector':fund.get('sector') or item.get('sector'),'dividend_yield':fund.get('dividend_yield'),'quarterly_revenue_growth_pct':fund.get('quarterly_revenue_growth_pct'),'quarterly_eps_growth_pct':fund.get('quarterly_eps_growth_pct'),'market_cap':cap,'revenue_growth_pct':growth,'eps_ttm':eps,'fundamentals_checked_utc':fund.get('checked_utc'),
         'cap_pass':cap_ok,'growth_pass':growth_ok,'fundamental_status':'NO_VERIFICADO' if cap_ok is None or growth_ok is None else 'CUMPLE' if cap_ok and growth_ok else 'NO_CUMPLE',
         'finviz_proxy':item.get('finviz_technical',False) and cap_ok is True and growth_ok is True,
         'sa_proxy':item.get('sa_technical',False) and cap_ok is True and growth_ok is True and finviz_eps is True,
