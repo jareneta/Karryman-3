@@ -85,7 +85,8 @@ def verify_candidate(x):
         and x.get('revenue_growth_pct') is not None and x['revenue_growth_pct']>10)
     checks['risk_structure'] = bool(x.get('risk_pct') is not None and 0<x['risk_pct']<=12)
     checks['earnings_clear'] = False
-    checks['business_quality'] = False
+    # Calidad empresarial informativa: la evaluación final corresponde al usuario.
+    checks['business_quality'] = None
     checks['position_size'] = False
     checks['manual_approval'] = False
     notes={}
@@ -96,8 +97,8 @@ def verify_candidate(x):
             cashflow=info.get('freeCashflow')
             margin=info.get('operatingMargins')
             if all(isinstance(z,(int,float)) and math.isfinite(z) for z in (debt,cashflow,margin)):
-                checks['business_quality']=bool(debt<=150 and cashflow>0 and margin>0)
-                notes['business_quality']='Datos Yahoo: deuda/capital, flujo de caja libre y margen operativo; umbrales orientativos, no auditoría'
+                checks['business_quality']=None
+                notes['business_quality']={'debt_to_equity':debt,'free_cashflow':cashflow,'operating_margin':margin,'review':'Revisión manual; no es filtro excluyente'}
             else:
                 notes['business_quality']='Datos financieros incompletos'
             calendar=yf.Ticker(x['ticker']).calendar
@@ -120,16 +121,17 @@ def verify_candidate(x):
         except Exception as exc:
             notes['provider_error']=str(exc)[:120]
     pending_names={'technical_close':'Confirmación técnica y cierre','fundamental_basics':'Fundamentales básicos',
-        'risk_structure':'Distancia al stop <=12%','earnings_clear':'Resultados: fecha verificada y más de 14 días',
-        'business_quality':'Calidad del negocio: deuda, margen y flujo de caja',
+        'risk_structure':'Distancia al stop <=12%',
+        
         'position_size':'Tamaño de posición con capital, divisa y exposición actual',
         'manual_approval':'Aprobación manual en IBKR'}
     x['validation_checks']=checks
     x['validation_notes']=notes
     x['pending_checks']=[name for key,name in pending_names.items() if not checks[key]]
+    x['risk_warnings']=[] if checks['earnings_clear'] else ['Revisar manualmente fecha de resultados antes de comprar']
     x['operable_a_plus']=False  # No automatizar aprobación humana ni afirmar conexión con IBKR.
     x['pretrade_checks_passed']=all(checks[k] for k in ('technical_close','fundamental_basics',
-                                                       'risk_structure','earnings_clear','business_quality'))
+                                                       'risk_structure'))
     return x
 
 def main():
