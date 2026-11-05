@@ -132,25 +132,46 @@ def main():
     if processed<max(1,len(selected)//2):raise RuntimeError(f'Datos insuficientes: {processed}/{len(selected)}; se conservan los resultados anteriores')
     # Candidates that have been rescanned but no longer qualify are removed.
     for t in selected:cache.pop(t,None)
-    lookups=0
-    for item in sorted(found,key=lambda x:-x['score_preliminar']):
-        t=item['ticker'];old=fundcache.get(t)
+    # Fundamental lookups go first to the nearest technical opportunities,
+    # including candidates from previous rotating batches. Never claim that
+    # an old cached fundamental value is current when a refresh fails.
+    def priority(x):
+        return ({'CONFIRMADA':0,'PREPARANDO':1,'VIGILANCIA':2}.get(x.get('category'),3),
+                -(x.get('score_preliminar') or 0))
+    current={x['ticker']:x for x in found}
+    candidates_to_check={**cache,**current}
+    lookups=0;fund_priority_count=0
+    for item in sorted(candidates_to_check.values(),key=priority):
+        t=item['ticker']
+        old=fundcache.get(t)
         fresh=False
         if old:
             try:fresh=datetime.now(timezone.utc)-datetime.fromisoformat(old['checked_utc'])<timedelta(days=7)
-            except (ValueError,KeyError):pass
-        if fresh:fund=old
+            except (ValueError,KeyError,TypeError):pass
+        if fresh:
+            fund=old
         elif lookups<FUND_LIMIT:
-            fund,did=get_fundamentals(t,fundcache);lookups+=int(did)
-        else:fund={'market_cap':None,'revenue_growth_pct':None,'eps_ttm':None,'source':'pending rate limit'}
+            fund,did=get_fundamentals(t,fundcache)
+            lookups+=int(did)
+            if did and item.get('category') in ('CONFIRMADA','PREPARANDO'):
+                fund_priority_count+=1
+        elif old:
+            # Preserve last known values, but keep their original checked timestamp.
+            fund=old
+        else:
+            fund={'market_cap':None,'revenue_growth_pct':None,'eps_ttm':None,
+                  'source':'pending rate limit','checked_utc':None}
         enrich(item,fund)
-        if item['fundamental_status']!='NO_CUMPLE':cache[t]=item
+        if item['fundamental_status']!='NO_CUMPLE':
+            cache[t]=item
+        else:
+            cache.pop(t,None)
     # Remove stale cached entries older than 21 days; a past signal must not look current.
     cutoff=(datetime.now(timezone.utc)-timedelta(days=10)).date().isoformat()
     cache={t:x for t,x in cache.items() if x.get('last_session','')>=cutoff and x.get('fundamental_status')!='NO_CUMPLE'}
     rank={'CONFIRMADA':0,'PREPARANDO':1,'VIGILANCIA':2}
     candidates=sorted(cache.values(),key=lambda x:(rank.get(x['category'],3),-x['score_preliminar']))[:500]
-    payload={'schema_version':3,'generated_utc':datetime.now(timezone.utc).isoformat(),'source':'Nasdaq Trader + Yahoo Finance (yfinance)','universe_size':len(symbols),'scanned_this_run':len(selected),'processed':processed,'errors_count':len(errors),'errors_sample':errors[:12],'filter_counts':counts,'fundamental_lookups':lookups,'watchlist_count':len(candidates),'scan_policy':'Rotación de hasta 400 símbolos por ejecución, dos veces al día de lunes a viernes; universo de cotizadas completo, lista de candidatas reducida por filtros','selection_method':'Equilibrado: precio >=5, volumen medio >=500k, MA50>MA200, precio>MA50, distancia máximo 52S <=15%; capitalización >=300M y crecimiento ingresos >10% comprobados cuando disponibles','limitations':'Exploración rotativa, NO barrido completo. Perfiles Finviz/SA son aproximaciones técnicas, no réplicas exactas. EPS trimestral y crecimiento anual no comprobados. Sin validación de earnings, fortaleza relativa ni backtest.','candidates':candidates}
+    payload={'schema_version':3,'generated_utc':datetime.now(timezone.utc).isoformat(),'source':'Nasdaq Trader + Yahoo Finance (yfinance)','universe_size':len(symbols),'scanned_this_run':len(selected),'processed':processed,'errors_count':len(errors),'errors_sample':errors[:12],'filter_counts':counts,'fundamental_lookups':lookups,'fundamental_priority_lookups':fund_priority_count,'watchlist_count':len(candidates),'scan_policy':'Rotación de hasta 400 símbolos por ejecución, dos veces al día de lunes a viernes; universo de cotizadas completo, lista de candidatas reducida por filtros','selection_method':'Equilibrado: precio >=5, volumen medio >=500k, MA50>MA200, precio>MA50, distancia máximo 52S <=15%; capitalización >=300M y crecimiento ingresos >10% comprobados cuando disponibles','fundamental_priority_policy':'Primero rupturas preliminares y patrones en preparación, incluidos los guardados de barridos anteriores. Datos anteriores conservan su fecha de comprobación.','limitations':'Exploración rotativa, NO barrido completo. Perfiles Finviz/SA son aproximaciones técnicas, no réplicas exactas. EPS trimestral y crecimiento anual no comprobados. Sin validación de earnings, fortaleza relativa ni backtest.','candidates':candidates}
     # Write results before advancing state; state only advances after a successful scan.
     OUT.write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding='utf-8')
     CACHE.write_text(json.dumps({'by_ticker':{x['ticker']:x for x in candidates}},ensure_ascii=False,indent=2),encoding='utf-8')
