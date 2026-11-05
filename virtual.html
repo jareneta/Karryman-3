@@ -1,6 +1,6 @@
 <!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f7fb"><title>Karryman 4.0 · Cartera virtual</title><style>
 *{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#17263b;font:15px system-ui,sans-serif}main{max-width:950px;margin:auto;padding:18px 14px 65px}a{color:#1559a6}header{display:flex;gap:14px;align-items:center;background:linear-gradient(120deg,#fff,#e9f2ff);padding:14px;border:1px solid #d6dfeb;border-radius:17px}header img{width:62px;height:62px;border-radius:13px}h1{font-size:24px;margin:2px 0}h2{font-size:19px;margin:0 0 12px}.muted{color:#65758a;font-size:13px;line-height:1.5}.panel{background:#fff;border:1px solid #d6dfeb;border-radius:15px;padding:16px;margin:14px 0}.nav{display:flex;gap:8px;flex-wrap:wrap;margin:15px 0}.nav a{padding:11px 14px;border:1px solid #d6dfeb;border-radius:10px;text-decoration:none;background:#fff}.nav .active{background:#1559a6;color:#fff}.stats{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.stat{background:#eef3f9;border-radius:11px;padding:13px}.stat strong{display:block;font-size:22px;margin-top:5px}.stat span{font-size:12px;color:#52647a}label{display:block;font-size:13px;font-weight:600;margin:8px 0}input,button{font:inherit;border:1px solid #b8c8da;border-radius:10px;padding:11px;background:#fff;color:#17263b;max-width:100%}input{width:100%;margin-top:5px}button{cursor:pointer}button.primary{background:#1559a6;color:#fff;border-color:#1559a6}.fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.actions{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}.position{border:1px solid #d6dfeb;border-left:4px solid #1559a6;border-radius:12px;padding:13px;margin:10px 0;background:#fcfdff}.position .top{display:flex;justify-content:space-between;gap:8px;align-items:center}.position .top strong{font-size:18px}.position .numbers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin-top:12px}.position .numbers span{display:block;font-size:12px;color:#65758a}.positive{color:#137447}.negative{color:#b42318}.message{min-height:20px}.small{font-size:12px}button:disabled{opacity:.5} @media(min-width:700px){.stats{grid-template-columns:repeat(4,1fr)}.fields{grid-template-columns:repeat(4,1fr)}}
-</style></head><body><main><header><img src="karryman-icon.svg" alt="Logo Karryman"><div><div class="muted">KARRYMAN · SEGUIMIENTO IBKR · SIN ÓRDENES</div><h1>Cartera IBKR · Riesgo 4.0</h1><div class="muted">Cartera importada y calculadora de entradas</div></div></header><nav class="nav"><a href="./">Oportunidades</a><a href="virtual.html" class="active" aria-current="page">Cartera virtual</a></nav><section class="panel"><h2>Actualizar cartera IBKR</h2><p class="muted">Importa un CSV de posiciones y saldos exportado desde IBKR. Los datos permanecen en este navegador; no se envían a ningún servidor. No hay conexión automática ni órdenes reales.</p><div class="actions"><label>Seleccionar CSV de IBKR<input id="ibkrFile" type="file" accept=".csv,text/csv"></label><button id="importIbkr" class="primary">Actualizar con IBKR</button></div><p id="importStatus" class="muted" role="status">Sin importar.</p><div class="stats"><div class="stat"><span>Patrimonio neto</span><strong id="equity">—</strong></div><div class="stat"><span>Efectivo disponible</span><strong id="cashValue">—</strong></div><div class="stat"><span>Valor posiciones</span><strong id="invested">—</strong></div><div class="stat"><span>Riesgo abierto estimado</span><strong id="totalPnl">—</strong></div></div><p class="muted">Importes en USD. Para divisas distintas se necesita conversión a USD. Revisa siempre el patrimonio y el efectivo antes de calcular entradas.</p><div class="fields"><label>Patrimonio neto USD<input id="ibkrEquity" type="number" min="0" step="any"></label><label>Efectivo disponible USD<input id="ibkrCash" type="number" min="0" step="any"></label></div><button id="saveBalances">Guardar saldos verificados</button></section><section class="panel"><h2>Calcular nueva entrada</h2><div class="fields"><label>Ticker<input id="ticker" maxlength="10" placeholder="RKLB" autocapitalize="characters"></label><label>Cantidad<input id="qty" type="number" min="1" step="1" placeholder="10"></label><label>Precio de ejecución $<input id="price" type="number" min="0.0001" step="any" placeholder="25"></label><label>Stop de seguimiento $<input id="stop" type="number" min="0" step="any" placeholder="22"></label></div><div class="panel" style="background:#eef3f9"><strong>Calculadora de riesgo 1% y peso</strong><p id="riskDetails" class="muted">Introduce entrada y stop para calcular acciones.</p><button id="size" type="button">Calcular acciones</button></div><p id="message" class="message muted" role="status">Calculadora de propuestas: no ejecuta compras ni modifica posiciones importadas.</p></section><section class="panel"><h2>Posiciones IBKR</h2><p class="muted">El stop se guarda localmente y no se envía a IBKR. El riesgo es una estimación, no una pérdida máxima garantizada.</p><div id="positions"></div></section></main><script>
+</style></head><body><main><header><img src="karryman-icon.svg" alt="Logo Karryman"><div><div class="muted">KARRYMAN · SEGUIMIENTO IBKR · SIN ÓRDENES</div><h1>Cartera IBKR · Riesgo 4.0</h1><div class="muted">Cartera importada y calculadora de entradas</div></div></header><nav class="nav"><a href="./">Oportunidades</a><a href="virtual.html" class="active" aria-current="page">Cartera virtual</a></nav><section class="panel"><h2>Actualizar cartera IBKR</h2><p class="muted">Importa un CSV de posiciones y saldos exportado desde IBKR. Los datos permanecen en este navegador; no se envían a ningún servidor. No hay conexión automática ni órdenes reales.</p><div class="actions"><label>Seleccionar CSV de IBKR<input id="ibkrFile" type="file" accept=".csv,text/csv"></label><button id="importIbkr" class="primary">Actualizar con IBKR</button></div><p id="importStatus" class="muted" role="status">Sin importar.</p><div class="stats"><div class="stat"><span>Patrimonio neto</span><strong id="equity">—</strong></div><div class="stat"><span>Efectivo disponible</span><strong id="cashValue">—</strong></div><div class="stat"><span>Valor posiciones</span><strong id="invested">—</strong></div><div class="stat"><span>Riesgo abierto estimado</span><strong id="totalPnl">—</strong></div></div><p class="muted">El informe IBKR puede estar en EUR u otra moneda base. Los cálculos de tamaño en USD solo son válidos cuando patrimonio y efectivo están convertidos a USD. Los saldos negativos bloquean nuevas compras. Comprueba la fecha del informe.</p><div class="fields"><label>Patrimonio neto USD<input id="ibkrEquity" type="number" min="0" step="any"></label><label>Efectivo disponible USD<input id="ibkrCash" type="number" min="0" step="any"></label></div><button id="saveBalances">Guardar saldos verificados</button></section><section class="panel"><h2>Calcular nueva entrada</h2><div class="fields"><label>Ticker<input id="ticker" maxlength="10" placeholder="RKLB" autocapitalize="characters"></label><label>Cantidad<input id="qty" type="number" min="1" step="1" placeholder="10"></label><label>Precio de ejecución $<input id="price" type="number" min="0.0001" step="any" placeholder="25"></label><label>Stop de seguimiento $<input id="stop" type="number" min="0" step="any" placeholder="22"></label></div><div class="panel" style="background:#eef3f9"><strong>Calculadora de riesgo 1% y peso</strong><p id="riskDetails" class="muted">Introduce entrada y stop para calcular acciones.</p><button id="size" type="button">Calcular acciones</button></div><p id="message" class="message muted" role="status">Calculadora de propuestas: no ejecuta compras ni modifica posiciones importadas.</p></section><section class="panel"><h2>Posiciones IBKR</h2><p class="muted">El stop se guarda localmente y no se envía a IBKR. El riesgo es una estimación, no una pérdida máxima garantizada.</p><div id="positions"></div></section></main><script>
 'use strict';
 const KEY='karryman_ibkr_import_v1', $=id=>document.getElementById(id);
 const fmt=n=>Number.isFinite(n)?new Intl.NumberFormat('es-ES',{style:'currency',currency:'USD'}).format(n):'—';
@@ -19,32 +19,50 @@ function csvRows(text){
 const numeric=x=>{const t=String(x??'').replace(/[$€\s]/g,'').replace(/,/g,'');return t===''?NaN:Number(t)};
 const normalize=x=>String(x||'').toLowerCase().replace(/[^a-z0-9]/g,'');
 function parseIBKR(text){
- const rows=csvRows(text.replace(/^\uFEFF/,''));let positions=[],equity=NaN,cash=NaN;
- for(let j=0;j<rows.length;j++){
-  const row=rows[j],header=row.map(normalize);
-  const col=(names)=>header.findIndex(h=>names.some(n=>h===n));
-  const sym=col(['symbol','ticker','underlyingsymbol']),qty=col(['quantity','position','qty']),price=col(['markprice','marketprice','lastprice','closeprice','price']),avg=col(['costbasisprice','averageprice','avgprice','averagecost','costprice']),currency=col(['currency','currencyprimary']);
-  if(sym>=0&&qty>=0&&price>=0){
-   for(let k=j+1;k<rows.length;k++){const v=rows[k];if(v[0]==='Header'||v[0]==='SubTotal'||v[0]==='Total')continue;
-    const ticker=String(v[sym]||'').trim().toUpperCase(),n=numeric(v[qty]),last=numeric(v[price]),cost=avg>=0?numeric(v[avg]):last,ccy=currency>=0?String(v[currency]||'USD').toUpperCase():'USD';
-    if(!ticker||!Number.isFinite(n)||n<=0||!(last>0)||!Number.isFinite(cost))continue;
-    if(ccy!=='USD')continue;
-    if(!/^[A-Z0-9.\-]{1,15}$/.test(ticker))continue;
-    positions.push({ticker,qty:n,last,avg:cost,stop:null});
-   }break
+ const rows=csvRows(text.replace(/^\uFEFF/,''));
+ let positions=[],equity=NaN,cash=NaN,period='',baseCurrency='USD';
+ for(const row of rows){
+  if(row[0]==='Statement'&&row[1]==='Data'&&row[2]==='Period')period=row[3]||'';
+  if(row[0]==='Información sobre la cuenta'&&row[1]==='Data'&&/divisa base/i.test(row[2]||''))baseCurrency=row[3]||'USD';
+  if(row[0]==='Valor liquidativo'&&row[1]==='Data'&&row[2]==='Total'&&row.length>=7)equity=numeric(row[6]);
+  if(row[0]==='Informe de efectivo'&&row[1]==='Data'&&row[2]==='Efectivo final'&&row[3]==='Resumen de la divisa base')cash=numeric(row[4]);
+ }
+ const header=rows.find(row=>row[0]==='Posiciones abiertas'&&row[1]==='Header');
+ if(header){
+  const ix=name=>header.findIndex(v=>normalize(v)===normalize(name));
+  const sym=ix('Símbolo'),qty=ix('Cantidad'),avg=ix('Precio de coste'),last=ix('Precio de cierre'),ccy=ix('Divisa'),kind=ix('Categoría de activo');
+  for(const row of rows){
+   if(row[0]!=='Posiciones abiertas'||row[1]!=='Data')continue;
+   const ticker=String(row[sym]||'').trim().toUpperCase(),n=numeric(row[qty]),p=numeric(row[last]),cost=numeric(row[avg]);
+   if(!/^[A-Z0-9.\-]{1,15}$/.test(ticker)||!(n>0&&p>0)||!Number.isFinite(cost))continue;
+   if(String(row[ccy]||'').toUpperCase()!=='USD'||!/^acciones$/i.test(String(row[kind]||'')))continue;
+   positions.push({ticker,qty:n,last:p,avg:cost,stop:null});
+  }
+ }else{
+  for(let j=0;j<rows.length;j++){
+   const row=rows[j],h=row.map(normalize);
+   const col=names=>h.findIndex(x=>names.includes(x));
+   const sym=col(['symbol','ticker']),qty=col(['quantity','position','qty']),price=col(['markprice','marketprice','lastprice','closeprice']),avg=col(['costbasisprice','averageprice','avgprice','averagecost']),ccy=col(['currency']);
+   if(sym<0||qty<0||price<0)continue;
+   for(let k=j+1;k<rows.length;k++){
+    const v=rows[k],ticker=String(v[sym]||'').trim().toUpperCase(),n=numeric(v[qty]),p=numeric(v[price]),cost=avg>=0?numeric(v[avg]):p;
+    if(!/^[A-Z0-9.\-]{1,15}$/.test(ticker)||!(n>0&&p>0)||!Number.isFinite(cost))continue;
+    if(ccy>=0&&String(v[ccy]||'USD').toUpperCase()!=='USD')continue;
+    positions.push({ticker,qty:n,last:p,avg:cost,stop:null});
+   }break;
   }
  }
- if(!positions.length)throw Error('No se reconocieron posiciones. Exporta un CSV con columnas Symbol, Quantity, Market Price y Average Price. Solo se admiten posiciones largas en USD.');
- const existing=new Map(state.positions.map(p=>[p.ticker,p]));
- positions=positions.map(p=>({...p,stop:existing.get(p.ticker)?.stop??null}));
- return {positions,equity,cash};
+ if(!positions.length)throw Error('No se reconocieron posiciones largas en USD en este informe.');
+ const old=new Map(state.positions.map(p=>[p.ticker,p]));
+ positions=positions.map(p=>({...p,stop:old.get(p.ticker)?.stop??null}));
+ return {positions,equity,cash,period,baseCurrency};
 }
 function calculateSize(){
  const entry=Number($('price').value),stop=Number($('stop').value),equity=state.equity,cash=state.cash;
- if(!(equity>0&&cash>=0)){$('riskDetails').textContent='Verifica patrimonio y efectivo IBKR primero.';return}
+ if(!(equity>0&&cash>0)){$('riskDetails').textContent='Verifica patrimonio y efectivo IBKR primero.';return}
  if(!(entry>stop&&stop>0)){$('riskDetails').textContent='La entrada debe superar al stop y ambos ser positivos.';return}
  const budget=equity*.01,openRisk=state.positions.reduce((a,p)=>a+(p.stop>0?Math.max(0,p.last-p.stop)*p.qty:0),0);
- const qty=Math.max(0,Math.min(Math.floor(budget/(entry-stop)),Math.floor(cash/entry)));
+ const qty=Math.max(0,Math.min(Math.floor(budget/(entry-stop)),Math.floor(Math.max(0,cash)/entry)));
  $('qty').value=qty||'';
  $('riskDetails').textContent='Riesgo por acción: '+fmt(entry-stop)+' · 1% patrimonio: '+fmt(budget)+' · Tamaño: '+qty+' acciones · Importe: '+fmt(qty*entry)+' · Peso: '+(100*qty*entry/equity).toFixed(2)+'% · Riesgo entrada: '+fmt(qty*(entry-stop))+' ('+(100*qty*(entry-stop)/equity).toFixed(2)+'%) · Riesgo abierto con stops registrados: '+fmt(openRisk)+' · Riesgo conjunto estimado: '+fmt(openRisk+qty*(entry-stop))+'. Sin margen, comisiones ni gaps.';
 }
@@ -54,7 +72,7 @@ function render(){
  const risk=state.positions.reduce((a,p)=>a+(p.stop>0?Math.max(0,p.last-p.stop)*p.qty:0),0);
  $('equity').textContent=state.equity>0?fmt(state.equity):'Sin verificar';
  $('cashValue').textContent=fmt(state.cash);$('invested').textContent=fmt(invested);$('totalPnl').textContent=fmt(risk);
- $('importStatus').textContent=state.updated?'Última importación: '+new Date(state.updated).toLocaleString('es-ES')+' · '+state.positions.length+' posiciones USD. Verifica saldos.':'Sin importar.';
+ $('importStatus').textContent=state.updated?'Última importación: '+new Date(state.updated).toLocaleString('es-ES')+' · '+state.positions.length+' posiciones USD. Período: '+(state.period||'no identificado')+' · Moneda base: '+(state.baseCurrency||'no identificada')+'. Informe histórico; verifica saldos.':'Sin importar.';
  const root=$('positions');root.replaceChildren();
  if(!state.positions.length){const p=document.createElement('p');p.textContent='Sin posiciones importadas.';root.append(p)}
  for(const p of state.positions){
@@ -65,7 +83,7 @@ function render(){
  }
 }
 $('size').addEventListener('click',calculateSize);
-$('importIbkr').addEventListener('click',async()=>{const file=$('ibkrFile').files[0];if(!file){$('importStatus').textContent='Selecciona un CSV.';return}try{const parsed=parseIBKR(await file.text());state.positions=parsed.positions;state.updated=new Date().toISOString();save()}catch(e){$('importStatus').textContent=e.message}});
+$('importIbkr').addEventListener('click',async()=>{const file=$('ibkrFile').files[0];if(!file){$('importStatus').textContent='Selecciona un CSV.';return}try{const parsed=parseIBKR(await file.text());state.positions=parsed.positions;state.updated=new Date().toISOString();state.period=parsed.period;state.baseCurrency=parsed.baseCurrency;if(Number.isFinite(parsed.equity)&&parsed.equity>0)state.equity=parsed.equity;if(Number.isFinite(parsed.cash))state.cash=parsed.cash;save()}catch(e){$('importStatus').textContent=e.message}});
 $('saveBalances').addEventListener('click',()=>{const e=Number($('ibkrEquity').value),c=Number($('ibkrCash').value);if(!(e>0&&c>=0)){$('importStatus').textContent='Patrimonio o efectivo no válido.';return}state.equity=e;state.cash=c;save()});
 const params=new URLSearchParams(location.search);
 if(params.get('source')==='aplus'){
