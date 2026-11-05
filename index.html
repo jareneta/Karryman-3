@@ -1,45 +1,90 @@
 <!doctype html>
 <html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0b1320"><title>Karryman 4.0</title><link rel="manifest" href="manifest.webmanifest"><style>
-*{box-sizing:border-box}body{margin:0;background:#0b1320;color:#e7edf6;font:15px system-ui,sans-serif}main{max-width:900px;margin:auto;padding:18px 15px 80px}h1{margin:3px 0 16px;font-size:25px}h2{font-size:20px}h3{font-size:17px;margin:22px 0 8px}p{line-height:1.5}.muted,small{color:#aebed1}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;position:sticky;top:0;background:#0b1320;padding:8px 0}.tabs button,.btn{padding:13px;border:1px solid #52647a;border-radius:11px;background:#1a2b40;color:#e7edf6;font:inherit}.tabs button.active{background:#315985}.panel{background:#182538;border:1px solid #34445b;border-radius:16px;padding:17px;margin:14px 0}.card{background:#22334a;border:1px solid #34445b;border-radius:12px;padding:14px;margin:9px 0}.top{display:flex;justify-content:space-between;gap:10px;align-items:center}.top a{font-size:19px;font-weight:700;color:#86baff}.status{font-size:12px;color:#ffd08a}.details{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.details small{display:block;font-size:11px}.details strong{display:block;margin-top:3px;overflow-wrap:anywhere}.hint{font-size:12px;color:#aebed1}.count{font-size:13px;color:#aebed1}.notice{font-size:13px;color:#aebed1}button{cursor:pointer}section[hidden]{display:none}a{color:#86baff}details{margin:14px 0}summary{cursor:pointer}#error{color:#ffaaaa}
-</style></head><body><main><small>KARRYMAN · SWING TRADING · SIN ÓRDENES REALES</small><h1>Karryman 4.0</h1><nav class="tabs"><button id="tabSignals" class="active" type="button">Señales</button><button id="tabMarket" type="button">Mercado</button></nav>
-<section id="signals"><div class="panel"><h2>Oportunidades</h2><p class="muted">Prioridad: A+ técnicas, después patrones próximos a confirmar. Las candidatas se ordenan por fortaleza técnica dentro de cada grupo.</p><button id="refresh" class="btn" type="button">↻ Consultar datos publicados</button><p id="updated" class="notice">Cargando…</p><p id="error" role="alert"></p><div id="cards">Cargando señales…</div></div></section>
-<section id="market" hidden><div class="panel"><h2>Estado del mercado</h2><p id="marketInfo">Cargando…</p><p id="sourceInfo" class="hint"></p><details><summary>Herramientas avanzadas</summary><p><a href="discovery.html">Discovery</a> · <a href="setups.html">Detector A+</a> · <a href="review.html">Revisión semanal</a></p></details></div></section>
-<p class="hint">Fuentes: archivos publicados por GitHub Actions. Datos potencialmente retrasados. Los avisos preliminares no son órdenes ni recomendaciones de compra.</p></main>
+*{box-sizing:border-box}body{margin:0;background:#0b1320;color:#e7edf6;font:15px system-ui,sans-serif}main{max-width:900px;margin:auto;padding:18px 15px 80px}h1{margin:3px 0 16px;font-size:25px}h2{font-size:20px}h3{font-size:17px;margin:22px 0 8px}p{line-height:1.5}.muted,small{color:#aebed1}.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:12px 0;position:sticky;top:0;background:#0b1320;padding:8px 0}.tabs button,.btn{padding:13px;border:1px solid #52647a;border-radius:11px;background:#1a2b40;color:#e7edf6;font:inherit}.tabs button.active{background:#315985}.panel{background:#182538;border:1px solid #34445b;border-radius:16px;padding:17px;margin:14px 0}.card{background:#22334a;border:1px solid #34445b;border-radius:12px;padding:14px;margin:9px 0}.top{display:flex;justify-content:space-between;gap:10px;align-items:center}.top a{font-size:19px;font-weight:700;color:#86baff}.status{font-size:12px;color:#ffd08a}.details{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}.details small{display:block;font-size:11px}.details strong{display:block;margin-top:3px;overflow-wrap:anywhere}.hint{font-size:12px;color:#aebed1}.count{font-size:13px;color:#aebed1}.notice{font-size:13px;color:#aebed1}.compact{padding:12px}.compact .details{display:none}.compact .hint{margin:6px 0}.pill{border-radius:8px;padding:5px 8px;background:#30435a;font-size:12px}.pill.ok{background:#185b45}.pill.wait{background:#594729}.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.summary div{background:#22334a;border-radius:10px;padding:12px;text-align:center}.summary strong{display:block;font-size:24px}.summary small{font-size:11px}.watch-list{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.watch-list a{padding:10px;background:#22334a;border-radius:8px;text-align:center}details.card summary{font-weight:600}button{cursor:pointer}section[hidden]{display:none}a{color:#86baff}details{margin:14px 0}summary{cursor:pointer}#error{color:#ffaaaa}
+</style></head><body><main><small>KARRYMAN · SWING TRADING · SIN ÓRDENES REALES</small><h1>Karryman 4.0</h1><section id="signals"><div class="panel"><h2>Oportunidades de trading</h2><p class="muted">Una sola lista. Discovery, escáner y detector A+ se combinan automáticamente; no son tres señales independientes.</p><div id="summary" class="summary"></div><p id="updated" class="notice">Cargando datos publicados…</p><p id="error" role="alert"></p><button id="refresh" class="btn" type="button">↻ Actualizar datos publicados</button><div id="cards">Cargando oportunidades…</div></div><details class="panel"><summary>Estado de los motores y herramientas técnicas</summary><p id="sourceInfo" class="hint"></p><p id="marketInfo" class="hint"></p><p><a href="discovery.html">Discovery</a> · <a href="setups.html">Detector A+</a> · <a href="review.html">Revisión semanal</a></p><p class="hint">Estas páginas son de diagnóstico. Sus etiquetas preliminares no equivalen a una entrada operable.</p></details><p class="hint">Los datos proceden de archivos publicados, pueden estar retrasados y no se envían órdenes a IBKR. No se muestran entradas confirmadas sin verificaciones completas.</p></section></main>
 <script>
 "use strict";
-const byId=id=>document.getElementById(id);
-const format=v=>v==null||!Number.isFinite(Number(v))?"—":Number(v).toLocaleString("es-ES",{maximumFractionDigits:2});
-const when=v=>v?String(v).slice(0,16).replace("T"," ")+" UTC":"sin fecha";
-async function fetchJson(path){const response=await fetch(path+"?v="+Date.now(),{cache:"no-store"});if(!response.ok)throw Error(path+": HTTP "+response.status);return response.json()}
-function fundamental(x){if(x.cap_pass===false||x.growth_pass===false||x.fundamental_status==="NO_CUMPLE")return "Descartada (filtro básico)";if(x.fundamental_status==="CUMPLE"||x.cap_pass===true&&x.growth_pass===true)return "Apta (filtros básicos)";return "Revisar (sin validar)"}
-function collect(d,s,f){
-const map=new Map();
-function put(x,rank,origin,reason,stamp,priority){
- if(!x.ticker)return;
- const ticker=String(x.ticker).toUpperCase();
- const old=map.get(ticker);
- if(old&&(old.rank<rank||old.rank===rank&&old.priority>=priority))return;
- map.set(ticker,{ticker,rank,priority,origin,reason,stamp,setup:String(x.setup||"—").replaceAll("_"," "),close:x.close,stop:x.stop_reference,session:x.last_session,strength:Number(x.rs_vs_spy_3m_pct)||Number(x.score_preliminar)||0,fundamental:fundamental(x),fundamentalChecked:x.fundamentals_checked_utc||null,pending:Array.isArray(x.pending_checks)?x.pending_checks:[],pretrade:x.pretrade_checks_passed===true});
+const el=id=>document.getElementById(id);
+const number=v=>v===null||v===undefined||!Number.isFinite(Number(v))?"—":Number(v).toLocaleString("es-ES",{maximumFractionDigits:2});
+const stamp=v=>v?String(v).slice(0,16).replace("T"," ")+" UTC":"sin fecha";
+const link=t=>"https://finviz.com/quote.ashx?t="+encodeURIComponent(t);
+const add=(p,tag,value,cls)=>{const n=document.createElement(tag);n.textContent=value;if(cls)n.className=cls;p.append(n);return n};
+async function get(path){const response=await fetch(path+"?t="+Date.now(),{cache:"no-store"});if(!response.ok)throw Error(path+" HTTP "+response.status);return response.json()}
+function quality(x){if(x.fundamental_status==="NO_CUMPLE"||x.cap_pass===false||x.growth_pass===false)return "No cumple filtro básico";if(x.fundamental_status==="CUMPLE"||x.cap_pass===true&&x.growth_pass===true)return "Pasa filtros básicos";return "Sin validar"}
+function merge(discovery,setups,signals){
+ const map=new Map();
+ function register(x,origin,level,reason,generated,sourcePriority){
+  if(!x||!x.ticker)return;
+  const ticker=String(x.ticker).toUpperCase();
+  const existing=map.get(ticker);
+  const entry=existing||{ticker,origin:[],level:3,score:0,close:null,stop:null,setup:"—",session:null,checks:[],fund:"Sin validar",fundDate:null,reason:"",generated:null,sourcePriority:0};
+  entry.origin.push(origin);
+  if(!existing||level<entry.level||level===entry.level&&sourcePriority>entry.sourcePriority){
+   Object.assign(entry,{level,reason,generated,sourcePriority,setup:String(x.setup||"—").replaceAll("_"," "),close:x.close??null,stop:x.stop_reference??null,session:x.last_session||null});
+  }
+  const score=Number(x.rs_vs_spy_3m_pct??x.score_preliminar??x.volume_ratio);
+  if(Number.isFinite(score))entry.score=Math.max(entry.score,score);
+  if(origin==="Detector A+"||origin==="Discovery"){
+   const q=quality(x);
+   if(q!=="Sin validar"||entry.fund==="Sin validar")entry.fund=q;
+   if(x.fundamentals_checked_utc)entry.fundDate=x.fundamentals_checked_utc;
+  }
+  if(Array.isArray(x.pending_checks)&&x.pending_checks.length)entry.checks=x.pending_checks;
+  map.set(ticker,entry);
+ }
+ for(const x of discovery?.candidates||[])register(x,"Discovery",3,x.category==="CONFIRMADA"?"Ruptura preliminar: falta confirmar criterios A+":"Candidata preliminar en vigilancia",discovery.generated_utc,2);
+ for(const x of signals?.symbols||[])register(x,"Escáner",3,x.status==="senal"?"Señal técnica preliminar; falta validación A+":"En seguimiento",signals.generated_utc,1);
+ for(const x of setups?.candidates||[]){
+  const ready=x.operable_a_plus===true&&x.pretrade_checks_passed===true&&x.earnings_verified===true&&x.technical_a_plus===true;
+  const level=ready?0:x.technical_a_plus===true?1:x.status==="PREPARANDO"?2:3;
+  register(x,"Detector A+",level,ready?"Validación automática registrada; requiere aprobación humana":level===1?"Patrón A+ técnico; faltan controles antes de operar":level===2?"Patrón en formación; falta cierre confirmado":"Sin patrón A+ confirmado",setups.generated_utc,4);
+ }
+ return [...map.values()].sort((a,b)=>a.level-b.level||b.score-a.score||a.ticker.localeCompare(b.ticker));
 }
-for(const x of s?.candidates||[]){
- const verified=x.operable_a_plus===true&&x.technical_a_plus===true&&x.earnings_verified===true&&x.fundamental_status==="CUMPLE"&&x.pretrade_checks_passed===true;
- const technical=x.technical_a_plus===true;
- const preparing=x.status==="PREPARANDO";
- const rank=verified?0:technical?1:preparing?2:3;
- const reason=verified?"Validaciones registradas; comprobar vigencia":technical?"A+ técnica: consulta debajo las comprobaciones pendientes":preparing?"Patrón en formación; falta confirmar entrada por cierre":"Solo vigilancia: todavía no cumple el patrón";
- put(x,rank,"Detector A+",reason,when(s.generated_utc),4);
+function drawCard(parent,x,compact){
+ const card=add(parent,"article","","card"+(compact?" compact":""));
+ const head=add(card,"div","","top");
+ const a=add(head,"a",x.ticker);a.href=link(x.ticker);a.target="_blank";a.rel="noopener";
+ add(head,"span",["VALIDACIÓN COMPLETA","A+ TÉCNICA","PREPARANDO","VIGILAR"][x.level],"pill"+(x.level===0?" ok":x.level===1?" wait":""));
+ if(!compact){
+  const grid=add(card,"div","","details");
+  for(const [k,v] of [["Patrón",x.setup],["Fundamentales",x.fund],["Cierre",number(x.close)+" $"],["Stop orientativo",number(x.stop)+" $"],["Sesión",x.session||"sin verificar"],["Revisión fundamental",stamp(x.fundDate)]]){
+   const item=add(grid,"div","");add(item,"small",k);add(item,"strong",v);
+  }
+ }
+ add(card,"p",x.reason,"hint");
+ if(x.checks.length)add(card,"p","Falta: "+x.checks.join(" · "),"hint");
+ else if(x.level<=1)add(card,"p","Pendiente: resultados, calidad del negocio, riesgo y autorización; verificar datos actualizados.","hint");
+ add(card,"p","Motores: "+[...new Set(x.origin)].join(" + ")+" · "+stamp(x.generated),"hint");
 }
-for(const x of f?.symbols||[]){
- put(x,3,"Lista fija",x.status==="senal"?"Aviso preliminar; pendiente de validación A+":"Solo seguimiento",when(f.generated_utc),1);
+function render(items){
+ const root=el("cards");root.replaceChildren();
+ const counts=[0,1,2].map(level=>items.filter(x=>x.level===level).length);
+ const sum=el("summary");sum.replaceChildren();
+ for(const [value,label] of [[counts[0],"Validadas"],[counts[1],"A+ técnicas"],[counts[2],"Preparando"]]){const box=add(sum,"div","");add(box,"strong",String(value));add(box,"small",label)}
+ const groups=[["1. Listas para tu aprobación",0],["2. Mejores oportunidades A+",1],["3. Preparando entrada",2]];
+ for(const [label,level] of groups){
+  const arr=items.filter(x=>x.level===level);add(root,"h3",label+" ("+arr.length+")");
+  if(!arr.length){add(root,"p",level===0?"Ninguna entrada completamente validada.":"Sin oportunidades en este nivel.","muted");continue}
+  for(const x of arr)drawCard(root,x,false);
+ }
+ const watch=items.filter(x=>x.level===3);
+ const details=add(root,"details","","panel");const summary=add(details,"summary","4. Vigilancia ("+watch.length+") · tocar para desplegar");
+ add(details,"p","Incluye señales preliminares de Discovery y del escáner que no han superado el detector A+.","muted");
+ const grid=add(details,"div","","watch-list");
+ for(const x of watch){const a=add(grid,"a",x.ticker);a.href=link(x.ticker);a.target="_blank";a.rel="noopener"}
 }
-for(const x of d?.candidates||[]){
- put(x,3,"Discovery",x.category==="CONFIRMADA"?"Filtros iniciales superados, sin confirmación A+":"Candidata en vigilancia",when(d.generated_utc),2);
+async function load(){
+ el("error").textContent="";
+ const result=await Promise.allSettled(["data/discovery.json","data/setups.json","data/signals.json"].map(get));
+ const data=result.map(x=>x.status==="fulfilled"?x.value:null);
+ const items=merge(data[0],data[1],data[2]);
+ render(items);
+ el("updated").textContent="Últimos análisis · A+: "+stamp(data[1]?.generated_utc)+" · Escáner: "+stamp(data[2]?.generated_utc);
+ el("sourceInfo").textContent="Discovery: "+stamp(data[0]?.generated_utc)+" · Detector A+: "+stamp(data[1]?.generated_utc)+" · Escáner: "+stamp(data[2]?.generated_utc);
+ el("marketInfo").textContent="Universo: "+number(data[0]?.universe_size)+" · Último lote: "+number(data[0]?.scanned_this_run)+" · Acciones unificadas: "+items.length;
+ if(result.some(x=>x.status==="rejected"))el("error").textContent="Aviso: una o más fuentes no han cargado. La lista puede estar incompleta.";
 }
-return [...map.values()].sort((a,b)=>a.rank-b.rank||b.strength-a.strength||b.priority-a.priority||a.ticker.localeCompare(b.ticker));
-}
-function append(parent,tag,value,cls){const e=document.createElement(tag);e.textContent=value;if(cls)e.className=cls;parent.append(e);return e}
-function render(items){const root=byId("cards");root.replaceChildren();const labels=["Entrada confirmada","A+ técnica · pendiente de validación","Preparando entrada","Vigilancia · esperar"];for(let rank=0;rank<4;rank++){const subset=items.filter(x=>x.rank===rank);append(root,"h3",labels[rank]+" ("+subset.length+")");if(!subset.length){append(root,"p",rank===0?"No hay entradas completamente verificadas.":"Sin candidatas en esta categoría.","muted");continue}for(const x of subset){const card=append(root,"article","","card");const top=append(card,"div","","top");const a=append(top,"a",x.ticker);a.href="https://finviz.com/quote.ashx?t="+encodeURIComponent(x.ticker);a.target="_blank";a.rel="noopener";append(top,"span",rank===0?"VALIDADA":rank===1?"A+ TÉCNICA":rank===2?"PREPARANDO":"ESPERAR","status");const grid=append(card,"div","","details");for(const pair of [["Patrón",x.setup],["Fundamentales",x.fundamental],["Revisión fundamental",x.fundamentalChecked?when(x.fundamentalChecked):"sin fecha verificada"],["Cierre",format(x.close)+" $"],["Stop orientativo",format(x.stop)+" $"],["Sesión",x.session||"sin verificar"]]){const cell=append(grid,"div","");append(cell,"small",pair[0]);append(cell,"strong",pair[1])}append(card,"p",x.reason,"hint");if(x.pending.length){append(card,"p","Falta validar: "+x.pending.join(" · "),"hint")}else if(x.rank===1){append(card,"p","Pendiente de resultados, riesgo y aprobación; actualización automática aún no ejecutada.","hint")}append(card,"p",x.origin+" · "+x.stamp,"hint")}}}
-async function load(){byId("error").textContent="";const result=await Promise.allSettled(["data/discovery.json","data/setups.json","data/signals.json"].map(fetchJson));const data=result.map(r=>r.status==="fulfilled"?r.value:null);const items=collect(data[0],data[1],data[2]);render(items);byId("updated").textContent="Detector: "+when(data[1]?.generated_utc)+" · Discovery: "+when(data[0]?.generated_utc);byId("marketInfo").textContent="Universo: "+format(data[0]?.universe_size)+" · Revisadas: "+format(data[0]?.scanned_this_run)+" · A+ técnicas: "+format(data[1]?.technical_a_plus_count);byId("sourceInfo").textContent="Discovery: "+when(data[0]?.generated_utc)+" · Lista fija: "+when(data[2]?.generated_utc);if(result.every(r=>r.status==="rejected"))byId("error").textContent="No se pudieron descargar los datos. Reintenta más tarde."}
-function tab(show){byId("signals").hidden=show!=="signals";byId("market").hidden=show!=="market";byId("tabSignals").classList.toggle("active",show==="signals");byId("tabMarket").classList.toggle("active",show==="market")}
-byId("tabSignals").addEventListener("click",()=>tab("signals"));byId("tabMarket").addEventListener("click",()=>tab("market"));byId("refresh").addEventListener("click",()=>load().catch(e=>byId("error").textContent=e.message));load().catch(e=>byId("error").textContent=e.message);
+el("refresh").addEventListener("click",()=>load().catch(e=>el("error").textContent=e.message));
+load().catch(e=>el("error").textContent=e.message);
 </script></body></html>
