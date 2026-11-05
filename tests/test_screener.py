@@ -43,16 +43,16 @@ class ScreenerTests(unittest.TestCase):
             self.assertEqual(output["primary_candidates"],1)
             self.assertEqual(output["candidates"][0]["ticker"],"TEST")
             self.assertFalse(output["orders_enabled"])
-    def test_shortlist_caps_at_40_and_prioritizes_sa(self):
+    def test_shortlist_caps_at_80_and_prioritizes_score(self):
         with tempfile.TemporaryDirectory() as temp:
             root=Path(temp)
-            candidates=[candidate(ticker=f"X{i:03}",score_preliminar=i) for i in range(50)]
+            candidates=[candidate(ticker=f"X{i:03}",score_preliminar=i) for i in range(90)]
             candidates[0]["finviz_verified_match"]=True
             (root/"discovery.json").write_text(json.dumps({"candidates":candidates}),encoding="utf-8")
             with patch.object(screener,"DATA",root):screener.main()
             output=json.loads((root/"screener.json").read_text(encoding="utf-8"))
-            self.assertEqual(len(output["candidates"]),40)
-            self.assertEqual(output["candidates"][0]["ticker"],"X049")
+            self.assertEqual(len(output["candidates"]),80)
+            self.assertEqual(output["candidates"][0]["ticker"],"X089")
             self.assertNotIn("X000",[x["ticker"] for x in output["candidates"]])
     def test_no_orders(self):
         self.assertFalse(evaluate(candidate())["order_enabled"])
