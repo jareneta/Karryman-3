@@ -138,7 +138,7 @@ def main():
     screened=json.loads((DATA/'screener.json').read_text(encoding='utf-8'))
     source=json.loads(SOURCE.read_text(encoding='utf-8'))
     approved={x['ticker'] for x in screened.get('candidates',[]) if x.get('stock_analysis_status')!='DESCARTADA'}
-    entries=[x for x in source.get('candidates',[]) if x.get('ticker') in approved][:LIMIT]
+    entries=sorted((x for x in source.get('candidates',[]) if x.get('ticker') in approved),key=lambda x:({'CONFIRMADA':0,'PREPARANDO':1,'VIGILANCIA':2}.get(x.get('category'),3),-(x.get('score_preliminar') or 0)))[:LIMIT]
     tickers=list(dict.fromkeys(x['ticker'] for x in entries))
     spy_df=yf.download('SPY',period='18mo',auto_adjust=True,progress=False,threads=False)
     if spy_df.empty:raise RuntimeError('No se pudo descargar SPY para fuerza relativa')
