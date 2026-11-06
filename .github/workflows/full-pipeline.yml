@@ -1,6 +1,11 @@
 name: Karryman 4 End-to-End Research
 on:
   workflow_dispatch:
+    inputs:
+      tickers:
+        description: 'Tickers de tus posiciones (solo tickers; vacío = mantener los anteriores)'
+        required: false
+        default: ''
   schedule:
     - cron: '30 8 * * 6'
   pull_request:
@@ -31,6 +36,7 @@ jobs:
           node tests/paper_ledger.test.cjs
           node tests/ibkr_import.test.cjs
           node tests/reconcile.test.cjs
+          node tests/trade_manager.test.cjs
       - name: Discover US universe batch
         env:
           DISCOVERY_BATCH: '400'
@@ -44,6 +50,14 @@ jobs:
         run: python setups.py
       - name: Generate mobile weekly review
         run: python review.py
+      - name: Save position tickers (tickers only)
+        if: github.event_name == 'workflow_dispatch' && inputs.tickers != ''
+        env:
+          TICKERS: ${{ inputs.tickers }}
+        run: python tracked.py "$TICKERS"
+      - name: Entry plan and position review
+        continue-on-error: true
+        run: python plan.py
       - name: Validate public output flags
         run: |
           python -c "import json; d=json.load(open('data/review.json')); assert d['orders_enabled'] is False and d['broker_connected'] is False and all(x['order_enabled'] is False for x in d['candidates']); print('Validated review:',d['review_count'])"
@@ -52,7 +66,8 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/discovery.json data/discovery_state.json data/discovery_watchlist.json data/discovery_fundamentals.json data/screener.json data/setups.json data/review.json
+          git add data/discovery.json data/discovery_state.json data/discovery_watchlist.json data/discovery_fundamentals.json data/screener.json data/setups.json data/review.json data/plan.json
+          if ls data/tracked.json >/dev/null 2>&1; then git add data/tracked.json; fi
           if ! git diff --cached --quiet; then
             git commit -m 'Publicar análisis integral Karryman 4.0'
             git pull --rebase origin main
@@ -68,5 +83,6 @@ jobs:
             data/screener.json
             data/setups.json
             data/review.json
+            data/plan.json
           if-no-files-found: warn
           retention-days: 7

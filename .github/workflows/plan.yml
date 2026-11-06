@@ -1,0 +1,46 @@
+name: Karryman Plan de órdenes
+on:
+  workflow_dispatch:
+    inputs:
+      tickers:
+        description: 'Tickers de tus posiciones separados por espacios (solo tickers; vacío = mantener los anteriores)'
+        required: false
+        default: ''
+  schedule:
+    # Después del cierre de EE. UU. y de Setups A+ (23:20 UTC)
+    - cron: '50 23 * * 1-5'
+permissions:
+  contents: write
+concurrency:
+  group: karryman-plan
+  cancel-in-progress: false
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencias
+        run: pip install -r requirements.txt
+      - name: Guardar tickers de posiciones (sin cantidades ni precios)
+        if: github.event_name == 'workflow_dispatch' && inputs.tickers != ''
+        env:
+          TICKERS: ${{ inputs.tickers }}
+        run: python tracked.py "$TICKERS"
+      - name: Calcular plan de entradas y revisar posiciones
+        run: python plan.py
+      - name: Validar que no hay órdenes
+        run: python -c "import json; d=json.load(open('data/plan.json')); assert d['orders_enabled'] is False and all(e['order_enabled'] is False for e in d['entries']); print('Plan OK', d['entries_count'], d['quotes_count'])"
+      - name: Publicar plan
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add data/plan.json data/tracked.json 2>/dev/null || git add data/plan.json
+          if ! git diff --cached --quiet; then
+            git commit -m 'Actualizar plan de órdenes Karryman'
+            git pull --rebase origin "${{ github.ref_name }}"
+            git push origin "HEAD:${{ github.ref_name }}"
+          fi

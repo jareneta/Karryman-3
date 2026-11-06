@@ -29,3 +29,12 @@
 - `aplus_backtest.py` permite `stop_mode='intraday'` o `stop_mode='close_next_open'`; en este último caso una ruptura por cierre se ejecuta a la siguiente apertura, con riesgo de hueco.
 - `aplus_stop_report.py` y `.github/workflows/aplus-compare.yml` preparan un informe de 5 años sobre SPY, QQQ, AAPL y MSFT. El workflow es manual y no se ejecuta por sí solo en la rama de desarrollo.
 - **No hay resultados históricos de este informe hasta que se ejecute el workflow.** El modo intradía incorpora objetivo +2R, mientras que el modo por cierre no; por tanto, la diferencia no identifica exclusivamente el efecto del stop. Se requiere una comparación controlada y muestra independiente antes de afirmar ventaja.
+
+## Plan de órdenes (`plan.html`)
+Flujo: tus criterios (Discovery → Screener → Setups) → `plan.py` calcula pivote, stop, +1R, +2R y estado → `plan.html` cruza con tu cartera local y propone; **tú decides** y pones la orden en IBKR.
+- **Entrada**: cierre por encima del pivote (máximo de 30 sesiones en bases; de 5 en pullbacks) con volumen ≥ 1,4× la media de 50 (pullback ≥ 1,1×). No comprar a más de pivote +5 % (EXTENDIDA). Estados: ESPERANDO, ACTIVADA, EXTENDIDA, FALLIDA, INVALIDADA, RIESGO_ALTO (stop > 12 %).
+- **Stop inicial**: mínimo de las 10 sesiones previas al disparo (base) o de las 5 (pullback). Stop por cierre.
+- **Salida**: a +2R vender 1/3 y subir el stop del resto a breakeven; el runner sale con un cierre bajo EMA20 (configurable EMA10/MA50). +1R solo informa.
+- **Tamaño**: 1 % de riesgo por operación, 6 % de riesgo total hasta stops, 20 % de peso máximo y efectivo disponible (`trade_manager.js` + `risk.js`). Si alguna posición no tiene stop o hay margen, no se proponen compras.
+- **Posiciones**: cada análisis (manual desde la app o automático, lun–vie 23:50 UTC) revisa los tickers de `data/tracked.json`. Solo se publican tickers; cantidades, precios y patrimonio se quedan en el navegador.
+- Los workflows se lanzan sobre `main`: hay que fusionar esta rama para que `plan.yml` exista allí.

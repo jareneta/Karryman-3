@@ -54,7 +54,7 @@ function parseIBKR(text){
  }
  if(!positions.length)throw Error('No se reconocieron posiciones largas en USD en este informe.');
  const old=new Map(state.positions.map(p=>[p.ticker,p]));
- positions=positions.map(p=>({...p,stop:old.get(p.ticker)?.stop??null}));
+ positions=positions.map(p=>{const o=old.get(p.ticker)||{};return {...p,stop:o.stop??null,initial_stop:o.initial_stop??null,entry_date:o.entry_date??null,partial_done:!!o.partial_done}});
  return {positions,equity,cash,period,baseCurrency};
 }
 function calculateSize(){
