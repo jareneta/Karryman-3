@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "generated_utc": "2026-11-06T12:41:46.997619+00:00",
+ "generated_utc": "2026-11-06T12:48:16.434404+00:00",
  "setups_generated_utc": "2026-11-06T11:34:57.179545+00:00",
  "source": "Yahoo Finance OHLCV vía yfinance (no oficial, puede tener retraso)",
  "rules": {
@@ -8,52 +8,1002 @@
   "exit": "Stop por cierre; +2R vender 1/3 y stop del resto a breakeven; runner sale con cierre bajo EMA20",
   "risk": "1% por operación, 6% riesgo total, 20% peso máximo (editable en la app)"
  },
- "entries_count": 31,
- "activated_count": 2,
- "quotes_count": 31,
+ "entries_count": 32,
+ "earnings_known_count": 7,
+ "activated_count": 1,
+ "quotes_count": 32,
  "tracked_missing": [],
- "errors": [
-  "EW: sin datos"
- ],
+ "errors": [],
  "broker_connected": false,
  "orders_enabled": false,
- "entries": [
-  {
-   "ticker": "AVAH",
-   "setup": "PULLBACK_FORMACION",
-   "entry_kind": "PULLBACK",
-   "trigger_rule": "Cierre > pivote con volumen >= 1.1x media 50",
-   "last_session": "2026-11-05",
-   "close": 13.67,
-   "trigger_close": 14.23,
-   "trigger_session": "2026-11-04",
-   "sessions_since_trigger": 1,
-   "trigger_volume_ratio": 1.38,
-   "entry_status": "ACTIVADA",
-   "pivot": 13.61,
-   "entry_reference": 13.67,
-   "max_entry_price": 14.29,
-   "stop_reference": 12.53,
-   "risk_per_share": 1.14,
-   "risk_pct": 8.34,
-   "target_1r": 14.81,
-   "target_2r": 15.95,
-   "distance_to_pivot_pct": -0.44,
-   "criteria": {
-    "tendencia": true,
-    "cerca_maximos": true,
-    "fuerza_vs_spy": true,
-    "fundamentales": true,
-    "a_plus_tecnico": false
-   },
-   "meets_criteria": true,
-   "next_earnings_date": null,
-   "actionable": true,
-   "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
-   ],
-   "order_enabled": false
+ "funnel": {
+  "discovery_generated_utc": "2026-11-06T11:34:51.411186+00:00",
+  "discovery_scanned": 400,
+  "discovery_filter_counts": {
+   "historial insuficiente": 55,
+   "precio/liquidez": 214,
+   "tendencia MA50/MA200": 61,
+   "lejos de máximo 52S": 25,
+   "precio bajo MA50": 8
   },
+  "discovery_passed": 37,
+  "screener_discards": [
+   {
+    "ticker": "AAPL",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "ABBV",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "ABNB",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "ABT",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "ADI",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "AIG",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "AMCR",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "AMPL",
+    "reasons": [
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "AMZN",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "subida 1 año <= 10%"
+    ]
+   },
+   {
+    "ticker": "ARX",
+    "reasons": [
+     "BPA <= -1"
+    ]
+   },
+   {
+    "ticker": "ASB",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "ASND",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%"
+    ]
+   },
+   {
+    "ticker": "AUPH",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "AVNT",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "BALL",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "BILL",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 1 año <= 10%"
+    ]
+   },
+   {
+    "ticker": "BRZE",
+    "reasons": [
+     "BPA <= -1"
+    ]
+   },
+   {
+    "ticker": "BSY",
+    "reasons": [
+     "a más de un 15% del máximo de 52 semanas",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "BWIN",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "BPA <= -1"
+    ]
+   },
+   {
+    "ticker": "CAKE",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "CBOE",
+    "reasons": [
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "CCK",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "CHPT",
+    "reasons": [
+     "BPA <= -1"
+    ]
+   },
+   {
+    "ticker": "CNI",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "COKE",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "COLB",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "COP",
+    "reasons": [
+     "paga dividendo",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "CP",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "CRBG",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "CRCT",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "CURB",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "CVBF",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "CVI",
+    "reasons": [
+     "paga dividendo",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "CVLT",
+    "reasons": [
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "CXT",
+    "reasons": [
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "DOC",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "EBC",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "ECL",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "ECO",
+    "reasons": [
+     "paga dividendo",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "ED",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "ELF",
+    "reasons": [
+     "subida 1 año <= 10%",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "EPD",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "EPR",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "ESNT",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "EXPO",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "FA",
+    "reasons": [
+     "subida 3 meses <= 10%"
+    ]
+   },
+   {
+    "ticker": "FAST",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "FIVE",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%"
+    ]
+   },
+   {
+    "ticker": "FLYW",
+    "reasons": [
+     "subida 3 meses <= 10%"
+    ]
+   },
+   {
+    "ticker": "FNV",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "FOX",
+    "reasons": [
+     "subida 6 meses <= 10%",
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "FOXA",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "FULT",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "GEN",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "GFL",
+    "reasons": [
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "GKOS",
+    "reasons": [
+     "BPA <= -1"
+    ]
+   },
+   {
+    "ticker": "GLBE",
+    "reasons": [
+     "subida 3 meses <= 10%"
+    ]
+   },
+   {
+    "ticker": "GPN",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "GTLB",
+    "reasons": [
+     "subida 1 año <= 10%",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "HBNC",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "HMC",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "HNI",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "HUM",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "IBN",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "IHS",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "IOT",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 1 año <= 10%",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "J",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "JAZZ",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%"
+    ]
+   },
+   {
+    "ticker": "KDP",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "KOD",
+    "reasons": [
+     "BPA <= -1"
+    ]
+   },
+   {
+    "ticker": "KYMR",
+    "reasons": [
+     "BPA <= -1"
+    ]
+   },
+   {
+    "ticker": "LNG",
+    "reasons": [
+     "paga dividendo",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "LTH",
+    "reasons": [
+     "subida 3 meses <= 10%"
+    ]
+   },
+   {
+    "ticker": "MA",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "MAR",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "MAX",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 1 año <= 10%"
+    ]
+   },
+   {
+    "ticker": "MDT",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "MET",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "MFC",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "MSFT",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "MSI",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "NDAQ",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "NRIX",
+    "reasons": [
+     "subida 3 meses <= 10%"
+    ]
+   },
+   {
+    "ticker": "NSC",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "NWBI",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "OHI",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "OSBC",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "OVV",
+    "reasons": [
+     "subida 6 meses <= 10%",
+     "paga dividendo",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "PACS",
+    "reasons": [
+     "subida 3 meses <= 10%"
+    ]
+   },
+   {
+    "ticker": "PBA",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "PCOR",
+    "reasons": [
+     "subida 1 año <= 10%"
+    ]
+   },
+   {
+    "ticker": "PFG",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "PKG",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "PLSE",
+    "reasons": [
+     "BPA <= -1"
+    ]
+   },
+   {
+    "ticker": "PNFP",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "PRU",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "RBRK",
+    "reasons": [
+     "a más de un 15% del máximo de 52 semanas",
+     "BPA <= -1",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "REGN",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "REPL",
+    "reasons": [
+     "BPA <= -1"
+    ]
+   },
+   {
+    "ticker": "RGLD",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "RJF",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "RNW",
+    "reasons": [
+     "subida 1 año <= 10%"
+    ]
+   },
+   {
+    "ticker": "ROKU",
+    "reasons": [
+     "subida 3 meses <= 10%"
+    ]
+   },
+   {
+    "ticker": "ROST",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "RPRX",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "RSKD",
+    "reasons": [
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "RXO",
+    "reasons": [
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "S",
+    "reasons": [
+     "BPA <= -1",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "SAP",
+    "reasons": [
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "SBCF",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "SBRA",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "SFBS",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "SHEL",
+    "reasons": [
+     "paga dividendo",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "SLN",
+    "reasons": [
+     "BPA <= -1"
+    ]
+   },
+   {
+    "ticker": "SMA",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "SPG",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "SPOT",
+    "reasons": [
+     "subida 1 año <= 10%"
+    ]
+   },
+   {
+    "ticker": "STRC",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "ventas anuales crecen <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "TD",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "TEL",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "TIC",
+    "reasons": [
+     "subida 6 meses <= 10%",
+     "subida 1 año <= 10%"
+    ]
+   },
+   {
+    "ticker": "TOST",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 1 año <= 10%"
+    ]
+   },
+   {
+    "ticker": "TRNO",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "TRU",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "TTE",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "TW",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "U",
+    "reasons": [
+     "BPA <= -1"
+    ]
+   },
+   {
+    "ticker": "UCB",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "UNP",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "V",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "VEEV",
+    "reasons": [
+     "subida 1 año <= 10%",
+     "precio bajo MA20"
+    ]
+   },
+   {
+    "ticker": "VRTX",
+    "reasons": [
+     "subida 3 meses <= 10%"
+    ]
+   },
+   {
+    "ticker": "VTR",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "subida 6 meses <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "WK",
+    "reasons": [
+     "subida 1 año <= 10%"
+    ]
+   },
+   {
+    "ticker": "WKC",
+    "reasons": [
+     "subida 3 meses <= 10%",
+     "BPA <= -1",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "WMG",
+    "reasons": [
+     "subida 6 meses <= 10%",
+     "subida 1 año <= 10%",
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "XHR",
+    "reasons": [
+     "paga dividendo"
+    ]
+   },
+   {
+    "ticker": "XNCR",
+    "reasons": [
+     "BPA <= -1"
+    ]
+   },
+   {
+    "ticker": "ZETA",
+    "reasons": [
+     "precio bajo MA20"
+    ]
+   }
+  ]
+ },
+ "entries": [
   {
    "ticker": "OSCR",
    "setup": "PULLBACK_FORMACION",
@@ -66,6 +1016,7 @@
    "sessions_since_trigger": 1,
    "trigger_volume_ratio": 2.74,
    "entry_status": "ACTIVADA",
+   "status_reason": "Cerró sobre el pivote 32.69 el 2026-11-04 con volumen 2.7x",
    "pivot": 32.69,
    "entry_reference": 33.18,
    "max_entry_price": 34.32,
@@ -84,9 +1035,53 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": true,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
+   ],
+   "order_enabled": false
+  },
+  {
+   "ticker": "AVAH",
+   "setup": "PULLBACK_FORMACION",
+   "entry_kind": "PULLBACK",
+   "trigger_rule": "Cierre > pivote con volumen >= 1.1x media 50",
+   "last_session": "2026-11-05",
+   "close": 13.67,
+   "trigger_close": 14.23,
+   "trigger_session": "2026-11-04",
+   "sessions_since_trigger": 1,
+   "trigger_volume_ratio": 1.38,
+   "entry_status": "ACTIVADA",
+   "status_reason": "Cerró sobre el pivote 13.61 el 2026-11-04 con volumen 1.4x",
+   "pivot": 13.61,
+   "entry_reference": 13.67,
+   "max_entry_price": 14.29,
+   "stop_reference": 12.53,
+   "risk_per_share": 1.14,
+   "risk_pct": 8.34,
+   "target_1r": 14.81,
+   "target_2r": 15.95,
+   "distance_to_pivot_pct": -0.44,
+   "criteria": {
+    "tendencia": true,
+    "cerca_maximos": true,
+    "fuerza_vs_spy": true,
+    "fundamentales": true,
+    "a_plus_tecnico": false
+   },
+   "meets_criteria": true,
+   "next_earnings_date": "2026-11-12",
+   "days_to_earnings": 6,
+   "blockers": [
+    "Resultados el 2026-11-12 (en 6 días): no entrar a menos de 14 días de resultados"
+   ],
+   "actionable": false,
+   "warnings": [
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -98,6 +1093,7 @@
    "last_session": "2026-11-05",
    "close": 169.57,
    "entry_status": "ESPERANDO",
+   "status_reason": "Falta un cierre sobre 176.66 (4.0% más arriba) con volumen >= 1.1x",
    "pivot": 176.66,
    "entry_reference": 176.66,
    "max_entry_price": 185.49,
@@ -115,10 +1111,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
+   "next_earnings_date": "2027-02-04",
+   "days_to_earnings": 90,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -130,6 +1128,7 @@
    "last_session": "2026-11-05",
    "close": 243.93,
    "entry_status": "ESPERANDO",
+   "status_reason": "Falta un cierre sobre 258.73 (5.7% más arriba) con volumen >= 1.1x",
    "pivot": 258.73,
    "entry_reference": 258.73,
    "max_entry_price": 271.67,
@@ -148,9 +1147,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -162,6 +1164,7 @@
    "last_session": "2026-11-05",
    "close": 453.08,
    "entry_status": "ESPERANDO",
+   "status_reason": "Falta un cierre sobre 480.63 (5.7% más arriba) con volumen >= 1.1x",
    "pivot": 480.63,
    "entry_reference": 480.63,
    "max_entry_price": 504.66,
@@ -180,9 +1183,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -194,6 +1200,7 @@
    "last_session": "2026-11-05",
    "close": 16.42,
    "entry_status": "ESPERANDO",
+   "status_reason": "Falta un cierre sobre 17.52 (6.3% más arriba) con volumen >= 1.4x",
    "pivot": 17.52,
    "entry_reference": 17.52,
    "max_entry_price": 18.4,
@@ -212,9 +1219,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -226,6 +1236,7 @@
    "last_session": "2026-11-05",
    "close": 87.57,
    "entry_status": "ESPERANDO",
+   "status_reason": "Falta un cierre sobre 93.64 (6.5% más arriba) con volumen >= 1.1x",
    "pivot": 93.64,
    "entry_reference": 93.64,
    "max_entry_price": 98.32,
@@ -243,10 +1254,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
+   "next_earnings_date": "2026-11-24",
+   "days_to_earnings": 18,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -262,6 +1275,7 @@
    "sessions_since_trigger": 4,
    "trigger_volume_ratio": 2.59,
    "entry_status": "EXTENDIDA",
+   "status_reason": "Cierre 65.86 un 6.3% sobre el pivote 61.96 (máximo 5%): no perseguir",
    "pivot": 61.96,
    "entry_reference": 65.86,
    "max_entry_price": 65.06,
@@ -280,9 +1294,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -298,6 +1315,7 @@
    "sessions_since_trigger": 1,
    "trigger_volume_ratio": 3.55,
    "entry_status": "EXTENDIDA",
+   "status_reason": "Cierre 56.01 un 6.9% sobre el pivote 52.38 (máximo 5%): no perseguir",
    "pivot": 52.38,
    "entry_reference": 56.01,
    "max_entry_price": 55.0,
@@ -316,9 +1334,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -334,6 +1355,7 @@
    "sessions_since_trigger": 1,
    "trigger_volume_ratio": 4.58,
    "entry_status": "EXTENDIDA",
+   "status_reason": "Cierre 11.60 un 12.8% sobre el pivote 10.28 (máximo 5%): no perseguir",
    "pivot": 10.28,
    "entry_reference": 11.6,
    "max_entry_price": 10.79,
@@ -352,9 +1374,52 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
+   ],
+   "order_enabled": false
+  },
+  {
+   "ticker": "EW",
+   "setup": "ROTURA_BASE",
+   "entry_kind": "BASE",
+   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
+   "last_session": "2026-11-05",
+   "close": 100.82,
+   "trigger_close": 100.82,
+   "trigger_session": "2026-11-05",
+   "sessions_since_trigger": 0,
+   "trigger_volume_ratio": 2.45,
+   "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 87.90 a un 12.8% de la entrada 100.82 (máximo 12%)",
+   "pivot": 100.25,
+   "entry_reference": 100.82,
+   "max_entry_price": 105.26,
+   "stop_reference": 87.9,
+   "risk_per_share": 12.92,
+   "risk_pct": 12.81,
+   "target_1r": 113.74,
+   "target_2r": 126.66,
+   "distance_to_pivot_pct": -0.57,
+   "criteria": {
+    "tendencia": true,
+    "cerca_maximos": true,
+    "fuerza_vs_spy": true,
+    "fundamentales": true,
+    "a_plus_tecnico": false
+   },
+   "meets_criteria": true,
+   "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
+   "actionable": false,
+   "warnings": [
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -370,6 +1435,7 @@
    "sessions_since_trigger": 1,
    "trigger_volume_ratio": 1.63,
    "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 55.43 a un 13.7% de la entrada 64.21 (máximo 12%)",
    "pivot": 63.12,
    "entry_reference": 64.21,
    "max_entry_price": 66.28,
@@ -388,9 +1454,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -406,6 +1475,7 @@
    "sessions_since_trigger": 0,
    "trigger_volume_ratio": 2.56,
    "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 15.73 a un 22.6% de la entrada 20.32 (máximo 12%)",
    "pivot": 19.73,
    "entry_reference": 20.32,
    "max_entry_price": 20.72,
@@ -423,10 +1493,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
+   "next_earnings_date": "2027-02-04",
+   "days_to_earnings": 90,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -438,6 +1510,7 @@
    "last_session": "2026-11-05",
    "close": 255.17,
    "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 231.73 a un 12.0% de la entrada 263.47 (máximo 12%)",
    "pivot": 263.47,
    "entry_reference": 263.47,
    "max_entry_price": 276.64,
@@ -456,9 +1529,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -470,6 +1546,7 @@
    "last_session": "2026-11-05",
    "close": 106.31,
    "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 91.36 a un 17.1% de la entrada 110.27 (máximo 12%)",
    "pivot": 110.27,
    "entry_reference": 110.27,
    "max_entry_price": 115.78,
@@ -487,10 +1564,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
+   "next_earnings_date": "2026-12-03",
+   "days_to_earnings": 27,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -506,6 +1585,7 @@
    "sessions_since_trigger": 1,
    "trigger_volume_ratio": 3.49,
    "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 6.23 a un 21.3% de la entrada 7.92 (máximo 12%)",
    "pivot": 7.64,
    "entry_reference": 7.92,
    "max_entry_price": 8.03,
@@ -524,9 +1604,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -542,6 +1625,7 @@
    "sessions_since_trigger": 0,
    "trigger_volume_ratio": 2.09,
    "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 46.63 a un 13.7% de la entrada 54.03 (máximo 12%)",
    "pivot": 51.65,
    "entry_reference": 54.03,
    "max_entry_price": 54.23,
@@ -560,9 +1644,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -574,6 +1661,7 @@
    "last_session": "2026-11-05",
    "close": 57.79,
    "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 50.49 a un 18.6% de la entrada 62.00 (máximo 12%)",
    "pivot": 62.0,
    "entry_reference": 62.0,
    "max_entry_price": 65.1,
@@ -592,9 +1680,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -606,6 +1697,7 @@
    "last_session": "2026-11-05",
    "close": 88.34,
    "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 70.67 a un 28.2% de la entrada 98.48 (máximo 12%)",
    "pivot": 98.48,
    "entry_reference": 98.48,
    "max_entry_price": 103.4,
@@ -624,9 +1716,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -638,6 +1733,7 @@
    "last_session": "2026-11-05",
    "close": 13.43,
    "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 12.41 a un 20.7% de la entrada 15.66 (máximo 12%)",
    "pivot": 15.66,
    "entry_reference": 15.66,
    "max_entry_price": 16.44,
@@ -656,9 +1752,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -674,6 +1773,7 @@
    "sessions_since_trigger": 4,
    "trigger_volume_ratio": 1.61,
    "entry_status": "FALLIDA",
+   "status_reason": "Rompió el pivote 58.96 el 2026-10-30 pero ha vuelto a cerrar por debajo (57.98)",
    "pivot": 58.96,
    "entry_reference": 57.98,
    "max_entry_price": 61.91,
@@ -691,10 +1791,14 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
+   "next_earnings_date": "2026-11-09",
+   "days_to_earnings": 3,
+   "blockers": [
+    "Resultados el 2026-11-09 (en 3 días): no entrar a menos de 14 días de resultados"
+   ],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -710,6 +1814,7 @@
    "sessions_since_trigger": 1,
    "trigger_volume_ratio": 1.18,
    "entry_status": "FALLIDA",
+   "status_reason": "Rompió el pivote 63.00 el 2026-11-04 pero ha vuelto a cerrar por debajo (61.28)",
    "pivot": 63.0,
    "entry_reference": 61.28,
    "max_entry_price": 66.15,
@@ -728,9 +1833,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -746,6 +1854,7 @@
    "sessions_since_trigger": 2,
    "trigger_volume_ratio": 1.12,
    "entry_status": "FALLIDA",
+   "status_reason": "Rompió el pivote 14.86 el 2026-11-03 pero ha vuelto a cerrar por debajo (14.32)",
    "pivot": 14.86,
    "entry_reference": 14.32,
    "max_entry_price": 15.6,
@@ -763,10 +1872,14 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
+   "next_earnings_date": "2026-11-09",
+   "days_to_earnings": 3,
+   "blockers": [
+    "Resultados el 2026-11-09 (en 3 días): no entrar a menos de 14 días de resultados"
+   ],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -782,6 +1895,7 @@
    "sessions_since_trigger": 2,
    "trigger_volume_ratio": 1.62,
    "entry_status": "FALLIDA",
+   "status_reason": "Rompió el pivote 21.49 el 2026-11-03 pero ha vuelto a cerrar por debajo (20.31)",
    "pivot": 21.49,
    "entry_reference": 20.31,
    "max_entry_price": 22.56,
@@ -800,9 +1914,12 @@
    },
    "meets_criteria": true,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -814,6 +1931,7 @@
    "last_session": "2026-11-05",
    "close": 43.61,
    "entry_status": "ESPERANDO",
+   "status_reason": "Falta un cierre sobre 44.13 (1.2% más arriba) con volumen >= 1.4x",
    "pivot": 44.13,
    "entry_reference": 44.13,
    "max_entry_price": 46.34,
@@ -832,9 +1950,14 @@
    },
    "meets_criteria": false,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [
+    "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
+   ],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -850,6 +1973,7 @@
    "sessions_since_trigger": 0,
    "trigger_volume_ratio": 1.71,
    "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 64.65 a un 14.5% de la entrada 75.62 (máximo 12%)",
    "pivot": 74.85,
    "entry_reference": 75.62,
    "max_entry_price": 78.59,
@@ -868,9 +1992,14 @@
    },
    "meets_criteria": false,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [
+    "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
+   ],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -886,6 +2015,7 @@
    "sessions_since_trigger": 4,
    "trigger_volume_ratio": 2.74,
    "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 62.85 a un 17.7% de la entrada 76.33 (máximo 12%)",
    "pivot": 73.43,
    "entry_reference": 76.33,
    "max_entry_price": 77.1,
@@ -904,9 +2034,14 @@
    },
    "meets_criteria": false,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [
+    "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
+   ],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -918,6 +2053,7 @@
    "last_session": "2026-11-05",
    "close": 44.1,
    "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 39.24 a un 15.6% de la entrada 46.50 (máximo 12%)",
    "pivot": 46.5,
    "entry_reference": 46.5,
    "max_entry_price": 48.83,
@@ -936,9 +2072,14 @@
    },
    "meets_criteria": false,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [
+    "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
+   ],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -950,6 +2091,7 @@
    "last_session": "2026-11-05",
    "close": 34.14,
    "entry_status": "INVALIDADA",
+   "status_reason": "Cierre 34.14 por debajo de la MA50 34.67: tendencia rota",
    "pivot": 38.68,
    "entry_reference": 38.68,
    "max_entry_price": 40.61,
@@ -968,9 +2110,14 @@
    },
    "meets_criteria": false,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [
+    "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
+   ],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -982,6 +2129,7 @@
    "last_session": "2026-11-05",
    "close": 168.48,
    "entry_status": "INVALIDADA",
+   "status_reason": "Cierre 168.48 por debajo de la MA50 177.52: tendencia rota",
    "pivot": 198.87,
    "entry_reference": 198.87,
    "max_entry_price": 208.81,
@@ -1000,9 +2148,15 @@
    },
    "meets_criteria": false,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [
+    "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo",
+    "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
+   ],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -1014,6 +2168,7 @@
    "last_session": "2026-11-05",
    "close": 10.81,
    "entry_status": "INVALIDADA",
+   "status_reason": "Cierre 10.81 por debajo de la MA50 11.09: tendencia rota",
    "pivot": 13.35,
    "entry_reference": 13.35,
    "max_entry_price": 14.02,
@@ -1032,9 +2187,15 @@
    },
    "meets_criteria": false,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [
+    "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo",
+    "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
+   ],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   },
@@ -1046,6 +2207,7 @@
    "last_session": "2026-11-05",
    "close": 26.03,
    "entry_status": "INVALIDADA",
+   "status_reason": "Cierre 26.03 por debajo de la MA50 29.50: tendencia rota",
    "pivot": 36.5,
    "entry_reference": 36.5,
    "max_entry_price": 38.33,
@@ -1064,9 +2226,15 @@
    },
    "meets_criteria": false,
    "next_earnings_date": null,
+   "days_to_earnings": null,
+   "blockers": [
+    "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo",
+    "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
+   ],
    "actionable": false,
    "warnings": [
-    "Fecha de resultados no verificada: revísala antes de comprar"
+    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
+    "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
   }
@@ -6037,6 +7205,558 @@
      83.6,
      75.81,
      76.33
+    ]
+   ]
+  },
+  "EW": {
+   "last_session": "2026-11-05",
+   "open": 100.67,
+   "high": 104.17,
+   "low": 98.77,
+   "close": 100.82,
+   "ema10": 94.59,
+   "ema20": 91.97,
+   "ma50": 88.68,
+   "bars": [
+    [
+     "2026-07-01",
+     92.39,
+     90.28,
+     91.99
+    ],
+    [
+     "2026-07-02",
+     94.47,
+     91.82,
+     94.37
+    ],
+    [
+     "2026-07-06",
+     95.57,
+     92.72,
+     95.18
+    ],
+    [
+     "2026-07-07",
+     96.29,
+     94.2,
+     94.82
+    ],
+    [
+     "2026-07-08",
+     95.13,
+     92.89,
+     93.64
+    ],
+    [
+     "2026-07-09",
+     93.22,
+     91.03,
+     91.33
+    ],
+    [
+     "2026-07-10",
+     92.25,
+     90.69,
+     92.21
+    ],
+    [
+     "2026-07-13",
+     93.09,
+     91.5,
+     91.79
+    ],
+    [
+     "2026-07-14",
+     90.63,
+     88.2,
+     90.09
+    ],
+    [
+     "2026-07-15",
+     89.76,
+     86.89,
+     87.27
+    ],
+    [
+     "2026-07-16",
+     89.49,
+     86.42,
+     87.84
+    ],
+    [
+     "2026-07-17",
+     87.06,
+     85.3,
+     85.73
+    ],
+    [
+     "2026-07-20",
+     86.28,
+     84.87,
+     85.0
+    ],
+    [
+     "2026-07-21",
+     84.87,
+     83.17,
+     84.55
+    ],
+    [
+     "2026-07-22",
+     85.53,
+     84.02,
+     84.37
+    ],
+    [
+     "2026-07-23",
+     84.45,
+     82.99,
+     83.82
+    ],
+    [
+     "2026-07-24",
+     89.08,
+     82.53,
+     82.63
+    ],
+    [
+     "2026-07-27",
+     84.12,
+     81.16,
+     83.04
+    ],
+    [
+     "2026-07-28",
+     85.51,
+     83.22,
+     83.68
+    ],
+    [
+     "2026-07-29",
+     86.0,
+     82.91,
+     85.76
+    ],
+    [
+     "2026-07-30",
+     87.04,
+     85.05,
+     86.92
+    ],
+    [
+     "2026-07-31",
+     87.08,
+     85.24,
+     86.07
+    ],
+    [
+     "2026-08-03",
+     88.91,
+     86.39,
+     88.82
+    ],
+    [
+     "2026-08-04",
+     89.83,
+     88.16,
+     89.6
+    ],
+    [
+     "2026-08-05",
+     91.02,
+     88.54,
+     88.97
+    ],
+    [
+     "2026-08-06",
+     89.36,
+     87.95,
+     89.32
+    ],
+    [
+     "2026-08-07",
+     90.36,
+     88.77,
+     89.72
+    ],
+    [
+     "2026-08-10",
+     92.81,
+     88.61,
+     92.03
+    ],
+    [
+     "2026-08-11",
+     93.91,
+     91.98,
+     93.66
+    ],
+    [
+     "2026-08-12",
+     93.38,
+     91.66,
+     93.05
+    ],
+    [
+     "2026-08-13",
+     93.75,
+     92.21,
+     92.56
+    ],
+    [
+     "2026-08-14",
+     92.92,
+     91.48,
+     91.6
+    ],
+    [
+     "2026-08-17",
+     91.58,
+     90.59,
+     90.81
+    ],
+    [
+     "2026-08-18",
+     91.69,
+     90.4,
+     90.98
+    ],
+    [
+     "2026-08-19",
+     93.25,
+     91.27,
+     92.28
+    ],
+    [
+     "2026-08-20",
+     92.27,
+     89.75,
+     89.83
+    ],
+    [
+     "2026-08-21",
+     90.37,
+     88.79,
+     89.79
+    ],
+    [
+     "2026-08-24",
+     91.11,
+     89.46,
+     90.5
+    ],
+    [
+     "2026-08-25",
+     91.27,
+     89.68,
+     90.87
+    ],
+    [
+     "2026-08-26",
+     92.12,
+     90.08,
+     90.78
+    ],
+    [
+     "2026-08-27",
+     91.48,
+     89.79,
+     89.95
+    ],
+    [
+     "2026-08-28",
+     90.41,
+     89.55,
+     90.21
+    ],
+    [
+     "2026-08-31",
+     91.29,
+     89.32,
+     90.75
+    ],
+    [
+     "2026-09-01",
+     92.95,
+     90.1,
+     90.74
+    ],
+    [
+     "2026-09-02",
+     92.36,
+     90.55,
+     90.82
+    ],
+    [
+     "2026-09-03",
+     91.53,
+     89.33,
+     89.78
+    ],
+    [
+     "2026-09-04",
+     90.21,
+     88.4,
+     89.9
+    ],
+    [
+     "2026-09-08",
+     89.1,
+     86.39,
+     86.72
+    ],
+    [
+     "2026-09-09",
+     87.04,
+     85.73,
+     86.18
+    ],
+    [
+     "2026-09-10",
+     87.27,
+     85.0,
+     86.77
+    ],
+    [
+     "2026-09-11",
+     87.76,
+     83.81,
+     84.37
+    ],
+    [
+     "2026-09-14",
+     86.26,
+     85.12,
+     85.52
+    ],
+    [
+     "2026-09-15",
+     86.03,
+     84.47,
+     85.74
+    ],
+    [
+     "2026-09-16",
+     89.7,
+     84.84,
+     89.28
+    ],
+    [
+     "2026-09-17",
+     89.58,
+     88.0,
+     88.25
+    ],
+    [
+     "2026-09-18",
+     88.77,
+     87.47,
+     88.26
+    ],
+    [
+     "2026-09-21",
+     88.59,
+     87.77,
+     88.34
+    ],
+    [
+     "2026-09-22",
+     89.66,
+     88.5,
+     88.78
+    ],
+    [
+     "2026-09-23",
+     88.79,
+     86.06,
+     86.82
+    ],
+    [
+     "2026-09-24",
+     87.12,
+     85.63,
+     85.73
+    ],
+    [
+     "2026-09-25",
+     87.11,
+     84.93,
+     86.29
+    ],
+    [
+     "2026-09-28",
+     87.33,
+     85.56,
+     86.83
+    ],
+    [
+     "2026-09-29",
+     88.19,
+     85.7,
+     88.08
+    ],
+    [
+     "2026-09-30",
+     87.49,
+     85.72,
+     86.32
+    ],
+    [
+     "2026-10-01",
+     86.84,
+     84.49,
+     85.19
+    ],
+    [
+     "2026-10-02",
+     86.48,
+     84.66,
+     85.15
+    ],
+    [
+     "2026-10-05",
+     87.57,
+     85.34,
+     87.23
+    ],
+    [
+     "2026-10-06",
+     87.88,
+     85.94,
+     86.48
+    ],
+    [
+     "2026-10-07",
+     87.3,
+     85.49,
+     85.78
+    ],
+    [
+     "2026-10-08",
+     85.78,
+     82.43,
+     84.24
+    ],
+    [
+     "2026-10-09",
+     85.34,
+     83.22,
+     85.21
+    ],
+    [
+     "2026-10-12",
+     86.41,
+     84.55,
+     86.39
+    ],
+    [
+     "2026-10-13",
+     86.77,
+     85.07,
+     85.27
+    ],
+    [
+     "2026-10-14",
+     86.62,
+     84.83,
+     86.45
+    ],
+    [
+     "2026-10-15",
+     88.41,
+     85.54,
+     88.1
+    ],
+    [
+     "2026-10-16",
+     88.4,
+     86.09,
+     86.6
+    ],
+    [
+     "2026-10-19",
+     87.73,
+     86.55,
+     87.22
+    ],
+    [
+     "2026-10-20",
+     88.34,
+     87.16,
+     88.29
+    ],
+    [
+     "2026-10-21",
+     89.32,
+     87.06,
+     88.4
+    ],
+    [
+     "2026-10-22",
+     90.19,
+     88.28,
+     90.09
+    ],
+    [
+     "2026-10-23",
+     91.05,
+     88.97,
+     89.07
+    ],
+    [
+     "2026-10-26",
+     90.71,
+     88.91,
+     90.56
+    ],
+    [
+     "2026-10-27",
+     91.33,
+     89.73,
+     90.82
+    ],
+    [
+     "2026-10-28",
+     92.12,
+     89.9,
+     91.78
+    ],
+    [
+     "2026-10-29",
+     95.2,
+     92.0,
+     94.44
+    ],
+    [
+     "2026-10-30",
+     95.34,
+     91.87,
+     92.01
+    ],
+    [
+     "2026-11-02",
+     95.75,
+     87.9,
+     93.26
+    ],
+    [
+     "2026-11-03",
+     96.09,
+     93.27,
+     95.19
+    ],
+    [
+     "2026-11-04",
+     100.25,
+     96.72,
+     99.37
+    ],
+    [
+     "2026-11-05",
+     104.17,
+     98.77,
+     100.82
     ]
    ]
   },
