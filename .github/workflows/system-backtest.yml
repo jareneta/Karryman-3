@@ -11,7 +11,7 @@ on:
         required: false
         default: '42'
       mode:
-        description: 'variantes | comparacion_spy | indice_apalancado | senales_tempranas'
+        description: 'variantes | comparacion_spy | indice_apalancado | senales_tempranas | sec_smoke | fundamentales'
         required: false
         default: 'variantes'
 permissions:
@@ -37,6 +37,7 @@ jobs:
         run: |
           EXTRA=""
           if [ "$MODE" = "indice_apalancado" ]; then python index_leverage.py data/system_backtest.json; exit 0; fi
+          if [ "$MODE" = "sec_smoke" ]; then python sec_fundamentals.py --smoke; exit 0; fi
           if [ "$MODE" = "senales_tempranas" ]; then python early_signals.py --symbols "$SYMBOLS" --output data/system_backtest.json; exit 0; fi
           if [ "$MODE" = "comparacion_spy" ]; then EXTRA="--benchmark"; fi
           python system_backtest.py --symbols "$SYMBOLS" --seed "$SEED" --output data/system_backtest.json $EXTRA
