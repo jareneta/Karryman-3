@@ -96,6 +96,25 @@ class PlanBuildTests(unittest.TestCase):
         entries, _ = plan.build([good], {'AAA': frame(closes, vols)}, [], earnings_lookup=lambda t: later)
         self.assertTrue(entries[0]['actionable'])
 
+    def test_recent_earnings_history_is_reported(self):
+        from datetime import datetime, timedelta, timezone
+        closes = base() + [101.0]
+        vols = [1_000_000] * (len(closes) - 1) + [1_600_000]
+        good = {'ticker': 'AAA', 'setup': 'BASE_6_SEMANAS', 'trend_ok': True, 'near_high_ok': True,
+                'rs_vs_spy_3m_pct': 5, 'fundamental_status': 'CUMPLE'}
+        past = (datetime.now(timezone.utc).date() - timedelta(days=8)).isoformat()
+        entries, _ = plan.build([good], {'AAA': frame(closes, vols)}, [],
+                                earnings_lookup=lambda t: {'next': None, 'last': past})
+        self.assertEqual(entries[0]['last_earnings_date'], past)
+        self.assertTrue(entries[0]['actionable'])
+        self.assertTrue(any('Publicó resultados' in w for w in entries[0]['warnings']))
+
+    def test_as_date(self):
+        import pandas as pd
+        self.assertEqual(plan._as_date(pd.Timestamp('2026-11-12 16:00', tz='America/New_York')).isoformat(), '2026-11-12')
+        self.assertEqual(plan._as_date('2026-11-12').isoformat(), '2026-11-12')
+        self.assertIsNone(plan._as_date(None))
+
     def test_every_status_has_reason(self):
         for closes, vols in [(base(), None), (base() + [101.0, 108.0], [1_000_000] * 120 + [1_600_000, 900_000]),
                              (base() + [101.0, 97.0], [1_000_000] * 120 + [1_600_000, 900_000])]:

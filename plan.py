@@ -43,59 +43,44 @@ CRITERIA_TEXT = {
 }
 
 
-def earnings_date(ticker):
-    """Próxima fecha de resultados según Yahoo (puede faltar o ser estimada)."""
+def _as_date(value):
+    if value is None:
+        return None
+    if isinstance(value, str):
+        try:
+            return datetime.fromisoformat(value[:10]).date()
+        except ValueError:
+            return None
+    if hasattr(value, 'date') and hasattr(value, 'hour'):
+        return value.date()
+    return value if hasattr(value, 'isoformat') else None
+
+
+def earnings_info(ticker):
+    """Próxima y última fecha de resultados según Yahoo: calendario y, si falta, historial."""
+    today = datetime.now(timezone.utc).date()
+    dates = []
     try:
         cal = yf.Ticker(ticker).calendar
-        dates = cal.get('Earnings Date') if isinstance(cal, dict) else None
-        if not isinstance(dates, (list, tuple)):
-            dates = [dates] if dates is not None else []
-        today = datetime.now(timezone.utc).date()
-        future = []
-        for value in dates:
-            day = value if hasattr(value, 'isoformat') and not hasattr(value, 'hour') else None
-            if day is None and hasattr(value, 'date'):
-                day = value.date()
-            if day is None and isinstance(value, str):
-                try:
-                    day = datetime.fromisoformat(value[:10]).date()
-                except ValueError:
-                    day = None
-            if day and day >= today:
-                future.append(day)
-        return min(future).isoformat() if future else None
+        raw = cal.get('Earnings Date') if isinstance(cal, dict) else None
+        dates += list(raw) if isinstance(raw, (list, tuple)) else [raw]
     except Exception:
-        return None
+        pass
+    try:
+        hist = yf.Ticker(ticker).get_earnings_dates(limit=8)
+        if hist is not None and len(hist):
+            dates += list(hist.index)
+    except Exception:
+        pass
+    days = {d for d in (_as_date(x) for x in dates) if d}
+    future = [d for d in days if d >= today]
+    past = [d for d in days if d < today]
+    return {'next': min(future).isoformat() if future else None,
+            'last': max(past).isoformat() if past else None}
 
 
-SCREENER_TEXT = {
-    'price_over_5': 'precio < 5 $', 'average_volume_over_500k': 'volumen medio < 500.000',
-    'market_cap_over_300m': 'capitalización <= 300 M$', 'return_3m_over_10': 'subida 3 meses <= 10%',
-    'return_6m_over_10': 'subida 6 meses <= 10%', 'return_1y_over_10': 'subida 1 año <= 10%',
-    'within_15pct_52w_high': 'a más de un 15% del máximo de 52 semanas', 'above_ma50': 'precio bajo MA50',
-    'above_ma200': 'precio bajo MA200', 'annual_revenue_growth_over_10': 'ventas anuales crecen <= 10%',
-    'eps_over_minus_1': 'BPA <= -1', 'zero_dividend_yield': 'paga dividendo',
-    'quarterly_revenue_growth_over_10': 'ventas trimestrales crecen <= 10%', 'above_ma20': 'precio bajo MA20',
-}
-
-
-def funnel():
-    """Por qué se descartan acciones antes de llegar al plan."""
-    discovery = read('discovery.json', {})
-    discards = []
-    for x in discovery.get('candidates', []):
-        if not x.get('ticker'):
-            continue
-        r = screener.evaluate(x)
-        if r['stock_analysis_status'] == 'DESCARTADA':
-            discards.append({'ticker': r['ticker'],
-                             'reasons': [SCREENER_TEXT.get(k, k) for k in r['failed']]})
-    counts = discovery.get('filter_counts', {})
-    return {'discovery_generated_utc': discovery.get('generated_utc'),
-            'discovery_scanned': discovery.get('scanned_this_run'),
-            'discovery_filter_counts': {k: v for k, v in counts.items() if k != 'pasa filtro técnico'},
-            'discovery_passed': counts.get('pasa filtro técnico'),
-            'screener_discards': sorted(discards, key=lambda d: d['ticker'])}
+def earnings_date(ticker):
+    return earnings_info(ticker)['next']
 
 
 def criteria(x):
@@ -123,8 +108,13 @@ def build(candidates, frames, tracked, earnings_lookup=None):
         if plan.get('entry_status') == 'SIN_DATOS':
             continue
         checks, earnings = criteria(x)
+        last_earnings = None
         if not earnings and earnings_lookup:
-            earnings = earnings_lookup(t)
+            found = earnings_lookup(t)
+            if isinstance(found, dict):
+                earnings, last_earnings = found.get('next'), found.get('last')
+            else:
+                earnings = found
         failed = [CRITERIA_TEXT[k] for k in CRITERIA_TEXT if not checks[k]]
         core = not failed
         warnings, blockers = [], []
@@ -134,13 +124,18 @@ def build(candidates, frames, tracked, earnings_lookup=None):
             if days <= EARNINGS_BLOCK_DAYS:
                 blockers.append(f'Resultados el {earnings} (en {days} días): no entrar a menos de '
                                 f'{EARNINGS_BLOCK_DAYS} días de resultados')
+        elif last_earnings and (datetime.now(timezone.utc).date()
+                                - datetime.fromisoformat(last_earnings).date()).days <= 45:
+            warnings.append(f'Publicó resultados el {last_earnings}; los próximos aún sin fecha '
+                            '(normalmente unos 3 meses después)')
         else:
             warnings.append('Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar')
         blockers += ['No cumple ' + f for f in failed]
         if not checks['a_plus_tecnico']:
             warnings.append('No es A+ técnico completo (contracción de rango / volumen seco): menor calidad')
         entries.append({'ticker': t, 'setup': x.get('setup'), **plan, 'criteria': checks,
-                        'meets_criteria': core, 'next_earnings_date': earnings, 'days_to_earnings': days,
+                        'meets_criteria': core, 'next_earnings_date': earnings, 'last_earnings_date': last_earnings,
+                        'days_to_earnings': days,
                         'blockers': blockers,
                         'actionable': not blockers and plan['entry_status'] == 'ACTIVADA',
                         'warnings': warnings, 'order_enabled': False})
@@ -185,7 +180,7 @@ def main():
     frames, errors = download(tickers)
     if tickers and len(frames) < len(tickers) // 2:
         raise RuntimeError('Descargas insuficientes; se conserva el plan anterior')
-    entries, quotes = build(candidates, frames, tracked, earnings_lookup=earnings_date)
+    entries, quotes = build(candidates, frames, tracked, earnings_lookup=earnings_info)
     missing = [t for t in tracked if t not in quotes]
     payload = {
         'schema_version': 1, 'generated_utc': datetime.now(timezone.utc).isoformat(),
@@ -195,7 +190,8 @@ def main():
                   'exit': 'Stop por cierre; +2R vender 1/3 y stop del resto a breakeven; runner sale con cierre bajo EMA20',
                   'risk': '1% por operación, 6% riesgo total, 20% peso máximo (editable en la app)'},
         'entries_count': len(entries),
-        'earnings_known_count': sum(bool(e['next_earnings_date']) for e in entries), 'activated_count': sum(e['actionable'] for e in entries),
+        'earnings_known_count': sum(bool(e['next_earnings_date']) for e in entries),
+        'earnings_recent_count': sum(bool(e['last_earnings_date']) and not e['next_earnings_date'] for e in entries), 'activated_count': sum(e['actionable'] for e in entries),
         'quotes_count': len(quotes), 'tracked_missing': missing, 'errors': errors[:20],
         'broker_connected': False, 'orders_enabled': False,
         'funnel': funnel(),
