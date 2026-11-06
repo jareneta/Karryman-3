@@ -11,9 +11,12 @@ assert.equal(a.newRisk,30);
 assert.equal(a.existingRisk,20);
 assert.equal(a.aggregateRisk,50);
 assert.equal(a.orderEnabled,false);
-assert.equal(assess({...p,cash:100},{ticker:'XYZ',entry_reference:50,stop_reference:47}).shares,2);
+// El efectivo ya no limita el tamaño: solo avisa del margen
+const lowCash=assess({...p,cash:100},{ticker:'XYZ',entry_reference:50,stop_reference:47});
+assert.equal(lowCash.shares,10);assert.equal(lowCash.marginUsed,400);assert.ok(lowCash.warnings.some(w=>w.includes('margen')));
 assert.equal(assess({...p,positions:[{ticker:'ABC',qty:10,last:20,stop:null}]},{ticker:'XYZ',entry_reference:50,stop_reference:47}).shares,0);
-assert.equal(assess({...p,cash:-1},{ticker:'XYZ',entry_reference:50,stop_reference:47}).eligible,false);
+const neg=assess({...p,cash:-1},{ticker:'XYZ',entry_reference:50,stop_reference:47});
+assert.equal(neg.eligible,true);assert.ok(neg.warnings.some(w=>w.includes('Efectivo negativo')));
 assert.equal(assess(p,{ticker:'ABC',entry_reference:50,stop_reference:47}).eligible,false);
 assert.equal(assess(p,{ticker:'XYZ',entry_reference:50,stop_reference:51}).eligible,false);
 const nearLimit={nlv:3000,cash:3000,positions:[{ticker:'ABC',qty:70,last:20,stop:18}]};

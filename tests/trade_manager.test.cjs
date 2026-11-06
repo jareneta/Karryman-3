@@ -36,7 +36,9 @@ assert.equal(s.shares,40);assert.ok(s.limitedByWeight);assert.equal(s.weightPct,
 s=T.sizeEntry(pf,{ticker:'XYZ',entry_reference:50,stop_reference:45});assert.equal(s.shares,20);assert.equal(s.newRiskPct,1);
 const loaded={nlv:10000,cash:10000,positions:[{ticker:'A',qty:100,last:50,stop:44.5}]};
 s=T.sizeEntry(loaded,{ticker:'XYZ',entry_reference:50,stop_reference:45});assert.equal(s.shares,10);assert.ok(s.aggregateRiskPct<=6);
-assert.equal(T.sizeEntry({...pf,cash:-5},{ticker:'XYZ',entry_reference:50,stop_reference:45}).eligible,false);
+const mg=T.sizeEntry({...pf,cash:-5},{ticker:'XYZ',entry_reference:50,stop_reference:45});
+assert.equal(mg.eligible,true);assert.equal(mg.shares,20);assert.equal(mg.marginUsed,1000);
+assert.ok(mg.warnings.some(w=>w.includes('margen')));
 assert.equal(s.orderEnabled,false);
 assert.ok(T.orderTicket({ticker:'XYZ',max_entry_price:52.5,stop_reference:45,target_2r:60},s).startsWith('COMPRAR 10 XYZ'));
 // El máximo del propio día de entrada no cuenta (pudo ser antes de comprar)

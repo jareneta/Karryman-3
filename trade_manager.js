@@ -82,7 +82,11 @@
     const perShare=base.riskPerShare||0;
     const errors=[...base.errors];
     if(base.shares>shares&&shares>0)errors.push('Limitado por peso máximo '+r.maxWeightPct+'%');
-    return {...base,shares,limitedByWeight:base.shares>shares,
+    const cash=num(portfolio?.cash);
+    const marginUsed=cash===null?null:round2(Math.max(0,shares*(price||0)-Math.max(0,cash)));
+    const warnings=base.warnings.filter(w=>!/usaría unos/.test(w));
+    if(shares>0&&marginUsed>0)warnings.push('Esta compra usaría unos '+marginUsed.toFixed(2)+' $ de margen');
+    return {...base,shares,limitedByWeight:base.shares>shares,warnings,marginUsed,
       positionValue:round2(shares*(price||0)),newRisk:round2(shares*perShare),
       weightPct:nlv>0?round2(100*shares*(price||0)/nlv):null,
       newRiskPct:nlv>0?round2(100*shares*perShare/nlv):null,

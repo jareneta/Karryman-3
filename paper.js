@@ -15,7 +15,7 @@
      ticker,side:'BUY',quantity:risk.shares,reference_entry:risk.entry,
      reference_stop:risk.stop,estimated_risk_usd:Number(risk.newRisk.toFixed(2)),
      estimated_portfolio_risk_pct:Number(risk.aggregateRiskPct.toFixed(3)),
-     signal_session:session,created_utc:now,
+     signal_session:session,created_utc:now,risk_warnings:Object.freeze([...(risk.warnings||[])]),
      warning:'No es una orden ni precio ejecutable. Revalidar cotización, cartera y stops antes de operar.'});
  }
  root.KarrymanPaper={create};

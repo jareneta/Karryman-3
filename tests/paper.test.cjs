@@ -12,6 +12,8 @@ assert.equal(t.estimated_risk_usd,30);
 assert.equal(t.estimated_portfolio_risk_pct,1);
 assert.equal(t.type,'SIMULACION_LOCAL');
 assert.throws(()=>ctx.KarrymanPaper.create({...proposal,last_session:'2026-10-20'},portfolio,'2026-11-02T20:00:00Z'));
-assert.throws(()=>ctx.KarrymanPaper.create(proposal,{...portfolio,cash:-100},'2026-11-02T20:00:00Z'));
+// El margen no bloquea: el borrador se crea con aviso
+const m=ctx.KarrymanPaper.create(proposal,{...portfolio,cash:-100},'2026-11-02T20:00:00Z');
+assert.equal(m.quantity,10);assert.ok(m.risk_warnings.some(w=>w.includes('margen')));
 assert.throws(()=>ctx.KarrymanPaper.create({...proposal,ticker:'BAD!'},portfolio,'2026-11-02T20:00:00Z'));
 console.log('Paper ticket tests passed');

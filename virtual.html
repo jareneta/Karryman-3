@@ -59,12 +59,12 @@ function parseIBKR(text){
 }
 function calculateSize(){
  const entry=Number($('price').value),stop=Number($('stop').value),equity=state.equity,cash=state.cash;
- if(!(equity>0&&cash>0)){$('riskDetails').textContent='Verifica patrimonio y efectivo IBKR primero.';return}
+ if(!(equity>0)){$('riskDetails').textContent='Verifica el patrimonio IBKR primero.';return}
  if(!(entry>stop&&stop>0)){$('riskDetails').textContent='La entrada debe superar al stop y ambos ser positivos.';return}
  const budget=equity*.01,openRisk=state.positions.reduce((a,p)=>a+(p.stop>0?Math.max(0,p.last-p.stop)*p.qty:0),0);
- const qty=Math.max(0,Math.min(Math.floor(budget/(entry-stop)),Math.floor(Math.max(0,cash)/entry)));
+ const qty=Math.max(0,Math.floor(budget/(entry-stop)));
  $('qty').value=qty||'';
- $('riskDetails').textContent='Riesgo por acción: '+fmt(entry-stop)+' · 1% patrimonio: '+fmt(budget)+' · Tamaño: '+qty+' acciones · Importe: '+fmt(qty*entry)+' · Peso: '+(100*qty*entry/equity).toFixed(2)+'% · Riesgo entrada: '+fmt(qty*(entry-stop))+' ('+(100*qty*(entry-stop)/equity).toFixed(2)+'%) · Riesgo abierto con stops registrados: '+fmt(openRisk)+' · Riesgo conjunto estimado: '+fmt(openRisk+qty*(entry-stop))+'. Sin margen, comisiones ni gaps.';
+ $('riskDetails').textContent='Riesgo por acción: '+fmt(entry-stop)+' · 1% patrimonio: '+fmt(budget)+' · Tamaño: '+qty+' acciones · Importe: '+fmt(qty*entry)+' · Peso: '+(100*qty*entry/equity).toFixed(2)+'% · Riesgo entrada: '+fmt(qty*(entry-stop))+' ('+(100*qty*(entry-stop)/equity).toFixed(2)+'%) · Riesgo abierto con stops registrados: '+fmt(openRisk)+' · Riesgo conjunto estimado: '+fmt(openRisk+qty*(entry-stop))+'. Sin comisiones ni gaps.'+(qty*entry>Math.max(0,cash||0)?' ⚠ Usaría unos '+fmt(qty*entry-Math.max(0,cash||0))+' de margen.':'');
 }
 function render(){
  $('ibkrEquity').value=state.equity||'';$('ibkrCash').value=state.cash||'';
