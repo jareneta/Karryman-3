@@ -14,6 +14,7 @@ button{cursor:pointer}button.primary{background:#2367a3}button.good{background:#
 .card h3{margin:0;font-size:1.1rem;display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .tag{font-size:.75rem;padding:3px 8px;border-radius:99px;background:#0f1b2c;color:var(--muted)}.tag.good{color:var(--good)}.tag.bad{color:var(--bad)}.tag.warn{color:var(--warn)}
 .kv{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:6px 12px;margin:10px 0;font-size:.9rem}.kv span{color:var(--muted);display:block;font-size:.78rem}
+.mini{background:var(--soft);border-radius:12px;padding:10px 12px;margin:8px 0;border-left:4px solid var(--line)}.mini.warn{border-left-color:var(--warn)}.mini.bad{border-left-color:var(--bad)}.mini .top{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;align-items:baseline}.mini .nums{font-size:.85rem;color:var(--muted);margin:4px 0}.mini .why{font-size:.9rem}.mini .why div+div{color:var(--warn)}
 .ticket{font-family:ui-monospace,monospace;background:#0f1b2c;padding:10px;border-radius:9px;font-size:.88rem;overflow-wrap:anywhere}
 ul{margin:6px 0;padding-left:20px}li{margin:3px 0}.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:640px;font-size:.9rem}th,td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line)}
 .good-t{color:var(--good)}.bad-t{color:var(--bad)}.warn-t{color:var(--warn)}details summary{cursor:pointer;color:var(--link)}
@@ -42,8 +43,8 @@ ul{margin:6px 0;padding-left:20px}li{margin:3px 0}.scroll{overflow-x:auto}table{
 
 <section class="panel"><h2>1 · Mis posiciones</h2><p class="muted"><b>Actualizar con IBKR:</b> en la app de IBKR → Informes → Extractos → «Actividad» del día, formato CSV → descárgalo y súbelo en <a href="virtual.html">Mi cartera</a>. Se conservan tus stops, fechas de entrada y ventas parciales.</p><div id="positions"></div></section>
 <section class="panel"><h2>2 · Entradas activadas</h2><p class="muted">Cumplen tus criterios y han cerrado sobre el pivote. Compra a la apertura sin superar el precio máximo.</p><div id="activated"></div></section>
-<section class="panel"><h2>3 · Esperando el pivote</h2><p class="muted">Pon una alerta en IBKR en el pivote. Se activa solo si una sesión <b>cierra</b> por encima con volumen.</p><div class="scroll"><table><thead><tr><th>Ticker</th><th>Setup</th><th>Pivote</th><th>Distancia</th><th>Stop</th><th>Riesgo</th><th>+2R</th><th>Resultados</th><th>Qué falta / por qué no</th></tr></thead><tbody id="waiting"></tbody></table></div></section>
-<section class="panel"><h2>4 · Descartadas en el plan</h2><p class="muted">Cumplían tus filtros, pero el precio o el riesgo no permiten entrar ahora.</p><div class="scroll"><table><thead><tr><th>Ticker</th><th>Estado</th><th>Pivote</th><th>Cierre</th><th>Resultados</th><th>Por qué</th></tr></thead><tbody id="others"></tbody></table></div></section>
+<section class="panel"><h2>3 · Esperando el pivote</h2><p class="muted">Pon una alerta en IBKR en el pivote. Se activa solo si una sesión <b>cierra</b> por encima con volumen.</p><div id="waiting"></div></section>
+<section class="panel"><h2>4 · Descartadas en el plan</h2><p class="muted">Cumplían tus filtros, pero el precio o el riesgo no permiten entrar ahora.</p><div id="others"></div></section>
 <section class="panel"><details><summary>5 · Descartadas antes del plan (Discovery y Screener)</summary><div id="funnel"></div></details></section>
 <p class="muted">Datos de Yahoo Finance (no oficiales, con retraso). Reglas heurísticas sin ventaja estadística demostrada. Gaps y deslizamiento pueden superar el riesgo calculado. No es asesoramiento financiero.</p>
 </main>
@@ -155,9 +156,11 @@ function renderEntries(){
     card.append(a);act.append(card);
   }
   const wait=list.filter(e=>e.entry_status==='ESPERANDO'||(e.entry_status==='ACTIVADA'&&!e.actionable));
-  $('waiting').innerHTML=wait.map(e=>'<tr><td><b>'+esc(e.ticker)+'</b>'+(e.entry_status==='ACTIVADA'?' <small class="warn-t">activada pero bloqueada</small>':'')+'</td><td>'+esc(e.setup)+'</td><td>'+fx(e.pivot)+'</td><td>'+fx(e.distance_to_pivot_pct,1)+'%</td><td>'+fx(e.stop_reference)+'</td><td>'+fx(e.risk_pct,1)+'%</td><td>'+fx(e.target_2r)+'</td><td>'+earn(e)+'</td><td>'+whyList(e)+'</td></tr>').join('')||'<tr><td colspan="9" class="muted">Sin candidatas esperando.</td></tr>';
+  const mini=(e,cls,extra)=>'<div class="mini '+cls+'"><div class="top"><b>'+esc(e.ticker)+(extra||'')+'</b><small class="muted">'+esc(e.setup)+' · resultados '+earn(e)+'</small></div>'+
+    '<div class="nums">Pivote '+fx(e.pivot)+' · cierre '+fx(e.close)+' · stop '+fx(e.stop_reference)+(e.risk_pct!==null?' ('+fx(e.risk_pct,1)+'%)':'')+' · +2R '+fx(e.target_2r)+'</div><div class="why">'+whyList(e)+'</div></div>';
+  $('waiting').innerHTML=wait.map(e=>mini(e,e.entry_status==='ACTIVADA'||(e.blockers||[]).length?'warn':'',e.entry_status==='ACTIVADA'?' <small class="warn-t">activada pero bloqueada</small>':'')).join('')||'<p class="muted">Sin candidatas esperando.</p>';
   const rest=list.filter(e=>['EXTENDIDA','FALLIDA','INVALIDADA','RIESGO_ALTO'].includes(e.entry_status));
-  $('others').innerHTML=rest.map(e=>'<tr><td><b>'+esc(e.ticker)+'</b></td><td>'+esc(e.entry_status)+'</td><td>'+fx(e.pivot)+'</td><td>'+fx(e.close)+'</td><td>'+earn(e)+'</td><td>'+whyList(e)+'</td></tr>').join('')||'<tr><td colspan="6" class="muted">Ninguna.</td></tr>';
+  $('others').innerHTML=rest.map(e=>mini(e,'bad',' <small class="bad-t">'+esc(e.entry_status.replace('_',' '))+'</small>')).join('')||'<p class="muted">Ninguna.</p>';
   const f=plan?.funnel;
   $('funnel').innerHTML=!f?'<p class="muted">Sin datos.</p>':'<p>Discovery revisó '+esc(f.discovery_scanned)+' acciones y pasaron '+esc(f.discovery_passed)+' el filtro técnico. Descartadas por:</p><ul>'+
     Object.entries(f.discovery_filter_counts||{}).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'<li>'+esc(k)+': '+esc(v)+'</li>').join('')+'</ul>'+
