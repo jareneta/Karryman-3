@@ -1,1 +1,1 @@
-{"name":"Karryman 4.0","short_name":"Karryman","start_url":"./","scope":"./","display":"standalone","background_color":"#000000","theme_color":"#0b1320","icons":[{"src":"./karryman-icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any"}]}
+{"name": "Karryman 4.0", "short_name": "Karryman", "start_url": "./plan.html", "scope": "./", "display": "standalone", "background_color": "#070908", "theme_color": "#070908", "icons": [{"src": "./karryman-icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any"}]}

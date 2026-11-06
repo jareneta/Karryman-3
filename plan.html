@@ -1,7 +1,7 @@
-<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Karryman · Plan de órdenes</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="karryman-icon.svg">
+<!doctype html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Karryman · Hoy</title><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="karryman-icon.svg">
 <style>
-:root{color-scheme:dark;--bg:#0b1320;--panel:#182538;--line:#33445b;--soft:#253750;--text:#e9f0fb;--muted:#b9c6d7;--good:#8fe2ae;--bad:#ffa3a3;--warn:#ffd28a;--link:#94c5ff}
+:root{color-scheme:dark;--bg:#070908;--panel:#111512;--line:#2b362c;--soft:#212b22;--text:#eef3e8;--muted:#a4b09d;--good:#9ad94a;--bad:#ff8a80;--warn:#ffc65c;--link:#c7e14a}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font:16px system-ui,Arial}main{max-width:1050px;margin:auto;padding:16px}
 a{color:var(--link)}h1{margin:10px 0 4px}h2{font-size:1.15rem;margin:0 0 8px}p,small,.muted{color:var(--muted)}
 .panel{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:16px;margin:14px 0}
@@ -19,33 +19,36 @@ button{cursor:pointer}button.primary{background:#2367a3}button.good{background:#
 ul{margin:6px 0;padding-left:20px}li{margin:3px 0}.scroll{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:640px;font-size:.9rem}th,td{padding:8px 6px;text-align:left;border-bottom:1px solid var(--line)}
 .good-t{color:var(--good)}.bad-t{color:var(--bad)}.warn-t{color:var(--warn)}details summary{cursor:pointer;color:var(--link)}
 @media(max-width:700px){.grid{grid-template-columns:1fr 1fr}main{padding:12px}}
-</style></head><body><main>
-<a href="./">← Centro de control</a> · <a href="virtual.html">Mi cartera</a>
-<h1>Plan de órdenes</h1>
-<p>Karryman propone; <b>tú decides</b>. Nada se envía a IBKR: copia la orden, ponla tú y marca aquí lo que hiciste. Tu cartera se queda en este navegador.</p>
-<p id="freshness" class="muted">Cargando plan…</p><p id="error" class="bad-t"></p>
+</style><link rel="stylesheet" href="karryman.css"><link rel="apple-touch-icon" href="karryman-icon.svg"></head><body data-page="hoy" data-title="Hoy · qué hacer"><main>
+<div class="k-hero"><div><h1>Hoy</h1><p id="freshness" class="k-updated">Cargando plan…</p></div><button class="primary" id="run">▶ Revisar ahora</button></div>
+<p id="runStatus" class="muted" role="status"></p><p id="error" class="bad-t"></p>
+<nav class="k-today" id="today" aria-label="Resumen de hoy"></nav>
+<p class="muted">Karryman propone; <b>tú decides</b>. Copia la orden, ponla tú en IBKR y marca aquí lo que hiciste.</p>
 
-<section class="panel"><h2>Mi cartera y límites</h2>
+<section class="panel" id="secPositions"><h2>Mis posiciones</h2>
 <div class="grid"><div class="metric"><span>Patrimonio</span><b id="mEquity">—</b></div><div class="metric"><span>Efectivo</span><b id="mCash">—</b></div><div class="metric"><span>Riesgo abierto hasta stops</span><b id="mRisk">—</b></div><div class="metric"><span>Riesgo disponible</span><b id="mFree">—</b></div></div>
+<p id="portfolioWarn" class="warn-t"></p>
+<div id="positions"></div>
+<p class="muted">¿Has operado? Descarga en la app de IBKR <b>Informes → Extractos → Actividad</b> (CSV) y súbelo en <a href="virtual.html">Cartera</a>. Se conservan tus stops y fechas.</p></section>
+
+<section class="panel" id="secBuy"><h2>Para comprar</h2><p class="muted">Cumplen tus criterios y han cerrado sobre el pivote. Compra a la apertura sin pasar del precio máximo.</p><div id="activated"></div></section>
+<section class="panel" id="secWatch"><h2>Vigilar</h2><p class="muted">Pon una alerta en IBKR en el pivote. Se activa solo si una sesión <b>cierra</b> por encima con volumen.</p><div id="waiting"></div></section>
+<section class="panel" id="secDiscard"><details><summary id="discardSummary">Descartadas y por qué</summary><p class="muted">Cumplían tus filtros, pero el precio o el riesgo no permiten entrar ahora.</p><div id="others"></div>
+<details style="margin-top:12px"><summary>Descartadas antes, por los filtros (Discovery y Screener)</summary><div id="funnel"></div></details></details></section>
+
+<section class="panel"><details><summary>Ajustes: límites de riesgo y conexión con GitHub</summary>
+<h3 style="margin-top:14px">Límites</h3>
 <div class="grid" style="margin-top:10px">
 <label>Riesgo por operación %<input id="rRisk" type="number" min="0.1" max="1" step="0.1"></label>
 <label>Riesgo total máximo %<input id="rTotal" type="number" min="1" max="20" step="0.5"></label>
 <label>Peso máximo por posición %<input id="rWeight" type="number" min="1" max="100" step="1"></label>
 <label>Salida del runner (cierre bajo)<select id="rTrail"><option value="ema10">EMA10 (rápida)</option><option value="ema20">EMA20</option><option value="ma50">MA50 (lenta)</option></select></label></div>
-<p id="portfolioWarn" class="warn-t"></p>
-</section>
-
-<section class="panel"><h2>Analizar ahora (incluye mis posiciones)</h2>
-<p>Revisa tus posiciones y recalcula las entradas en GitHub (2–4 min). Solo se envían los <b>tickers</b> de tus posiciones (nunca cantidades, precios ni patrimonio) y quedan visibles en el repositorio público. El análisis automático diario los vuelve a revisar.</p>
+<h3 style="margin-top:16px">Conexión para «Revisar ahora»</h3>
+<p class="muted">Recalcula en GitHub (2–4 min) e incluye tus posiciones. Solo se envían los <b>tickers</b> (nunca cantidades, precios ni patrimonio) y quedan visibles en el repositorio público. También se revisa solo, de lunes a viernes tras el cierre.</p>
 <details id="auth"><summary>Autorización GitHub</summary><p class="muted">Token de grano fino solo para jareneta/Karryman-3 con permiso Actions: lectura y escritura. Se usa en esta pestaña; no se guarda.</p><input id="token" type="password" autocomplete="off" placeholder="github_pat_…"><div class="actions"><button id="connect">Conectar</button></div></details>
-<div class="actions"><button class="primary" id="run">▶ Revisar posiciones y entradas</button><button id="reload">↻ Recargar plan publicado</button></div>
-<p id="runStatus" class="muted" role="status"></p></section>
-
-<section class="panel"><h2>1 · Mis posiciones</h2><p class="muted"><b>Actualizar con IBKR:</b> en la app de IBKR → Informes → Extractos → «Actividad» del día, formato CSV → descárgalo y súbelo en <a href="virtual.html">Mi cartera</a>. Se conservan tus stops, fechas de entrada y ventas parciales.</p><div id="positions"></div></section>
-<section class="panel"><h2>2 · Entradas activadas</h2><p class="muted">Cumplen tus criterios y han cerrado sobre el pivote. Compra a la apertura sin superar el precio máximo.</p><div id="activated"></div></section>
-<section class="panel"><h2>3 · Esperando el pivote</h2><p class="muted">Pon una alerta en IBKR en el pivote. Se activa solo si una sesión <b>cierra</b> por encima con volumen.</p><div id="waiting"></div></section>
-<section class="panel"><h2>4 · Descartadas en el plan</h2><p class="muted">Cumplían tus filtros, pero el precio o el riesgo no permiten entrar ahora.</p><div id="others"></div></section>
-<section class="panel"><details><summary>5 · Descartadas antes del plan (Discovery y Screener)</summary><div id="funnel"></div></details></section>
+<div class="actions"><button id="reload">↻ Recargar plan publicado</button></div>
+</details></section>
+<p class="muted">Datos de Yahoo Finance (no oficiales, con retraso). Reglas heurísticas sin ventaja estadística demostrada. Gaps y deslizamiento pueden superar el riesgo calculado. No es asesoramiento financiero.</p>
 <p class="muted">Datos de Yahoo Finance (no oficiales, con retraso). Reglas heurísticas sin ventaja estadística demostrada. Gaps y deslizamiento pueden superar el riesgo calculado. No es asesoramiento financiero.</p>
 </main>
 <script src="risk.js"></script><script src="trade_manager.js"></script>
@@ -167,15 +170,30 @@ function renderEntries(){
     '<p>El Screener descartó '+(f.screener_discards||[]).length+' de la lista de seguimiento:</p><div class="scroll"><table><thead><tr><th>Ticker</th><th>No cumple</th></tr></thead><tbody>'+
     (f.screener_discards||[]).map(d=>'<tr><td>'+esc(d.ticker)+'</td><td>'+esc(d.reasons.join(' · '))+'</td></tr>').join('')+'</tbody></table></div>';
 }
+function renderToday(){
+  const held=new Set(portfolio.positions.map(p=>String(p.ticker).toUpperCase()));
+  let sell=0,fix=0;
+  for(const p of portfolio.positions){const m=KarrymanTrade.manage(p,quoteOf(p.ticker),rules);if(/^VENDER/.test(m.action))sell++;else if(m.action==='REVISAR')fix++}
+  const list=plan?.entries||[];
+  const buy=list.filter(e=>e.actionable&&!held.has(e.ticker)&&dismissed[e.ticker]!==e.trigger_session).length;
+  const watch=list.filter(e=>e.entry_status==='ESPERANDO'||(e.entry_status==='ACTIVADA'&&!e.actionable)).length;
+  const discard=list.filter(e=>['EXTENDIDA','FALLIDA','INVALIDADA','RIESGO_ALTO'].includes(e.entry_status)).length;
+  const tile=(cls,n,label,href)=>'<a class="'+cls+(n?'':' zero')+'" href="'+href+'"><b>'+n+'</b><span>'+label+'</span></a>';
+  $('today').innerHTML=tile('sell',sell,sell===1?'posición para vender':'posiciones para vender','#secPositions')+
+    tile('buy',buy,buy===1?'entrada para comprar':'entradas para comprar','#secBuy')+
+    tile('fix',fix,fix===1?'posición sin stop o datos':'posiciones sin stop o datos','#secPositions')+
+    tile('watch',watch,'acciones a vigilar','#secWatch');
+  $('discardSummary').textContent='Descartadas y por qué ('+discard+')';
+}
 function render(){
   $('rRisk').value=rules.riskPct;$('rTotal').value=rules.totalRiskPct;$('rWeight').value=rules.maxWeightPct;$('rTrail').value=rules.trail;
-  renderSummary();renderPositions();renderEntries();
+  renderSummary();renderPositions();renderEntries();renderToday();
 }
 async function loadPlan(){
   $('error').textContent='';
   try{const r=await fetch('data/plan.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);plan=await r.json();
     const age=(Date.now()-new Date(plan.generated_utc))/36e5;
-    $('freshness').textContent='Plan generado: '+new Date(plan.generated_utc).toLocaleString('es-ES')+' · '+plan.entries_count+' candidatas · '+plan.activated_count+' entradas activadas'+(age>36?' · ⚠ datos de hace más de 36 h':'');
+    $('freshness').textContent='Actualizado '+new Date(plan.generated_utc).toLocaleString('es-ES',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' · '+plan.entries_count+' candidatas analizadas'+(age>36?' · ⚠ datos de hace más de 36 h':'');
     const held=portfolio.positions.map(p=>String(p.ticker).toUpperCase()).filter(t=>!plan.quotes?.[t]);
     if(held.length)$('error').textContent='Sin cotización para: '+held.join(', ')+'. Pulsa «Revisar posiciones» para incluirlas.';
   }catch(e){plan=null;$('freshness').textContent='';$('error').textContent='No hay plan publicado todavía ('+e.message+'). Pulsa «Revisar posiciones y entradas».'}
@@ -204,4 +222,4 @@ $('run').onclick=async()=>{
 };
 $('reload').onclick=loadPlan;
 loadPlan();
-</script></body></html>
+</script><script src="karryman-nav.js" defer></script></body></html>
