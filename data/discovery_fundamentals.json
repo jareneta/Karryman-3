@@ -134,11 +134,12 @@
     "source": "Yahoo Finance info (indicative, not audited)"
   },
   "BBDC": {
-    "checked_utc": "2026-11-02T21:34:49.865534+00:00",
-    "market_cap": 920373440.0,
+    "checked_utc": "2026-11-06T11:34:49.630020+00:00",
+    "sector": "Financial Services",
+    "market_cap": 915138112.0,
     "revenue_growth_pct": -12.4,
     "eps_ttm": 0.82,
-    "dividend_yield": 12.02,
+    "dividend_yield": 11.9,
     "quarterly_revenue_growth_pct": null,
     "quarterly_eps_growth_pct": -10.8,
     "source": "Yahoo Finance info (indicative, not audited)"
@@ -786,11 +787,12 @@
     "source": "Yahoo Finance info (indicative, not audited)"
   },
   "UTZ": {
-    "checked_utc": "2026-11-03T18:47:52.790804+00:00",
-    "market_cap": 2057939712.0,
+    "checked_utc": "2026-11-06T11:34:48.502166+00:00",
+    "sector": "Consumer Defensive",
+    "market_cap": 2054340736.0,
     "revenue_growth_pct": 1.4,
     "eps_ttm": -0.33,
-    "dividend_yield": 1.76,
+    "dividend_yield": 1.77,
     "quarterly_revenue_growth_pct": null,
     "quarterly_eps_growth_pct": null,
     "source": "Yahoo Finance info (indicative, not audited)"
@@ -2025,11 +2027,12 @@
     "source": "Yahoo Finance info (indicative, not audited)"
   },
   "PFS": {
-    "checked_utc": "2026-11-05T01:18:16.933966+00:00",
-    "market_cap": 3067479040.0,
+    "checked_utc": "2026-11-06T11:34:50.358753+00:00",
+    "sector": "Financial Services",
+    "market_cap": 2991835392.0,
     "revenue_growth_pct": 8.7,
     "eps_ttm": 2.38,
-    "dividend_yield": 4.15,
+    "dividend_yield": 4.18,
     "quarterly_revenue_growth_pct": null,
     "quarterly_eps_growth_pct": -3.6,
     "source": "Yahoo Finance info (indicative, not audited)"
@@ -4380,6 +4383,116 @@
     "dividend_yield": 0.0,
     "quarterly_revenue_growth_pct": null,
     "quarterly_eps_growth_pct": null,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "ARX": {
+    "checked_utc": "2026-11-06T11:34:47.111923+00:00",
+    "sector": "Financial Services",
+    "market_cap": 4317708288.0,
+    "revenue_growth_pct": 57.2,
+    "eps_ttm": -6.22,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 794.3,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "NWE": {
+    "checked_utc": "2026-11-06T11:34:47.456546+00:00",
+    "sector": "Utilities",
+    "market_cap": 5045693440.0,
+    "revenue_growth_pct": 9.5,
+    "eps_ttm": 2.65,
+    "dividend_yield": 3.27,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -19.7,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "KHC": {
+    "checked_utc": "2026-11-06T11:34:47.808798+00:00",
+    "sector": "Consumer Defensive",
+    "market_cap": 30025056256.0,
+    "revenue_growth_pct": -2.0,
+    "eps_ttm": -2.93,
+    "dividend_yield": 6.32,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -11.5,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "AAPL": {
+    "checked_utc": "2026-11-06T11:34:48.159929+00:00",
+    "sector": "Technology",
+    "market_cap": 5001541320704.0,
+    "revenue_growth_pct": 11.7,
+    "eps_ttm": 8.98,
+    "dividend_yield": 0.31,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 11.8,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "GM": {
+    "checked_utc": "2026-11-06T11:34:48.845354+00:00",
+    "sector": "Consumer Cyclical",
+    "market_cap": 75841175552.0,
+    "revenue_growth_pct": 2.9,
+    "eps_ttm": 4.57,
+    "dividend_yield": 0.81,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 151.3,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "AMZN": {
+    "checked_utc": "2026-11-06T11:34:49.279219+00:00",
+    "sector": "Consumer Cyclical",
+    "market_cap": 2813686448128.0,
+    "revenue_growth_pct": 12.1,
+    "eps_ttm": 12.37,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -2.4,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "FOXA": {
+    "checked_utc": "2026-11-06T11:34:49.980965+00:00",
+    "sector": "Communication Services",
+    "market_cap": 28543299584.0,
+    "revenue_growth_pct": 22.3,
+    "eps_ttm": 4.7,
+    "dividend_yield": 0.86,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 57.4,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "CUZ": {
+    "checked_utc": "2026-11-06T11:34:50.715405+00:00",
+    "sector": "Real Estate",
+    "market_cap": 4858144256.0,
+    "revenue_growth_pct": 4.8,
+    "eps_ttm": 0.09,
+    "dividend_yield": 4.34,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 97.9,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "ABNB": {
+    "checked_utc": "2026-11-06T11:34:51.069598+00:00",
+    "sector": "Consumer Cyclical",
+    "market_cap": 101871411200.0,
+    "revenue_growth_pct": 18.9,
+    "eps_ttm": 4.39,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": 37.6,
+    "source": "Yahoo Finance info (indicative, not audited)"
+  },
+  "SKY": {
+    "checked_utc": "2026-11-06T11:34:51.410794+00:00",
+    "sector": "Consumer Cyclical",
+    "market_cap": 5056737792.0,
+    "revenue_growth_pct": 6.2,
+    "eps_ttm": 3.37,
+    "dividend_yield": 0.0,
+    "quarterly_revenue_growth_pct": null,
+    "quarterly_eps_growth_pct": -9.5,
     "source": "Yahoo Finance info (indicative, not audited)"
   }
 }

@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-11-06T11:12:23.879987+00:00",
-  "setups_generated_utc": "2026-11-06T11:12:23.784615+00:00",
+  "generated_utc": "2026-11-06T11:34:57.322693+00:00",
+  "setups_generated_utc": "2026-11-06T11:34:57.179545+00:00",
   "signals_generated_utc": "2026-11-06T00:09:50.064613+00:00",
-  "review_count": 34,
+  "review_count": 33,
   "technical_a_plus_count": 0,
   "broker_connected": false,
   "orders_enabled": false,
@@ -598,29 +598,6 @@
       "risk_per_share": 7.08,
       "risk_pct": 1.56,
       "rs_vs_spy_3m_pct": 16.331,
-      "pending_checks": [
-        "Validar cierre y vigencia",
-        "Resultados y noticias",
-        "Fundamentales",
-        "Riesgo agregado y cartera",
-        "Aprobación humana"
-      ],
-      "order_enabled": false
-    },
-    {
-      "ticker": "QLYS",
-      "source": "Setups",
-      "last_session": "2026-11-05",
-      "pattern": "TENDENCIA",
-      "status": "VIGILAR",
-      "technical_a_plus": false,
-      "fundamentals_verified": true,
-      "entry_reference": 199.63,
-      "stop_reference": 197.06,
-      "target_2r_reference": 204.77,
-      "risk_per_share": 2.57,
-      "risk_pct": 1.29,
-      "rs_vs_spy_3m_pct": 13.773,
       "pending_checks": [
         "Validar cierre y vigencia",
         "Resultados y noticias",

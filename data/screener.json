@@ -1,12 +1,12 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-11-06T11:12:20.043253+00:00",
-  "discovery_generated_utc": "2026-11-06T11:12:19.606836+00:00",
+  "generated_utc": "2026-11-06T11:34:52.082140+00:00",
+  "discovery_generated_utc": "2026-11-06T11:34:51.411186+00:00",
   "source": "Discovery cached Yahoo Finance data; approximation, not Stock Analysis/Finviz API",
   "universe_scanned_this_run": 400,
-  "discovery_candidates": 172,
-  "primary_candidates": 33,
-  "shortlist_count": 33,
+  "discovery_candidates": 171,
+  "primary_candidates": 32,
+  "shortlist_count": 32,
   "shortlist_limit": 80,
   "complete_verified_matches": 0,
   "notes": "No se ha reproducido todavía el screener completo de Stock Analysis. Solo se filtran candidatas Discovery. Los campos no disponibles se marcan pendientes; métricas de crecimiento pueden tener definiciones distintas a Stock Analysis; nunca se asumen cumplidos. Finviz solo desempata si hay coincidencia verificada; no se consulta automáticamente Finviz. Máximo 80 candidatas, priorizando roturas y patrones en formación. No hay órdenes.",
@@ -219,41 +219,6 @@
       "stock_analysis_status": "PENDIENTE_VERIFICACION",
       "finviz_complement": false,
       "technical_score": 70.5,
-      "order_enabled": false
-    },
-    {
-      "ticker": "TGTX",
-      "last_session": "2026-11-02",
-      "close": 59.95,
-      "category": "PREPARANDO",
-      "checks": {
-        "price_over_5": true,
-        "average_volume_over_500k": true,
-        "market_cap_over_300m": true,
-        "return_3m_over_10": true,
-        "return_6m_over_10": true,
-        "return_1y_over_10": true,
-        "within_15pct_52w_high": true,
-        "above_ma50": true,
-        "above_ma200": true,
-        "annual_revenue_growth_over_10": true,
-        "eps_over_minus_1": true,
-        "zero_dividend_yield": true,
-        "quarterly_revenue_growth_over_10": null,
-        "quarterly_revenue_growth_comparison_over_10": null,
-        "revenue_growth_this_year_over_10": null,
-        "above_ma20": true
-      },
-      "passed": 13,
-      "failed": [],
-      "unverified": [
-        "quarterly_revenue_growth_over_10",
-        "quarterly_revenue_growth_comparison_over_10",
-        "revenue_growth_this_year_over_10"
-      ],
-      "stock_analysis_status": "PENDIENTE_VERIFICACION",
-      "finviz_complement": false,
-      "technical_score": 67.9,
       "order_enabled": false
     },
     {
@@ -612,6 +577,41 @@
       "order_enabled": false
     },
     {
+      "ticker": "TGTX",
+      "last_session": "2026-11-05",
+      "close": 57.98,
+      "category": "VIGILANCIA",
+      "checks": {
+        "price_over_5": true,
+        "average_volume_over_500k": true,
+        "market_cap_over_300m": true,
+        "return_3m_over_10": true,
+        "return_6m_over_10": true,
+        "return_1y_over_10": true,
+        "within_15pct_52w_high": true,
+        "above_ma50": true,
+        "above_ma200": true,
+        "annual_revenue_growth_over_10": true,
+        "eps_over_minus_1": true,
+        "zero_dividend_yield": true,
+        "quarterly_revenue_growth_over_10": null,
+        "quarterly_revenue_growth_comparison_over_10": null,
+        "revenue_growth_this_year_over_10": null,
+        "above_ma20": true
+      },
+      "passed": 13,
+      "failed": [],
+      "unverified": [
+        "quarterly_revenue_growth_over_10",
+        "quarterly_revenue_growth_comparison_over_10",
+        "revenue_growth_this_year_over_10"
+      ],
+      "stock_analysis_status": "PENDIENTE_VERIFICACION",
+      "finviz_complement": false,
+      "technical_score": 58.6,
+      "order_enabled": false
+    },
+    {
       "ticker": "AVAH",
       "last_session": "2026-11-05",
       "close": 13.67,
@@ -644,6 +644,41 @@
       "stock_analysis_status": "PENDIENTE_VERIFICACION",
       "finviz_complement": false,
       "technical_score": 58.0,
+      "order_enabled": false
+    },
+    {
+      "ticker": "MANH",
+      "last_session": "2026-11-05",
+      "close": 255.17,
+      "category": "VIGILANCIA",
+      "checks": {
+        "price_over_5": true,
+        "average_volume_over_500k": true,
+        "market_cap_over_300m": true,
+        "return_3m_over_10": true,
+        "return_6m_over_10": true,
+        "return_1y_over_10": true,
+        "within_15pct_52w_high": true,
+        "above_ma50": true,
+        "above_ma200": true,
+        "annual_revenue_growth_over_10": true,
+        "eps_over_minus_1": true,
+        "zero_dividend_yield": true,
+        "quarterly_revenue_growth_over_10": null,
+        "quarterly_revenue_growth_comparison_over_10": null,
+        "revenue_growth_this_year_over_10": null,
+        "above_ma20": true
+      },
+      "passed": 13,
+      "failed": [],
+      "unverified": [
+        "quarterly_revenue_growth_over_10",
+        "quarterly_revenue_growth_comparison_over_10",
+        "revenue_growth_this_year_over_10"
+      ],
+      "stock_analysis_status": "PENDIENTE_VERIFICACION",
+      "finviz_complement": false,
+      "technical_score": 56.0,
       "order_enabled": false
     },
     {
@@ -784,41 +819,6 @@
       "stock_analysis_status": "PENDIENTE_VERIFICACION",
       "finviz_complement": false,
       "technical_score": 54.3,
-      "order_enabled": false
-    },
-    {
-      "ticker": "MANH",
-      "last_session": "2026-11-05",
-      "close": 258.66,
-      "category": "VIGILANCIA",
-      "checks": {
-        "price_over_5": true,
-        "average_volume_over_500k": true,
-        "market_cap_over_300m": true,
-        "return_3m_over_10": true,
-        "return_6m_over_10": true,
-        "return_1y_over_10": true,
-        "within_15pct_52w_high": true,
-        "above_ma50": true,
-        "above_ma200": true,
-        "annual_revenue_growth_over_10": true,
-        "eps_over_minus_1": true,
-        "zero_dividend_yield": true,
-        "quarterly_revenue_growth_over_10": null,
-        "quarterly_revenue_growth_comparison_over_10": null,
-        "revenue_growth_this_year_over_10": null,
-        "above_ma20": true
-      },
-      "passed": 13,
-      "failed": [],
-      "unverified": [
-        "quarterly_revenue_growth_over_10",
-        "quarterly_revenue_growth_comparison_over_10",
-        "revenue_growth_this_year_over_10"
-      ],
-      "stock_analysis_status": "PENDIENTE_VERIFICACION",
-      "finviz_complement": false,
-      "technical_score": 51.1,
       "order_enabled": false
     },
     {
@@ -1064,41 +1064,6 @@
       "stock_analysis_status": "PENDIENTE_VERIFICACION",
       "finviz_complement": false,
       "technical_score": 45.3,
-      "order_enabled": false
-    },
-    {
-      "ticker": "QLYS",
-      "last_session": "2026-11-04",
-      "close": 210.89,
-      "category": "VIGILANCIA",
-      "checks": {
-        "price_over_5": true,
-        "average_volume_over_500k": true,
-        "market_cap_over_300m": true,
-        "return_3m_over_10": true,
-        "return_6m_over_10": true,
-        "return_1y_over_10": true,
-        "within_15pct_52w_high": true,
-        "above_ma50": true,
-        "above_ma200": true,
-        "annual_revenue_growth_over_10": true,
-        "eps_over_minus_1": true,
-        "zero_dividend_yield": true,
-        "quarterly_revenue_growth_over_10": null,
-        "quarterly_revenue_growth_comparison_over_10": null,
-        "revenue_growth_this_year_over_10": null,
-        "above_ma20": true
-      },
-      "passed": 13,
-      "failed": [],
-      "unverified": [
-        "quarterly_revenue_growth_over_10",
-        "quarterly_revenue_growth_comparison_over_10",
-        "revenue_growth_this_year_over_10"
-      ],
-      "stock_analysis_status": "PENDIENTE_VERIFICACION",
-      "finviz_complement": false,
-      "technical_score": 45.2,
       "order_enabled": false
     },
     {
