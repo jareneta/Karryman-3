@@ -45,7 +45,7 @@ def pick(mask, cooldown=COOLDOWN):
     return out
 
 
-def features(f, spy_c, up, rank):
+def features(f, spy_c, up, rank, bw):
     d = f
     c, h, lo, o, v = (d.Close.to_numpy(float), d.High.to_numpy(float), d.Low.to_numpy(float),
                       d.Open.to_numpy(float), d.Volume.to_numpy(float))
@@ -90,6 +90,11 @@ def features(f, spy_c, up, rank):
     out['COMBO giro etapa 2 + RS>=60'] = out['Giro de etapa 2 (cruza MA150 con volumen)'] & (rk >= 60).fillna(False).to_numpy(bool)
     out['COMBO máximo 52s + volumen + RS>=80 + mercado alcista'] = out['Máximo de 52 semanas con volumen'] & rk80.to_numpy(bool) & upb.to_numpy(bool)
     out['COMBO salto RS + mercado alcista'] = out['Salto de fuerza relativa (rango <=50 -> >=80)'] & upb.to_numpy(bool)
+    bwb = bw.reindex(d.index).ffill().fillna(False).astype(bool)
+    near = (cs >= 0.7 * hi252).fillna(False)
+    out['SUELO rebote de mercado + líder RS>=80'] = (bwb & (cs > ma50) & (rk >= 80) & near & liquid).fillna(False).to_numpy(bool)
+    out['SUELO rebote de mercado + líder RS>=90 cerca de máximos'] = (bwb & (cs > ma50) & (rk >= 90) & (cs >= 0.85 * hi252) & liquid).fillna(False).to_numpy(bool)
+    out['SUELO rebote de mercado + línea RS en máximos'] = (bwb & rs_hi & (cs > ma50) & liquid).fillna(False).to_numpy(bool)
     return out, liquid.fillna(False).to_numpy(bool), upb.to_numpy(bool)
 
 
@@ -117,8 +122,8 @@ def trade_R(i, o, h, lo, c, entry_next=True):
     return (px - entry) / risk, days
 
 
-def analyze_stock(tk, f, spy_c, up, rank):
-    sigs, liquid, upb = features(f, spy_c, up, rank)
+def analyze_stock(tk, f, spy_c, up, rank, bw):
+    sigs, liquid, upb = features(f, spy_c, up, rank, bw)
     c, h, lo, o = (f.Close.to_numpy(float), f.High.to_numpy(float), f.Low.to_numpy(float), f.Open.to_numpy(float))
     n = len(c)
     rev = pd.Series(c[::-1]).rolling(HORIZON, min_periods=HORIZON).max().to_numpy()[::-1]
@@ -136,6 +141,12 @@ def analyze_stock(tk, f, spy_c, up, rank):
     base['n_is'], base['hit_is'] = int((ok & ~oos).sum()), int((ok & ~oos & hit).sum())
     base['n_oos'], base['hit_oos'] = int((ok & oos).sum()), int((ok & oos & hit).sum())
     events, runstats = [], []
+    # Control en R: un día líquido de cada 25, misma salida y mismo stop
+    ctrl = []
+    for i in np.flatnonzero(liquid)[::25]:
+        rr = trade_R(int(i), o, h, lo, c)
+        if rr:
+            ctrl.append((int(years[i]), bool(oos[i]), bool(upb[i]), rr[0]))
     run_info = []
     for (i0, ip, ie) in runs:
         run_info.append((i0, ip, math.log(c[ip] / c[i0]) if c[ip] > c[i0] else 1e-9))
@@ -157,7 +168,7 @@ def analyze_stock(tk, f, spy_c, up, rank):
             inside = evset[(evset >= i0) & (evset <= ip)] if len(evset) else evset
             first = float(math.log(c[inside[0]] / c[i0]) / lg) if len(inside) else np.nan
             runstats.append((name, first))
-    return base, events, runstats, len(runs)
+    return base, events, runstats, len(runs), ctrl
 
 
 def main():
@@ -187,12 +198,16 @@ def run_all(frames, spy_c, up):
     liq = pd.DataFrame({t: (f.Close >= 5) & (f.Volume.rolling(50).mean() >= 300_000) for t, f in frames.items()}).reindex(spy_c.index).fillna(False)
     rank = scores.where(liq).rank(axis=1, pct=True) * 100
     del scores, liq
-    base_tot, ev_all, rs_all, total_runs = {}, [], [], 0
+    base_tot, ev_all, rs_all, total_runs, ctrl_all = {}, [], [], 0, []
+    ma50s = spy_c.rolling(50).mean()
+    cross = (spy_c > ma50s) & (spy_c.shift(1) <= ma50s.shift(1))
+    dd = spy_c / spy_c.rolling(252, min_periods=60).max() - 1
+    bw = (cross & (dd <= -0.10)).astype(float).rolling(25).max().fillna(0).astype(bool)
     for tk, f in frames.items():
         if len(f) < 400:
             continue
         try:
-            base, evs, rstats, nr = analyze_stock(tk, f, spy_c, up, rank[tk])
+            base, evs, rstats, nr, ctrl = analyze_stock(tk, f, spy_c, up, rank[tk], bw)
         except Exception as exc:
             print('aviso', tk, str(exc)[:80])
             continue
@@ -200,6 +215,7 @@ def run_all(frames, spy_c, up):
             base_tot[k] = base_tot.get(k, 0) + v
         ev_all += evs
         rs_all += rstats
+        ctrl_all += ctrl
         total_runs += nr
     ev = pd.DataFrame(ev_all, columns=['sig', 'year', 'oos', 'up', 'fm', 'R', 'days', 'run_done'])
     rs = pd.DataFrame(rs_all, columns=['sig', 'first'])
@@ -207,6 +223,11 @@ def run_all(frames, spy_c, up):
     pr = lambda h_, n_: round(100 * h_ / n_, 2) if n_ else None
     baseline = {'hit2_pct': pr(b('hit'), b('n')), 'hit2_up_pct': pr(b('hit_up'), b('n_up')), 'hit2_dn_pct': pr(b('hit_dn'), b('n_dn')),
                 'hit2_is_pct': pr(b('hit_is'), b('n_is')), 'hit2_oos_pct': pr(b('hit_oos'), b('n_oos')), 'days': b('n')}
+    cdf = pd.DataFrame(ctrl_all, columns=['year', 'oos', 'up', 'R'])
+    baseline['control_R'] = {'n': int(len(cdf)), 'expectancy_R': round(float(cdf.R.mean()), 3), 'win_rate_pct': round(float((cdf.R > 0).mean() * 100), 1),
+                             'expectancy_R_is': round(float(cdf[~cdf.oos].R.mean()), 3), 'expectancy_R_oos': round(float(cdf[cdf.oos].R.mean()), 3),
+                             'expectancy_R_market_up': round(float(cdf[cdf.up].R.mean()), 3),
+                             'expectancy_R_market_down': round(float(cdf[~cdf.up].R.mean()), 3)}
     years = max(1, ev.year.max() - ev.year.min() + 1)
     rows = {}
     for name, g in ev.groupby('sig'):
