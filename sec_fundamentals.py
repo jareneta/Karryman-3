@@ -8,6 +8,7 @@
 Investigación únicamente. Respeta el límite de la SEC (<= 10 peticiones/s).
 """
 import json
+import os
 import sys
 import threading
 import time
@@ -18,7 +19,15 @@ import numpy as np
 import pandas as pd
 import requests
 
-UA = {'User-Agent': 'KarrymanResearch personal-research-script', 'Accept-Encoding': 'gzip, deflate'}
+
+
+def _ua():
+    contact = os.environ.get('SEC_CONTACT', '').strip()
+    if '@' not in contact:
+        raise Blocked('Falta SEC_CONTACT: la SEC exige un contacto en la cabecera User-Agent')
+    return {'User-Agent': f'KarrymanResearch {contact}', 'Accept-Encoding': 'gzip, deflate'}
+
+
 REV_TAGS = ['Revenues', 'RevenueFromContractWithCustomerExcludingAssessedTax', 'SalesRevenueNet',
             'RevenueFromContractWithCustomerIncludingAssessedTax', 'SalesRevenueGoodsNet']
 EPS_TAGS = ['EarningsPerShareDiluted', 'EarningsPerShareBasic']
@@ -47,7 +56,7 @@ def fetch_json(url, limiter, retries=4):
     for k in range(retries):
         limiter.wait()
         try:
-            r = requests.get(url, headers=UA, timeout=90)
+            r = requests.get(url, headers=_ua(), timeout=90)
         except requests.RequestException as exc:
             last = str(exc)[:80]
             time.sleep(2 * (k + 1))
