@@ -4,31 +4,33 @@ const ctx={};ctx.globalThis=ctx;
 vm.runInNewContext(fs.readFileSync('risk.js','utf8'),ctx);
 vm.runInNewContext(fs.readFileSync('trade_manager.js','utf8'),ctx);
 const T=ctx.KarrymanTrade;
+const OLD={partialR:2,trail:'ema20'};  // reglas anteriores para los casos existentes
+const M=(p,q,r)=>T.manage(p,q,{...OLD,...(r||{})});
 const pos={ticker:'ABC',qty:9,avg:100,stop:90,initial_stop:90,entry_date:'2026-10-01',partial_done:false};
 const q=(close,extra={})=>({last_session:'2026-11-05',high:close,low:close,close,ema10:close-1,ema20:close-3,ma50:close-8,bars:[],...extra});
 // Stop por cierre
-let m=T.manage(pos,q(89.5));assert.equal(m.action,'VENDER_TODO');assert.equal(m.sellQty,9);
+let m=M(pos,q(89.5));assert.equal(m.action,'VENDER_TODO');assert.equal(m.sellQty,9);
 // Entre stop y +2R
-m=T.manage(pos,q(105));assert.equal(m.action,'MANTENER');assert.equal(m.target2r,120);assert.equal(m.rMultiple,0.5);
+m=M(pos,q(105));assert.equal(m.action,'MANTENER');assert.equal(m.target2r,120);assert.equal(m.rMultiple,0.5);
 // +1R informativo, sin acción
-m=T.manage(pos,q(111));assert.equal(m.action,'MANTENER');assert.ok(m.reasons.some(r=>r.includes('+1R')));
+m=M(pos,q(111));assert.equal(m.action,'MANTENER');assert.ok(m.reasons.some(r=>r.includes('+1R')));
 // +2R tocado intradía en una sesión pasada desde la entrada -> vender 1/3 y stop a breakeven
-m=T.manage(pos,q(115,{bars:[['2026-09-20',130,95,96],['2026-10-20',121,110,118]]}));
+m=M(pos,q(115,{bars:[['2026-09-20',130,95,96],['2026-10-20',121,110,118]]}));
 assert.equal(m.action,'VENDER_PARCIAL');assert.equal(m.sellQty,3);assert.equal(m.newStop,100);
 // Barras anteriores a la entrada no cuentan
-m=T.manage(pos,q(115,{bars:[['2026-09-20',130,95,96]]}));assert.equal(m.action,'MANTENER');
+m=M(pos,q(115,{bars:[['2026-09-20',130,95,96]]}));assert.equal(m.action,'MANTENER');
 // Runner: sale con cierre bajo EMA20
 const runner={...pos,qty:6,stop:100,partial_done:true};
-m=T.manage(runner,q(130,{ema20:131}));assert.equal(m.action,'VENDER_RUNNER');assert.equal(m.sellQty,6);
-m=T.manage(runner,q(130,{ema20:125}));assert.equal(m.action,'MANTENER_RUNNER');assert.equal(m.newStop,125);
-m=T.manage(runner,q(130,{ema10:131,ema20:125}),{trail:'ema10'});assert.equal(m.action,'VENDER_RUNNER');
-m=T.manage(runner,q(99));assert.equal(m.action,'VENDER_TODO');
+m=M(runner,q(130,{ema20:131}));assert.equal(m.action,'VENDER_RUNNER');assert.equal(m.sellQty,6);
+m=M(runner,q(130,{ema20:125}));assert.equal(m.action,'MANTENER_RUNNER');assert.equal(m.newStop,125);
+m=M(runner,q(130,{ema10:131,ema20:125}),{trail:'ema10'});assert.equal(m.action,'VENDER_RUNNER');
+m=M(runner,q(99));assert.equal(m.action,'VENDER_TODO');
 // Sin stop inicial o sin cotización no se inventa nada
-assert.equal(T.manage({...pos,stop:null,initial_stop:null},q(105)).action,'REVISAR');
-assert.equal(T.manage(pos,null).action,'REVISAR');
+assert.equal(M({...pos,stop:null,initial_stop:null},q(105)).action,'REVISAR');
+assert.equal(M(pos,null).action,'REVISAR');
 // Tamaños parciales
 assert.equal(T.partialQty(1,1/3),1);assert.equal(T.partialQty(2,1/3),1);assert.equal(T.partialQty(10,1/3),3);
-assert.equal(T.manage({...pos,qty:1},q(121)).action,'VENDER_TODO');
+assert.equal(M({...pos,qty:1},q(121)).action,'VENDER_TODO');
 // Tamaño de entrada: 1% riesgo, 6% total, 20% peso
 const pf={nlv:10000,cash:10000,positions:[]};
 let s=T.sizeEntry(pf,{ticker:'XYZ',entry_reference:50,stop_reference:48});
@@ -43,8 +45,17 @@ assert.equal(s.orderEnabled,false);
 assert.ok(T.orderTicket({ticker:'XYZ',max_entry_price:52.5,stop_reference:45,target_2r:60},s).startsWith('COMPRAR 10 XYZ'));
 // El máximo del propio día de entrada no cuenta (pudo ser antes de comprar)
 const sameDay={...pos,entry_date:'2026-11-05'};
-m=T.manage(sameDay,q(101,{last_session:'2026-11-05',high:130,bars:[['2026-11-05',130,95,101]]}));
+m=M(sameDay,q(101,{last_session:'2026-11-05',high:130,bars:[['2026-11-05',130,95,101]]}));
 assert.equal(m.action,'MANTENER');
-m=T.manage(sameDay,q(118,{last_session:'2026-11-06',high:121,bars:[['2026-11-05',130,95,101],['2026-11-06',121,110,118]]}));
+m=M(sameDay,q(118,{last_session:'2026-11-06',high:121,bars:[['2026-11-05',130,95,101],['2026-11-06',121,110,118]]}));
 assert.equal(m.action,'VENDER_PARCIAL');
+// Reglas nuevas por defecto: 1/3 en +3R y runner con cierre semanal bajo la media de 50 semanas
+let n=T.manage(pos,q(115,{bars:[['2026-10-20',121,110,118]]}));assert.equal(n.action,'MANTENER');assert.equal(n.targetPartial,130);
+n=T.manage(pos,q(125,{bars:[['2026-10-20',131,110,125]]}));assert.equal(n.action,'VENDER_PARCIAL');assert.equal(n.sellQty,3);
+const run2={...pos,qty:6,stop:100,partial_done:true};
+n=T.manage(run2,q(130,{ma50w:120,week_close:128,week_end:'2026-10-30'}));assert.equal(n.action,'MANTENER_RUNNER');
+n=T.manage(run2,q(130,{ma50w:120,week_close:118,week_end:'2026-10-30'}));assert.equal(n.action,'VENDER_RUNNER');
+n=T.manage(run2,q(110,{ma50w:null,week_close:null}));assert.equal(n.action,'MANTENER_RUNNER');assert.equal(n.severity,'warn');
+n=T.manage(run2,q(99,{ma50w:90,week_close:105}));assert.equal(n.action,'VENDER_TODO');
+assert.ok(T.orderTicket({ticker:'XYZ',max_entry_price:52.5,stop_reference:45,target_2r:60,partial_r:3,target_partial:67.5},{shares:5}).includes('+3R 67.5'));
 console.log('Trade manager tests passed');

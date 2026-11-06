@@ -1,11 +1,9 @@
 """Karryman: niveles de entrada (pivote) y cotizaciones para gestionar posiciones.
 
-Reglas del usuario:
-- Entrada: CIERRE por encima del pivote con volumen >= 1,4x la media de 50 sesiones
-  (pullbacks: >= 1,1x, porque su volumen de giro suele ser menor).
-- Pivote de base: máximo de las 30 sesiones previas. Pivote de pullback: máximo
-  de las 5 sesiones previas (el "lower high" del retroceso).
-- Stop: mínimo de las 10 sesiones previas al disparo (base) o de las 5 (pullback).
+Reglas del usuario (solo rupturas; los pullbacks se eliminaron tras el backtest):
+- Entrada: CIERRE por encima del pivote (máximo de las 30 sesiones previas) con
+  volumen >= 1,4x la media de 50 sesiones.
+- Stop: mínimo de las 10 sesiones previas al disparo; riesgo máximo 12 %.
 - No perseguir: si el cierre supera el pivote en más de un 5 %, queda EXTENDIDA.
 Funciones puras sobre OHLCV diario; sin red ni órdenes.
 """
@@ -42,12 +40,13 @@ def clean(df):
     return d if len(d) else None
 
 
-def entry_plan(df, setup='TENDENCIA'):
-    """Devuelve pivote, stop, objetivos y estado de la entrada para la última sesión."""
+def entry_plan(df, setup='TENDENCIA', partial_r=3.0):
+    """Devuelve pivote, stop, objetivos y estado de la entrada para la última sesión.
+    `setup` se ignora: el sistema solo opera rupturas de base."""
     d = clean(df)
     if d is None or len(d) < 60:
         return {'entry_status': 'SIN_DATOS'}
-    kind = 'PULLBACK' if setup in PULLBACK_SETUPS else 'BASE'
+    kind = 'BASE'
     pivot_window, stop_window = (5, 5) if kind == 'PULLBACK' else (30, 10)
     min_vol = PULLBACK_VOLUME if kind == 'PULLBACK' else BREAKOUT_VOLUME
     h, lo, c, v = d.High, d.Low, d.Close, d.Volume
@@ -118,8 +117,46 @@ def entry_plan(df, setup='TENDENCIA'):
                 'risk_pct': _r(risk_pct) if risk > 0 else None,
                 'target_1r': _r(entry + risk) if risk > 0 else None,
                 'target_2r': _r(entry + 2 * risk) if risk > 0 else None,
+                'partial_r': partial_r,
+                'target_partial': _r(entry + partial_r * risk) if risk > 0 else None,
                 'distance_to_pivot_pct': _r(-extension)})
     return out
+
+
+def weekly_ma50(c):
+    """Media de 50 semanas sobre cierres semanales completos (semana que acaba en viernes)."""
+    if c is None or len(c) < 60:
+        return None, None, None
+    wk = c.resample('W-FRI').last().dropna()
+    last_day = c.index[-1]
+    if last_day.weekday() < 4:  # semana en curso aún sin cerrar
+        wk = wk.iloc[:-1]
+    if len(wk) < 50:
+        return None, _r(wk.iloc[-1]) if len(wk) else None, str(wk.index[-1].date()) if len(wk) else None
+    return _r(wk.rolling(50).mean().iloc[-1]), _r(wk.iloc[-1]), str(wk.index[-1].date())
+
+
+def criteria_from_prices(df, spy_close):
+    """Criterios técnicos calculados con precios (cuando la lista viene de Stock Analysis)."""
+    d = clean(df)
+    if d is None or len(d) < 220:
+        return None
+    c, v = d.Close, d.Volume
+    ma50, ma200 = c.rolling(50).mean(), c.rolling(200).mean()
+    close = float(c.iloc[-1])
+    rs = None
+    try:
+        spy = spy_close.reindex(d.index).ffill()
+        rs = ((close / float(c.iloc[-64])) - (float(spy.iloc[-1]) / float(spy.iloc[-64]))) * 100
+    except Exception:
+        rs = None
+    vol50 = float(v.iloc[-51:-1].mean())
+    return {
+        'trend_ok': bool(close > ma50.iloc[-1] > ma200.iloc[-1] and ma200.iloc[-1] > ma200.iloc[-21]),
+        'near_high_ok': bool(close >= 0.85 * float(d.High.iloc[-252:].max())),
+        'rs_vs_spy_3m_pct': _r(rs),
+        'liquid_ok': bool(close >= 5 and vol50 >= 500_000),
+    }
 
 
 def quote(df, history=90):
@@ -134,5 +171,6 @@ def quote(df, history=90):
             'ema10': _r(c.ewm(span=10, adjust=False).mean().iloc[-1]),
             'ema20': _r(c.ewm(span=20, adjust=False).mean().iloc[-1]),
             'ma50': _r(c.rolling(50).mean().iloc[-1]) if len(c) >= 50 else None,
+            **dict(zip(('ma50w', 'week_close', 'week_end'), weekly_ma50(c))),
             # [fecha, máximo, mínimo, cierre] para medir +2R desde la fecha de entrada
             'bars': [[str(ix.date()), _r(r.High), _r(r.Low), _r(r.Close)] for ix, r in tail.iterrows()]}

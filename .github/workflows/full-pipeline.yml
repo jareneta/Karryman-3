@@ -1,4 +1,5 @@
 name: Karryman 4 End-to-End Research
+# Desactivado el horario: el universo viene ahora del screener de Stock Analysis (plan.yml).
 on:
   workflow_dispatch:
     inputs:
@@ -6,8 +7,6 @@ on:
         description: 'Tickers de tus posiciones (solo tickers; vacío = mantener los anteriores)'
         required: false
         default: ''
-  schedule:
-    - cron: '30 8 * * 6'
   pull_request:
     branches: [main]
     paths:

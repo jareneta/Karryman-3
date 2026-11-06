@@ -21,7 +21,7 @@ ul{margin:6px 0;padding-left:20px}li{margin:3px 0}.scroll{overflow-x:auto}table{
 @media(max-width:700px){.grid{grid-template-columns:1fr 1fr}main{padding:12px}}
 </style><link rel="stylesheet" href="karryman.css"><link rel="apple-touch-icon" href="karryman-icon.svg"></head><body data-page="hoy" data-title="Hoy · qué hacer"><main>
 <div class="k-hero"><div><h1>Hoy</h1><p id="freshness" class="k-updated">Cargando plan…</p></div><button class="primary" id="run">▶ Revisar ahora</button></div>
-<p id="runStatus" class="muted" role="status"></p><p id="error" class="bad-t"></p>
+<p id="universe" class="k-updated"></p><p id="runStatus" class="muted" role="status"></p><p id="error" class="bad-t"></p>
 <nav class="k-today" id="today" aria-label="Resumen de hoy"></nav>
 <p class="muted">Karryman propone; <b>tú decides</b>. Copia la orden, ponla tú en IBKR y marca aquí lo que hiciste.</p>
 
@@ -42,7 +42,7 @@ ul{margin:6px 0;padding-left:20px}li{margin:3px 0}.scroll{overflow-x:auto}table{
 <label>Riesgo por operación %<input id="rRisk" type="number" min="0.1" max="1" step="0.1"></label>
 <label>Riesgo total máximo %<input id="rTotal" type="number" min="1" max="20" step="0.5"></label>
 <label>Peso máximo por posición %<input id="rWeight" type="number" min="1" max="100" step="1"></label>
-<label>Salida del runner (cierre bajo)<select id="rTrail"><option value="ema10">EMA10 (rápida)</option><option value="ema20">EMA20</option><option value="ma50">MA50 (lenta)</option></select></label></div>
+<label>Vender 1/3 en<select id="rPartial"><option value="2">+2R</option><option value="3">+3R</option><option value="4">+4R</option><option value="5">+5R</option></select></label><label>Salida del runner<select id="rTrail"><option value="ma50w">Cierre semanal bajo media 50 semanas</option><option value="ma50">Cierre bajo MA50 diaria</option><option value="ema20">Cierre bajo EMA20</option><option value="ema10">Cierre bajo EMA10</option></select></label></div>
 <h3 style="margin-top:16px">Conexión para «Revisar ahora»</h3>
 <p class="muted">Recalcula en GitHub (2–4 min) e incluye tus posiciones. Solo se envían los <b>tickers</b> (nunca cantidades, precios ni patrimonio) y quedan visibles en el repositorio público. También se revisa solo, de lunes a viernes tras el cierre.</p>
 <details id="auth"><summary>Autorización GitHub</summary><p class="muted">Token de grano fino solo para jareneta/Karryman-3 con permiso Actions: lectura y escritura. Se usa en esta pestaña; no se guarda.</p><input id="token" type="password" autocomplete="off" placeholder="github_pat_…"><div class="actions"><button id="connect">Conectar</button></div></details>
@@ -54,7 +54,7 @@ ul{margin:6px 0;padding-left:20px}li{margin:3px 0}.scroll{overflow-x:auto}table{
 <script src="risk.js"></script><script src="trade_manager.js"></script>
 <script>
 'use strict';
-const PKEY='karryman_ibkr_import_v1',RKEY='karryman_rules_v1',DKEY='karryman_plan_dismissed_v1';
+const PKEY='karryman_ibkr_import_v1',RKEY='karryman_rules_v2',DKEY='karryman_plan_dismissed_v1';
 const WORKFLOW='https://api.github.com/repos/jareneta/Karryman-3/actions/workflows/plan.yml';
 const $=id=>document.getElementById(id);
 const money=n=>Number.isFinite(n)?new Intl.NumberFormat('es-ES',{style:'currency',currency:'USD'}).format(n):'—';
@@ -65,8 +65,8 @@ const store=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
 let portfolio=load(PKEY,{equity:0,cash:0,positions:[]});if(!Array.isArray(portfolio.positions))portfolio.positions=[];
 let rules={...KarrymanTrade.DEFAULT_RULES,...load(RKEY,{})};
 let dismissed=load(DKEY,{});let plan=null,token=null;
-const LABEL={VENDER_TODO:'VENDER TODO',VENDER_PARCIAL:'VENDER 1/3 (+2R)',VENDER_RUNNER:'VENDER RUNNER',MANTENER:'MANTENER',MANTENER_RUNNER:'MANTENER RUNNER',REVISAR:'REVISAR DATOS'};
-const CRIT={tendencia:'Tendencia',cerca_maximos:'Cerca máx.',fuerza_vs_spy:'RS>SPY',fundamentales:'Fundam.',a_plus_tecnico:'A+'};
+const LABEL={VENDER_TODO:'VENDER TODO',VENDER_PARCIAL:'VENDER 1/3',VENDER_RUNNER:'VENDER RUNNER',MANTENER:'MANTENER',MANTENER_RUNNER:'MANTENER RUNNER',REVISAR:'REVISAR DATOS'};
+const CRIT={tendencia:'Tendencia',cerca_maximos:'Cerca máx.',fuerza_vs_spy:'RS>SPY',fundamentales:'Fundam.',liquidez:'Liquidez'};
 
 function savePortfolio(){portfolio.updated=portfolio.updated||new Date().toISOString();store(PKEY,portfolio);render()}
 function quoteOf(t){return plan?.quotes?.[String(t).toUpperCase()]||null}
@@ -76,10 +76,10 @@ function livePortfolio(){
 }
 function readRules(){
   const v=(id,lo,hi,d)=>{const n=Number($(id).value);return n>=lo&&n<=hi?n:d};
-  rules={...rules,riskPct:v('rRisk',.1,1,1),totalRiskPct:v('rTotal',1,20,6),maxWeightPct:v('rWeight',1,100,20),trail:$('rTrail').value};
+  rules={...rules,riskPct:v('rRisk',.1,1,1),totalRiskPct:v('rTotal',1,20,6),maxWeightPct:v('rWeight',1,100,20),partialR:v('rPartial',2,5,3),trail:$('rTrail').value};
   store(RKEY,rules);render();
 }
-['rRisk','rTotal','rWeight','rTrail'].forEach(id=>$(id).addEventListener('change',readRules));
+['rRisk','rTotal','rWeight','rPartial','rTrail'].forEach(id=>$(id).addEventListener('change',readRules));
 
 function renderSummary(){
   const lp=livePortfolio();let risk=0,missing=0;
@@ -102,7 +102,7 @@ function renderPositions(){
     const card=document.createElement('div');card.className='card '+m.severity;
     card.innerHTML='<h3>'+esc(p.ticker)+' <span class="tag '+m.severity+'">'+esc(LABEL[m.action]||m.action)+'</span>'+(p.partial_done?'<span class="tag">runner</span>':'')+'</h3>'+
       '<div class="kv">'+field('Acciones',esc(p.qty))+field('Precio medio',fx(p.avg))+field('Último cierre',fx(m.close)+(m.session?' <small>'+esc(m.session)+'</small>':''))+
-      field('P/L',money(m.pnl))+field('R / múltiplo',m.R?fx(m.R)+' · '+fx(m.rMultiple,1)+'R':'—')+field('Stop activo',fx(m.stop))+field('+1R',fx(m.target1r))+field('+2R',fx(m.target2r))+'</div>'+
+      field('P/L',money(m.pnl))+field('R / múltiplo',m.R?fx(m.R)+' · '+fx(m.rMultiple,1)+'R':'—')+field('Stop activo',fx(m.stop))+field('+1R',fx(m.target1r))+field('+'+(m.partialR||rules.partialR)+'R (vender 1/3)',fx(m.targetPartial))+'</div>'+
       '<ul>'+m.reasons.map(r=>'<li>'+esc(r)+'</li>').join('')+'</ul>'+
       '<div class="grid"><label>Stop inicial (define R)<input data-i="'+i+'" data-k="initial_stop" type="number" step="any" value="'+esc(p.initial_stop??p.stop??'')+'"></label>'+
       '<label>Stop actual<input data-i="'+i+'" data-k="stop" type="number" step="any" value="'+esc(p.stop??'')+'"></label>'+
@@ -126,7 +126,7 @@ $('positions').addEventListener('change',e=>{
 
 function earn(e){return e.next_earnings_date?esc(e.next_earnings_date)+(Number.isFinite(e.days_to_earnings)?' <small class="'+(e.days_to_earnings<=14?'bad-t':'muted')+'">(en '+e.days_to_earnings+' d)</small>':''):e.last_earnings_date?'<span class="muted">publicó '+esc(e.last_earnings_date)+'</span>':'<span class="warn-t">no publicada</span>'}
 function whyList(e){return [e.status_reason,...(e.blockers||[])].filter(Boolean).map(x=>'<div>'+esc(x)+'</div>').join('')}
-function critTags(c){return Object.entries(CRIT).map(([k,l])=>'<span class="tag '+(c?.[k]?'good':'bad')+'">'+(c?.[k]?'✓':'✗')+' '+l+'</span>').join(' ')}
+function critTags(c){return Object.entries(CRIT).filter(([k])=>c&&k in c).map(([k,l])=>'<span class="tag '+(c?.[k]?'good':'bad')+'">'+(c?.[k]?'✓':'✗')+' '+l+'</span>').join(' ')}
 function renderEntries(){
   const act=$('activated');act.replaceChildren();
   const list=(plan?.entries||[]);const held=new Set(portfolio.positions.map(p=>String(p.ticker).toUpperCase()));
@@ -138,7 +138,7 @@ function renderEntries(){
     const card=document.createElement('div');card.className='card '+(s.eligible?'good':'warn');
     card.innerHTML='<h3>'+esc(e.ticker)+' <span class="tag good">ENTRADA ACTIVADA</span><span class="tag">'+esc(e.setup)+'</span>'+(e.sessions_since_trigger?'<span class="tag warn">hace '+esc(e.sessions_since_trigger)+' sesión(es)</span>':'')+'</h3>'+
       '<div class="kv">'+field('Pivote',fx(e.pivot))+field('Cierre',fx(e.close)+' <small>'+esc(e.last_session)+'</small>')+field('Compra máx.',fx(e.max_entry_price))+field('Stop',fx(e.stop_reference)+' ('+fx(e.risk_pct,1)+'%)')+
-      field('+1R',fx(e.target_1r))+field('+2R (vender 1/3)',fx(e.target_2r))+field('Volumen disparo',fx(e.trigger_volume_ratio,1)+'×')+field('Resultados',earn(e))+'</div>'+
+      field('+1R',fx(e.target_1r))+field('+'+(e.partial_r||3)+'R (vender 1/3)',fx(e.target_partial??e.target_2r))+field('Volumen disparo',fx(e.trigger_volume_ratio,1)+'×')+field('Resultados',earn(e))+'</div>'+
       '<p>'+esc(e.status_reason||'')+'</p><div>'+critTags(e.criteria)+'</div>'+
       '<div class="kv">'+field('Acciones',s.shares)+field('Importe',money(s.positionValue))+field('Peso',fx(s.weightPct,1)+'%')+field('Riesgo',money(s.newRisk)+' ('+fx(s.newRiskPct,2)+'%)')+field('Riesgo total tras compra',fx(s.aggregateRiskPct,2)+'%')+'</div>'+
       (s.errors.length?'<p class="bad-t">'+s.errors.map(esc).join(' · ')+'</p>':'')+
@@ -161,15 +161,18 @@ function renderEntries(){
   }
   const wait=list.filter(e=>e.entry_status==='ESPERANDO'||(e.entry_status==='ACTIVADA'&&!e.actionable));
   const mini=(e,cls,extra)=>'<div class="mini '+cls+'"><div class="top"><b>'+esc(e.ticker)+(extra||'')+'</b><small class="muted">'+esc(e.setup)+' · resultados '+earn(e)+'</small></div>'+
-    '<div class="nums">Pivote '+fx(e.pivot)+' · cierre '+fx(e.close)+' · stop '+fx(e.stop_reference)+(e.risk_pct!==null?' ('+fx(e.risk_pct,1)+'%)':'')+' · +2R '+fx(e.target_2r)+'</div><div class="why">'+whyList(e)+'</div></div>';
+    '<div class="nums">Pivote '+fx(e.pivot)+' · cierre '+fx(e.close)+' · stop '+fx(e.stop_reference)+(e.risk_pct!==null?' ('+fx(e.risk_pct,1)+'%)':'')+' · +'+(e.partial_r||3)+'R '+fx(e.target_partial??e.target_2r)+'</div><div class="why">'+whyList(e)+'</div></div>';
   $('waiting').innerHTML=wait.map(e=>mini(e,e.entry_status==='ACTIVADA'||(e.blockers||[]).length?'warn':'',e.entry_status==='ACTIVADA'?' <small class="warn-t">activada pero bloqueada</small>':'')).join('')||'<p class="muted">Sin candidatas esperando.</p>';
   const rest=list.filter(e=>['EXTENDIDA','FALLIDA','INVALIDADA','RIESGO_ALTO'].includes(e.entry_status));
   $('others').innerHTML=rest.map(e=>mini(e,'bad',' <small class="bad-t">'+esc(e.entry_status.replace('_',' '))+'</small>')).join('')||'<p class="muted">Ninguna.</p>';
   const f=plan?.funnel;
-  $('funnel').innerHTML=!f?'<p class="muted">Sin datos.</p>':'<p>Discovery revisó '+esc(f.discovery_scanned)+' acciones y pasaron '+esc(f.discovery_passed)+' el filtro técnico. Descartadas por:</p><ul>'+
+  if(f&&f.mode==='stock_analysis'){
+    $('funnel').innerHTML='<p>Tu lista de Stock Analysis tiene '+esc(f.universe_size)+' acciones (con datos: '+esc(f.with_data)+'). Se revisan todas cada día. No pasan los filtros técnicos por:</p><ul>'+
+      Object.entries(f.filter_counts||{}).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'<li>'+esc(k)+': '+esc(v)+'</li>').join('')+'</ul>';
+  }else{$('funnel').innerHTML=!f?'<p class="muted">Sin datos.</p>':'<p>Discovery revisó '+esc(f.discovery_scanned)+' acciones y pasaron '+esc(f.discovery_passed)+' el filtro técnico. Descartadas por:</p><ul>'+
     Object.entries(f.discovery_filter_counts||{}).sort((a,b)=>b[1]-a[1]).map(([k,v])=>'<li>'+esc(k)+': '+esc(v)+'</li>').join('')+'</ul>'+
     '<p>El Screener descartó '+(f.screener_discards||[]).length+' de la lista de seguimiento:</p><div class="scroll"><table><thead><tr><th>Ticker</th><th>No cumple</th></tr></thead><tbody>'+
-    (f.screener_discards||[]).map(d=>'<tr><td>'+esc(d.ticker)+'</td><td>'+esc(d.reasons.join(' · '))+'</td></tr>').join('')+'</tbody></table></div>';
+    (f.screener_discards||[]).map(d=>'<tr><td>'+esc(d.ticker)+'</td><td>'+esc(d.reasons.join(' · '))+'</td></tr>').join('')+'</tbody></table></div>';}
 }
 function renderToday(){
   const held=new Set(portfolio.positions.map(p=>String(p.ticker).toUpperCase()));
@@ -187,7 +190,7 @@ function renderToday(){
   $('discardSummary').textContent='Descartadas y por qué ('+discard+')';
 }
 function render(){
-  $('rRisk').value=rules.riskPct;$('rTotal').value=rules.totalRiskPct;$('rWeight').value=rules.maxWeightPct;$('rTrail').value=rules.trail;
+  $('rRisk').value=rules.riskPct;$('rTotal').value=rules.totalRiskPct;$('rWeight').value=rules.maxWeightPct;$('rTrail').value=rules.trail;$('rPartial').value=String(rules.partialR);
   renderSummary();renderPositions();renderEntries();renderToday();
 }
 async function loadPlan(){
@@ -195,11 +198,16 @@ async function loadPlan(){
   try{const r=await fetch('data/plan.json?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw Error('HTTP '+r.status);plan=await r.json();
     const age=(Date.now()-new Date(plan.generated_utc))/36e5;
     $('freshness').textContent='Actualizado '+new Date(plan.generated_utc).toLocaleString('es-ES',{weekday:'short',day:'numeric',month:'short',hour:'2-digit',minute:'2-digit'})+' · '+plan.entries_count+' candidatas analizadas'+(age>36?' · ⚠ datos de hace más de 36 h':'');
+    const f=plan.funnel||{},local=saUniverse().split(' ').filter(Boolean).length;
+    if(f.mode==='stock_analysis'){const d=f.universe_updated_utc?Math.floor((Date.now()-new Date(f.universe_updated_utc))/864e5):null;
+      $('universe').innerHTML='Universo: <b>tu screener de Stock Analysis</b> · '+esc(f.universe_size)+' acciones'+(d!==null?' · lista de hace '+d+' día(s)':'')+(d!==null&&d>7?' <span class="warn-t">· conviene exportarla de nuevo</span>':'')}
+    else $('universe').innerHTML='Universo: Discovery (antiguo).'+(local?' Tienes '+local+' acciones de Stock Analysis importadas: pulsa «Revisar ahora» para usarlas.':' <a href="index.html">Importa tu screener de Stock Analysis</a> y pulsa «Revisar ahora».');
     const held=portfolio.positions.map(p=>String(p.ticker).toUpperCase()).filter(t=>!plan.quotes?.[t]);
     if(held.length)$('error').textContent='Sin cotización para: '+held.join(', ')+'. Pulsa «Revisar posiciones» para incluirlas.';
   }catch(e){plan=null;$('freshness').textContent='';$('error').textContent='No hay plan publicado todavía ('+e.message+'). Pulsa «Revisar posiciones y entradas».'}
   render();
 }
+function saUniverse(){try{const a=JSON.parse(localStorage.getItem('karryman_sa_v4'))||[];return [...new Set(a.map(x=>String(x.ticker||'').toUpperCase()).filter(t=>/^[A-Z][A-Z.\-]{0,9}$/.test(t)))].join(' ')}catch{return ''}}
 const gh=()=>({'Accept':'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28','Authorization':'Bearer '+token});
 $('connect').onclick=async()=>{const c=$('token').value.trim();if(!c)return;try{const r=await fetch('https://api.github.com/user',{headers:{'Accept':'application/vnd.github+json','Authorization':'Bearer '+c}});if(!r.ok)throw Error('HTTP '+r.status);token=c;$('token').value='';$('auth').open=false;$('runStatus').textContent='Autorizado mientras esta pestaña siga abierta.'}catch(e){$('runStatus').textContent='Token no válido: '+e.message}};
 $('run').onclick=async()=>{
@@ -207,7 +215,7 @@ $('run').onclick=async()=>{
   const tickers=[...new Set(portfolio.positions.map(p=>String(p.ticker).toUpperCase()).filter(t=>/^[A-Z][A-Z.\-]{0,9}$/.test(t)))].join(' ');
   $('run').disabled=true;$('runStatus').textContent='Solicitando análisis…';const started=Date.now();
   try{
-    const r=await fetch(WORKFLOW+'/dispatches',{method:'POST',headers:{...gh(),'Content-Type':'application/json'},body:JSON.stringify({ref:'main',inputs:{tickers}})});
+    const r=await fetch(WORKFLOW+'/dispatches',{method:'POST',headers:{...gh(),'Content-Type':'application/json'},body:JSON.stringify({ref:'main',inputs:{tickers,universe:saUniverse()}})});
     if(r.status!==204)throw Error('GitHub HTTP '+r.status);
     for(let i=0;i<60;i++){
       await new Promise(ok=>setTimeout(ok,10000));
