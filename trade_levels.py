@@ -77,28 +77,41 @@ def entry_plan(df, setup='TENDENCIA'):
         out['trigger_close'] = _r(c.iloc[i])
         sessions_ago = last - i
         extension = (close / pivot - 1) * 100
+        day = str(d.index[i].date())
         if close <= pivot:
             status = 'FALLIDA'  # volvió a cerrar bajo el pivote
+            reason = f'Rompió el pivote {pivot:.2f} el {day} pero ha vuelto a cerrar por debajo ({close:.2f})'
         elif close <= stop:
             status = 'INVALIDADA'
+            reason = f'Cierre {close:.2f} en o bajo el stop {stop:.2f}'
         elif extension > MAX_CHASE_PCT:
             status = 'EXTENDIDA'
+            reason = f'Cierre {close:.2f} un {extension:.1f}% sobre el pivote {pivot:.2f} (máximo {MAX_CHASE_PCT:.0f}%): no perseguir'
         else:
             status = 'ACTIVADA'
+            reason = f'Cerró sobre el pivote {pivot:.2f} el {day} con volumen {volratio:.1f}x'
         out.update({'trigger_session': str(d.index[i].date()), 'sessions_since_trigger': sessions_ago,
                     'trigger_volume_ratio': _r(volratio)})
     else:
         pivot, stop, _ = levels(n)  # niveles vigentes para la próxima sesión
         entry = pivot
         extension = (close / pivot - 1) * 100
-        status = 'INVALIDADA' if close <= stop or close < float(ma50.iloc[last]) else 'ESPERANDO'
+        m50 = float(ma50.iloc[last])
+        if close <= stop:
+            status, reason = 'INVALIDADA', f'Cierre {close:.2f} en o bajo el stop {stop:.2f} (mínimo de {stop_window} sesiones)'
+        elif close < m50:
+            status, reason = 'INVALIDADA', f'Cierre {close:.2f} por debajo de la MA50 {m50:.2f}: tendencia rota'
+        else:
+            status, reason = 'ESPERANDO', f'Falta un cierre sobre {pivot:.2f} ({-extension:.1f}% más arriba) con volumen >= {min_vol}x'
     risk = entry - stop
     risk_pct = risk / entry * 100 if entry > 0 else None
     if risk <= 0:
-        status = 'INVALIDADA'
+        status, reason = 'INVALIDADA', 'El stop no queda por debajo del precio de entrada'
     elif risk_pct > MAX_RISK_PCT and status in ('ESPERANDO', 'ACTIVADA'):
         status = 'RIESGO_ALTO'
-    out.update({'entry_status': status, 'pivot': _r(pivot), 'entry_reference': _r(entry),
+        reason = (f'Stop {stop:.2f} a un {risk_pct:.1f}% de la entrada {entry:.2f} '
+                  f'(máximo {MAX_RISK_PCT:.0f}%)')
+    out.update({'entry_status': status, 'status_reason': reason, 'pivot': _r(pivot), 'entry_reference': _r(entry),
                 'max_entry_price': _r(pivot * (1 + MAX_CHASE_PCT / 100)),
                 'stop_reference': _r(stop) if risk > 0 else None,
                 'risk_per_share': _r(risk) if risk > 0 else None,
