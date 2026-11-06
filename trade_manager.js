@@ -1,11 +1,11 @@
 /* Karryman: gestión de posiciones y propuestas de entrada. Solo en el navegador.
-   Reglas: stop por cierre · +3R (configurable) vender 1/3 y subir stop del resto a breakeven ·
+   Reglas: stop por cierre · +4R (configurable) vender 1/3 y subir stop del resto a breakeven ·
    runner: vender con cierre bajo la media elegida (por defecto, cierre semanal bajo la media de 50 semanas).
    Nunca envía órdenes: todo son propuestas que el usuario aprueba o descarta. */
 (function(root){
   'use strict';
   const num=x=>x!==null&&x!==undefined&&x!==''&&Number.isFinite(Number(x))?Number(x):null;
-  const DEFAULT_RULES={riskPct:1,totalRiskPct:6,maxWeightPct:20,partialFraction:1/3,partialR:3,trail:'ma50w'};
+  const DEFAULT_RULES={riskPct:1,totalRiskPct:6,maxWeightPct:20,partialFraction:1/3,partialR:4,trail:'ma50w'};
   const TRAIL_LABEL={ema10:'EMA10',ema20:'EMA20',ma50:'MA50',ma50w:'media de 50 semanas'};
   const round2=x=>Math.round(x*100)/100;
 
@@ -31,7 +31,7 @@
       return out;
     }
     const R=avg-initial;
-    const PR=num(r.partialR)>0?num(r.partialR):3;
+    const PR=num(r.partialR)>0?num(r.partialR):4;
     out.R=round2(R);out.rMultiple=round2((close-avg)/R);
     out.target1r=round2(avg+R);out.target2r=round2(avg+2*R);out.partialR=PR;out.targetPartial=round2(avg+PR*R);
     const activeStop=stop>0?stop:initial;
@@ -106,7 +106,7 @@
 
   function orderTicket(entry,size){
     if(!size||!(size.shares>0))return '';
-    const pr=entry.partial_r||3,tp=entry.target_partial??entry.target_2r;
+    const pr=entry.partial_r||4,tp=entry.target_partial??entry.target_2r;
     return 'COMPRAR '+size.shares+' '+entry.ticker+' · orden LMT a la apertura, máx. '+entry.max_entry_price+
       ' · STOP '+entry.stop_reference+' · +'+pr+'R '+tp+' (vender 1/3)';
   }

@@ -169,8 +169,8 @@ class StockAnalysisUniverseTests(unittest.TestCase):
         p2 = trade_levels.entry_plan(frame(closes, vols), 'BASE_6_SEMANAS')
         self.assertEqual(p1['entry_kind'], 'BASE')
         self.assertEqual(p1['pivot'], p2['pivot'])
-        self.assertEqual(p1['partial_r'], 3.0)
-        self.assertAlmostEqual(p1['target_partial'], p1['entry_reference'] + 3 * p1['risk_per_share'], places=1)
+        self.assertEqual(p1['partial_r'], 4.0)
+        self.assertAlmostEqual(p1['target_partial'], p1['entry_reference'] + 4 * p1['risk_per_share'], places=1)
 
     def test_main_with_stock_analysis_universe(self):
         import tempfile

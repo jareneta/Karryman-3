@@ -40,7 +40,7 @@ def clean(df):
     return d if len(d) else None
 
 
-def entry_plan(df, setup='TENDENCIA', partial_r=3.0):
+def entry_plan(df, setup='TENDENCIA', partial_r=4.0):
     """Devuelve pivote, stop, objetivos y estado de la entrada para la última sesión.
     `setup` se ignora: el sistema solo opera rupturas de base."""
     d = clean(df)

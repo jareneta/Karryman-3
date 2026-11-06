@@ -40,3 +40,14 @@ Flujo: tus criterios (Discovery → Screener → Setups) → `plan.py` calcula p
 - **Motivos**: cada candidata indica por qué espera, está bloqueada o descartada; la sección 5 muestra los descartes de Discovery y Screener con el criterio que no cumplen.
 - **Posiciones**: cada análisis (manual desde la app o automático, lun–vie 23:50 UTC) revisa los tickers de `data/tracked.json`. Solo se publican tickers; cantidades, precios y patrimonio se quedan en el navegador.
 - Los workflows se lanzan sobre `main`: hay que fusionar esta rama para que `plan.yml` exista allí.
+
+## Reglas actualizadas tras el backtest (nov. 2026)
+Backtest 2015–2026 (`system_backtest.py`, 4 muestras de 700–1.500 acciones, placebo y fuera de muestra):
+- **Solo rupturas de base** (los pullbacks rendían casi como entradas al azar).
+- **Vender 1/3 en +4R** y subir el stop del resto a breakeven.
+- **Runner**: sale cuando un **cierre semanal** queda por debajo de la **media de 50 semanas**.
+- Stop por cierre (mejor que intradía); sin breakeven en +1R ni stop por tiempo (empeoran).
+- Esperanza por operación (2 muestras de 1.500): sistema anterior +0,12/+0,15R; nuevo +0,47/+0,66R;
+  placebo +0,05/+0,07R. Sesgo de supervivencia: las salidas largas lo amplifican.
+- **Universo**: lista exportada del screener de Stock Analysis (`data/universe.json`); se revisan todas
+  las acciones cada día. Discovery/Screener/Setups quedan solo para ejecución manual.

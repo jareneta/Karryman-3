@@ -76,7 +76,7 @@ function livePortfolio(){
 }
 function readRules(){
   const v=(id,lo,hi,d)=>{const n=Number($(id).value);return n>=lo&&n<=hi?n:d};
-  rules={...rules,riskPct:v('rRisk',.1,1,1),totalRiskPct:v('rTotal',1,20,6),maxWeightPct:v('rWeight',1,100,20),partialR:v('rPartial',2,5,3),trail:$('rTrail').value};
+  rules={...rules,riskPct:v('rRisk',.1,1,1),totalRiskPct:v('rTotal',1,20,6),maxWeightPct:v('rWeight',1,100,20),partialR:v('rPartial',2,5,4),trail:$('rTrail').value};
   store(RKEY,rules);render();
 }
 ['rRisk','rTotal','rWeight','rPartial','rTrail'].forEach(id=>$(id).addEventListener('change',readRules));
@@ -138,7 +138,7 @@ function renderEntries(){
     const card=document.createElement('div');card.className='card '+(s.eligible?'good':'warn');
     card.innerHTML='<h3>'+esc(e.ticker)+' <span class="tag good">ENTRADA ACTIVADA</span><span class="tag">'+esc(e.setup)+'</span>'+(e.sessions_since_trigger?'<span class="tag warn">hace '+esc(e.sessions_since_trigger)+' sesión(es)</span>':'')+'</h3>'+
       '<div class="kv">'+field('Pivote',fx(e.pivot))+field('Cierre',fx(e.close)+' <small>'+esc(e.last_session)+'</small>')+field('Compra máx.',fx(e.max_entry_price))+field('Stop',fx(e.stop_reference)+' ('+fx(e.risk_pct,1)+'%)')+
-      field('+1R',fx(e.target_1r))+field('+'+(e.partial_r||3)+'R (vender 1/3)',fx(e.target_partial??e.target_2r))+field('Volumen disparo',fx(e.trigger_volume_ratio,1)+'×')+field('Resultados',earn(e))+'</div>'+
+      field('+1R',fx(e.target_1r))+field('+'+(e.partial_r||4)+'R (vender 1/3)',fx(e.target_partial??e.target_2r))+field('Volumen disparo',fx(e.trigger_volume_ratio,1)+'×')+field('Resultados',earn(e))+'</div>'+
       '<p>'+esc(e.status_reason||'')+'</p><div>'+critTags(e.criteria)+'</div>'+
       '<div class="kv">'+field('Acciones',s.shares)+field('Importe',money(s.positionValue))+field('Peso',fx(s.weightPct,1)+'%')+field('Riesgo',money(s.newRisk)+' ('+fx(s.newRiskPct,2)+'%)')+field('Riesgo total tras compra',fx(s.aggregateRiskPct,2)+'%')+'</div>'+
       (s.errors.length?'<p class="bad-t">'+s.errors.map(esc).join(' · ')+'</p>':'')+
@@ -161,7 +161,7 @@ function renderEntries(){
   }
   const wait=list.filter(e=>e.entry_status==='ESPERANDO'||(e.entry_status==='ACTIVADA'&&!e.actionable));
   const mini=(e,cls,extra)=>'<div class="mini '+cls+'"><div class="top"><b>'+esc(e.ticker)+(extra||'')+'</b><small class="muted">'+esc(e.setup)+' · resultados '+earn(e)+'</small></div>'+
-    '<div class="nums">Pivote '+fx(e.pivot)+' · cierre '+fx(e.close)+' · stop '+fx(e.stop_reference)+(e.risk_pct!==null?' ('+fx(e.risk_pct,1)+'%)':'')+' · +'+(e.partial_r||3)+'R '+fx(e.target_partial??e.target_2r)+'</div><div class="why">'+whyList(e)+'</div></div>';
+    '<div class="nums">Pivote '+fx(e.pivot)+' · cierre '+fx(e.close)+' · stop '+fx(e.stop_reference)+(e.risk_pct!==null?' ('+fx(e.risk_pct,1)+'%)':'')+' · +'+(e.partial_r||4)+'R '+fx(e.target_partial??e.target_2r)+'</div><div class="why">'+whyList(e)+'</div></div>';
   $('waiting').innerHTML=wait.map(e=>mini(e,e.entry_status==='ACTIVADA'||(e.blockers||[]).length?'warn':'',e.entry_status==='ACTIVADA'?' <small class="warn-t">activada pero bloqueada</small>':'')).join('')||'<p class="muted">Sin candidatas esperando.</p>';
   const rest=list.filter(e=>['EXTENDIDA','FALLIDA','INVALIDADA','RIESGO_ALTO'].includes(e.entry_status));
   $('others').innerHTML=rest.map(e=>mini(e,'bad',' <small class="bad-t">'+esc(e.entry_status.replace('_',' '))+'</small>')).join('')||'<p class="muted">Ninguna.</p>';

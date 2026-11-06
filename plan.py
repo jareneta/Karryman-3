@@ -29,7 +29,7 @@ def read(name, default):
         return default
 
 
-PARTIAL_R = 3.0          # vender 1/3 en +3R (backtest: mejor que +2R)
+PARTIAL_R = 4.0          # vender 1/3 en +4R (backtest: mejor esperanza que +2R/+3R)
 MAX_EARNINGS_LOOKUPS = 80
 UNIVERSE_MAX = 2500
 

@@ -49,9 +49,9 @@ m=M(sameDay,q(101,{last_session:'2026-11-05',high:130,bars:[['2026-11-05',130,95
 assert.equal(m.action,'MANTENER');
 m=M(sameDay,q(118,{last_session:'2026-11-06',high:121,bars:[['2026-11-05',130,95,101],['2026-11-06',121,110,118]]}));
 assert.equal(m.action,'VENDER_PARCIAL');
-// Reglas nuevas por defecto: 1/3 en +3R y runner con cierre semanal bajo la media de 50 semanas
-let n=T.manage(pos,q(115,{bars:[['2026-10-20',121,110,118]]}));assert.equal(n.action,'MANTENER');assert.equal(n.targetPartial,130);
-n=T.manage(pos,q(125,{bars:[['2026-10-20',131,110,125]]}));assert.equal(n.action,'VENDER_PARCIAL');assert.equal(n.sellQty,3);
+// Reglas nuevas por defecto: 1/3 en +4R y runner con cierre semanal bajo la media de 50 semanas
+let n=T.manage(pos,q(125,{bars:[['2026-10-20',131,110,125]]}));assert.equal(n.action,'MANTENER');assert.equal(n.targetPartial,140);
+n=T.manage(pos,q(135,{bars:[['2026-10-20',141,110,135]]}));assert.equal(n.action,'VENDER_PARCIAL');assert.equal(n.sellQty,3);
 const run2={...pos,qty:6,stop:100,partial_done:true};
 n=T.manage(run2,q(130,{ma50w:120,week_close:128,week_end:'2026-10-30'}));assert.equal(n.action,'MANTENER_RUNNER');
 n=T.manage(run2,q(130,{ma50w:120,week_close:118,week_end:'2026-10-30'}));assert.equal(n.action,'VENDER_RUNNER');
