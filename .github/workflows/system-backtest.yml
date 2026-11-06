@@ -1,0 +1,40 @@
+name: Karryman Backtest del sistema
+on:
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: 'Número de acciones de la muestra aleatoria'
+        required: false
+        default: '700'
+      seed:
+        description: 'Semilla de la muestra (cambiar para validar con otra muestra)'
+        required: false
+        default: '42'
+permissions:
+  contents: read
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencias
+        run: pip install -r requirements.txt
+      - name: Tests del motor
+        run: python -m unittest tests.test_system_backtest -v
+      - name: Backtest (investigación, sin órdenes)
+        env:
+          SYMBOLS: ${{ inputs.symbols }}
+          SEED: ${{ inputs.seed }}
+        run: python system_backtest.py --symbols "$SYMBOLS" --seed "$SEED" --output data/system_backtest.json
+      - name: Guardar resultados
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: karryman-system-backtest
+          path: data/system_backtest.json
+          if-no-files-found: warn
+          retention-days: 30
