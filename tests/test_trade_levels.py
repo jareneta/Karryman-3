@@ -77,7 +77,30 @@ class PlanBuildTests(unittest.TestCase):
         self.assertFalse(by['BBB']['actionable'])
         self.assertFalse(by['AAA']['order_enabled'])
         self.assertEqual(set(quotes), {'AAA', 'BBB', 'POS'})
+        self.assertTrue(any('Fundamentales' in b for b in by['BBB']['blockers']))
+        self.assertIn('pivote', by['AAA']['status_reason'])
         json.dumps(entries)
+
+    def test_near_earnings_blocks_entry(self):
+        from datetime import datetime, timedelta, timezone
+        closes = base() + [101.0]
+        vols = [1_000_000] * (len(closes) - 1) + [1_600_000]
+        good = {'ticker': 'AAA', 'setup': 'BASE_6_SEMANAS', 'trend_ok': True, 'near_high_ok': True,
+                'rs_vs_spy_3m_pct': 5, 'fundamental_status': 'CUMPLE'}
+        soon = (datetime.now(timezone.utc).date() + timedelta(days=5)).isoformat()
+        entries, _ = plan.build([good], {'AAA': frame(closes, vols)}, [], earnings_lookup=lambda t: soon)
+        self.assertFalse(entries[0]['actionable'])
+        self.assertEqual(entries[0]['days_to_earnings'], 5)
+        self.assertIn('Resultados', entries[0]['blockers'][0])
+        later = (datetime.now(timezone.utc).date() + timedelta(days=40)).isoformat()
+        entries, _ = plan.build([good], {'AAA': frame(closes, vols)}, [], earnings_lookup=lambda t: later)
+        self.assertTrue(entries[0]['actionable'])
+
+    def test_every_status_has_reason(self):
+        for closes, vols in [(base(), None), (base() + [101.0, 108.0], [1_000_000] * 120 + [1_600_000, 900_000]),
+                             (base() + [101.0, 97.0], [1_000_000] * 120 + [1_600_000, 900_000])]:
+            p = trade_levels.entry_plan(frame(closes, vols), 'BASE')
+            self.assertTrue(p['status_reason'], p)
 
     def test_tracked_parse_rejects_junk(self):
         self.assertEqual(tracked.parse('aapl, msft;  ../x 123 brk.b'), ['AAPL', 'BRK.B', 'MSFT'])
