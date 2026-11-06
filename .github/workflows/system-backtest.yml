@@ -15,7 +15,7 @@ on:
         required: false
         default: ''
       mode:
-        description: 'variantes | comparacion_spy | indice_apalancado | senales_tempranas | sec_smoke | fundamentales'
+        description: 'variantes | comparacion_spy | indice_apalancado | senales_tempranas | sec_smoke | fundamentales | panel'
         required: false
         default: 'variantes'
 permissions:
@@ -52,6 +52,7 @@ jobs:
           EXTRA=""
           if [ "$MODE" = "indice_apalancado" ]; then python index_leverage.py data/system_backtest.json; exit 0; fi
           if [ "$MODE" = "sec_smoke" ]; then python sec_fundamentals.py --smoke; exit 0; fi
+          if [ "$MODE" = "panel" ]; then python panel_study.py --symbols "$SYMBOLS" --output data/system_backtest.json; exit 0; fi
           if [ "$MODE" = "fundamentales" ]; then python fundamental_study.py --symbols "$SYMBOLS" --output data/system_backtest.json; exit 0; fi
           if [ "$MODE" = "senales_tempranas" ]; then python early_signals.py --symbols "$SYMBOLS" --output data/system_backtest.json; exit 0; fi
           if [ "$MODE" = "comparacion_spy" ]; then EXTRA="--benchmark"; fi
@@ -61,6 +62,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: karryman-system-backtest
-          path: data/system_backtest.json
+          path: |
+            data/system_backtest.json
+            data/panel.csv.gz
+            data/sec_rows.json.gz
           if-no-files-found: warn
-          retention-days: 30
+          retention-days: 90
