@@ -39,4 +39,10 @@ s=T.sizeEntry(loaded,{ticker:'XYZ',entry_reference:50,stop_reference:45});assert
 assert.equal(T.sizeEntry({...pf,cash:-5},{ticker:'XYZ',entry_reference:50,stop_reference:45}).eligible,false);
 assert.equal(s.orderEnabled,false);
 assert.ok(T.orderTicket({ticker:'XYZ',max_entry_price:52.5,stop_reference:45,target_2r:60},s).startsWith('COMPRAR 10 XYZ'));
+// El máximo del propio día de entrada no cuenta (pudo ser antes de comprar)
+const sameDay={...pos,entry_date:'2026-11-05'};
+m=T.manage(sameDay,q(101,{last_session:'2026-11-05',high:130,bars:[['2026-11-05',130,95,101]]}));
+assert.equal(m.action,'MANTENER');
+m=T.manage(sameDay,q(118,{last_session:'2026-11-06',high:121,bars:[['2026-11-05',130,95,101],['2026-11-06',121,110,118]]}));
+assert.equal(m.action,'VENDER_PARCIAL');
 console.log('Trade manager tests passed');
