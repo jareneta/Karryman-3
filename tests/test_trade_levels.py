@@ -155,3 +155,46 @@ class PlanMainTests(unittest.TestCase):
         self.assertFalse(out['orders_enabled'])
         self.assertEqual(out['funnel']['discovery_filter_counts'], {'precio/liquidez': 8})
         self.assertIn('paga dividendo', out['funnel']['screener_discards'][0]['reasons'])
+
+
+class StockAnalysisUniverseTests(unittest.TestCase):
+    def test_parse_universe(self):
+        import sa_universe
+        self.assertEqual(sa_universe.parse('nvda, AAPL;brk.b  bad! 123'), ['AAPL', 'BRK.B', 'NVDA'])
+
+    def test_breakouts_only_ignores_pullback_setup(self):
+        closes = base() + [101.0]
+        vols = [1_000_000] * (len(closes) - 1) + [1_600_000]
+        p1 = trade_levels.entry_plan(frame(closes, vols), 'PULLBACK_EMA20')
+        p2 = trade_levels.entry_plan(frame(closes, vols), 'BASE_6_SEMANAS')
+        self.assertEqual(p1['entry_kind'], 'BASE')
+        self.assertEqual(p1['pivot'], p2['pivot'])
+        self.assertEqual(p1['partial_r'], 4.0)
+        self.assertAlmostEqual(p1['target_partial'], p1['entry_reference'] + 4 * p1['risk_per_share'], places=1)
+
+    def test_main_with_stock_analysis_universe(self):
+        import tempfile
+        from unittest import mock
+        long = list(np.linspace(40, 92, 230)) + base()[-30:] + [101.0]
+        vols = [1_000_000] * (len(long) - 1) + [1_600_000]
+        good = frame(long, vols)
+        weak = frame(list(np.linspace(100, 50, len(long))))
+        spy = frame(list(np.linspace(100, 101, len(long))))
+        with tempfile.TemporaryDirectory() as tmp:
+            data = Path(tmp)
+            (data / 'universe.json').write_text(json.dumps({'tickers': ['GOOD', 'WEAK'], 'updated_utc': '2026-11-06T00:00:00+00:00'}))
+            (data / 'tracked.json').write_text(json.dumps({'tickers': ['POS']}))
+            with mock.patch.object(plan, 'DATA', data), mock.patch.object(plan, 'OUT', data / 'plan.json'), \
+                    mock.patch.object(plan, 'download', return_value=({'GOOD': good, 'WEAK': weak, 'POS': good, 'SPY': spy}, [])), \
+                    mock.patch.object(plan, 'earnings_info', return_value={'next': None, 'last': None}):
+                plan.main()
+            out = json.loads((data / 'plan.json').read_text())
+        self.assertEqual(out['funnel']['mode'], 'stock_analysis')
+        self.assertEqual(out['funnel']['universe_size'], 2)
+        tickers = [e['ticker'] for e in out['entries']]
+        self.assertIn('GOOD', tickers)
+        self.assertNotIn('WEAK', tickers)  # no cumple tendencia y no está activada -> no se guarda
+        self.assertIn('tendencia', out['funnel']['filter_counts'])
+        self.assertIn('POS', out['quotes'])
+        self.assertIn('ma50w', out['quotes']['POS'])
+        self.assertFalse(out['orders_enabled'])

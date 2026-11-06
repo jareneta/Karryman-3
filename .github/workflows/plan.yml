@@ -6,6 +6,10 @@ on:
         description: 'Tickers de tus posiciones separados por espacios (solo tickers; vacío = mantener los anteriores)'
         required: false
         default: ''
+      universe:
+        description: 'Tickers de tu screener de Stock Analysis (vacío = mantener la lista anterior)'
+        required: false
+        default: ''
   schedule:
     # Después del cierre de EE. UU. y de Setups A+ (23:20 UTC)
     - cron: '50 23 * * 1-5'
@@ -17,7 +21,7 @@ concurrency:
 jobs:
   plan:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -30,6 +34,11 @@ jobs:
         env:
           TICKERS: ${{ inputs.tickers }}
         run: python tracked.py "$TICKERS"
+      - name: Guardar lista de Stock Analysis (solo tickers)
+        if: github.event_name == 'workflow_dispatch' && inputs.universe != ''
+        env:
+          UNIVERSE: ${{ inputs.universe }}
+        run: python sa_universe.py "$UNIVERSE"
       - name: Calcular plan de entradas y revisar posiciones
         run: python plan.py
       - name: Validar que no hay órdenes
@@ -38,7 +47,8 @@ jobs:
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/plan.json data/tracked.json 2>/dev/null || git add data/plan.json
+          git add data/plan.json
+          for f in data/tracked.json data/universe.json; do if [ -f "$f" ]; then git add "$f"; fi; done
           if ! git diff --cached --quiet; then
             git commit -m 'Actualizar plan de órdenes Karryman'
             git pull --rebase origin "${{ github.ref_name }}"

@@ -1,8 +1,7 @@
 name: Karryman SA Screener
+# Desactivado el horario: el universo viene ahora del screener de Stock Analysis (plan.yml).
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '15 10 * * 1-5'
 permissions:
   contents: write
 jobs:

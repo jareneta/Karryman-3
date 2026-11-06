@@ -48,7 +48,7 @@ class Config:
     partial_frac: float = 1 / 3
     be_after_partial: bool = True
     be_at_1r: bool = False
-    trail: str = 'ema20'          # ema10 | ema20 | ma50 | none
+    trail: str = 'ema20'          # ema10 | ema20 | ma50 | w50 (media 50 semanas) | none
     trail_from_start: bool = False
     intraday_stop: bool = False
     time_stop: int = 0            # sesiones sin llegar a +1R -> salir (0 = no)
@@ -79,6 +79,13 @@ VARIANTS = [
     Config(name='rupturas+parcial_3R', pullback=False, partial_r=3.0),
     Config(name='rupturas+runner_MA50', pullback=False, trail='ma50'),
     Config(name='rupturas+3R+MA50', pullback=False, partial_r=3.0, trail='ma50'),
+    Config(name='R+2R+MA50sem', pullback=False, partial_r=2.0, trail='w50'),
+    Config(name='R+3R+MA50sem', pullback=False, partial_r=3.0, trail='w50'),
+    Config(name='R+4R+EMA20', pullback=False, partial_r=4.0),
+    Config(name='R+4R+MA50', pullback=False, partial_r=4.0, trail='ma50'),
+    Config(name='R+4R+MA50sem', pullback=False, partial_r=4.0, trail='w50'),
+    Config(name='R+5R+MA50sem', pullback=False, partial_r=5.0, trail='w50'),
+    Config(name='R+sin_parcial+MA50sem', pullback=False, partial_r=0.0, trail='w50', trail_from_start=False),
     Config(name='placebo_aleatorio', placebo=True),
 ]
 
@@ -145,7 +152,14 @@ def prepare(df, spy_close):
     d['touch'] = touch.shift(1).rolling(5).max() > 0
     spy = spy_close.reindex(d.index).ffill()
     d['rs'] = ((c / c.shift(63)) - (spy / spy.shift(63))) * 100
-    d.attrs['a'] = {k: d[k].to_numpy(dtype=float) for k in ('Open', 'High', 'Low', 'Close', 'ema10', 'ema20', 'ma50')}
+    # Media de 50 semanas: cierre semanal (último día de cada semana) por debajo de su SMA50 semanal.
+    week = d.index.to_period('W-FRI')
+    wk_close = c.groupby(week).last()
+    wk_ma = wk_close.rolling(50).mean()
+    below = (wk_close < wk_ma)
+    last_of_week = pd.Series(week, index=d.index) != pd.Series(week, index=d.index).shift(-1)
+    d['w50_exit'] = (last_of_week & pd.Series(week, index=d.index).map(below).fillna(False).astype(bool)).astype(float)
+    d.attrs['a'] = {k: d[k].to_numpy(dtype=float) for k in ('Open', 'High', 'Low', 'Close', 'ema10', 'ema20', 'ma50', 'w50_exit')}
     return d
 
 
@@ -252,7 +266,9 @@ def step(t, d, j, cfg):
     trail_on = cfg.trail != 'none' and (t.partial or cfg.trail_from_start)
     if c <= t.stop:
         t.pending = True
-    elif trail_on and c < a[cfg.trail][j]:
+    elif trail_on and cfg.trail == 'w50' and a['w50_exit'][j] > 0:
+        t.pending = True
+    elif trail_on and cfg.trail != 'w50' and c < a[cfg.trail][j]:
         t.pending = True
     elif cfg.time_stop and not t.partial and j - t.entry_i >= cfg.time_stop and c < t.entry + R:
         t.pending = True

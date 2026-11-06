@@ -1,11 +1,12 @@
 /* Karryman: gestión de posiciones y propuestas de entrada. Solo en el navegador.
-   Reglas: stop por cierre · +2R vender 1/3 y subir stop del resto a breakeven ·
-   runner: vender con cierre bajo la media elegida (EMA20 por defecto).
+   Reglas: stop por cierre · +4R (configurable) vender 1/3 y subir stop del resto a breakeven ·
+   runner: vender con cierre bajo la media elegida (por defecto, cierre semanal bajo la media de 50 semanas).
    Nunca envía órdenes: todo son propuestas que el usuario aprueba o descarta. */
 (function(root){
   'use strict';
   const num=x=>x!==null&&x!==undefined&&x!==''&&Number.isFinite(Number(x))?Number(x):null;
-  const DEFAULT_RULES={riskPct:1,totalRiskPct:6,maxWeightPct:20,partialFraction:1/3,trail:'ema20'};
+  const DEFAULT_RULES={riskPct:1,totalRiskPct:6,maxWeightPct:20,partialFraction:1/3,partialR:4,trail:'ma50w'};
+  const TRAIL_LABEL={ema10:'EMA10',ema20:'EMA20',ma50:'MA50',ma50w:'media de 50 semanas'};
   const round2=x=>Math.round(x*100)/100;
 
   function partialQty(qty,fraction){
@@ -30,8 +31,9 @@
       return out;
     }
     const R=avg-initial;
+    const PR=num(r.partialR)>0?num(r.partialR):4;
     out.R=round2(R);out.rMultiple=round2((close-avg)/R);
-    out.target1r=round2(avg+R);out.target2r=round2(avg+2*R);
+    out.target1r=round2(avg+R);out.target2r=round2(avg+2*R);out.partialR=PR;out.targetPartial=round2(avg+PR*R);
     const activeStop=stop>0?stop:initial;
     out.stop=activeStop;
     // Máximo DESPUÉS del día de entrada: el máximo de ese mismo día puede ser anterior a la compra.
@@ -48,26 +50,32 @@
     }
     if(low!==null&&low<=activeStop)out.reasons.push('El mínimo del día tocó el stop; si tenías orden stop en IBKR pudo ejecutarse');
     if(!position.partial_done){
-      if(maxHigh>=avg+2*R){
+      if(maxHigh>=avg+PR*R){
         const sell=partialQty(qty,r.partialFraction);
         return {...out,action:sell===qty?'VENDER_TODO':'VENDER_PARCIAL',severity:'good',sellQty:sell,
           newStop:round2(Math.max(activeStop,avg)),
-          reasons:[...out.reasons,'+2R alcanzado ('+out.target2r+'): vender '+sell+' de '+qty+' acciones y subir el stop del resto a breakeven ('+round2(Math.max(activeStop,avg))+')']};
+          reasons:[...out.reasons,'+'+PR+'R alcanzado ('+out.targetPartial+'): vender '+sell+' de '+qty+' acciones y subir el stop del resto a breakeven ('+round2(Math.max(activeStop,avg))+')']};
       }
-      if(maxHigh>=avg+R)out.reasons.push('+1R alcanzado ('+out.target1r+'); siguiente objetivo +2R '+out.target2r);
-      return {...out,action:'MANTENER',severity:'ok',reasons:[...out.reasons,'Objetivo +2R: '+out.target2r+' · stop por cierre: '+activeStop]};
+      if(maxHigh>=avg+R)out.reasons.push('+1R alcanzado ('+out.target1r+'); objetivo +'+PR+'R en '+out.targetPartial);
+      return {...out,action:'MANTENER',severity:'ok',reasons:[...out.reasons,'Objetivo +'+PR+'R: '+out.targetPartial+' (vender 1/3) · stop por cierre: '+activeStop]};
     }
     // Runner: tras la venta parcial, sale con cierre bajo la media elegida.
+    const label=TRAIL_LABEL[r.trail]||String(r.trail).toUpperCase();
+    const weekly=r.trail==='ma50w';
     const trailValue=num(quote[r.trail]);
+    const ref=weekly?num(quote.week_close):close;
     out.trail=r.trail;out.trailValue=trailValue;
-    if(trailValue!==null&&close<trailValue){
-      return {...out,action:'VENDER_RUNNER',severity:'bad',sellQty:qty,
-        reasons:[...out.reasons,'Runner: cierre '+close+' bajo '+r.trail.toUpperCase()+' '+trailValue+': vender el resto']};
+    if(trailValue===null&&weekly){
+      return {...out,action:'MANTENER_RUNNER',severity:'warn',
+        reasons:[...out.reasons,'Sin historial para la media de 50 semanas: vigila el stop '+round2(Math.max(activeStop,avg))]};
     }
-    const suggested=trailValue!==null?round2(Math.max(activeStop,avg,Math.min(trailValue,close))):activeStop;
+    if(trailValue!==null&&ref!==null&&ref<trailValue){
+      return {...out,action:'VENDER_RUNNER',severity:'bad',sellQty:qty,
+        reasons:[...out.reasons,'Runner: '+(weekly?'cierre semanal ('+quote.week_end+') ':'cierre ')+ref+' bajo la '+label+' '+trailValue+': vender el resto']};
+    }
     const res={...out,action:'MANTENER_RUNNER',severity:'ok',
-      reasons:[...out.reasons,'Runner vivo: sale con cierre bajo '+r.trail.toUpperCase()+(trailValue!==null?' ('+trailValue+')':'')+' · stop mínimo '+round2(Math.max(activeStop,avg))]};
-    if(suggested>activeStop)res.newStop=suggested;
+      reasons:[...out.reasons,'Runner vivo: sale con '+(weekly?'un cierre semanal':'un cierre')+' bajo la '+label+(trailValue!==null?' ('+trailValue+')':'')+' · stop mínimo '+round2(Math.max(activeStop,avg))]};
+    if(!weekly){const suggested=trailValue!==null?round2(Math.max(activeStop,avg,Math.min(trailValue,close))):activeStop;if(suggested>activeStop)res.newStop=suggested}
     return res;
   }
 
@@ -98,8 +106,9 @@
 
   function orderTicket(entry,size){
     if(!size||!(size.shares>0))return '';
+    const pr=entry.partial_r||4,tp=entry.target_partial??entry.target_2r;
     return 'COMPRAR '+size.shares+' '+entry.ticker+' · orden LMT a la apertura, máx. '+entry.max_entry_price+
-      ' · STOP '+entry.stop_reference+' · +2R '+entry.target_2r+' (vender 1/3)';
+      ' · STOP '+entry.stop_reference+' · +'+pr+'R '+tp+' (vender 1/3)';
   }
 
   root.KarrymanTrade={manage,sizeEntry,orderTicket,partialQty,DEFAULT_RULES};
