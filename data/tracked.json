@@ -1,0 +1,12 @@
+{
+  "tickers": [
+    "ALAB",
+    "AMPL",
+    "BE",
+    "IAU",
+    "PLTR",
+    "RBRK"
+  ],
+  "updated_utc": "2026-11-06T13:07:31.829029+00:00",
+  "notes": "Solo tickers para revisar posiciones; sin cantidades, precios ni patrimonio."
+}
