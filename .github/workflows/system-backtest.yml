@@ -11,7 +11,7 @@ on:
         required: false
         default: '42'
       mode:
-        description: 'variantes | comparacion_spy'
+        description: 'variantes | comparacion_spy | indice_apalancado'
         required: false
         default: 'variantes'
 permissions:
@@ -36,6 +36,7 @@ jobs:
           MODE: ${{ inputs.mode }}
         run: |
           EXTRA=""
+          if [ "$MODE" = "indice_apalancado" ]; then python index_leverage.py data/system_backtest.json; exit 0; fi
           if [ "$MODE" = "comparacion_spy" ]; then EXTRA="--benchmark"; fi
           python system_backtest.py --symbols "$SYMBOLS" --seed "$SEED" --output data/system_backtest.json $EXTRA
       - name: Guardar resultados
