@@ -105,6 +105,39 @@ class BacktestRules(unittest.TestCase):
         self.assertEqual(sb.yearly(pd.Series([1.0, 1.1, 1.21], index=pd.to_datetime(['2020-01-02', '2020-12-31', '2021-12-31']))),
                          {'2020': 10.0, '2021': 10.0})
 
+    def vcp_frame(self, after, vol_break=2_000_000):
+        up = list(np.linspace(40, 100, 230))
+        base = list(np.linspace(99, 86, 12)) + list(np.linspace(86, 96, 10)) + [97.5, 97.0, 97.8, 97.2, 97.6, 97.4, 97.9, 97.3, 97.7, 97.5]
+        closes = up + base + [101.0] + after
+        vols = [1_000_000] * (len(up) + len(base)) + [vol_break] + [1_000_000] * len(after)
+        return sb.prepare(make(closes, vols), make(np.linspace(100, 110, 600)).Close)
+
+    def test_vcp_base_signal(self):
+        d = self.vcp_frame([101.0] * 3)
+        reg = sb.regime_series(make(np.linspace(100, 110, 600)))
+        cfg = sb.Config(pullback=False, entry='base')
+        sig = sb.signals(d, cfg, reg)
+        self.assertEqual(len(sig), 1)
+        i, kind, pivot, stop, rs = sig[0]
+        self.assertEqual(kind, 'base')
+        self.assertEqual(i, 262)
+        self.assertGreaterEqual(d.base_len.iloc[i], 25)
+        # Sin volumen no hay señal
+        self.assertEqual(sb.signals(self.vcp_frame([101.0] * 3, vol_break=1_000_000), cfg, reg), [])
+
+    def test_climax_exit(self):
+        jump = [101.0, 104.0] + [104.0 * 1.04 ** k for k in range(1, 15)]
+        d = self.vcp_frame(jump)
+        reg = sb.regime_series(make(np.linspace(100, 110, 600)))
+        cfg = sb.Config(pullback=False, entry='base', partial_r=2.0, partial_frac=0.5, trail='w50', climax_ext=0.40)
+        t = sb.open_trade(d, 'X', sb.signals(d, cfg, reg)[0], cfg)
+        for j in range(t.entry_i, len(d)):
+            if sb.step(t, d, j, cfg):
+                break
+        sb.finish(t, d)
+        self.assertTrue(t.partial)
+        self.assertTrue(t.climax)
+
     def test_stats(self):
         df = pd.DataFrame({'r': [2.0, -1.0, -1.0, 3.0], 'days': [5, 3, 2, 10], 'partial': [True, False, False, True]})
         s = sb.r_stats(df)
