@@ -35,7 +35,7 @@ Flujo: tus criterios (Discovery → Screener → Setups) → `plan.py` calcula p
 - **Entrada**: cierre por encima del pivote (máximo de 30 sesiones en bases; de 5 en pullbacks) con volumen ≥ 1,4× la media de 50 (pullback ≥ 1,1×). No comprar a más de pivote +5 % (EXTENDIDA). Estados: ESPERANDO, ACTIVADA, EXTENDIDA, FALLIDA, INVALIDADA, RIESGO_ALTO (stop > 12 %).
 - **Stop inicial**: mínimo de las 10 sesiones previas al disparo (base) o de las 5 (pullback). Stop por cierre.
 - **Salida**: a +2R vender 1/3 y subir el stop del resto a breakeven; el runner sale con un cierre bajo EMA20 (configurable EMA10/MA50). +1R solo informa.
-- **Tamaño**: 1 % de riesgo por operación, 6 % de riesgo total hasta stops, 20 % de peso máximo y efectivo disponible (`trade_manager.js` + `risk.js`). Si alguna posición no tiene stop o hay margen, no se proponen compras.
+- **Tamaño**: 1 % de riesgo por operación, 6 % de riesgo total hasta stops, 20 % de peso máximo y efectivo disponible (`trade_manager.js` + `risk.js`). Si alguna posición no tiene stop, no se proponen compras. El margen (efectivo negativo o compra mayor que el efectivo) no bloquea: solo se avisa.
 - **Resultados**: se busca la fecha en Yahoo para todas las candidatas; a 14 días o menos de resultados la entrada se bloquea. Si Yahoo no la publica, aviso para comprobarla en IBKR.
 - **Motivos**: cada candidata indica por qué espera, está bloqueada o descartada; la sección 5 muestra los descartes de Discovery y Screener con el criterio que no cumplen.
 - **Posiciones**: cada análisis (manual desde la app o automático, lun–vie 23:50 UTC) revisa los tickers de `data/tracked.json`. Solo se publican tickers; cantidades, precios y patrimonio se quedan en el navegador.

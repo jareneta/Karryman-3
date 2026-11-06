@@ -89,7 +89,7 @@ function renderSummary(){
   $('mFree').textContent=lp.nlv?money(Math.max(0,lp.nlv*rules.totalRiskPct/100-risk)):'—';
   const w=[];if(!lp.nlv)w.push('Importa o introduce tu patrimonio y efectivo en «Mi cartera».');
   if(missing)w.push(missing+' posición(es) sin stop: el riesgo total está incompleto y no se propondrán compras.');
-  if(lp.cash!==null&&lp.cash<0)w.push('Efectivo negativo (margen): no se propondrán compras.');
+  if(lp.cash!==null&&lp.cash<0)w.push('Aviso: efectivo negativo, estás usando margen ('+money(lp.cash)+'). Las compras se calculan igual; decide tú.');
   $('portfolioWarn').textContent=w.join(' ');
 }
 
@@ -141,7 +141,8 @@ function renderEntries(){
       field('+1R',fx(e.target_1r))+field('+2R (vender 1/3)',fx(e.target_2r))+field('Volumen disparo',fx(e.trigger_volume_ratio,1)+'×')+field('Resultados',earn(e))+'</div>'+
       '<p>'+esc(e.status_reason||'')+'</p><div>'+critTags(e.criteria)+'</div>'+
       '<div class="kv">'+field('Acciones',s.shares)+field('Importe',money(s.positionValue))+field('Peso',fx(s.weightPct,1)+'%')+field('Riesgo',money(s.newRisk)+' ('+fx(s.newRiskPct,2)+'%)')+field('Riesgo total tras compra',fx(s.aggregateRiskPct,2)+'%')+'</div>'+
-      (s.errors.length?'<p class="warn-t">'+s.errors.map(esc).join(' · ')+'</p>':'')+
+      (s.errors.length?'<p class="bad-t">'+s.errors.map(esc).join(' · ')+'</p>':'')+
+      (s.warnings&&s.warnings.length?'<p class="warn-t">⚠ '+s.warnings.map(esc).join(' · ')+'</p>':'')+
       (e.warnings.length?'<ul>'+e.warnings.map(w=>'<li class="warn-t">'+esc(w)+'</li>').join('')+'</ul>':'')+
       (ticket?'<div class="ticket">'+esc(ticket)+'</div>':'');
     const a=document.createElement('div');a.className='actions';
