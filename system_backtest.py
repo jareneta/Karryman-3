@@ -63,6 +63,8 @@ class Config:
     max_tight: float = 0.12       # rango de las 2 últimas semanas / cierre
     climax_ext: float = 0.0       # 0 = sin salida por clímax; p. ej. 0.40 = 40% sobre la MA50
     climax_run: float = 0.25      # subida mínima en 15 sesiones para considerar clímax
+    rs_rank_min: float = 0.0      # rango RS (percentil IBD) mínimo, 0 = sin filtro
+    max_positions: int = 0        # 0 = sin límite de posiciones activas (los runners no cuentan)
 
 
 VARIANTS = [
@@ -149,6 +151,7 @@ def prepare(df, spy_close):
     d['ma200_prev'] = d['ma200'].shift(20)
     d['ema10'] = c.ewm(span=10, adjust=False).mean()
     d['ema20'] = c.ewm(span=20, adjust=False).mean()
+    d['ema21'] = c.ewm(span=21, adjust=False).mean()
     d['hi252'] = h.rolling(252).max()
     d['vol50'] = v.shift(1).rolling(50).mean()
     d['piv30'] = h.shift(1).rolling(30).max()
@@ -166,6 +169,9 @@ def prepare(df, spy_close):
     below = (wk_close < wk_ma)
     last_of_week = pd.Series(week, index=d.index) != pd.Series(week, index=d.index).shift(-1)
     d['w50_exit'] = (last_of_week & pd.Series(week, index=d.index).map(below).fillna(False).astype(bool)).astype(float)
+    below10 = (wk_close < wk_close.rolling(10).mean())
+    d['w10_exit'] = (last_of_week & pd.Series(week, index=d.index).map(below10).fillna(False).astype(bool)).astype(float)
+    d['rs_rank'] = np.nan
     # Bases (VCP / taza con asa): máximo previo de 52 semanas como pivote, sesiones desde ese máximo,
     # profundidad de la base, subida previa y estrechez del lado derecho. Todo con datos hasta ayer.
     hs, ls = h.shift(1), lo.shift(1)
@@ -189,13 +195,29 @@ def prepare(df, spy_close):
     wvol = v.groupby(wk).transform('sum')
     wk_vol = v.groupby(week).sum()
     d['week_vol_ratio'] = wvol / wk.map(wk_vol.shift(1).rolling(10).mean())
-    d.attrs['a'] = {k: d[k].to_numpy(dtype=float) for k in ('Open', 'High', 'Low', 'Close', 'ema10', 'ema20', 'ma50', 'w50_exit', 'ret15')}
+    d.attrs['a'] = {k: d[k].to_numpy(dtype=float) for k in ('Open', 'High', 'Low', 'Close', 'ema10', 'ema20', 'ema21', 'ma50',
+                                                            'w50_exit', 'w10_exit', 'ret15')}
     return d
 
 
 def regime_series(spy):
     c = spy.Close
-    return pd.DataFrame({'spy_ma200': c > c.rolling(200).mean(), 'spy_ma50': c > c.rolling(50).mean()})
+    ma50 = c.rolling(50).mean()
+    return pd.DataFrame({'spy_ma200': c > c.rolling(200).mean(), 'spy_ma50': c > ma50,
+                         'spy_ma50_up': (c > ma50) & (ma50 > ma50.shift(10)),
+                         'spy_ema21': c > c.ewm(span=21, adjust=False).mean()})
+
+
+def attach_rs_rank(prepared, index):
+    """Rango RS tipo IBD (40% 3m + 20% 6, 9 y 12 meses) en percentil sobre las acciones líquidas."""
+    def score(c):
+        r = lambda n: c / c.shift(n) - 1
+        return 0.4 * r(63) + 0.2 * r(126) + 0.2 * r(189) + 0.2 * r(252)
+    sc = pd.DataFrame({t: score(d.Close) for t, d in prepared.items()}).reindex(index)
+    liq = pd.DataFrame({t: (d.Close >= 5) & (d.vol50 >= 300_000) for t, d in prepared.items()}).reindex(index).fillna(False)
+    rank = sc.where(liq).rank(axis=1, pct=True) * 100
+    for t, d in prepared.items():
+        d['rs_rank'] = rank[t].reindex(d.index)
 
 
 def signals(d, cfg, regime, rng=None):
@@ -203,6 +225,8 @@ def signals(d, cfg, regime, rng=None):
     c, v = d.Close, d.Volume
     base = ((c >= 5) & (d.vol50 >= 500_000) & (c > d.ma50) & (d.ma50 > d.ma200) & (d.ma200 > d.ma200_prev)
             & (c >= cfg.near_high * d.hi252) & (d.rs > cfg.rs_min))
+    if cfg.rs_rank_min > 0:
+        base &= d.rs_rank.fillna(0) >= cfg.rs_rank_min
     if cfg.regime != 'none':
         base &= regime[cfg.regime].reindex(d.index).fillna(False).astype(bool)
     out = []
@@ -227,7 +251,8 @@ def signals(d, cfg, regime, rng=None):
                    & (d.week_vol_ratio >= cfg.vol_breakout) & (d.tight <= cfg.max_tight * 1.5))
             piv = d.week_pivot
         for i in np.flatnonzero(sig.fillna(False).values):
-            out.append((int(i), 'base', float(piv.iloc[i]), float(d.low10.iloc[i]), float(d.rs.iloc[i])))
+            out.append((int(i), 'base', float(piv.iloc[i]), float(d.low10.iloc[i]),
+                        float(d.rs_rank.iloc[i]) if d.rs_rank.notna().iloc[i] else float(d.rs.iloc[i])))
         return out
     if cfg.breakout:
         brk = base & (c > d.piv30) & (v >= cfg.vol_breakout * d.vol50) & (c.shift(1) <= d.piv30.shift(1))
@@ -315,9 +340,9 @@ def step(t, d, j, cfg):
         t.climax = True
     elif c <= t.stop:
         t.pending = True
-    elif trail_on and cfg.trail == 'w50' and a['w50_exit'][j] > 0:
+    elif trail_on and cfg.trail in ('w50', 'w10') and a[cfg.trail + '_exit'][j] > 0:
         t.pending = True
-    elif trail_on and cfg.trail != 'w50' and c < a[cfg.trail][j]:
+    elif trail_on and cfg.trail not in ('w50', 'w10') and c < a[cfg.trail][j]:
         t.pending = True
     elif cfg.time_stop and not t.partial and j - t.entry_i >= cfg.time_stop and c < t.entry + R:
         t.pending = True
@@ -412,6 +437,8 @@ def simulate_portfolio(prepared, cfg, regime, start, end, seed=7, risk_pct=0.01,
         for tk, sig in cands:
             if tk in pos:
                 continue
+            if cfg.max_positions and sum(1 for (tt_, _) in pos.values() if not tt_.partial) >= cfg.max_positions:
+                break
             d = prepared[tk]
             t = open_trade(d, tk, sig, cfg)
             if not t or d.index[t.entry_i] != dt:
@@ -571,6 +598,7 @@ def main():
     spy = frames.pop('SPY')
     regime = regime_series(spy)
     prepared = {tk: prepare(f, spy.Close) for tk, f in frames.items()}
+    attach_rs_rank(prepared, spy.index)
     split = pd.Timestamp(a.split)
     eval_start = pd.Timestamp(a.start) + pd.Timedelta(days=400)
     end = spy.index[-1]
