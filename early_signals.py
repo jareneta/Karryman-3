@@ -45,7 +45,7 @@ def pick(mask, cooldown=COOLDOWN):
     return out
 
 
-def features(f, spy_c, up, rank, bw):
+def features(f, spy_c, up, rank, bw, covered=None):
     d = f
     c, h, lo, o, v = (d.Close.to_numpy(float), d.High.to_numpy(float), d.Low.to_numpy(float),
                       d.Open.to_numpy(float), d.Volume.to_numpy(float))
@@ -65,6 +65,8 @@ def features(f, spy_c, up, rank, bw):
     rk = rank.reindex(d.index)
     rk63 = rk.shift(63)
     liquid = (cs >= 5) & (vol50 >= 300_000) & ((cs * vol50) >= 1e6)
+    if covered is not None:
+        liquid = liquid & pd.Series(covered, index=d.index)
     trend = (cs > ma50) & (ma50 > ma150) & (ma150 > ma200) & (ma200 > ma200.shift(20)) & (cs >= 1.3 * lo252) & (cs >= 0.75 * hi252)
     gap = S(o) / prev - 1
     below150 = (cs < ma150).astype(float).rolling(100).mean() > 0.6
@@ -122,8 +124,10 @@ def trade_R(i, o, h, lo, c, entry_next=True):
     return (px - entry) / risk, days
 
 
-def analyze_stock(tk, f, spy_c, up, rank, bw):
-    sigs, liquid, upb = features(f, spy_c, up, rank, bw)
+def analyze_stock(tk, f, spy_c, up, rank, bw, flags=None, covered=None, group=None):
+    sigs, liquid, upb = features(f, spy_c, up, rank, bw, covered)
+    fnames = list(flags) if flags else []
+    FL = np.array([flags[k] for k in fnames], dtype=bool) if fnames else np.zeros((0, len(f)), dtype=bool)
     c, h, lo, o = (f.Close.to_numpy(float), f.High.to_numpy(float), f.Low.to_numpy(float), f.Open.to_numpy(float))
     n = len(c)
     rev = pd.Series(c[::-1]).rolling(HORIZON, min_periods=HORIZON).max().to_numpy()[::-1]
@@ -140,13 +144,18 @@ def analyze_stock(tk, f, spy_c, up, rank, bw):
     oos = dates >= OOS_START
     base['n_is'], base['hit_is'] = int((ok & ~oos).sum()), int((ok & ~oos & hit).sum())
     base['n_oos'], base['hit_oos'] = int((ok & oos).sum()), int((ok & oos & hit).sum())
+    for j in range(len(fnames)):
+        base[f'n_f{j}'], base[f'h_f{j}'] = int((ok & FL[j]).sum()), int((ok & FL[j] & hit).sum())
+    base['cov_days'] = int(liquid.sum())
+    for j in range(len(fnames)):
+        base[f'p_f{j}'] = int((liquid & FL[j]).sum())
     events, runstats = [], []
     # Control en R: un día líquido de cada 25, misma salida y mismo stop
     ctrl = []
     for i in np.flatnonzero(liquid)[::25]:
         rr = trade_R(int(i), o, h, lo, c)
         if rr:
-            ctrl.append((int(years[i]), bool(oos[i]), bool(upb[i]), rr[0]))
+            ctrl.append((int(years[i]), bool(oos[i]), bool(upb[i]), rr[0], FL[:, i].copy()))
     run_info = []
     for (i0, ip, ie) in runs:
         run_info.append((i0, ip, math.log(c[ip] / c[i0]) if c[ip] > c[i0] else 1e-9))
@@ -161,14 +170,21 @@ def analyze_stock(tk, f, spy_c, up, rank, bw):
                     rd = math.log(c[i] / c[i0]) / lg
                     break
             events.append((name, years[i], bool(oos[i]), bool(upb[i]), float(fm) if not np.isnan(fm) else np.nan,
-                           rr[0] if rr else np.nan, rr[1] if rr else np.nan, rd))
+                           rr[0] if rr else np.nan, rr[1] if rr else np.nan, rd, FL[:, i].copy()))
         # recall por tramo: primer evento dentro del tramo
         evset = np.array(evs, dtype=int)
         for (i0, ip, lg) in run_info:
             inside = evset[(evset >= i0) & (evset <= ip)] if len(evset) else evset
             first = float(math.log(c[inside[0]] / c[i0]) / lg) if len(inside) else np.nan
             runstats.append((name, first))
-    return base, events, runstats, len(runs), ctrl
+    # tramos x2: banderas fundamentales y grupo de industria al empezar la subida
+    run_start = []
+    for (i0, ip, ie) in runs:
+        if covered is not None and not covered[i0]:
+            run_start.append((False, None, group))
+        else:
+            run_start.append((True, FL[:, i0].copy(), group))
+    return base, events, runstats, len(runs), ctrl, run_start
 
 
 def main():
@@ -193,12 +209,14 @@ def main():
     Path(a.output).write_text(json.dumps(res, ensure_ascii=False, default=str, indent=1), encoding='utf-8')
 
 
-def run_all(frames, spy_c, up):
+def run_all(frames, spy_c, up, flags_by=None, covered_by=None, group_by=None):
+    flags_by = flags_by or {}
+    fnames = list(next(iter(flags_by.values())).keys()) if flags_by else []
     scores = pd.DataFrame({t: rs_score(f.Close) for t, f in frames.items()}).reindex(spy_c.index)
     liq = pd.DataFrame({t: (f.Close >= 5) & (f.Volume.rolling(50).mean() >= 300_000) for t, f in frames.items()}).reindex(spy_c.index).fillna(False)
     rank = scores.where(liq).rank(axis=1, pct=True) * 100
     del scores, liq
-    base_tot, ev_all, rs_all, total_runs, ctrl_all = {}, [], [], 0, []
+    base_tot, ev_all, rs_all, total_runs, ctrl_all, start_all = {}, [], [], 0, [], []
     ma50s = spy_c.rolling(50).mean()
     cross = (spy_c > ma50s) & (spy_c.shift(1) <= ma50s.shift(1))
     dd = spy_c / spy_c.rolling(252, min_periods=60).max() - 1
@@ -206,8 +224,11 @@ def run_all(frames, spy_c, up):
     for tk, f in frames.items():
         if len(f) < 400:
             continue
+        if flags_by and tk not in flags_by:
+            continue
         try:
-            base, evs, rstats, nr, ctrl = analyze_stock(tk, f, spy_c, up, rank[tk], bw)
+            base, evs, rstats, nr, ctrl, rstart = analyze_stock(
+                tk, f, spy_c, up, rank[tk], bw, flags_by.get(tk), (covered_by or {}).get(tk), (group_by or {}).get(tk))
         except Exception as exc:
             print('aviso', tk, str(exc)[:80])
             continue
@@ -216,41 +237,69 @@ def run_all(frames, spy_c, up):
         ev_all += evs
         rs_all += rstats
         ctrl_all += ctrl
+        start_all += rstart
         total_runs += nr
-    ev = pd.DataFrame(ev_all, columns=['sig', 'year', 'oos', 'up', 'fm', 'R', 'days', 'run_done'])
+    F = len(fnames)
+    ev = pd.DataFrame([e[:8] for e in ev_all], columns=['sig', 'year', 'oos', 'up', 'fm', 'R', 'days', 'run_done'])
+    evF = np.array([e[8] for e in ev_all], dtype=bool).reshape(len(ev_all), F) if F else np.zeros((len(ev_all), 0), dtype=bool)
     rs = pd.DataFrame(rs_all, columns=['sig', 'first'])
     b = lambda k: base_tot.get(k, 0)
     pr = lambda h_, n_: round(100 * h_ / n_, 2) if n_ else None
     baseline = {'hit2_pct': pr(b('hit'), b('n')), 'hit2_up_pct': pr(b('hit_up'), b('n_up')), 'hit2_dn_pct': pr(b('hit_dn'), b('n_dn')),
                 'hit2_is_pct': pr(b('hit_is'), b('n_is')), 'hit2_oos_pct': pr(b('hit_oos'), b('n_oos')), 'days': b('n')}
-    cdf = pd.DataFrame(ctrl_all, columns=['year', 'oos', 'up', 'R'])
-    baseline['control_R'] = {'n': int(len(cdf)), 'expectancy_R': round(float(cdf.R.mean()), 3), 'win_rate_pct': round(float((cdf.R > 0).mean() * 100), 1),
-                             'expectancy_R_is': round(float(cdf[~cdf.oos].R.mean()), 3), 'expectancy_R_oos': round(float(cdf[cdf.oos].R.mean()), 3),
-                             'expectancy_R_market_up': round(float(cdf[cdf.up].R.mean()), 3),
-                             'expectancy_R_market_down': round(float(cdf[~cdf.up].R.mean()), 3)}
+    cdf = pd.DataFrame([c[:4] for c in ctrl_all], columns=['year', 'oos', 'up', 'R'])
+    cF = np.array([c[4] for c in ctrl_all], dtype=bool).reshape(len(ctrl_all), F) if F else np.zeros((len(ctrl_all), 0), dtype=bool)
+    mean = lambda x: round(float(x.R.mean()), 3) if len(x) else None
+    baseline['control_R'] = {'n': int(len(cdf)), 'expectancy_R': mean(cdf), 'win_rate_pct': round(float((cdf.R > 0).mean() * 100), 1),
+                             'expectancy_R_is': mean(cdf[~cdf.oos]), 'expectancy_R_oos': mean(cdf[cdf.oos]),
+                             'expectancy_R_market_up': mean(cdf[cdf.up]), 'expectancy_R_market_down': mean(cdf[~cdf.up])}
+    baseline['by_flag'] = {}
+    for j, fn in enumerate(fnames):
+        cj = cdf[cF[:, j]]
+        baseline['by_flag'][fn] = {'hit2_pct': pr(b(f'h_f{j}'), b(f'n_f{j}')), 'days': b(f'n_f{j}'),
+                                   'prevalence_pct': pr(b(f'p_f{j}'), b('cov_days')),
+                                   'control_R': mean(cj), 'control_R_oos': mean(cj[cj.oos]), 'control_n': int(len(cj))}
     years = max(1, ev.year.max() - ev.year.min() + 1)
+    prec = lambda x: round(float((x.fm >= 2).mean() * 100), 2) if len(x) else None
     rows = {}
     for name, g in ev.groupby('sig'):
         gf = g.dropna(subset=['fm'])
-        prec = lambda x: round(float((x.fm >= 2).mean() * 100), 2) if len(x) else None
-        rr = lambda x: round(float(x.R.mean()), 3) if len(x) else None
         r = rs[rs.sig == name]
         inrun = g.dropna(subset=['run_done'])
-        rows[name] = {
+        row = {
             'events': int(len(g)), 'events_per_year': round(len(g) / years, 0),
             'precision_x2_pct': prec(gf), 'lift_vs_random': round(prec(gf) / baseline['hit2_pct'], 2) if prec(gf) and baseline['hit2_pct'] else None,
             'precision_x3_pct': round(float((gf.fm >= 3).mean() * 100), 2) if len(gf) else None,
             'median_future_max_x': round(float(gf.fm.median()), 2) if len(gf) else None,
             'precision_is_pct': prec(gf[~gf.oos]), 'precision_oos_pct': prec(gf[gf.oos]),
             'precision_market_up_pct': prec(gf[gf.up]), 'precision_market_down_pct': prec(gf[~gf.up]),
-            'expectancy_R': rr(g), 'win_rate_pct': round(float((g.R > 0).mean() * 100), 1),
-            'expectancy_R_is': rr(g[~g.oos]), 'expectancy_R_oos': rr(g[g.oos]),
-            'expectancy_R_market_up': rr(g[g.up]), 'median_days_in_trade': round(float(g.days.median()), 0),
+            'expectancy_R': mean(g), 'win_rate_pct': round(float((g.R > 0).mean() * 100), 1),
+            'expectancy_R_is': mean(g[~g.oos]), 'expectancy_R_oos': mean(g[g.oos]),
+            'expectancy_R_market_up': mean(g[g.up]), 'median_days_in_trade': round(float(g.days.median()), 0),
             'runs_total': int(len(r)), 'recall_any_pct': round(float(r['first'].notna().mean() * 100), 1) if len(r) else None,
             'recall_before_30pct_done': round(float((r['first'] <= 0.30).mean() * 100), 1) if len(r) else None,
             'median_pct_run_done_at_first_signal': round(float(r['first'].median() * 100), 1) if r['first'].notna().any() else None,
             'events_inside_winner_runs_pct': round(float(len(inrun) / len(g) * 100), 1)}
-    return {'baseline': baseline, 'runs_total': total_runs, 'signals': rows}
+        if F:
+            idx = g.index.to_numpy()
+            bf = {}
+            for j, fn in enumerate(fnames):
+                m = evF[idx, j]
+                gj, gjf = g[m], gf.loc[gf.index.intersection(g.index[m])]
+                base_p = baseline['by_flag'][fn]['hit2_pct']
+                bf[fn] = {'events': int(m.sum()), 'precision_x2_pct': prec(gjf),
+                          'lift_vs_flag_baseline': round(prec(gjf) / base_p, 2) if prec(gjf) and base_p else None,
+                          'expectancy_R': mean(gj), 'expectancy_R_oos': mean(gj[gj.oos]), 'control_R_with_flag': baseline['by_flag'][fn]['control_R']}
+            row['by_flag'] = bf
+        rows[name] = row
+    out = {'baseline': baseline, 'runs_total': total_runs, 'signals': rows}
+    if F:
+        cov = [x for x in start_all if x[0]]
+        out['winner_runs_at_start'] = {'with_fundamental_data': len(cov), 'total': len(start_all),
+                                       'flags_pct': {fn: round(100 * float(np.mean([x[1][j] for x in cov])), 1) if cov else None for j, fn in enumerate(fnames)}}
+        grp = pd.Series([x[2] for x in cov if x[2]])
+        out['winner_runs_at_start']['by_group'] = grp.value_counts().head(40).to_dict()
+    return out
 
 
 if __name__ == '__main__':

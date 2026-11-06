@@ -10,8 +10,12 @@ on:
         description: 'Semilla de la muestra (cambiar para validar con otra muestra)'
         required: false
         default: '42'
+      contact:
+        description: 'Contacto exigido por la SEC en el User-Agent (solo modos sec_smoke y fundamentales)'
+        required: false
+        default: ''
       mode:
-        description: 'variantes | comparacion_spy | indice_apalancado | senales_tempranas'
+        description: 'variantes | comparacion_spy | indice_apalancado | senales_tempranas | sec_smoke | fundamentales'
         required: false
         default: 'variantes'
 permissions:
@@ -29,6 +33,16 @@ jobs:
         run: pip install -r requirements.txt
       - name: Tests del motor
         run: python -m unittest tests.test_system_backtest -v
+      - name: Preparar contacto de la SEC (enmascarado)
+        env:
+          SEC_SECRET: ${{ secrets.SEC_CONTACT }}
+        run: |
+          C="$SEC_SECRET"
+          if [ -z "$C" ]; then C=$(jq -r '.inputs.contact // empty' "$GITHUB_EVENT_PATH"); fi
+          if [ -n "$C" ]; then
+            echo "::add-mask::$C"
+            echo "SEC_CONTACT=$C" >> "$GITHUB_ENV"
+          fi
       - name: Backtest (investigación, sin órdenes)
         env:
           SYMBOLS: ${{ inputs.symbols }}
@@ -37,6 +51,8 @@ jobs:
         run: |
           EXTRA=""
           if [ "$MODE" = "indice_apalancado" ]; then python index_leverage.py data/system_backtest.json; exit 0; fi
+          if [ "$MODE" = "sec_smoke" ]; then python sec_fundamentals.py --smoke; exit 0; fi
+          if [ "$MODE" = "fundamentales" ]; then python fundamental_study.py --symbols "$SYMBOLS" --output data/system_backtest.json; exit 0; fi
           if [ "$MODE" = "senales_tempranas" ]; then python early_signals.py --symbols "$SYMBOLS" --output data/system_backtest.json; exit 0; fi
           if [ "$MODE" = "comparacion_spy" ]; then EXTRA="--benchmark"; fi
           python system_backtest.py --symbols "$SYMBOLS" --seed "$SEED" --output data/system_backtest.json $EXTRA
