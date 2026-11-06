@@ -27,6 +27,12 @@ class MobilePageTests(unittest.TestCase):
                 self.assertRegex(html,r'<body[^>]*data-page="(hoy|cartera|escaner|mas)"')
         for asset in ('karryman.css','karryman-nav.js','karryman-icon.svg','mas.html'):
             self.assertTrue((ROOT/asset).is_file(),asset)
+    def test_ibkr_import_accepts_any_file_name(self):
+        html=(ROOT/'virtual.html').read_text(encoding='utf-8')
+        self.assertIn('<input id="ibkrFile" type="file">',html)  # IBKR en móvil guarda .plain/.txt
+        self.assertIn("$('ibkrFile').addEventListener('change',importFile)",html)
+        self.assertIn('id="ibkrText"',html)
+        self.assertIn('Es un PDF',html)
     def test_review_uses_local_only_paper_ledger(self):
         html=(ROOT/'review.html').read_text(encoding='utf-8')
         self.assertIn('paper_ledger.js',html)
