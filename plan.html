@@ -120,7 +120,7 @@ $('positions').addEventListener('change',e=>{
   savePortfolio();
 });
 
-function earn(e){return e.next_earnings_date?esc(e.next_earnings_date)+(Number.isFinite(e.days_to_earnings)?' <small class="'+(e.days_to_earnings<=14?'bad-t':'muted')+'">(en '+e.days_to_earnings+' d)</small>':''):'<span class="warn-t">no publicada</span>'}
+function earn(e){return e.next_earnings_date?esc(e.next_earnings_date)+(Number.isFinite(e.days_to_earnings)?' <small class="'+(e.days_to_earnings<=14?'bad-t':'muted')+'">(en '+e.days_to_earnings+' d)</small>':''):e.last_earnings_date?'<span class="muted">publicó '+esc(e.last_earnings_date)+'</span>':'<span class="warn-t">no publicada</span>'}
 function whyList(e){return [e.status_reason,...(e.blockers||[])].filter(Boolean).map(x=>'<div>'+esc(x)+'</div>').join('')}
 function critTags(c){return Object.entries(CRIT).map(([k,l])=>'<span class="tag '+(c?.[k]?'good':'bad')+'">'+(c?.[k]?'✓':'✗')+' '+l+'</span>').join(' ')}
 function renderEntries(){
