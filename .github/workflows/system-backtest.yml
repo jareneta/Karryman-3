@@ -33,12 +33,21 @@ jobs:
         run: pip install -r requirements.txt
       - name: Tests del motor
         run: python -m unittest tests.test_system_backtest -v
+      - name: Preparar contacto de la SEC (enmascarado)
+        env:
+          SEC_SECRET: ${{ secrets.SEC_CONTACT }}
+        run: |
+          C="$SEC_SECRET"
+          if [ -z "$C" ]; then C=$(jq -r '.inputs.contact // empty' "$GITHUB_EVENT_PATH"); fi
+          if [ -n "$C" ]; then
+            echo "::add-mask::$C"
+            echo "SEC_CONTACT=$C" >> "$GITHUB_ENV"
+          fi
       - name: Backtest (investigación, sin órdenes)
         env:
           SYMBOLS: ${{ inputs.symbols }}
           SEED: ${{ inputs.seed }}
           MODE: ${{ inputs.mode }}
-          SEC_CONTACT: ${{ secrets.SEC_CONTACT || inputs.contact }}
         run: |
           EXTRA=""
           if [ "$MODE" = "indice_apalancado" ]; then python index_leverage.py data/system_backtest.json; exit 0; fi
