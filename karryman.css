@@ -1,21 +1,21 @@
-/* Karryman · identidad visual común (logo: K verde lima con cuernos sobre negro).
+/* Karryman · identidad visual común (logo: K verde lima con cuernos sobre negro). Tema claro.
    Se carga al final del <head> de cada página y unifica colores, tipografía,
    tarjetas, botones, formularios y tablas. */
 :root{
-  --k-bg:#070908;--k-surface:#111512;--k-surface-2:#182019;--k-surface-3:#212b22;
-  --k-line:#2b362c;--k-line-strong:#3c4a3d;
-  --k-text:#eef3e8;--k-muted:#a4b09d;--k-faint:#7b8775;
-  --k-lime:#a6c916;--k-lime-2:#c7e14a;--k-lime-deep:#4f8a12;--k-on-lime:#0b1205;
-  --k-good:#9ad94a;--k-warn:#ffc65c;--k-bad:#ff8a80;--k-info:#8cc8ff;
+  --k-bg:#f4f6f0;--k-surface:#ffffff;--k-surface-2:#ffffff;--k-surface-3:#f1f5ea;
+  --k-line:#dfe6d6;--k-line-strong:#c3cfb6;
+  --k-text:#17200f;--k-muted:#56644d;--k-faint:#7f8b77;
+  --k-lime:#a6c916;--k-lime-2:#3f6f0a;--k-lime-deep:#4f8a12;--k-on-lime:#0b1205;
+  --k-good:#2f7d18;--k-warn:#9a5b00;--k-bad:#c0352b;--k-info:#1d66a8;
   --k-radius:16px;--k-radius-sm:11px;
-  --k-shadow:0 10px 30px rgba(0,0,0,.35);
+  --k-shadow:0 6px 20px rgba(40,60,20,.08);
   --k-font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
-  color-scheme:dark;
+  color-scheme:light;
 }
 html body{margin:0;background:var(--k-bg);color:var(--k-text);font:15px/1.5 var(--k-font);
   -webkit-text-size-adjust:100%;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
 html body::before{content:"";position:fixed;inset:0 0 auto 0;height:260px;pointer-events:none;z-index:-1;
-  background:radial-gradient(120% 100% at 85% -20%,rgba(166,201,22,.16),transparent 60%)}
+  background:radial-gradient(120% 100% at 85% -20%,rgba(166,201,22,.18),transparent 60%)}
 html body main,html body.k-bare{max-width:980px;margin:0 auto;padding:6px 16px 24px}
 html body.k-bare{padding-top:6px}
 html body h1{font-size:26px;line-height:1.15;letter-spacing:-.6px;margin:8px 0 6px;color:var(--k-text)}
@@ -48,14 +48,14 @@ html body button.primary,html body .btn.primary,html body button.good,html body 
 html body .tabs button.active{
   background:linear-gradient(135deg,var(--k-lime-2),var(--k-lime) 55%,var(--k-lime-deep));color:var(--k-on-lime);
   border-color:transparent}
-html body button.bad,html body button.danger{background:#3a1c1c;border-color:#6b2f2f;color:#ffd6d2}
+html body button.bad,html body button.danger{background:#fdecea;border-color:#efb4ae;color:#9b231a}
 html body button:disabled{opacity:.45;cursor:default}
 html body input[type=file]{color:var(--k-muted);max-width:100%}
 
 /* Formularios */
 html body input:not([type=file]):not([type=checkbox]):not([type=radio]),html body select,html body textarea{
   font:15px var(--k-font);min-height:44px;padding:10px 12px;border-radius:var(--k-radius-sm);
-  border:1px solid var(--k-line-strong);background:#0c100d;color:var(--k-text);max-width:100%}
+  border:1px solid var(--k-line-strong);background:#ffffff;color:var(--k-text);max-width:100%}
 html body input:focus,html body select:focus,html body textarea:focus{outline:2px solid var(--k-lime);outline-offset:1px}
 html body label{color:var(--k-muted)}
 html body input[type=checkbox],html body input[type=radio]{accent-color:var(--k-lime);width:20px;height:20px}
@@ -67,7 +67,7 @@ html body th,html body td{border-bottom:1px solid var(--k-line);padding:9px 8px}
 html body .scroll{overflow-x:auto}
 
 /* Etiquetas y estados */
-html body .tag,html body .pill{background:#0c100d;border:1px solid var(--k-line);color:var(--k-muted);border-radius:99px}
+html body .tag,html body .pill{background:#ffffff;border:1px solid var(--k-line);color:var(--k-muted);border-radius:99px}
 html body .tag.good,html body .pill.ok,html body .ok{color:var(--k-good)}
 html body .tag.warn,html body .pill.wait,html body .warn,html body .warn-t,html body .status{color:var(--k-warn)}
 html body .tag.bad,html body .bad,html body .bad-t,html body #error{color:var(--k-bad)}
@@ -75,7 +75,7 @@ html body .good,html body .good-t{color:var(--k-good)}
 html body .card.good{border-left:5px solid var(--k-good)}html body .card.warn{border-left:5px solid var(--k-warn)}
 html body .card.bad{border-left:5px solid var(--k-bad)}html body .card.ok{border-left:5px solid var(--k-lime)}
 html body .card.good,html body .card.warn,html body .card.bad,html body .card.ok{color:var(--k-text)}
-html body .ticket{background:#0a0d0a;border:1px dashed var(--k-lime-deep);color:var(--k-lime-2)}
+html body .ticket{background:#f6faee;border:1px dashed var(--k-lime-deep);color:#2c4d07}
 html body details summary{color:var(--k-lime-2);cursor:pointer;font-weight:600}
 
 /* Navegación interna antigua: chips */
@@ -88,22 +88,22 @@ html body .brand-header,html body main>header,html body .nav{display:none}
 /* Cabecera común */
 .k-header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;
   padding:10px max(16px,env(safe-area-inset-left)) 10px;margin:0 0 6px;
-  background:rgba(7,9,8,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--k-line)}
-.k-header img{width:40px;height:40px;border-radius:11px;background:#000;box-shadow:0 0 0 1px var(--k-line),0 4px 14px rgba(166,201,22,.18)}
+  background:rgba(255,255,255,.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--k-line)}
+.k-header img{width:40px;height:40px;border-radius:11px;background:#000;box-shadow:0 0 0 1px var(--k-line),0 4px 14px rgba(60,90,10,.18)}
 .k-header .k-brand{display:flex;flex-direction:column;line-height:1.1;min-width:0}
 .k-header .k-word{font-weight:800;letter-spacing:-.3px;font-size:17px;color:var(--k-text)}
-.k-header .k-word span{color:var(--k-lime)}
+.k-header .k-word span{color:var(--k-lime-deep)}
 .k-header .k-page{font-size:12.5px;color:var(--k-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .k-header a.k-home{display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none}
 
 /* Barra inferior */
 .k-tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(4,1fr);
-  padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:rgba(10,13,11,.94);
+  padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:rgba(255,255,255,.95);
   backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--k-line)}
 .k-tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;border-radius:12px;
   color:var(--k-faint);font-size:11.5px;font-weight:600;text-decoration:none}
 .k-tabbar a svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.k-tabbar a.on{color:var(--k-lime-2);background:rgba(166,201,22,.10)}
+.k-tabbar a.on{color:#2c4d07;background:rgba(166,201,22,.22)}
 .k-tabbar a:hover{text-decoration:none;color:var(--k-text)}
 @media(min-width:900px){.k-tabbar{left:50%;right:auto;transform:translateX(-50%);width:520px;bottom:14px;border:1px solid var(--k-line);border-radius:18px}}
 
@@ -123,14 +123,14 @@ html body .brand-header,html body main>header,html body .nav{display:none}
 .k-menu{display:grid;gap:10px}
 .k-menu a{display:flex;gap:14px;align-items:center;padding:14px;border-radius:14px;background:var(--k-surface-2);border:1px solid var(--k-line);color:var(--k-text);text-decoration:none}
 .k-menu a:hover{border-color:var(--k-lime);text-decoration:none}
-.k-menu .ico{flex:0 0 42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(166,201,22,.12);color:var(--k-lime-2)}
+.k-menu .ico{flex:0 0 42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(166,201,22,.2);color:#2c4d07}
 .k-menu .ico svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .k-menu b{display:block}.k-menu span{font-size:13px;color:var(--k-muted)}
 
 @media(max-width:600px){html body h1{font-size:23px}html body .panel,html body .box{padding:14px}}
 
 /* Ajustes de compatibilidad con estilos antiguos de cada página */
-html body header.k-header{background:rgba(7,9,8,.86);border:0;border-bottom:1px solid var(--k-line);border-radius:0;box-shadow:none;padding:10px 16px;gap:12px}
+html body header.k-header{background:rgba(255,255,255,.88);border:0;border-bottom:1px solid var(--k-line);border-radius:0;box-shadow:none;padding:10px 16px;gap:12px}
 html body.k-bare header.k-header{margin:0 -16px 6px}
 html body input[type=file]{background:transparent;border:0;padding:0;min-height:0;color:var(--k-muted)}
 html body .position{background:var(--k-surface-3);border:1px solid var(--k-line);border-left:4px solid var(--k-lime);color:var(--k-text)}
