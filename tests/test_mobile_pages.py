@@ -33,6 +33,21 @@ class MobilePageTests(unittest.TestCase):
         self.assertIn("$('ibkrFile').addEventListener('change',importFile)",html)
         self.assertIn('id="ibkrText"',html)
         self.assertIn('Es un PDF',html)
+    def test_android_share_target(self):
+        import json
+        m=json.loads((ROOT/'manifest.webmanifest').read_text(encoding='utf-8'))
+        st=m['share_target']
+        self.assertEqual(st['method'],'POST')
+        self.assertEqual(st['enctype'],'multipart/form-data')
+        self.assertIn('text/plain',st['params']['files'][0]['accept'])
+        self.assertTrue(any(i['type']=='image/png' and i['sizes']=='512x512' for i in m['icons']))
+        for icon in m['icons']:
+            self.assertTrue((ROOT/icon['src'].lstrip('./')).is_file(),icon['src'])
+        sw=(ROOT/'sw.js').read_text(encoding='utf-8')
+        self.assertIn("/share-target",sw)
+        self.assertNotIn('fetch(',sw.split("addEventListener('fetch'")[0])  # no envía datos a ningún sitio
+        self.assertIn("register('sw.js')",(ROOT/'karryman-nav.js').read_text(encoding='utf-8'))
+        self.assertIn('shared=1',(ROOT/'virtual.html').read_text(encoding='utf-8'))
     def test_review_uses_local_only_paper_ledger(self):
         html=(ROOT/'review.html').read_text(encoding='utf-8')
         self.assertIn('paper_ledger.js',html)

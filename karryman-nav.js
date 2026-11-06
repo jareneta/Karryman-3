@@ -22,4 +22,6 @@
   body.appendChild(nav);
   if(!document.querySelector('meta[name=theme-color]')){const m=document.createElement('meta');m.name='theme-color';document.head.appendChild(m)}
   document.querySelector('meta[name=theme-color]').content='#070908';
+  // Service worker solo para «Compartir → Karryman» (extracto IBKR). No cachea páginas.
+  if('serviceWorker' in navigator&&location.protocol!=='file:'){navigator.serviceWorker.register('sw.js').catch(()=>{})}
 })();
