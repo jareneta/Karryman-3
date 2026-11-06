@@ -34,10 +34,13 @@
     out.target1r=round2(avg+R);out.target2r=round2(avg+2*R);
     const activeStop=stop>0?stop:initial;
     out.stop=activeStop;
-    // Máximo desde la entrada (si se conoce la fecha), si no solo la última sesión.
+    // Máximo DESPUÉS del día de entrada: el máximo de ese mismo día puede ser anterior a la compra.
+    // Sin fecha de entrada solo se usa la última sesión.
     const bars=Array.isArray(quote.bars)?quote.bars:[];
-    const since=position.entry_date?bars.filter(b=>b[0]>=position.entry_date):bars.slice(-1);
-    const maxHigh=Math.max(num(quote.high)??close,...since.map(b=>num(b[1])??-Infinity));
+    const entryDate=position.entry_date||null;
+    const since=entryDate?bars.filter(b=>b[0]>entryDate):bars.slice(-1);
+    const lastCounts=!entryDate||String(quote.last_session||'')>entryDate;
+    const maxHigh=Math.max(close,lastCounts?(num(quote.high)??close):close,...since.map(b=>num(b[1])??-Infinity));
     out.maxHigh=round2(maxHigh);
     if(close<=activeStop){
       return {...out,action:'VENDER_TODO',severity:'bad',sellQty:qty,
