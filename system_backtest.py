@@ -284,6 +284,7 @@ class Trade:
     costs: float = 0.0
     exit_i: int = -1
     climax: bool = False
+    hi: float = 0.0
     fills: list = field(default_factory=list)
 
     @property
@@ -335,6 +336,7 @@ def step(t, d, j, cfg):
         if t.rem <= 1e-9:
             t.exit_i = j; return True
     trail_on = cfg.trail != 'none' and (t.partial or cfg.trail_from_start)
+    t.hi = max(t.hi, c)
     if cfg.climax_ext > 0 and a['ma50'][j] > 0 and c >= a['ma50'][j] * (1 + cfg.climax_ext) and a['ret15'][j] >= cfg.climax_run:
         t.pending = True  # clímax: subida vertical muy extendida sobre la MA50 -> vender todo
         t.climax = True
@@ -342,7 +344,9 @@ def step(t, d, j, cfg):
         t.pending = True
     elif trail_on and cfg.trail in ('w50', 'w10') and a[cfg.trail + '_exit'][j] > 0:
         t.pending = True
-    elif trail_on and cfg.trail not in ('w50', 'w10') and c < a[cfg.trail][j]:
+    elif trail_on and cfg.trail.startswith('tr') and c <= t.hi * (1 - int(cfg.trail[2:]) / 100):
+        t.pending = True
+    elif trail_on and cfg.trail not in ('w50', 'w10') and not cfg.trail.startswith('tr') and c < a[cfg.trail][j]:
         t.pending = True
     elif cfg.time_stop and not t.partial and j - t.entry_i >= cfg.time_stop and c < t.entry + R:
         t.pending = True
@@ -500,6 +504,69 @@ def r_stats(df):
             'median_days': int(df.days.median()), 'reached_2R_pct': round(float(df.partial.mean() * 100), 1)}
 
 
+# ---------------------------------------------------------------- rotación de líderes
+def simulate_rotation(prepared, regime, start, end, top_n=10, min_rank=90.0, min_dollar_vol=20e6,
+                      regime_key='spy_ma50_up', exit_ma='ma50', trailing=0.0):
+    """Cada viernes: mantener las top_n acciones con mayor rango RS que cumplen la plantilla de tendencia
+    y liquidez; fuera de régimen alcista, liquidez. Entre rebalanceos, venta si cierra bajo exit_ma
+    o cae un `trailing` desde su máximo. Pesos iguales, compra/venta a la apertura siguiente, 0,10% por lado."""
+    dates = pd.DatetimeIndex([x for x in regime.index if start <= x <= end])
+    tickers = list(prepared)
+    P = lambda f: pd.DataFrame({t: f(d) for t, d in prepared.items()}).reindex(dates).to_numpy(float)
+    O, C, EX, RK = P(lambda d: d.Open), P(lambda d: d.Close), P(lambda d: d[exit_ma]), P(lambda d: d.rs_rank)
+    EL = pd.DataFrame({t: ((d.Close > d.ma50) & (d.ma50 > d.ma200) & (d.ma200 > d.ma200_prev) & (d.Close >= 0.75 * d.hi252)
+                           & ((d.Close * d.vol50) >= min_dollar_vol) & (d.rs_rank >= min_rank))
+                       for t, d in prepared.items()}).reindex(dates).fillna(False).to_numpy(bool)
+    reg = regime[regime_key].reindex(dates).fillna(False).to_numpy(bool)
+    wk = dates.to_period('W-FRI')
+    rebal = np.r_[wk[1:] != wk[:-1], True]
+    cash, pos, hi, eq = 1.0, {}, {}, np.empty(len(dates))
+    sell, buy, trades = set(), [], 0
+    for k in range(len(dates)):
+        for j in list(sell):
+            if j in pos and not np.isnan(O[k, j]):
+                cash += pos.pop(j) * O[k, j] * (1 - COST); hi.pop(j, None); sell.discard(j)
+            elif j not in pos:
+                sell.discard(j)
+        if buy:
+            equity = cash + sum(q * (O[k, j] if not np.isnan(O[k, j]) else C[k - 1, j]) for j, q in pos.items())
+            slot = equity / top_n
+            for j in buy:
+                if j in pos or len(pos) >= top_n or np.isnan(O[k, j]):
+                    continue
+                amt = min(slot, cash)
+                if amt <= equity * 0.02:
+                    continue
+                px = O[k, j] * (1 + COST)
+                pos[j] = amt / px; cash -= amt; hi[j] = px; trades += 1
+            buy = []
+        value = 0.0
+        for j, q in pos.items():
+            c = C[k, j]
+            if np.isnan(c):
+                c = C[k - 1, j] if k else 0.0
+                value += q * c
+                continue
+            value += q * c
+            hi[j] = max(hi.get(j, c), c)
+            if (not np.isnan(EX[k, j]) and c < EX[k, j]) or (trailing and c <= hi[j] * (1 - trailing)):
+                sell.add(j)
+        eq[k] = cash + value
+        if rebal[k]:
+            if not reg[k]:
+                sell |= set(pos)
+                continue
+            cand = np.flatnonzero(EL[k])
+            order = cand[np.argsort(-RK[k, cand])]
+            keep = set(order[:top_n * 2].tolist())
+            for j in pos:
+                if j not in keep:
+                    sell.add(j)
+            free = top_n - (len(pos) - len([j for j in pos if j in sell]))
+            buy = [j for j in order[:top_n].tolist() if j not in pos][:max(0, free)]
+    return pd.Series(eq, index=dates), trades
+
+
 # ---------------------------------------------------------------- comparación con el SPY
 FINAL = Config(name='reglas_finales', pullback=False, partial_r=4.0, trail='w50')
 ANTERIOR = Config(name='reglas_anteriores')
@@ -521,31 +588,46 @@ def benchmark(prepared, regime, spy, start, end, split, a, universe_size, sample
     rows = {'SPY comprar y mantener': {**curve_stats(spy_eq), 'exposure_pct': 100.0, 'trades': 0,
                                        'in_sample': curve_stats(spy_eq[spy_eq.index < split]),
                                        'out_of_sample': curve_stats(spy_eq[spy_eq.index >= split]), 'yearly': yearly(spy_eq)}}
-    def V(name, **kw):
-        return Config(name=name, pullback=False, entry='base', partial_r=2.0, trail='w50', **kw)
-    vcp_half = V('VCP 1/2', partial_frac=0.5, climax_ext=0.40)
-    vcp_third = V('VCP 1/3', partial_frac=1 / 3, climax_ext=0.40)
-    vcp_half_noclimax = V('VCP 1/2 sin clímax', partial_frac=0.5)
-    vcp_half_climax30 = V('VCP 1/2 clímax 30%', partial_frac=0.5, climax_ext=0.30, climax_run=0.20)
-    wk_half = Config(name='Semanal 1/2', pullback=False, entry='base_weekly', partial_r=2.0, trail='w50',
-                     partial_frac=0.5, climax_ext=0.40, max_chase=0.08)
+    def L(name, **kw):
+        base = dict(pullback=False, entry='base', partial_r=2.0, partial_frac=1 / 3, trail='tr25',
+                    rs_rank_min=80, regime='spy_ma50_up', climax_ext=0.50, climax_run=0.25)
+        base.update(kw)
+        return Config(name=name, **base)
+    a_tr25 = L('A líderes VCP · trailing 25%')
+    a_w50 = L('A líderes VCP · MA50 sem', trail='w50')
+    a_tr15 = L('A líderes VCP · trailing 15%', trail='tr15')
+    a_piv = L('A líderes pivote30 · trailing 25%', entry='pivot30')
+    a_noreg = L('A líderes VCP · sin filtro mercado', regime='none')
+    b_conc = L('B concentrada 5 pos · trailing 25%', max_positions=5)
     print('--- Por operación (sin límites de cartera) ---')
-    for cfg in (vcp_half, vcp_third, vcp_half_noclimax, vcp_half_climax30, wk_half, ANTERIOR):
+    for cfg in (a_tr25, a_w50, a_tr15, a_piv, a_noreg, ANTERIOR):
         tr = simulate_independent(prepared, cfg, regime)
         tr = tr[tr.entry_date >= start] if len(tr) else tr
         st, ins, oos = r_stats(tr), r_stats(tr[tr.entry_date < split]), r_stats(tr[tr.entry_date >= split])
-        cl = round(float(tr.climax.mean() * 100), 1) if len(tr) else 0
-        print(f"{cfg.name:24s} n={st.get('trades')} ops/año={round(st.get('trades',0)/((end-start).days/365.25),1)} "
+        print(f"{cfg.name:36s} n={st.get('trades')} ops/año={round(st.get('trades',0)/((end-start).days/365.25),1)} "
               f"E={st.get('expectancy_R')}R IC95={st.get('ci95_R')} IS={ins.get('expectancy_R')} OOS={oos.get('expectancy_R')} "
-              f"acierto={st.get('win_rate_pct')}% PF={st.get('profit_factor')} clímax={cl}%", flush=True)
-    scenarios = [('VCP 1/2 · sin margen', vcp_half, 0.01, False, 'entry', 1.0),
-                 ('VCP 1/3 · sin margen', vcp_third, 0.01, False, 'entry', 1.0),
-                 ('VCP 1/2 · margen 1,5x', vcp_half, 0.01, False, 'entry', 1.5),
-                 ('VCP 1/3 · margen 1,5x', vcp_third, 0.01, False, 'entry', 1.5),
-                 ('VCP 1/2 sin clímax · margen 1,5x', vcp_half_noclimax, 0.01, False, 'entry', 1.5),
-                 ('Semanal 1/2 · margen 1,5x', wk_half, 0.01, False, 'entry', 1.5),
-                 ('VCP 1/2 · sin margen + SPY', vcp_half, 0.01, True, 'entry', 1.0),
+              f"acierto={st.get('win_rate_pct')}% PF={st.get('profit_factor')}", flush=True)
+    scenarios = [('A líderes VCP · tr25 · 1%', a_tr25, 0.01, False, 'entry', 1.0),
+                 ('A líderes VCP · MA50sem · 1%', a_w50, 0.01, False, 'entry', 1.0),
+                 ('A líderes VCP · tr15 · 1%', a_tr15, 0.01, False, 'entry', 1.0),
+                 ('A líderes pivote30 · tr25 · 1%', a_piv, 0.01, False, 'entry', 1.0),
+                 ('A sin filtro mercado · tr25 · 1%', a_noreg, 0.01, False, 'entry', 1.0),
+                 ('B concentrada 5 pos · 2%', b_conc, 0.02, False, 'entry', 1.0),
+                 ('A líderes VCP · tr25 · 1% + SPY', a_tr25, 0.01, True, 'entry', 1.0),
                  ('Anteriores 1% (referencia)', ANTERIOR, 0.01, False, 'price', 1.0)]
+    for label, kw in (('C rotación top10 RS≥90 · MA50', dict(top_n=10, min_rank=90, exit_ma='ma50')),
+                      ('C rotación top10 RS≥90 · EMA21', dict(top_n=10, min_rank=90, exit_ma='ema21')),
+                      ('C rotación top5 RS≥95 · MA50', dict(top_n=5, min_rank=95, exit_ma='ma50')),
+                      ('C rotación top10 · tr25 · sin mercado', dict(top_n=10, min_rank=90, exit_ma='ma50', trailing=0.25,
+                                                                      regime_key='spy_ma200'))):
+        eq, n = simulate_rotation(prepared, regime, start, end, **kw)
+        years = (eq.index[-1] - eq.index[0]).days / 365.25
+        rows[label] = {**curve_stats(eq), 'exposure_pct': None, 'trades': n, 'trades_per_year': round(n / years, 1),
+                       'in_sample': curve_stats(eq[eq.index < split]), 'out_of_sample': curve_stats(eq[eq.index >= split]),
+                       'yearly': yearly(eq), 'spy_same_exposure': {}}
+        r = rows[label]
+        print(f"{label:38s} CAGR={r['cagr_pct']:6}% DD={r['max_dd_pct']:7}% Sharpe={r['sharpe']:5} "
+              f"x{r['final_multiple']:6} ops/año={r['trades_per_year']:5}", flush=True)
     for label, cfg, risk, sweep, basis, lev in scenarios:
         eq, n, ex = simulate_portfolio(prepared, cfg, regime, start, end, risk_pct=risk, total_risk=6 * risk,
                                        spy_close=spy.Close, sweep=sweep, with_exposure=True, risk_basis=basis,
