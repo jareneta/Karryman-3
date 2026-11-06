@@ -1,6 +1,6 @@
 {
  "schema_version": 1,
- "generated_utc": "2026-11-06T12:48:16.434404+00:00",
+ "generated_utc": "2026-11-06T12:52:57.122589+00:00",
  "setups_generated_utc": "2026-11-06T11:34:57.179545+00:00",
  "source": "Yahoo Finance OHLCV vía yfinance (no oficial, puede tener retraso)",
  "rules": {
@@ -9,7 +9,8 @@
   "risk": "1% por operación, 6% riesgo total, 20% peso máximo (editable en la app)"
  },
  "entries_count": 32,
- "earnings_known_count": 7,
+ "earnings_known_count": 32,
+ "earnings_recent_count": 0,
  "activated_count": 1,
  "quotes_count": 32,
  "tracked_missing": [],
@@ -1034,12 +1035,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-10",
+   "last_earnings_date": "2026-11-05",
+   "days_to_earnings": 96,
    "blockers": [],
    "actionable": true,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1075,6 +1076,7 @@
    },
    "meets_criteria": true,
    "next_earnings_date": "2026-11-12",
+   "last_earnings_date": "2026-08-13",
    "days_to_earnings": 6,
    "blockers": [
     "Resultados el 2026-11-12 (en 6 días): no entrar a menos de 14 días de resultados"
@@ -1112,6 +1114,7 @@
    },
    "meets_criteria": true,
    "next_earnings_date": "2027-02-04",
+   "last_earnings_date": "2026-11-05",
    "days_to_earnings": 90,
    "blockers": [],
    "actionable": false,
@@ -1146,12 +1149,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-05",
+   "last_earnings_date": "2026-10-28",
+   "days_to_earnings": 91,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1182,12 +1185,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-10",
+   "last_earnings_date": "2026-11-03",
+   "days_to_earnings": 96,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1218,12 +1221,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-25",
+   "last_earnings_date": "2026-11-05",
+   "days_to_earnings": 111,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1255,6 +1258,7 @@
    },
    "meets_criteria": true,
    "next_earnings_date": "2026-11-24",
+   "last_earnings_date": "2026-08-26",
    "days_to_earnings": 18,
    "blockers": [],
    "actionable": false,
@@ -1293,12 +1297,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-26",
+   "last_earnings_date": "2026-10-30",
+   "days_to_earnings": 112,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1333,12 +1337,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-24",
+   "last_earnings_date": "2026-11-04",
+   "days_to_earnings": 110,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1373,12 +1377,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-25",
+   "last_earnings_date": "2026-11-03",
+   "days_to_earnings": 111,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1413,12 +1417,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-09",
+   "last_earnings_date": "2026-11-04",
+   "days_to_earnings": 95,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1453,12 +1457,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-03-10",
+   "last_earnings_date": "2026-11-02",
+   "days_to_earnings": 124,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1494,6 +1498,7 @@
    },
    "meets_criteria": true,
    "next_earnings_date": "2027-02-04",
+   "last_earnings_date": "2026-11-04",
    "days_to_earnings": 90,
    "blockers": [],
    "actionable": false,
@@ -1528,12 +1533,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-02",
+   "last_earnings_date": "2026-10-27",
+   "days_to_earnings": 88,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1565,6 +1570,7 @@
    },
    "meets_criteria": true,
    "next_earnings_date": "2026-12-03",
+   "last_earnings_date": "2026-09-03",
    "days_to_earnings": 27,
    "blockers": [],
    "actionable": false,
@@ -1603,12 +1609,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-03-09",
+   "last_earnings_date": "2026-11-03",
+   "days_to_earnings": 123,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1643,12 +1649,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-18",
+   "last_earnings_date": "2026-11-05",
+   "days_to_earnings": 104,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1679,12 +1685,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-04",
+   "last_earnings_date": "2026-10-29",
+   "days_to_earnings": 90,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1715,12 +1721,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-23",
+   "last_earnings_date": "2026-10-27",
+   "days_to_earnings": 109,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1751,12 +1757,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-25",
+   "last_earnings_date": "2026-11-05",
+   "days_to_earnings": 111,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1792,6 +1798,7 @@
    },
    "meets_criteria": true,
    "next_earnings_date": "2026-11-09",
+   "last_earnings_date": "2026-08-03",
    "days_to_earnings": 3,
    "blockers": [
     "Resultados el 2026-11-09 (en 3 días): no entrar a menos de 14 días de resultados"
@@ -1832,12 +1839,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-16",
+   "last_earnings_date": "2026-11-03",
+   "days_to_earnings": 102,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1873,6 +1880,7 @@
    },
    "meets_criteria": true,
    "next_earnings_date": "2026-11-09",
+   "last_earnings_date": "2026-08-05",
    "days_to_earnings": 3,
    "blockers": [
     "Resultados el 2026-11-09 (en 3 días): no entrar a menos de 14 días de resultados"
@@ -1913,12 +1921,12 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": true,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-10",
+   "last_earnings_date": "2026-10-28",
+   "days_to_earnings": 96,
    "blockers": [],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1949,14 +1957,14 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": false,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-23",
+   "last_earnings_date": "2026-10-27",
+   "days_to_earnings": 109,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
    ],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -1991,14 +1999,14 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": false,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-10",
+   "last_earnings_date": "2026-10-28",
+   "days_to_earnings": 96,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
    ],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -2033,14 +2041,14 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": false,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-24",
+   "last_earnings_date": "2026-10-29",
+   "days_to_earnings": 110,
    "blockers": [
     "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
    ],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -2071,14 +2079,14 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": false,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-02",
+   "last_earnings_date": "2026-10-27",
+   "days_to_earnings": 88,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
    ],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -2109,14 +2117,14 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": false,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-25",
+   "last_earnings_date": "2026-11-05",
+   "days_to_earnings": 111,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
    ],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -2147,15 +2155,15 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": false,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-23",
+   "last_earnings_date": "2026-10-27",
+   "days_to_earnings": 109,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo",
     "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
    ],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -2186,15 +2194,15 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": false,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-25",
+   "last_earnings_date": "2026-11-03",
+   "days_to_earnings": 111,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo",
     "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
    ],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
@@ -2225,15 +2233,15 @@
     "a_plus_tecnico": false
    },
    "meets_criteria": false,
-   "next_earnings_date": null,
-   "days_to_earnings": null,
+   "next_earnings_date": "2027-02-25",
+   "last_earnings_date": "2026-11-04",
+   "days_to_earnings": 111,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo",
     "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
    ],
    "actionable": false,
    "warnings": [
-    "Yahoo no publica fecha de resultados: compruébala en IBKR antes de comprar",
     "No es A+ técnico completo (contracción de rango / volumen seco): menor calidad"
    ],
    "order_enabled": false
