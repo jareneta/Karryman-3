@@ -82,6 +82,16 @@ class BacktestRules(unittest.TestCase):
         self.assertGreater(eq.iloc[-1], 1.0)
         self.assertLessEqual(eq.max(), 1.5)
 
+    def test_weekly_ma50_runner(self):
+        # Subida larga y luego caída fuerte: el cierre semanal pierde la media de 50 semanas.
+        closes = list(np.linspace(20, 100, 400)) + list(np.linspace(100, 40, 120))
+        d = sb.prepare(make(closes), make(np.linspace(100, 110, 600)).Close)
+        exits = np.flatnonzero(d.attrs['a']['w50_exit'] > 0)
+        self.assertTrue(len(exits) > 0)
+        self.assertTrue(all(i > 400 for i in exits))
+        # Solo se marca el último día de cada semana
+        self.assertTrue(all(d.index[i].weekday() == 4 or i == len(d) - 1 or d.index[i + 1].weekday() < d.index[i].weekday() for i in exits))
+
     def test_stats(self):
         df = pd.DataFrame({'r': [2.0, -1.0, -1.0, 3.0], 'days': [5, 3, 2, 10], 'partial': [True, False, False, True]})
         s = sb.r_stats(df)
