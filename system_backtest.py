@@ -304,7 +304,7 @@ def simulate_independent(prepared, cfg, regime, seed=7):
 
 # ---------------------------------------------------------------- cartera
 def simulate_portfolio(prepared, cfg, regime, start, end, seed=7, risk_pct=0.01, total_risk=0.06, max_weight=0.20,
-                       spy_close=None, sweep=False, with_exposure=False):
+                       spy_close=None, sweep=False, with_exposure=False, risk_basis='price'):
     rng = np.random.default_rng(seed)
     by_date = {}
     for tk, d in prepared.items():
@@ -355,7 +355,8 @@ def simulate_portfolio(prepared, cfg, regime, start, end, seed=7, risk_pct=0.01,
         for tk2, (t2, q2) in pos.items():
             k2 = pos_idx[tk2].get(dt)
             last = prepared[tk2].attrs['a']['Close'][(k2 if k2 is not None else t2.entry_i + 1) - 1]
-            open_risk += q2 * t2.rem * max(0.0, last - t2.stop)
+            base_px = last if risk_basis == 'price' else min(last, t2.entry)
+            open_risk += q2 * t2.rem * max(0.0, base_px - t2.stop)
         for tk, sig in cands:
             if tk in pos:
                 continue
@@ -437,14 +438,15 @@ def benchmark(prepared, regime, spy, start, end, split, a, universe_size, sample
     rows = {'SPY comprar y mantener': {**curve_stats(spy_eq), 'exposure_pct': 100.0, 'trades': 0,
                                        'in_sample': curve_stats(spy_eq[spy_eq.index < split]),
                                        'out_of_sample': curve_stats(spy_eq[spy_eq.index >= split]), 'yearly': yearly(spy_eq)}}
-    scenarios = [('Reglas finales (1% riesgo)', FINAL, 0.01, False),
-                 ('Reglas finales + efectivo en SPY', FINAL, 0.01, True),
-                 ('Reglas finales (2% riesgo)', FINAL, 0.02, False),
-                 ('Reglas anteriores (1% riesgo)', ANTERIOR, 0.01, False),
-                 ('Reglas anteriores + efectivo en SPY', ANTERIOR, 0.01, True)]
-    for label, cfg, risk, sweep in scenarios:
+    scenarios = [('Finales 1% · riesgo sobre precio', FINAL, 0.01, False, 'price'),
+                 ('Finales 1% · riesgo sobre capital', FINAL, 0.01, False, 'entry'),
+                 ('Finales 1% capital + efectivo SPY', FINAL, 0.01, True, 'entry'),
+                 ('Finales 1,5% · riesgo sobre capital', FINAL, 0.015, False, 'entry'),
+                 ('Anteriores 1% · riesgo sobre precio', ANTERIOR, 0.01, False, 'price'),
+                 ('Anteriores 1% · riesgo sobre capital', ANTERIOR, 0.01, False, 'entry')]
+    for label, cfg, risk, sweep, basis in scenarios:
         eq, n, ex = simulate_portfolio(prepared, cfg, regime, start, end, risk_pct=risk, total_risk=6 * risk,
-                                       spy_close=spy.Close, sweep=sweep, with_exposure=True)
+                                       spy_close=spy.Close, sweep=sweep, with_exposure=True, risk_basis=basis)
         years = (eq.index[-1] - eq.index[0]).days / 365.25
         rows[label] = {**curve_stats(eq), 'exposure_pct': round(float(ex.mean()) * 100, 1),
                        'trades': n, 'trades_per_year': round(n / years, 1),
