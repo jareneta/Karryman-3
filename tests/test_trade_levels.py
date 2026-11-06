@@ -127,3 +127,31 @@ class PlanBuildTests(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
+
+class PlanMainTests(unittest.TestCase):
+    def test_main_end_to_end_offline(self):
+        import tempfile
+        from unittest import mock
+        closes = base() + [101.0]
+        vols = [1_000_000] * (len(closes) - 1) + [1_600_000]
+        f = frame(closes, vols)
+        with tempfile.TemporaryDirectory() as tmp:
+            data = Path(tmp)
+            good = {'ticker': 'AAA', 'setup': 'BASE_6_SEMANAS', 'trend_ok': True, 'near_high_ok': True,
+                    'rs_vs_spy_3m_pct': 5, 'fundamental_status': 'CUMPLE'}
+            (data / 'setups.json').write_text(json.dumps({'generated_utc': 'x', 'candidates': [good]}))
+            (data / 'tracked.json').write_text(json.dumps({'tickers': ['POS']}))
+            (data / 'discovery.json').write_text(json.dumps({'scanned_this_run': 10, 'filter_counts': {
+                'pasa filtro técnico': 2, 'precio/liquidez': 8}, 'candidates': [
+                {'ticker': 'DIV', 'close': 50, 'avg_volume': 1e6, 'market_cap': 1e9, 'dividend_yield': 2}]}))
+            with mock.patch.object(plan, 'DATA', data), mock.patch.object(plan, 'OUT', data / 'plan.json'), \
+                    mock.patch.object(plan, 'download', return_value=({'AAA': f, 'POS': f}, [])), \
+                    mock.patch.object(plan, 'earnings_info', return_value={'next': None, 'last': None}):
+                plan.main()
+            out = json.loads((data / 'plan.json').read_text())
+        self.assertEqual(out['entries_count'], 1)
+        self.assertIn('POS', out['quotes'])
+        self.assertFalse(out['orders_enabled'])
+        self.assertEqual(out['funnel']['discovery_filter_counts'], {'precio/liquidez': 8})
+        self.assertIn('paga dividendo', out['funnel']['screener_discards'][0]['reasons'])

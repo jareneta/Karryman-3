@@ -83,6 +83,36 @@ def earnings_date(ticker):
     return earnings_info(ticker)['next']
 
 
+SCREENER_TEXT = {
+    'price_over_5': 'precio < 5 $', 'average_volume_over_500k': 'volumen medio < 500.000',
+    'market_cap_over_300m': 'capitalización <= 300 M$', 'return_3m_over_10': 'subida 3 meses <= 10%',
+    'return_6m_over_10': 'subida 6 meses <= 10%', 'return_1y_over_10': 'subida 1 año <= 10%',
+    'within_15pct_52w_high': 'a más de un 15% del máximo de 52 semanas', 'above_ma50': 'precio bajo MA50',
+    'above_ma200': 'precio bajo MA200', 'annual_revenue_growth_over_10': 'ventas anuales crecen <= 10%',
+    'eps_over_minus_1': 'BPA <= -1', 'zero_dividend_yield': 'paga dividendo',
+    'quarterly_revenue_growth_over_10': 'ventas trimestrales crecen <= 10%', 'above_ma20': 'precio bajo MA20',
+}
+
+
+def funnel():
+    """Por qué se descartan acciones antes de llegar al plan."""
+    discovery = read('discovery.json', {})
+    discards = []
+    for x in discovery.get('candidates', []):
+        if not x.get('ticker'):
+            continue
+        r = screener.evaluate(x)
+        if r['stock_analysis_status'] == 'DESCARTADA':
+            discards.append({'ticker': r['ticker'],
+                             'reasons': [SCREENER_TEXT.get(k, k) for k in r['failed']]})
+    counts = discovery.get('filter_counts', {})
+    return {'discovery_generated_utc': discovery.get('generated_utc'),
+            'discovery_scanned': discovery.get('scanned_this_run'),
+            'discovery_filter_counts': {k: v for k, v in counts.items() if k != 'pasa filtro técnico'},
+            'discovery_passed': counts.get('pasa filtro técnico'),
+            'screener_discards': sorted(discards, key=lambda d: d['ticker'])}
+
+
 def criteria(x):
     """Resumen de tus criterios ya calculados por Screener/Setups."""
     notes = x.get('validation_notes') or {}
