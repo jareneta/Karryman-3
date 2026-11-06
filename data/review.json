@@ -1,9 +1,9 @@
 {
   "schema_version": 1,
-  "generated_utc": "2026-11-06T10:47:03.649293+00:00",
-  "setups_generated_utc": "2026-11-06T10:47:03.535845+00:00",
+  "generated_utc": "2026-11-06T11:12:23.879987+00:00",
+  "setups_generated_utc": "2026-11-06T11:12:23.784615+00:00",
   "signals_generated_utc": "2026-11-06T00:09:50.064613+00:00",
-  "review_count": 32,
+  "review_count": 34,
   "technical_a_plus_count": 0,
   "broker_connected": false,
   "orders_enabled": false,
@@ -263,6 +263,29 @@
       "order_enabled": false
     },
     {
+      "ticker": "EXLS",
+      "source": "Setups",
+      "last_session": "2026-11-05",
+      "pattern": "TENDENCIA",
+      "status": "VIGILAR",
+      "technical_a_plus": false,
+      "fundamentals_verified": true,
+      "entry_reference": 43.61,
+      "stop_reference": 39.18,
+      "target_2r_reference": 52.47,
+      "risk_per_share": 4.43,
+      "risk_pct": 10.16,
+      "rs_vs_spy_3m_pct": 29.964,
+      "pending_checks": [
+        "Validar cierre y vigencia",
+        "Resultados y noticias",
+        "Fundamentales",
+        "Riesgo agregado y cartera",
+        "Aprobación humana"
+      ],
+      "order_enabled": false
+    },
+    {
       "ticker": "LFST",
       "source": "Setups",
       "last_session": "2026-11-05",
@@ -391,6 +414,29 @@
       "risk_per_share": 6.15,
       "risk_pct": 10.6,
       "rs_vs_spy_3m_pct": 21.49,
+      "pending_checks": [
+        "Validar cierre y vigencia",
+        "Resultados y noticias",
+        "Fundamentales",
+        "Riesgo agregado y cartera",
+        "Aprobación humana"
+      ],
+      "order_enabled": false
+    },
+    {
+      "ticker": "KNSA",
+      "source": "Setups",
+      "last_session": "2026-11-05",
+      "pattern": "TENDENCIA",
+      "status": "VIGILAR",
+      "technical_a_plus": false,
+      "fundamentals_verified": true,
+      "entry_reference": 88.34,
+      "stop_reference": 70.67,
+      "target_2r_reference": 123.68,
+      "risk_per_share": 17.67,
+      "risk_pct": 20.0,
+      "rs_vs_spy_3m_pct": 21.116,
       "pending_checks": [
         "Validar cierre y vigencia",
         "Resultados y noticias",
