@@ -1,0 +1,137 @@
+/* Karryman · identidad visual común (logo: K verde lima con cuernos sobre negro).
+   Se carga al final del <head> de cada página y unifica colores, tipografía,
+   tarjetas, botones, formularios y tablas. */
+:root{
+  --k-bg:#070908;--k-surface:#111512;--k-surface-2:#182019;--k-surface-3:#212b22;
+  --k-line:#2b362c;--k-line-strong:#3c4a3d;
+  --k-text:#eef3e8;--k-muted:#a4b09d;--k-faint:#7b8775;
+  --k-lime:#a6c916;--k-lime-2:#c7e14a;--k-lime-deep:#4f8a12;--k-on-lime:#0b1205;
+  --k-good:#9ad94a;--k-warn:#ffc65c;--k-bad:#ff8a80;--k-info:#8cc8ff;
+  --k-radius:16px;--k-radius-sm:11px;
+  --k-shadow:0 10px 30px rgba(0,0,0,.35);
+  --k-font:"Inter",system-ui,-apple-system,"Segoe UI",Roboto,Arial,sans-serif;
+  color-scheme:dark;
+}
+html body{margin:0;background:var(--k-bg);color:var(--k-text);font:15px/1.5 var(--k-font);
+  -webkit-text-size-adjust:100%;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+html body::before{content:"";position:fixed;inset:0 0 auto 0;height:260px;pointer-events:none;z-index:-1;
+  background:radial-gradient(120% 100% at 85% -20%,rgba(166,201,22,.16),transparent 60%)}
+html body main,html body.k-bare{max-width:980px;margin:0 auto;padding:6px 16px 24px}
+html body.k-bare{padding-top:6px}
+html body h1{font-size:26px;line-height:1.15;letter-spacing:-.6px;margin:8px 0 6px;color:var(--k-text)}
+html body h2{font-size:18px;letter-spacing:-.3px;margin:2px 0 10px;color:var(--k-text)}
+html body h3{font-size:16px;margin:4px 0 6px;color:var(--k-text)}
+html body p{color:var(--k-muted)}
+html body a{color:var(--k-lime-2);text-decoration:none}
+html body a:hover{text-decoration:underline}
+html body .muted,html body small,html body .hint,html body .notice,html body .count,
+html body .brand-subtitle,html body .sector-label{color:var(--k-muted)}
+html body b,html body strong{color:var(--k-text)}
+
+/* Superficies */
+html body .panel,html body .box,html body section.card,html body main>.card,html body.k-bare>.card{
+  background:linear-gradient(180deg,var(--k-surface-2),var(--k-surface));border:1px solid var(--k-line);
+  border-radius:var(--k-radius);padding:16px;margin:14px 0;box-shadow:var(--k-shadow);color:var(--k-text)}
+html body .card{background:var(--k-surface-2);border:1px solid var(--k-line);border-radius:14px;color:var(--k-text);box-shadow:none}
+html body .panel .card,html body .box .card{background:var(--k-surface-3)}
+html body .metric,html body .stat,html body .stats>div,html body .summary div,html body .metrics>div{
+  background:var(--k-surface-3);border:1px solid var(--k-line);border-radius:12px;color:var(--k-text)}
+html body .metric b,html body .stat b,html body .summary strong,html body .stats b,html body .stats strong{color:var(--k-text)}
+html body .summary strong{color:var(--k-lime-2)}
+
+/* Botones */
+html body button,html body .btn,html body input[type=file]::file-selector-button{
+  font:600 15px/1.2 var(--k-font);min-height:44px;padding:11px 16px;border-radius:var(--k-radius-sm);
+  border:1px solid var(--k-line-strong);background:var(--k-surface-3);color:var(--k-text);cursor:pointer}
+html body button:hover,html body .btn:hover{border-color:var(--k-lime);text-decoration:none}
+html body button.primary,html body .btn.primary,html body button.good,html body #runAnalysis,html body #run,
+html body .tabs button.active{
+  background:linear-gradient(135deg,var(--k-lime-2),var(--k-lime) 55%,var(--k-lime-deep));color:var(--k-on-lime);
+  border-color:transparent}
+html body button.bad,html body button.danger{background:#3a1c1c;border-color:#6b2f2f;color:#ffd6d2}
+html body button:disabled{opacity:.45;cursor:default}
+html body input[type=file]{color:var(--k-muted);max-width:100%}
+
+/* Formularios */
+html body input:not([type=file]):not([type=checkbox]):not([type=radio]),html body select,html body textarea{
+  font:15px var(--k-font);min-height:44px;padding:10px 12px;border-radius:var(--k-radius-sm);
+  border:1px solid var(--k-line-strong);background:#0c100d;color:var(--k-text);max-width:100%}
+html body input:focus,html body select:focus,html body textarea:focus{outline:2px solid var(--k-lime);outline-offset:1px}
+html body label{color:var(--k-muted)}
+html body input[type=checkbox],html body input[type=radio]{accent-color:var(--k-lime);width:20px;height:20px}
+
+/* Tablas */
+html body table{border-collapse:collapse;width:100%;color:var(--k-text)}
+html body th{color:var(--k-muted);font-weight:600;font-size:13px;text-align:left}
+html body th,html body td{border-bottom:1px solid var(--k-line);padding:9px 8px}
+html body .scroll{overflow-x:auto}
+
+/* Etiquetas y estados */
+html body .tag,html body .pill{background:#0c100d;border:1px solid var(--k-line);color:var(--k-muted);border-radius:99px}
+html body .tag.good,html body .pill.ok,html body .ok{color:var(--k-good)}
+html body .tag.warn,html body .pill.wait,html body .warn,html body .warn-t,html body .status{color:var(--k-warn)}
+html body .tag.bad,html body .bad,html body .bad-t,html body #error{color:var(--k-bad)}
+html body .good,html body .good-t{color:var(--k-good)}
+html body .card.good{border-left:5px solid var(--k-good)}html body .card.warn{border-left:5px solid var(--k-warn)}
+html body .card.bad{border-left:5px solid var(--k-bad)}html body .card.ok{border-left:5px solid var(--k-lime)}
+html body .card.good,html body .card.warn,html body .card.bad,html body .card.ok{color:var(--k-text)}
+html body .ticket{background:#0a0d0a;border:1px dashed var(--k-lime-deep);color:var(--k-lime-2)}
+html body details summary{color:var(--k-lime-2);cursor:pointer;font-weight:600}
+
+/* Navegación interna antigua: chips */
+html body .app-nav,html body .tabs{display:flex;flex-wrap:wrap;gap:8px;background:transparent;position:static;padding:0;margin:10px 0}
+html body .app-nav a{padding:8px 14px;border-radius:99px;border:1px solid var(--k-line-strong);background:var(--k-surface-2);color:var(--k-text);font-size:14px}
+html body .app-nav a.selected{background:var(--k-lime);color:var(--k-on-lime);border-color:transparent}
+html body .app-nav a[href$=".html"]{display:none}
+html body .brand-header,html body main>header,html body .nav{display:none}
+
+/* Cabecera común */
+.k-header{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;
+  padding:10px max(16px,env(safe-area-inset-left)) 10px;margin:0 0 6px;
+  background:rgba(7,9,8,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--k-line)}
+.k-header img{width:40px;height:40px;border-radius:11px;background:#000;box-shadow:0 0 0 1px var(--k-line),0 4px 14px rgba(166,201,22,.18)}
+.k-header .k-brand{display:flex;flex-direction:column;line-height:1.1;min-width:0}
+.k-header .k-word{font-weight:800;letter-spacing:-.3px;font-size:17px;color:var(--k-text)}
+.k-header .k-word span{color:var(--k-lime)}
+.k-header .k-page{font-size:12.5px;color:var(--k-muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.k-header a.k-home{display:flex;align-items:center;gap:12px;color:inherit;text-decoration:none}
+
+/* Barra inferior */
+.k-tabbar{position:fixed;left:0;right:0;bottom:0;z-index:30;display:grid;grid-template-columns:repeat(4,1fr);
+  padding:6px 8px calc(6px + env(safe-area-inset-bottom));background:rgba(10,13,11,.94);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-top:1px solid var(--k-line)}
+.k-tabbar a{display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px 0;border-radius:12px;
+  color:var(--k-faint);font-size:11.5px;font-weight:600;text-decoration:none}
+.k-tabbar a svg{width:24px;height:24px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.k-tabbar a.on{color:var(--k-lime-2);background:rgba(166,201,22,.10)}
+.k-tabbar a:hover{text-decoration:none;color:var(--k-text)}
+@media(min-width:900px){.k-tabbar{left:50%;right:auto;transform:translateX(-50%);width:520px;bottom:14px;border:1px solid var(--k-line);border-radius:18px}}
+
+/* Pantalla «Hoy» */
+.k-today{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+.k-today a{display:block;padding:14px;border-radius:14px;background:var(--k-surface-2);border:1px solid var(--k-line);color:var(--k-text);text-decoration:none}
+.k-today a:hover{border-color:var(--k-lime);text-decoration:none}
+.k-today b{display:block;font-size:28px;line-height:1.1;letter-spacing:-.5px}
+.k-today span{font-size:13px;color:var(--k-muted)}
+.k-today a.sell b{color:var(--k-bad)}.k-today a.buy b{color:var(--k-lime-2)}.k-today a.fix b{color:var(--k-warn)}.k-today a.watch b{color:var(--k-info)}
+.k-today a.zero b{color:var(--k-faint)}
+.k-hero{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.k-hero h1{margin:4px 0}
+.k-updated{font-size:12.5px;color:var(--k-muted)}
+
+/* Menú «Más» */
+.k-menu{display:grid;gap:10px}
+.k-menu a{display:flex;gap:14px;align-items:center;padding:14px;border-radius:14px;background:var(--k-surface-2);border:1px solid var(--k-line);color:var(--k-text);text-decoration:none}
+.k-menu a:hover{border-color:var(--k-lime);text-decoration:none}
+.k-menu .ico{flex:0 0 42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(166,201,22,.12);color:var(--k-lime-2)}
+.k-menu .ico svg{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.k-menu b{display:block}.k-menu span{font-size:13px;color:var(--k-muted)}
+
+@media(max-width:600px){html body h1{font-size:23px}html body .panel,html body .box{padding:14px}}
+
+/* Ajustes de compatibilidad con estilos antiguos de cada página */
+html body header.k-header{background:rgba(7,9,8,.86);border:0;border-bottom:1px solid var(--k-line);border-radius:0;box-shadow:none;padding:10px 16px;gap:12px}
+html body.k-bare header.k-header{margin:0 -16px 6px}
+html body input[type=file]{background:transparent;border:0;padding:0;min-height:0;color:var(--k-muted)}
+html body .position{background:var(--k-surface-3);border:1px solid var(--k-line);border-left:4px solid var(--k-lime);color:var(--k-text)}
+html body .stat span,html body .metric span,html body .stat small,html body .metric small,html body .summary small{color:var(--k-muted)}

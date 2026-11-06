@@ -18,6 +18,15 @@ class MobilePageTests(unittest.TestCase):
                     if src.startswith(('http:','https:','//')):
                         continue
                     self.assertTrue((ROOT/src.split('?')[0]).is_file(),f'{page}: missing {src}')
+    def test_all_pages_share_brand_and_navigation(self):
+        for page in sorted(ROOT.glob('*.html')):
+            html=page.read_text(encoding='utf-8')
+            with self.subTest(page=page.name):
+                self.assertIn('href="karryman.css"',html)
+                self.assertIn('src="karryman-nav.js"',html)
+                self.assertRegex(html,r'<body[^>]*data-page="(hoy|cartera|escaner|mas)"')
+        for asset in ('karryman.css','karryman-nav.js','karryman-icon.svg','mas.html'):
+            self.assertTrue((ROOT/asset).is_file(),asset)
     def test_review_uses_local_only_paper_ledger(self):
         html=(ROOT/'review.html').read_text(encoding='utf-8')
         self.assertIn('paper_ledger.js',html)
