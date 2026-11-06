@@ -92,6 +92,19 @@ class BacktestRules(unittest.TestCase):
         # Solo se marca el último día de cada semana
         self.assertTrue(all(d.index[i].weekday() == 4 or i == len(d) - 1 or d.index[i + 1].weekday() < d.index[i].weekday() for i in exits))
 
+    def test_portfolio_exposure_and_sweep(self):
+        d = self.breakout_frame([101.0 + k for k in range(30)])
+        spy = pd.Series(np.linspace(100, 120, len(d)), index=d.index)
+        reg = sb.regime_series(make(np.linspace(100, 110, 400)))
+        eq, n, ex = sb.simulate_portfolio({'X': d}, sb.Config(), reg, d.index[0], d.index[-1],
+                                          spy_close=spy, with_exposure=True)
+        self.assertTrue(0 <= ex.max() <= 1)
+        eq2, _, _ = sb.simulate_portfolio({'X': d}, sb.Config(), reg, d.index[0], d.index[-1],
+                                          spy_close=spy, sweep=True, with_exposure=True)
+        self.assertGreater(eq2.iloc[-1], eq.iloc[-1])  # el efectivo invertido en un SPY que sube suma
+        self.assertEqual(sb.yearly(pd.Series([1.0, 1.1, 1.21], index=pd.to_datetime(['2020-01-02', '2020-12-31', '2021-12-31']))),
+                         {'2020': 10.0, '2021': 10.0})
+
     def test_stats(self):
         df = pd.DataFrame({'r': [2.0, -1.0, -1.0, 3.0], 'days': [5, 3, 2, 10], 'partial': [True, False, False, True]})
         s = sb.r_stats(df)

@@ -10,6 +10,10 @@ on:
         description: 'Semilla de la muestra (cambiar para validar con otra muestra)'
         required: false
         default: '42'
+      mode:
+        description: 'variantes | comparacion_spy'
+        required: false
+        default: 'variantes'
 permissions:
   contents: read
 jobs:
@@ -29,7 +33,11 @@ jobs:
         env:
           SYMBOLS: ${{ inputs.symbols }}
           SEED: ${{ inputs.seed }}
-        run: python system_backtest.py --symbols "$SYMBOLS" --seed "$SEED" --output data/system_backtest.json
+          MODE: ${{ inputs.mode }}
+        run: |
+          EXTRA=""
+          if [ "$MODE" = "comparacion_spy" ]; then EXTRA="--benchmark"; fi
+          python system_backtest.py --symbols "$SYMBOLS" --seed "$SEED" --output data/system_backtest.json $EXTRA
       - name: Guardar resultados
         if: always()
         uses: actions/upload-artifact@v4

@@ -303,7 +303,8 @@ def simulate_independent(prepared, cfg, regime, seed=7):
 
 
 # ---------------------------------------------------------------- cartera
-def simulate_portfolio(prepared, cfg, regime, start, end, seed=7, risk_pct=0.01, total_risk=0.06, max_weight=0.20):
+def simulate_portfolio(prepared, cfg, regime, start, end, seed=7, risk_pct=0.01, total_risk=0.06, max_weight=0.20,
+                       spy_close=None, sweep=False, with_exposure=False, risk_basis='price'):
     rng = np.random.default_rng(seed)
     by_date = {}
     for tk, d in prepared.items():
@@ -317,7 +318,14 @@ def simulate_portfolio(prepared, cfg, regime, start, end, seed=7, risk_pct=0.01,
     cash, equity_curve = 1.0, []
     pos_idx = {tk: {dt: k for k, dt in enumerate(d.index)} for tk, d in prepared.items()}
     trades = 0
+    exposure = []
+    spy_px = spy_close.reindex(dates).ffill() if spy_close is not None else None
+    prev_dt = None
     for dt in dates:
+        # Efectivo sin usar invertido en SPY (si sweep): crece con el SPY del día anterior a hoy.
+        if sweep and spy_px is not None and prev_dt is not None and cash > 0:
+            cash *= float(spy_px.loc[dt]) / float(spy_px.loc[prev_dt])
+        prev_dt = dt
         # valor de mercado y riesgo abierto a la apertura
         def mark(field='Close', at=None):
             val = 0.0
@@ -347,7 +355,8 @@ def simulate_portfolio(prepared, cfg, regime, start, end, seed=7, risk_pct=0.01,
         for tk2, (t2, q2) in pos.items():
             k2 = pos_idx[tk2].get(dt)
             last = prepared[tk2].attrs['a']['Close'][(k2 if k2 is not None else t2.entry_i + 1) - 1]
-            open_risk += q2 * t2.rem * max(0.0, last - t2.stop)
+            base_px = last if risk_basis == 'price' else min(last, t2.entry)
+            open_risk += q2 * t2.rem * max(0.0, base_px - t2.stop)
         for tk, sig in cands:
             if tk in pos:
                 continue
@@ -371,8 +380,12 @@ def simulate_portfolio(prepared, cfg, regime, start, end, seed=7, risk_pct=0.01,
                 cash += q * sum(frac * px for (jj, frac, px) in t.fills if jj == k)
             if closed:
                 del pos[tk]
-        equity_curve.append((dt, cash + mark('Close')))
+        invested = mark('Close')
+        equity_curve.append((dt, cash + invested))
+        exposure.append(invested / (cash + invested) if cash + invested > 0 else 0)
     eq = pd.Series([v for _, v in equity_curve], index=[x for x, _ in equity_curve])
+    if with_exposure:
+        return eq, trades, pd.Series(exposure, index=eq.index)
     return eq, trades
 
 
@@ -404,6 +417,66 @@ def r_stats(df):
             'median_days': int(df.days.median()), 'reached_2R_pct': round(float(df.partial.mean() * 100), 1)}
 
 
+# ---------------------------------------------------------------- comparación con el SPY
+FINAL = Config(name='reglas_finales', pullback=False, partial_r=4.0, trail='w50')
+ANTERIOR = Config(name='reglas_anteriores')
+
+
+def yearly(eq):
+    y = eq.groupby(eq.index.year).last()
+    first = eq.iloc[0]
+    out, prev = {}, first
+    for year, val in y.items():
+        out[str(year)] = round((val / prev - 1) * 100, 1)
+        prev = val
+    return out
+
+
+def benchmark(prepared, regime, spy, start, end, split, a, universe_size, sample, t0):
+    spy_eval = spy.Close[(spy.Close.index >= start) & (spy.Close.index <= end)]
+    spy_eq = spy_eval / spy_eval.iloc[0]
+    rows = {'SPY comprar y mantener': {**curve_stats(spy_eq), 'exposure_pct': 100.0, 'trades': 0,
+                                       'in_sample': curve_stats(spy_eq[spy_eq.index < split]),
+                                       'out_of_sample': curve_stats(spy_eq[spy_eq.index >= split]), 'yearly': yearly(spy_eq)}}
+    scenarios = [('Finales 1% · riesgo sobre precio', FINAL, 0.01, False, 'price'),
+                 ('Finales 1% · riesgo sobre capital', FINAL, 0.01, False, 'entry'),
+                 ('Finales 1% capital + efectivo SPY', FINAL, 0.01, True, 'entry'),
+                 ('Finales 1,5% · riesgo sobre capital', FINAL, 0.015, False, 'entry'),
+                 ('Anteriores 1% · riesgo sobre precio', ANTERIOR, 0.01, False, 'price'),
+                 ('Anteriores 1% · riesgo sobre capital', ANTERIOR, 0.01, False, 'entry')]
+    for label, cfg, risk, sweep, basis in scenarios:
+        eq, n, ex = simulate_portfolio(prepared, cfg, regime, start, end, risk_pct=risk, total_risk=6 * risk,
+                                       spy_close=spy.Close, sweep=sweep, with_exposure=True, risk_basis=basis)
+        years = (eq.index[-1] - eq.index[0]).days / 365.25
+        rows[label] = {**curve_stats(eq), 'exposure_pct': round(float(ex.mean()) * 100, 1),
+                       'trades': n, 'trades_per_year': round(n / years, 1),
+                       'in_sample': curve_stats(eq[eq.index < split]),
+                       'out_of_sample': curve_stats(eq[eq.index >= split]), 'yearly': yearly(eq)}
+        # SPY con la misma exposición media (resto en efectivo sin interés): comparación de riesgo equivalente
+        e = float(ex.mean())
+        mix = (1 + spy_eval.pct_change().fillna(0) * e).cumprod()
+        rows[label]['spy_same_exposure'] = curve_stats(mix)
+        r = rows[label]
+        print(f"{label:38s} CAGR={r['cagr_pct']:6}% DD={r['max_dd_pct']:7}% Sharpe={r['sharpe']:5} "
+              f"x{r['final_multiple']:6} expos={r['exposure_pct']:5}% ops/año={r['trades_per_year']:5} "
+              f"| SPY a igual exposición CAGR={r['spy_same_exposure']['cagr_pct']}% DD={r['spy_same_exposure']['max_dd_pct']}%",
+              flush=True)
+    s = rows['SPY comprar y mantener']
+    print(f"{'SPY comprar y mantener':38s} CAGR={s['cagr_pct']:6}% DD={s['max_dd_pct']:7}% Sharpe={s['sharpe']:5} x{s['final_multiple']:6}")
+    years = sorted(s['yearly'])
+    print('AÑO   ' + ' '.join(f'{y:>6}' for y in years))
+    for label, r in rows.items():
+        print(f"{label[:30]:30s} " + ' '.join(f"{r['yearly'].get(y, 0):6}" for y in years))
+    for label, r in rows.items():
+        print(f"{label[:38]:38s} IS CAGR={r['in_sample'].get('cagr_pct')}% DD={r['in_sample'].get('max_dd_pct')}% | "
+              f"OOS CAGR={r['out_of_sample'].get('cagr_pct')}% DD={r['out_of_sample'].get('max_dd_pct')}%")
+    payload = {'generated_utc': datetime.now(timezone.utc).isoformat(), 'mode': 'benchmark', 'universe_size': universe_size,
+               'sample': sample, 'with_data': len(prepared), 'start': str(start.date()), 'end': str(end.date()),
+               'split': a.split, 'rows': rows, 'seconds': round(time.time() - t0)}
+    Path(a.output).parent.mkdir(exist_ok=True)
+    Path(a.output).write_text(json.dumps(payload, ensure_ascii=False, indent=1, default=str), encoding='utf-8')
+
+
 # ---------------------------------------------------------------- principal
 def main():
     ap = argparse.ArgumentParser()
@@ -412,6 +485,7 @@ def main():
     ap.add_argument('--split', default='2021-01-01')
     ap.add_argument('--output', default='data/system_backtest.json')
     ap.add_argument('--seed', type=int, default=42)
+    ap.add_argument('--benchmark', action='store_true', help='Comparar solo las reglas finales y anteriores con el SPY')
     a = ap.parse_args()
     t0 = time.time()
     names = universe()
@@ -425,6 +499,8 @@ def main():
     eval_start = pd.Timestamp(a.start) + pd.Timedelta(days=400)
     end = spy.index[-1]
     print(f'Universo: {len(names)} · muestra {len(sample)} · con datos {len(prepared)} · {time.time()-t0:.0f}s')
+    if a.benchmark:
+        return benchmark(prepared, regime, spy, eval_start, end, split, a, len(names), len(sample), t0)
     results = {}
     for cfg in VARIANTS:
         tr = simulate_independent(prepared, cfg, regime)
