@@ -33,11 +33,15 @@ jobs:
           SETUP_MAX_SYMBOLS: '250'
         run: python setups.py
 
+      - name: Plan de entradas y posiciones
+        continue-on-error: true
+        run: python plan.py
+
       - name: Guardar resultados
         run: |
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add data/setups.json data/screener.json
+          git add data/setups.json data/screener.json data/plan.json
           if ! git diff --cached --quiet; then
             git commit -m 'Actualizar setups Karryman A+'
             git pull --rebase origin "${{ github.ref_name }}"

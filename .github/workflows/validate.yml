@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: '3.11'
       - name: Python syntax
-        run: python -m compileall -q discovery.py screener.py setups.py review.py backtest.py backtest_report.py aplus_backtest.py aplus_stop_report.py strategy_comparison.py ibkr_readonly.py
+        run: python -m compileall -q discovery.py screener.py setups.py review.py backtest.py backtest_report.py aplus_backtest.py aplus_stop_report.py strategy_comparison.py ibkr_readonly.py trade_levels.py plan.py tracked.py
       - name: Install research dependencies
         run: pip install -r requirements.txt
       - name: Offline screener tests
@@ -27,6 +27,7 @@ jobs:
           node tests/paper_ledger.test.cjs
           node tests/ibkr_import.test.cjs
           node tests/reconcile.test.cjs
+          node tests/trade_manager.test.cjs
       - name: Live market smoke test (3 symbols)
         run: python tests/live_market_smoke.py
       - name: Historical research smoke test (2 symbols, no orders)
