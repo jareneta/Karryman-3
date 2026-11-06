@@ -76,6 +76,9 @@ VARIANTS = [
     Config(name='volumen_2x', vol_breakout=2.0, vol_pullback=1.5),
     Config(name='persecucion_max_2', max_chase=0.02),
     Config(name='RS_>10pp', rs_min=10.0),
+    Config(name='rupturas+parcial_3R', pullback=False, partial_r=3.0),
+    Config(name='rupturas+runner_MA50', pullback=False, trail='ma50'),
+    Config(name='rupturas+3R+MA50', pullback=False, partial_r=3.0, trail='ma50'),
     Config(name='placebo_aleatorio', placebo=True),
 ]
 
