@@ -1,0 +1,35 @@
+name: Karryman Estudio de grandes ganadoras
+on:
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: 'Número de acciones (7000 = todo el universo)'
+        required: false
+        default: '7000'
+permissions:
+  contents: read
+jobs:
+  study:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Dependencias
+        run: pip install -r requirements.txt
+      - name: Estudio (investigación, sin órdenes)
+        env:
+          SYMBOLS: ${{ inputs.symbols }}
+        run: python winners_study.py --symbols "$SYMBOLS" --output data/winners_study.json
+      - name: Guardar resultados
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: karryman-winners-study
+          path: |
+            data/winners_study.json
+            data/winners_runs.csv
+          if-no-files-found: warn
+          retention-days: 30
