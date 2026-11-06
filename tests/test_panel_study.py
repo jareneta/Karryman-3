@@ -7,6 +7,7 @@ import pandas as pd
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 import fundamental_study as fs  # noqa: E402
+import inst_features as inf  # noqa: E402
 import panel_study as ps  # noqa: E402
 import sec_fundamentals as sec  # noqa: E402
 import system_backtest as sb  # noqa: E402
@@ -120,19 +121,24 @@ class AnticipationTests(unittest.TestCase):
 
 
 class PipelineTests(unittest.TestCase):
-    def test_panel_has_no_lookahead_in_features_and_labels_are_forward(self):
+    def setup_universe(self, n=3300, stocks=14):
         rng = np.random.default_rng(3)
-        n = 3300
         idx = pd.bdate_range('2012-06-01', periods=n)
         spy = mk(idx, 100 * np.exp(np.cumsum(rng.normal(0.0004, 0.01, n))))
-        frames, fund = {}, {}
-        for k in range(14):
+        spy['Volume'] = 1e8 * np.exp(rng.normal(0, 0.1, n))
+        frames, fund, first = {}, {}, {}
+        for k in range(stocks):
             frames[f'S{k}'] = mk(idx, 30 * np.exp(np.cumsum(rng.normal(0.0003, 0.02, n))))
             fund[f'S{k}'] = {'rows': rows_for(2012, 55, lambda q: 0.08 + 0.01 * (k % 5)), 'sic': f'{20 + k % 6}00', 'sic_desc': 'X'}
+            first[f'S{k}'] = pd.Timestamp('1995-01-02') if k % 2 else pd.Timestamp('2011-06-01')   # maduras y jóvenes
         up = sb.regime_series(spy)['spy_ma50_up']
         tk_group = fs.group_names(fund)
-        grank, sizes = ps.group_rank_matrix(frames, tk_group, spy.Close.index, min_members=2)
-        panel, ev, tm = ps.collect(frames, fund, spy.Close, up, tk_group, grank)
+        grank, _ = ps.group_rank_matrix(frames, tk_group, spy.Close.index, min_members=2)
+        return frames, fund, first, spy, up, tk_group, grank
+
+    def test_panel_has_no_lookahead_in_features_and_labels_are_forward(self):
+        frames, fund, first, spy, up, tk_group, grank = self.setup_universe()
+        panel, ev, tm, winners = ps.collect(frames, fund, spy.Close, up, tk_group, grank, inf.market_distribution(spy), first)
         self.assertGreater(len(panel), 500)
         row = panel[panel.ticker == 'S3'].iloc[40]
         f = frames['S3']
@@ -141,10 +147,36 @@ class PipelineTests(unittest.TestCase):
         self.assertAlmostEqual(row['fwd_ret_252'], f.Close.iloc[i + 252] / f.Close.iloc[i] - 1, places=3)
         self.assertAlmostEqual(row['ret_63'], f.Close.iloc[i] / f.Close.iloc[i - 63] - 1, places=3)
         self.assertEqual(row['hit2'], float(f.Close.iloc[i + 1:i + 253].max() >= 2 * f.Close.iloc[i]))
-        self.assertTrue(set(['rev_yoy', 'gm_chg', 'eps_turn', 'dil_chg', 'log_mcap', 'rs_rank', 'group_rank', 'fwd_exc_252']) <= set(panel.columns))
-        res = ps.analyze(panel, ev, tm)
+        need = {'rev_yoy', 'gm_chg', 'eps_turn', 'dil_chg', 'log_mcap', 'rs_rank', 'group_rank', 'fwd_exc_252', 'age_years', 'stage',
+                'dist_days_25', 'cmf_63', 'ad_63', 'big_net_50', 'pocket_20', 'spy_dist_25', 'dd_3y'}
+        self.assertTrue(need <= set(panel.columns), need - set(panel.columns))
+        self.assertAlmostEqual(row['age_years'], (row['date'] - first['S3']).days / 365.25, places=3)
+        res = ps.analyze(panel, ev, tm, winners)
         self.assertIn('eps', res['segments'])
+        self.assertIn('estadio', res['segments'])
+        self.assertIn('huellas', res['segments'])
         self.assertGreater(res['meta']['observations'], 300)
+
+    def test_winners_profile_distinguishes_young_small_winners(self):
+        rng = np.random.default_rng(8)
+        pop = pd.DataFrame({'age_years': rng.uniform(1, 40, 3000), 'log_mcap': rng.uniform(8, 11.5, 3000), 'stage': rng.choice([1, 2, 3, 4, 5], 3000),
+                            'ni_pos': rng.choice([0.0, 1.0], 3000), 'rev_yoy': rng.normal(0.1, 0.3, 3000), 'eps_turn': 0.0, 'oi_turn': 0.0,
+                            'dd_3y': rng.uniform(-0.8, 0, 3000), 'acc_net_50': rng.integers(-10, 10, 3000), 'cmf_63': rng.normal(0, .1, 3000),
+                            'accum_divergence': 0.0, 'big_net_50': rng.integers(-3, 3, 3000), 'pocket_20': rng.integers(0, 4, 3000),
+                            'dist_days_25': rng.integers(0, 10, 3000), 'spy_dist_ge5': 0.0, 'rs_rank': rng.uniform(0, 100, 3000)})
+        win = pd.DataFrame({'age_years': rng.uniform(1, 6, 300), 'log_mcap': rng.uniform(8, 9.3, 300), 'stage': 1,
+                            'ni_pos': 0.0, 'rev_yoy': rng.normal(0.4, 0.2, 300), 'eps_turn': 0.0, 'oi_turn': 0.0, 'dd_3y': rng.uniform(-0.9, -0.5, 300),
+                            'acc_net_50': rng.integers(0, 10, 300), 'cmf_63': rng.normal(0.1, .1, 300), 'accum_divergence': 1.0,
+                            'big_net_50': rng.integers(0, 3, 300), 'pocket_20': rng.integers(1, 4, 300), 'dist_days_25': rng.integers(0, 4, 300),
+                            'spy_dist_ge5': 0.0, 'rs_rank': rng.uniform(40, 100, 300), 'gain_x': rng.uniform(2, 6, 300), 'days_to_peak': 120})
+        out = ps.winners_profile(pop, win)
+        young = out['segments']['Edad < 3 años (salida a bolsa reciente)']
+        self.assertGreater(young['ratio'], 1.5)
+        self.assertGreater(out['segments']['Ángel caído (caída 3 años < -40%)']['ratio'], 1.3)
+        self.assertGreater(out['segments']['Etapa 1: base (precio < MA150 plana)']['ratio'], 2)
+        self.assertLess(out['segments'].get('Tamaño > 10 B$ (grande)', {'ratio': 0})['ratio'], 0.2)
+        self.assertGreater(out['features']['acc_net_50']['percentile_of_winners_median_in_population'], 55)
+        self.assertGreater(out['features']['age_years']['median_population'], out['features']['age_years']['median_winners'])
 
 
 if __name__ == '__main__':

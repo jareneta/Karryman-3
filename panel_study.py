@@ -23,6 +23,7 @@ import pandas as pd
 
 import early_signals as es
 import fundamental_study as fs
+import inst_features as inf
 import sec_fundamentals as sec
 import system_backtest as sb
 import winners_study as ws
@@ -103,7 +104,20 @@ def month_end_positions(index):
     return np.flatnonzero(np.r_[m[1:] != m[:-1], False])
 
 
-def build_panel(frames, fund, spy_c, up, rank_df, grank, tk_group):
+def stock_daily(t, f, fund_rows, spy_c, up, rank_s, grank_s, mkt, first_date, spy_dd, spy_r63):
+    """Todas las variables diarias de una acción (precio, huella institucional, estadio, fundamentales, mercado, etiquetas)."""
+    ff, valid = sec.fund_features(fund_rows, f.index)
+    pf = price_features(f, spy_c, rank_s, grank_s, ff['sh'])
+    d = pd.concat([pf, inf.institutional_features(f), inf.stage_features(f, first_date), ff.drop(columns=['sh']), labels(f, spy_c)], axis=1)
+    d['fund_valid'] = valid.astype(float)
+    d['spy_up'] = up.reindex(f.index).ffill().astype(float)
+    d['spy_dd'], d['spy_ret_63'] = spy_dd.reindex(f.index).ffill(), spy_r63.reindex(f.index).ffill()
+    for col in mkt.columns:
+        d[col] = mkt[col].reindex(f.index).ffill()
+    return d
+
+
+def build_panel(frames, fund, spy_c, up, rank_df, grank, tk_group, mkt, first_dates):
     parts = []
     spy_dd = spy_c / spy_c.rolling(252, min_periods=60).max() - 1
     spy_r63 = spy_c / spy_c.shift(63) - 1
@@ -111,15 +125,9 @@ def build_panel(frames, fund, spy_c, up, rank_df, grank, tk_group):
         rows = (fund.get(t) or {}).get('rows') or []
         if len(f) < 400 or not rows:
             continue
-        ff, valid = sec.fund_features(rows, f.index)
         g = tk_group.get(t)
         gr = grank[g].reindex(f.index).ffill() if g in grank.columns else pd.Series(np.nan, index=f.index)
-        pf = price_features(f, spy_c, rank_df[t], gr, ff['sh'])
-        lab = labels(f, spy_c)
-        d = pd.concat([pf, ff.drop(columns=['sh']), lab], axis=1)
-        d['fund_valid'] = valid.astype(float)
-        d['spy_up'] = up.reindex(f.index).ffill().astype(float)
-        d['spy_dd'], d['spy_ret_63'] = spy_dd.reindex(f.index).ffill(), spy_r63.reindex(f.index).ffill()
+        d = stock_daily(t, f, rows, spy_c, up, rank_df[t], gr, mkt, first_dates.get(t), spy_dd, spy_r63)
         pos = month_end_positions(f.index)
         pos = pos[pos >= 260]
         d = d.iloc[pos].copy()
@@ -309,8 +317,70 @@ def summarize_timing(store):
     return out
 
 
+# ------------------------------------------------------------------ estadios y huellas institucionales
+def stage_masks(d):
+    """Segmentos excluyentes de edad, tamaño, etapa de Weinstein y tipo de negocio (sobre cualquier DataFrame con las columnas)."""
+    age, mc = d['age_years'], 10 ** d['log_mcap']
+    st = d['stage']
+    out = {
+        'Edad < 3 años (salida a bolsa reciente)': age < 3, 'Edad 3-7 años': (age >= 3) & (age < 7), 'Edad 7-15 años': (age >= 7) & (age < 15),
+        'Edad 15-30 años': (age >= 15) & (age < 30), 'Edad > 30 años': age >= 30,
+        'Tamaño < 300 M$ (micro)': mc < 3e8, 'Tamaño 300 M$-2 B$ (pequeña)': (mc >= 3e8) & (mc < 2e9),
+        'Tamaño 2-10 B$ (mediana)': (mc >= 2e9) & (mc < 1e10), 'Tamaño > 10 B$ (grande)': mc >= 1e10}
+    for k, name in inf.STAGE_NAMES.items():
+        out[name] = st == k
+    young, prof = age < 5, d['ni_pos']
+    out.update({
+        'Joven (<5 años) sin beneficios': young & (prof == 0), 'Joven (<5 años) rentable': young & (prof == 1),
+        'Crecimiento rentable (>=5 años, ventas >=20%)': (age >= 5) & (prof == 1) & (d['rev_yoy'] >= 0.20),
+        'Madura estable (>=15 años, rentable, ventas <10%)': (age >= 15) & (prof == 1) & (d['rev_yoy'] < 0.10),
+        'Madura en giro (>=15 años, vuelve a beneficios)': (age >= 15) & ((d['eps_turn'] == 1) | (d['oi_turn'] == 1)),
+        'En declive (>=5 años, ventas caen)': (age >= 5) & (d['rev_yoy'] < 0),
+        'Líder cerca de máximos (caída 3 años > -15%)': d['dd_3y'] > -0.15, 'Corrección moderada (-15% a -40%)': (d['dd_3y'] <= -0.15) & (d['dd_3y'] > -0.40),
+        'Ángel caído (caída 3 años < -40%)': d['dd_3y'] <= -0.40})
+    return out
+
+
+def inst_masks(d):
+    return {'Acumulación (días acum. - dist. en 50 sesiones >= 5)': d['acc_net_50'] >= 5, 'Distribución (<= -5)': d['acc_net_50'] <= -5,
+            'Flujo de dinero Chaikin 63d > 0,10': d['cmf_63'] > 0.10, 'Flujo de dinero Chaikin 63d < -0,10': d['cmf_63'] < -0.10,
+            'Divergencia de acumulación (A/D sube, precio no)': d['accum_divergence'] == 1,
+            'Compras masivas netas >= 2 (50 sesiones)': d['big_net_50'] >= 2, 'Ventas masivas netas <= -2': d['big_net_50'] <= -2,
+            'Pocket pivots >= 2 (20 sesiones)': d['pocket_20'] >= 2, '>= 6 días de distribución en 25 sesiones': d['dist_days_25'] >= 6,
+            'Índice con >= 5 días de distribución': d['spy_dist_ge5'] == 1}
+
+
+PROFILE_FEATURES = ['rs_rank', 'dist_hi', 'dist_lo', 'ret_126', 'ret_252', 'ret_504', 'dd_3y', 'age_years', 'log_mcap', 'log_dvol', 'updown_vol',
+                    'acc_net_50', 'cmf_63', 'ad_63', 'big_net_50', 'dist_days_25', 'pocket_20', 'vol_ratio', 'atr_ratio', 'tight20',
+                    'rev_yoy', 'gm_chg', 'om_chg', 'dil_chg', 'lev', 'spy_dist_25']
+
+
+def winners_profile(pop, win):
+    """Cómo eran las ganadoras AL EMPEZAR frente a la población de acciones líquidas (cuota por segmento y medianas)."""
+    out = {'n_winners': int(len(win)), 'n_population': int(len(pop)), 'segments': {}, 'features': {}, 'by_stage': {}}
+    pm, wm = {**stage_masks(pop), **inst_masks(pop)}, {**stage_masks(win), **inst_masks(win)}
+    for name in pm:
+        a, b = pm[name].fillna(False), wm[name].fillna(False)
+        if b.sum() < 20 or a.sum() < 100:
+            continue
+        out['segments'][name] = {'share_population_pct': round(float(a.mean() * 100), 1), 'share_winners_pct': round(float(b.mean() * 100), 1),
+                                 'ratio': round(float(b.mean() / a.mean()), 2) if a.mean() else None, 'winners': int(b.sum()),
+                                 'median_gain_x': round(float(win.loc[b, 'gain_x'].median()), 2), 'share_x3_or_more_pct': round(float((win.loc[b, 'gain_x'] >= 3).mean() * 100), 1),
+                                 'median_days_to_peak': int(win.loc[b, 'days_to_peak'].median())}
+    for ft in PROFILE_FEATURES:
+        if ft not in pop or ft not in win:
+            continue
+        pv, wv = pop[ft].dropna(), win[ft].dropna()
+        if len(wv) < 30 or len(pv) < 100:
+            continue
+        out['features'][ft] = {'median_population': round(float(pv.median()), 3), 'median_winners': round(float(wv.median()), 3),
+                               'winners_p25': round(float(wv.quantile(.25)), 3), 'winners_p75': round(float(wv.quantile(.75)), 3),
+                               'percentile_of_winners_median_in_population': round(float((pv < wv.median()).mean() * 100), 0), 'n': int(len(wv))}
+    return out
+
+
 # ------------------------------------------------------------------ principal
-def analyze(panel, store_events, store_timing, seed=1):
+def analyze(panel, store_events, store_timing, winners=None, seed=1):
     rng = np.random.default_rng(seed)
     panel = panel.copy()
     panel['month'] = pd.to_datetime(panel['date']).dt.to_period('M').astype(str)
@@ -318,7 +388,7 @@ def analyze(panel, store_events, store_timing, seed=1):
     pop = panel[liquid & (panel['fund_valid'] == 1) & panel['fwd_ret_252'].notna()].copy()
     meta = {'observations': int(len(pop)), 'months': int(pop['month'].nunique()), 'stocks': int(pop['ticker'].nunique()),
             'hit2_pct': round(float(pop['hit2'].mean() * 100), 2)}
-    skip = {'ticker', 'date', 'month', 'group', 'liquid', 'fund_valid', 'n_quarters'} | {c for c in pop.columns if c.startswith(('fwd_', 'hit'))}
+    skip = {'ticker', 'date', 'month', 'group', 'liquid', 'fund_valid', 'n_quarters', 'stage'} | {c for c in pop.columns if c.startswith(('fwd_', 'hit'))}
     feats = [c for c in pop.columns if c not in skip and pop[c].notna().mean() > 0.3]
     rows = {}
     for ft in feats:
@@ -342,26 +412,54 @@ def analyze(panel, store_events, store_timing, seed=1):
     seg['etapa'] = segment_table(p, {'Rentable y crece >=20%': prof & grow, 'Rentable y crece <20%': prof & ~grow & p.rev_yoy.notna(),
                                      'No rentable y crece >=20%': ~prof & grow & p.ni_pos.notna(), 'No rentable y crece <20%': ~prof & ~grow & p.ni_pos.notna() & p.rev_yoy.notna()}, rng)
     seg['mercado_y_ventas'] = segment_table(p, {'Mercado alcista + ventas >=25%': (p.spy_up == 1) & (p.rev_yoy >= .25), 'Mercado bajista + ventas >=25%': (p.spy_up == 0) & (p.rev_yoy >= .25)}, rng)
+    seg['estadio'] = segment_table(p, stage_masks(p), rng)
+    seg['huellas'] = segment_table(p, inst_masks(p), rng)
+    prof = None
+    if winners is not None and len(winners):
+        pool = panel[(panel['liquid'] == 1)]
+        prof = winners_profile(pool, winners[winners['liquid'] == 1] if 'liquid' in winners else winners)
     return {'meta': meta, 'features': rows, 'segments': seg, 'event_study': summarize_events(store_events),
-            'winner_timing': summarize_timing(store_timing)}
+            'winner_timing': summarize_timing(store_timing), 'winners_profile': prof}
 
 
-def collect(frames, fund, spy_c, up, tk_group, grank):
+def collect(frames, fund, spy_c, up, tk_group, grank, mkt=None, first_dates=None):
+    mkt = mkt if mkt is not None else pd.DataFrame(index=spy_c.index)
+    first_dates = first_dates or {}
     scores = pd.DataFrame({t: es.rs_score(f.Close) for t, f in frames.items()}).reindex(spy_c.index)
     liq = pd.DataFrame({t: (f.Close >= 5) & (f.Volume.rolling(50).mean() >= 300_000) for t, f in frames.items()}).reindex(spy_c.index).fillna(False)
     rank_df = scores.where(liq).rank(axis=1, pct=True) * 100
     del scores, liq
-    panel = build_panel(frames, fund, spy_c, up, rank_df, grank, tk_group)
+    spy_dd = spy_c / spy_c.rolling(252, min_periods=60).max() - 1
+    spy_r63 = spy_c / spy_c.shift(63) - 1
+    parts, winners = [], []
     store_events, store_timing = {}, {}
     for t, f in frames.items():
         rows = (fund.get(t) or {}).get('rows') or []
         if len(f) < 400 or not rows:
             continue
+        g = tk_group.get(t)
+        gr = grank[g].reindex(f.index).ffill() if g in grank.columns else pd.Series(np.nan, index=f.index)
+        d = stock_daily(t, f, rows, spy_c, up, rank_df[t], gr, mkt, first_dates.get(t), spy_dd, spy_r63)
+        pos = month_end_positions(f.index)
+        pos = pos[pos >= 260]
+        m = d.iloc[pos].copy()
+        m.insert(0, 'ticker', t)
+        m.insert(1, 'date', f.index[pos])
+        m['group'] = g
+        parts.append(m)
+        # ganadoras (tramos x2): variables AL EMPEZAR la subida, solo con datos hasta ese día
+        c = f.Close.to_numpy(float)
+        for (i0, ip, ie) in ws.find_runs(f):
+            if i0 < 260:
+                continue
+            w = d.drop(columns=[x for x in d.columns if x.startswith(('fwd_', 'hit'))]).iloc[i0].to_dict()
+            w.update({'ticker': t, 'date': f.index[i0], 'gain_x': float(c[ip] / c[i0]), 'days_to_peak': int(ip - i0), 'group': g})
+            winners.append(w)
         qt = sec.quarter_table(rows)
         event_study_stock(f, spy_c, qt, store_events)
-        ff, valid = sec.fund_features(rows, f.index)
-        winner_timing_stock(f, ff, valid, store_timing)
-    return panel, store_events, store_timing
+        winner_timing_stock(f, d, d['fund_valid'].to_numpy(bool), store_timing)
+    panel = pd.concat(parts, ignore_index=True) if parts else pd.DataFrame()
+    return panel, store_events, store_timing, pd.DataFrame(winners)
 
 
 def main():
@@ -372,6 +470,7 @@ def main():
     ap.add_argument('--output', default='data/panel_study.json')
     ap.add_argument('--panel', default='data/panel.csv.gz')
     ap.add_argument('--sec-cache', default='data/sec_rows.json.gz')
+    ap.add_argument('--use-sec-cache', action='store_true')
     a = ap.parse_args()
     t0 = time.time()
     names = sb.universe()
@@ -384,17 +483,30 @@ def main():
     spy = frames.pop('SPY')
     up = sb.regime_series(spy)['spy_ma50_up']
     print(f'Precios de {len(frames)} acciones en {time.time()-t0:.0f}s', flush=True)
-    fund, _ = sec.fetch_many(list(frames))
+    cache_ok = Path(a.sec_cache).exists() and a.use_sec_cache
+    fund = {}
+    if cache_ok:
+        with gzip.open(a.sec_cache, 'rt', encoding='utf-8') as fh:
+            fund = json.load(fh)
+        print(f'Caché SEC: {len(fund)} acciones', flush=True)
+    missing = [t for t in frames if t not in fund]
+    if missing:
+        more, _ = sec.fetch_many(missing)
+        fund.update(more)
     print(f'SEC: {sum(1 for d in fund.values() if d["rows"])}/{len(frames)} con trimestres · {time.time()-t0:.0f}s', flush=True)
     Path(a.sec_cache).parent.mkdir(exist_ok=True)
     with gzip.open(a.sec_cache, 'wt', encoding='utf-8') as fh:
         json.dump(fund, fh)
     tk_group = fs.group_names(fund)
     grank, sizes = group_rank_matrix(frames, tk_group, spy.Close.index)
-    panel, ev, tm = collect(frames, fund, spy.Close, up, tk_group, grank)
-    print(f'Panel: {len(panel)} filas · {panel.ticker.nunique()} acciones · {time.time()-t0:.0f}s', flush=True)
+    mkt = inf.market_distribution(spy)
+    first = inf.first_trade_dates(list(frames))
+    print(f'Primeras cotizaciones: {len(first)}/{len(frames)} · {time.time()-t0:.0f}s', flush=True)
+    panel, ev, tm, winners = collect(frames, fund, spy.Close, up, tk_group, grank, mkt, first)
+    print(f'Panel: {len(panel)} filas · {panel.ticker.nunique()} acciones · {len(winners)} ganadoras · {time.time()-t0:.0f}s', flush=True)
     panel.to_csv(a.panel, index=False, compression='gzip', float_format='%.5g')
-    res = analyze(panel, ev, tm)
+    winners.to_csv(a.panel.replace('panel', 'winners'), index=False, compression='gzip', float_format='%.5g')
+    res = analyze(panel, ev, tm, winners)
     res['group_sizes'] = {g: int(n) for g, n in sizes.head(40).items()}
     res['panel_columns'] = list(panel.columns)
     res['seconds'] = round(time.time() - t0)
