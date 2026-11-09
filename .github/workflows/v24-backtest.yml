@@ -1,0 +1,37 @@
+name: Karryman V24 backtest
+on:
+  workflow_dispatch:
+    inputs:
+      symbols:
+        description: 'Número de acciones (muestra aleatoria de cotizadas hoy)'
+        required: false
+        default: '300'
+      seed:
+        description: 'Semilla de la muestra'
+        required: false
+        default: '42'
+permissions:
+  contents: read
+jobs:
+  v24:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - name: Tests del motor V24
+        run: python -m unittest tests.test_v24_engine -v
+      - name: Backtest V24 (investigación, sin órdenes)
+        env:
+          SYMBOLS: ${{ inputs.symbols }}
+          SEED: ${{ inputs.seed }}
+        run: python v24_backtest.py --symbols "$SYMBOLS" --seed "$SEED" --output data/v24_results.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: karryman-v24-backtest
+          path: data/v24_results.json
+          retention-days: 30

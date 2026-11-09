@@ -10,16 +10,21 @@ on:
         description: 'Semilla de la muestra (cambiar para validar con otra muestra)'
         required: false
         default: '42'
+      cache_run:
+        description: 'ID de una ejecución anterior de panel cuyos datos de la SEC se reutilizan (modo panel_cache)'
+        required: false
+        default: ''
       contact:
         description: 'Contacto exigido por la SEC en el User-Agent (solo modos sec_smoke y fundamentales)'
         required: false
         default: ''
       mode:
-        description: 'variantes | comparacion_spy | indice_apalancado | senales_tempranas | sec_smoke | fundamentales'
+        description: 'variantes | comparacion_spy | indice_apalancado | senales_tempranas | sec_smoke | fundamentales | panel | panel_cache | smoke13f'
         required: false
         default: 'variantes'
 permissions:
   contents: read
+  actions: read
 jobs:
   backtest:
     runs-on: ubuntu-latest
@@ -33,6 +38,14 @@ jobs:
         run: pip install -r requirements.txt
       - name: Tests del motor
         run: python -m unittest tests.test_system_backtest -v
+      - name: Recuperar datos de la SEC de una ejecución anterior
+        if: ${{ inputs.mode == 'panel_cache' && inputs.cache_run != '' }}
+        uses: actions/download-artifact@v4
+        with:
+          name: karryman-system-backtest
+          run-id: ${{ inputs.cache_run }}
+          github-token: ${{ github.token }}
+          path: data
       - name: Preparar contacto de la SEC (enmascarado)
         env:
           SEC_SECRET: ${{ secrets.SEC_CONTACT }}
@@ -52,6 +65,9 @@ jobs:
           EXTRA=""
           if [ "$MODE" = "indice_apalancado" ]; then python index_leverage.py data/system_backtest.json; exit 0; fi
           if [ "$MODE" = "sec_smoke" ]; then python sec_fundamentals.py --smoke; exit 0; fi
+          if [ "$MODE" = "smoke13f" ]; then python inst13f.py --smoke; exit 0; fi
+          if [ "$MODE" = "panel_cache" ]; then python panel_study.py --symbols "$SYMBOLS" --use-sec-cache --output data/system_backtest.json; exit 0; fi
+          if [ "$MODE" = "panel" ]; then python panel_study.py --symbols "$SYMBOLS" --output data/system_backtest.json; exit 0; fi
           if [ "$MODE" = "fundamentales" ]; then python fundamental_study.py --symbols "$SYMBOLS" --output data/system_backtest.json; exit 0; fi
           if [ "$MODE" = "senales_tempranas" ]; then python early_signals.py --symbols "$SYMBOLS" --output data/system_backtest.json; exit 0; fi
           if [ "$MODE" = "comparacion_spy" ]; then EXTRA="--benchmark"; fi
@@ -61,6 +77,10 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: karryman-system-backtest
-          path: data/system_backtest.json
+          path: |
+            data/system_backtest.json
+            data/panel.csv.gz
+            data/winners.csv.gz
+            data/sec_rows.json.gz
           if-no-files-found: warn
-          retention-days: 30
+          retention-days: 90

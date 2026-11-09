@@ -31,6 +31,19 @@ def _ua():
 REV_TAGS = ['Revenues', 'RevenueFromContractWithCustomerExcludingAssessedTax', 'SalesRevenueNet',
             'RevenueFromContractWithCustomerIncludingAssessedTax', 'SalesRevenueGoodsNet']
 EPS_TAGS = ['EarningsPerShareDiluted', 'EarningsPerShareBasic']
+FLOW_TAGS = {
+    'gp': (['GrossProfit'], 'USD'),
+    'oi': (['OperatingIncomeLoss'], 'USD'),
+    'ni': (['NetIncomeLoss', 'ProfitLoss'], 'USD'),
+    'cfo': (['NetCashProvidedByUsedInOperatingActivities', 'NetCashProvidedByUsedInOperatingActivitiesContinuingOperations'], 'USD'),
+    'sh': (['WeightedAverageNumberOfDilutedSharesOutstanding', 'WeightedAverageNumberOfSharesOutstandingBasic'], 'shares'),
+}
+INSTANT_TAGS = {
+    'assets': (['Assets'], 'USD'),
+    'liab': (['Liabilities'], 'USD'),
+    'equity': (['StockholdersEquity', 'StockholdersEquityIncludingPortionAttributableToNoncontrollingInterest'], 'USD'),
+    'cash': (['CashAndCashEquivalentsAtCarryingValue'], 'USD'),
+}
 STALE_DAYS = 140
 
 
@@ -113,7 +126,41 @@ def _quarters(entries):
         inside = [(e2, val) for e2, (f2, val) in q.items() if _d(s) < _d(e2) < _d(en) and (_d(en) - _d(e2)).days > 60]
         if len(inside) == 3:
             q[en] = (f, v - sum(x[1] for x in inside))
+    # Flujos que solo se presentan acumulados (p. ej. caja operativa): Q2 = 6M - Q1, Q3 = 9M - 6M
+    ytd6 = {}
+    for (s, en), (f, v) in best.items():
+        if 165 <= (_d(en) - _d(s)).days <= 200:
+            ytd6[s] = (en, f, v)
+    q1 = {s: (en, f, v) for (s, en), (f, v) in best.items() if 75 <= (_d(en) - _d(s)).days <= 105}
+    for s, (en6, f6, v6) in ytd6.items():
+        if en6 not in q and s in q1:
+            q[en6] = (f6, v6 - q1[s][2])
+    for s, (en9, f9, v9) in ytd9.items():
+        if en9 in q:
+            continue
+        if s in ytd6:
+            q[en9] = (f9, v9 - ytd6[s][2])
     return q
+
+
+def _instants(js, tags, unit):
+    """{fecha: (presentado, valor)} de partidas de balance (primer valor presentado)."""
+    gaap = js.get('facts', {}).get('us-gaap', {})
+    merged = {}
+    for tag in tags:
+        ent = gaap.get(tag, {}).get('units', {}).get(unit)
+        if not ent:
+            continue
+        best = {}
+        for e in ent:
+            en, f, v = e.get('end'), e.get('filed'), e.get('val')
+            if not (en and f) or v is None or e.get('start'):
+                continue
+            if en not in best or f < best[en][0]:
+                best[en] = (f, float(v))
+        for en, fv in best.items():
+            merged.setdefault(en, fv)
+    return merged
 
 
 def _flows(js, tags, unit):
@@ -129,11 +176,21 @@ def _flows(js, tags, unit):
 
 
 def parse_companyfacts(js):
-    rev, eps = _flows(js, REV_TAGS, 'USD'), _flows(js, EPS_TAGS, 'USD/shares')
+    flows = {'rev': _flows(js, REV_TAGS, 'USD'), 'eps': _flows(js, EPS_TAGS, 'USD/shares')}
+    for k, (tags, unit) in FLOW_TAGS.items():
+        flows[k] = _flows(js, tags, unit)
+    inst = {k: _instants(js, tags, unit) for k, (tags, unit) in INSTANT_TAGS.items()}
+    ends = sorted(set().union(*[set(v) for v in flows.values()]))
     rows = []
-    for end in sorted(set(rev) | set(eps)):
-        rows.append({'end': end, 'rev': rev.get(end, (None, None))[1], 'rev_filed': rev.get(end, (None, None))[0],
-                     'eps': eps.get(end, (None, None))[1], 'eps_filed': eps.get(end, (None, None))[0]})
+    for end in ends:
+        row = {'end': end}
+        for k, m in flows.items():
+            f, v = m.get(end, (None, None))
+            row[k], row[k + '_filed'] = v, f
+        for k, m in inst.items():
+            f, v = m.get(end, (None, None))
+            row[k], row[k + '_filed'] = v, f
+        rows.append(row)
     return rows
 
 
@@ -190,6 +247,106 @@ def daily_flags(rows, index):
            'EPS e ingresos +25%': eps25 & rev25, 'Doble aceleración (EPS e ingresos)': eps_acc & rev_acc}
     covered = valid & eg.notna() & rg.notna()
     return {k: v.fillna(False).to_numpy(bool) for k, v in out.items()}, covered.to_numpy(bool)
+
+
+# ------------------------------------------------------------------ variables ampliadas
+def _num(x):
+    return None if x is None or (isinstance(x, float) and np.isnan(x)) else float(x)
+
+
+def _ratio(a, b):
+    a, b = _num(a), _num(b)
+    return a / b if a is not None and b not in (None, 0.0) else np.nan
+
+
+def _growth(v, prior):
+    v, prior = _num(v), _num(prior)
+    return v / prior - 1 if v is not None and prior is not None and prior > 0 else np.nan
+
+
+FEATURES = ['rev_yoy', 'rev_yoy_prev', 'rev_accel', 'rev_streak', 'gm', 'gm_chg', 'om', 'om_chg', 'oi_turn', 'op_leverage',
+            'eps_neg', 'eps_turn', 'eps_g25', 'eps_low', 'eps_fall', 'ni_margin', 'ni_pos', 'cfo_margin', 'cfo_pos',
+            'dil_chg', 'equity_pos', 'lev', 'cash_assets', 'n_quarters', 'ni_gt_cfo', 'sh']
+
+
+def quarter_table(rows):
+    """Una fila por trimestre con variables y banderas de evento. Índice = día en que ya es público."""
+    rows = sorted(rows, key=lambda r: r['end'])
+    by_end = {r['end']: r for r in rows}
+
+    def prior_year(r):
+        for e0, r0 in by_end.items():
+            if 350 <= (_d(r['end']) - _d(e0)).days <= 380:
+                return r0
+        return None
+
+    out, rev_yoy_hist = [], {}
+    for i, r in enumerate(rows):
+        p = prior_year(r)
+        pv = lambda k: p.get(k) if p else None
+        rev_yoy = _growth(r.get('rev'), pv('rev'))
+        rev_yoy_hist[r['end']] = rev_yoy
+        prev = rows[i - 1] if i else None
+        rev_yoy_prev = rev_yoy_hist.get(prev['end'], np.nan) if prev and 60 <= (_d(r['end']) - _d(prev['end'])).days <= 130 else np.nan
+        streak, k = 0, i
+        while k >= 0 and streak < 4 and rev_yoy_hist.get(rows[k]['end'], np.nan) >= 0.20:
+            streak, k = streak + 1, k - 1
+        rev, gp, oi, ni, cfo = r.get('rev'), r.get('gp'), r.get('oi'), r.get('ni'), r.get('cfo')
+        gm, om = _ratio(gp, rev), _ratio(oi, rev)
+        gm_p, om_p = _ratio(pv('gp'), pv('rev')), _ratio(pv('oi'), pv('rev'))
+        eps, eps_p = _num(r.get('eps')), _num(pv('eps'))
+        oi_g = _growth(oi, pv('oi'))
+        have_eps = eps is not None and eps_p is not None
+        eps_g = (eps / eps_p - 1) if (have_eps and eps_p > 0) else np.nan
+        filed = [r[k + '_filed'] for k in ('rev', 'eps', 'gp', 'oi', 'ni', 'cfo', 'sh', 'assets', 'liab', 'equity', 'cash') if r.get(k + '_filed')]
+        if not filed:
+            continue
+        sh, sh_p = _num(r.get('sh')), _num(pv('sh'))
+        adjacent = prev is not None and 60 <= (_d(r['end']) - _d(prev['end'])).days <= 130
+        prev_eps = _num(prev.get('eps')) if adjacent else None
+        prev_oi = _num(prev.get('oi')) if adjacent else None
+        out.append({
+            'avail': max(filed), 'end': r['end'], 'rev_yoy': rev_yoy, 'rev_yoy_prev': rev_yoy_prev,
+            'rev_accel': rev_yoy - rev_yoy_prev if not (np.isnan(rev_yoy) or np.isnan(rev_yoy_prev)) else np.nan,
+            'rev_streak': float(streak), 'gm': gm, 'gm_chg': (gm - gm_p) * 100 if not (np.isnan(gm) or np.isnan(gm_p)) else np.nan,
+            'om': om, 'om_chg': (om - om_p) * 100 if not (np.isnan(om) or np.isnan(om_p)) else np.nan,
+            'oi_turn': float(_num(oi) is not None and oi > 0 and _num(pv('oi')) is not None and pv('oi') <= 0),
+            'op_leverage': float(_num(oi) is not None and oi > 0 and not np.isnan(oi_g) and not np.isnan(rev_yoy) and rev_yoy > 0 and oi_g > rev_yoy),
+            # BPA segmentado en situaciones excluyentes
+            'eps_neg': float(eps is not None and eps < 0),
+            'eps_turn': float(have_eps and eps > 0 and eps_p <= 0),
+            'eps_g25': float(have_eps and eps > 0 and eps_p > 0 and eps_g >= 0.25),
+            'eps_low': float(have_eps and eps > 0 and eps_p > 0 and 0 <= eps_g < 0.25),
+            'eps_fall': float(have_eps and eps > 0 and eps_p > 0 and eps_g < 0),
+            'ni_margin': _ratio(ni, rev), 'ni_pos': float(_num(ni) is not None and ni > 0),
+            'cfo_margin': _ratio(cfo, rev), 'cfo_pos': float(_num(cfo) is not None and cfo > 0),
+            'dil_chg': (sh / sh_p - 1) if (sh and sh_p and sh_p > 0) else np.nan,
+            'equity_pos': float(_num(r.get('equity')) is not None and r['equity'] > 0),
+            'lev': _ratio(r.get('liab'), r.get('assets')), 'cash_assets': _ratio(r.get('cash'), r.get('assets')),
+            'n_quarters': float(i + 1), 'sh': sh if sh else np.nan,
+            'ni_gt_cfo': float(_num(ni) is not None and _num(cfo) is not None and ni > 0 and ni > cfo),
+            # eventos (para el estudio de anticipación)
+            'ev_rev_infl': float(rev_yoy >= 0.25 and (not np.isnan(rev_yoy_prev)) and rev_yoy_prev < 0.15),
+            'ev_rev_accel': float(rev_yoy >= 0.20 and (not np.isnan(rev_yoy_prev)) and rev_yoy - rev_yoy_prev >= 0.10),
+            'ev_eps_turn': float(eps is not None and eps > 0 and prev_eps is not None and prev_eps <= 0),
+            'ev_oi_turn': float(_num(oi) is not None and oi > 0 and prev_oi is not None and prev_oi <= 0),
+            'ev_streak2': float(streak == 2 and rev_yoy >= 0.25)})
+    return pd.DataFrame(out)
+
+
+def fund_features(rows, index):
+    """Variables fundamentales diarias (disponibles el día hábil siguiente a presentar) + máscara de validez."""
+    qt = quarter_table(rows)
+    cols = FEATURES
+    if qt.empty:
+        return pd.DataFrame(np.nan, index=index, columns=cols), np.zeros(len(index), dtype=bool)
+    qt['avail_ts'] = pd.to_datetime(qt['avail']) + pd.offsets.BDay(1)
+    qt = qt.sort_values('avail_ts').drop_duplicates('avail_ts', keep='last').set_index('avail_ts')
+    daily = qt[cols].reindex(index, method='ffill')
+    last = pd.Series(qt.index, index=qt.index).reindex(index, method='ffill')
+    age = (pd.Series(index, index=index) - last).dt.days
+    valid = (age <= STALE_DAYS).fillna(False)
+    return daily, valid.to_numpy(bool)
 
 
 # ------------------------------------------------------------------ descarga
