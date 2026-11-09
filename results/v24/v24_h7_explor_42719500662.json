@@ -1,0 +1,148 @@
+{
+ "commit": "d891a9a2742062b313daaa984dbb8ecaabc9a770",
+ "registro": "docs/V24_H7_EXPLORATORIA.md",
+ "aviso": "universo de acciones que cotizan hoy: sesgo de supervivencia; exploratoria",
+ "universo": {
+  "series": 1013,
+  "ultimo_dia_cargado": "2020-12-30"
+ },
+ "resultado": {
+  "operaciones": {
+   "train": {
+    "trades": 158,
+    "expectancy_R": 0.4824,
+    "ci95_R": [
+     0.1194,
+     0.8664
+    ],
+    "win_rate_pct": 38.6
+   },
+   "valid": {
+    "trades": 111,
+    "expectancy_R": 0.7215,
+    "ci95_R": [
+     0.3199,
+     1.1279
+    ],
+    "win_rate_pct": 51.4
+   },
+   "todo": {
+    "trades": 269,
+    "expectancy_R": 0.5811,
+    "ci95_R": [
+     0.3142,
+     0.8541
+    ],
+    "win_rate_pct": 43.9
+   }
+  },
+  "placebo_agrupado": {
+   "train": {
+    "trades": 29167,
+    "expectancy_R": 0.4156,
+    "ci95_R": [
+     0.3763,
+     0.4555
+    ],
+    "win_rate_pct": 38.3
+   },
+   "valid": {
+    "trades": 21545,
+    "expectancy_R": 0.3523,
+    "ci95_R": [
+     0.3045,
+     0.4012
+    ],
+    "win_rate_pct": 39.2
+   },
+   "todo": {
+    "trades": 50712,
+    "expectancy_R": 0.3887,
+    "ci95_R": [
+     0.3575,
+     0.42
+    ],
+    "win_rate_pct": 38.7
+   }
+  },
+  "cartera": {
+   "h7": {
+    "train": {
+     "cagr_pct": 6.37,
+     "max_dd_pct": -12.17,
+     "sharpe": 0.84,
+     "final_multiple": 1.539,
+     "calmar": 0.52
+    },
+    "valid": {
+     "cagr_pct": 9.15,
+     "max_dd_pct": -8.26,
+     "sharpe": 1.3,
+     "final_multiple": 1.418,
+     "calmar": 1.11
+    },
+    "todo": {
+     "cagr_pct": 7.45,
+     "max_dd_pct": -12.17,
+     "sharpe": 1.01,
+     "final_multiple": 2.202,
+     "calmar": 0.61
+    }
+   },
+   "spy": {
+    "train": {
+     "cagr_pct": 12.49,
+     "max_dd_pct": -18.61,
+     "sharpe": 0.84,
+     "final_multiple": 2.276,
+     "calmar": 0.67
+    },
+    "valid": {
+     "cagr_pct": 15.56,
+     "max_dd_pct": -33.72,
+     "sharpe": 0.82,
+     "final_multiple": 1.781,
+     "calmar": 0.46
+    },
+    "todo": {
+     "cagr_pct": 13.66,
+     "max_dd_pct": -33.72,
+     "sharpe": 0.83,
+     "final_multiple": 4.084,
+     "calmar": 0.41
+    }
+   },
+   "placebo_cagr_mediana": {
+    "train": 8.66,
+    "valid": 8.09,
+    "todo": 6.76
+   },
+   "operaciones_cartera": 97
+  },
+  "criterios": {
+   "N_ge_300": false,
+   "Q1_esperanza_R_positiva": false,
+   "Q2_diferencia_vs_placebo": {
+    "nivel_exigido": 0.95,
+    "low": -0.08000021666068793,
+    "high": 0.46681534109217787,
+    "media": 0.19235699611214185,
+    "pasa": false
+   },
+   "Q3_cartera_sobre_mediana_placebo": false,
+   "riesgo_retorno_vs_spy": true,
+   "periodo_pasa_N_Q1_Q2": false,
+   "Q3_y_riesgo": false
+  },
+  "lectura": {
+   "sesgo_esperanza_placebo_aqui_vs_sp500_pit_0.38R": 0.3887,
+   "diferencia_media_R": 0.19235699611214185,
+   "ic95": [
+    -0.08000021666068793,
+    0.46681534109217787
+   ],
+   "media_positiva_en_ambos_tramos": true,
+   "senal_favorable": false
+  }
+ }
+}
