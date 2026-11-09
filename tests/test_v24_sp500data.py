@@ -18,14 +18,27 @@ def make():
             rows.append((idx[i], t, c[i], c[i] * 1.01, c[i] * 0.99, c[i], 1e6, c[i] * f, 0.0, 0.0, 'yahoo'))
             if t != 'SPY':
                 mem.append((idx[i], t))
-    return (pd.DataFrame(rows, columns=['date', 'ticker', 'open', 'high', 'low', 'close', 'volume', 'adj_close', 'dividends', 'stock_splits', 'source']),
-            pd.DataFrame(mem, columns=['date', 'ticker']))
+    iv = pd.DataFrame([('AAA', idx[0], pd.NaT), ('BBB', idx[0], pd.NaT), ('DEAD', idx[0], idx[249])], columns=['ticker', 'start', 'end'])
+    return (pd.DataFrame(rows, columns=['date', 'ticker', 'open', 'high', 'low', 'close', 'volume', 'adj_close', 'dividends', 'stock_splits', 'source']), iv)
 
 
 class Cargador(unittest.TestCase):
+    def test_pertenencia_desde_intervalos_es_diaria_y_no_se_pierde(self):
+        """Regresión: members.parquet son instantáneas dispersas; la máscara debe salir de los intervalos."""
+        p, iv = make()
+        w, mem, _, info = vb.build_universe(p, iv, min_members=1)
+        self.assertTrue(mem['AAA'].all())                                 # miembro todos los días, sin huecos
+        self.assertTrue(mem['DEAD'].iloc[:250].all() and not mem['DEAD'].iloc[250:].any())
+        self.assertEqual(info['miembros_con_precio_por_dia']['max'], 3)
+
+    def test_rechaza_universo_con_pocos_miembros(self):
+        p, iv = make()
+        with self.assertRaises(ValueError):
+            vb.build_universe(p, iv, min_members=400)
+
     def test_ajuste_pertenencia_y_deslistadas(self):
         p, m = make()
-        w, mem, bench, info = vb.build_universe(p, m, start='2009-06-01')
+        w, mem, bench, info = vb.build_universe(p, m, start='2009-06-01', min_members=1)
         self.assertNotIn('SPY', w['close'].columns)                       # el benchmark no entra en el universo
         self.assertGreater(len(bench), 300)
         self.assertIn('DEAD', w['close'].columns)                         # la deslistada se conserva
@@ -41,7 +54,7 @@ class Cargador(unittest.TestCase):
 
     def test_motor_corre_con_deslistadas_sin_bloqueo(self):
         p, m = make()
-        w, mem, bench, _ = vb.build_universe(p, m)
+        w, mem, bench, _ = vb.build_universe(p, m, min_members=1)
         r = ve.run(w, ve.Cfg(top_in=2, top_out=3, max_pos=2, capital=10000), mem)
         self.assertGreaterEqual(r['cash_end'], 0)
         self.assertTrue((r['equity'].dropna() > 0).all())

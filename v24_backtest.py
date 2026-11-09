@@ -41,7 +41,7 @@ def download_sp500data(tag, dest='/tmp/sp500'):
     import requests
     os.makedirs(dest, exist_ok=True)
     paths, sha = {}, {}
-    for name in ('prices.parquet', 'members.parquet'):
+    for name in ('prices.parquet', 'membership_intervals.parquet'):
         p = f'{dest}/{tag}_{name}'
         if not os.path.exists(p):
             r = requests.get(f'https://github.com/{SP500_REPO}/releases/download/{tag}/{name}', timeout=900)
@@ -52,22 +52,32 @@ def download_sp500data(tag, dest='/tmp/sp500'):
     return paths, sha
 
 
-def load_sp500data(prices_path, members_path, start='2009-06-01', end=None, benchmark='SPY'):
+def load_sp500data(prices_path, intervals_path, start='2009-06-01', end=None, benchmark='SPY'):
     """Lee los parquet y construye el universo (ver build_universe)."""
-    members = pd.read_parquet(members_path)
-    tickers = sorted(members[members['date'] >= pd.Timestamp(start)]['ticker'].unique())
+    iv = pd.read_parquet(intervals_path)
+    last = pd.Timestamp(end) if end else pd.Timestamp('2100-01-01')
+    tickers = sorted(iv[(iv['end'].isna() | (iv['end'] >= pd.Timestamp(start))) & (iv['start'] <= last)]['ticker'].unique())
     d = pd.read_parquet(prices_path, filters=[('date', '>=', pd.Timestamp(start)), ('ticker', 'in', tickers + [benchmark])])
-    return build_universe(d, members, start, end, benchmark)
+    return build_universe(d, iv, start, end, benchmark)
 
 
-def build_universe(d, members, start='2009-06-01', end=None, benchmark='SPY'):
+def membership_mask(iv, index, columns):
+    """Máscara diaria de pertenencia a partir de intervalos [start, end] (end vacío = sigue dentro; fin incluido)."""
+    mem = pd.DataFrame(False, index=index, columns=columns)
+    for t, st, en in iv[iv['ticker'].isin(columns)][['ticker', 'start', 'end']].itertuples(index=False):
+        mem.loc[(index >= st) & (index <= (en if pd.notna(en) else pd.Timestamp('2100-01-01'))), t] = True
+    return mem
+
+
+def build_universe(d, intervals, start='2009-06-01', end=None, benchmark='SPY', min_members=400):
     """Precios OHLC ajustados por dividendos y splits (factor adj_close/close), máscara de pertenencia diaria al
-    S&P 500 (incluye empresas deslistadas) y serie del benchmark."""
-    members = members[members['date'] >= pd.Timestamp(start)]
+    S&P 500 (incluye empresas deslistadas; construida desde intervalos, NO desde members.parquet, que son
+    instantáneas dispersas) y serie del benchmark. Rechaza universos con pocos miembros por día (control de cordura)."""
     d = d[d['date'] >= pd.Timestamp(start)]
     if end:
-        members, d = members[members['date'] <= pd.Timestamp(end)], d[d['date'] <= pd.Timestamp(end)]
-    tickers = sorted(members['ticker'].unique())
+        d = d[d['date'] <= pd.Timestamp(end)]
+    iv = intervals
+    tickers = sorted(iv[(iv['end'].isna() | (iv['end'] >= pd.Timestamp(start)))]['ticker'].unique())
     bench = d[d['ticker'] == benchmark].set_index('date')['adj_close'].sort_index()
     d = d[d['ticker'].isin(tickers)].dropna(subset=['close', 'adj_close'])
     d = d[(d['close'] > 0) & (d['adj_close'] > 0)].copy()
@@ -78,8 +88,13 @@ def build_universe(d, members, start='2009-06-01', end=None, benchmark='SPY'):
     srcs = d['source'].value_counts().to_dict() if 'source' in d else {}
     wide = {k: d.pivot(index='date', columns='ticker', values=k).sort_index() for k in ('open', 'high', 'low', 'close', 'volume')}
     idx, cols = wide['close'].index, wide['close'].columns
-    mem = members.assign(v=True).pivot(index='date', columns='ticker', values='v').reindex(index=idx, columns=cols).fillna(False).astype(bool)
-    return wide, mem, bench, {'filas_precios_usadas': int(len(d)), 'series': int(len(cols)), 'por_fuente': srcs}
+    mem = membership_mask(iv, idx, cols)
+    priced = (mem & wide['close'].notna()).sum(axis=1)
+    info = {'filas_precios_usadas': int(len(d)), 'series': int(len(cols)), 'por_fuente': srcs,
+            'miembros_con_precio_por_dia': {'media': round(float(priced.mean()), 1), 'min': int(priced.min()), 'max': int(priced.max())}}
+    if priced.mean() < min_members:
+        raise ValueError(f'universo inválido: {priced.mean():.0f} miembros con precio por día de media (< {min_members}); {info}')
+    return wide, mem, bench, info
 
 
 def benchmark(spy):
@@ -109,7 +124,7 @@ def main():
     meta = {}
     if a.source == 'sp500data':
         paths, sha = download_sp500data(a.tag)
-        p, member, spy, info = load_sp500data(paths['prices.parquet'], paths['members.parquet'], a.start)
+        p, member, spy, info = load_sp500data(paths['prices.parquet'], paths['membership_intervals.parquet'], a.start)
         keep = list(p['close'].columns)
         meta = {'fuente': 'sp500data', 'tag': a.tag, 'sha256': sha, **info,
                 'nota': 'S&P 500 point-in-time con deslistadas; sin licencia explícita en el repositorio; no verificado de forma independiente'}
