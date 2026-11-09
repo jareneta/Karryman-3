@@ -10,6 +10,22 @@ on:
         description: 'Semilla de la muestra'
         required: false
         default: '42'
+      capital:
+        description: 'Capital inicial en dólares'
+        required: false
+        default: '3000'
+      fee_min:
+        description: 'Comisión mínima por orden (hipotética)'
+        required: false
+        default: '1.0'
+      min_order:
+        description: 'Importe mínimo por orden'
+        required: false
+        default: '100'
+      fractional:
+        description: 'Acciones fraccionarias (true/false)'
+        required: false
+        default: 'false'
 permissions:
   contents: read
 jobs:
@@ -28,7 +44,13 @@ jobs:
         env:
           SYMBOLS: ${{ inputs.symbols }}
           SEED: ${{ inputs.seed }}
-        run: python v24_backtest.py --symbols "$SYMBOLS" --seed "$SEED" --output data/v24_results.json
+          CAPITAL: ${{ inputs.capital }}
+          FEE_MIN: ${{ inputs.fee_min }}
+          MIN_ORDER: ${{ inputs.min_order }}
+          FRACTIONAL: ${{ inputs.fractional }}
+        run: |
+          F=""; [ "$FRACTIONAL" = "true" ] && F="--fractional"
+          python v24_backtest.py --symbols "$SYMBOLS" --seed "$SEED" --capital "$CAPITAL" --fee-min "$FEE_MIN" --min-order "$MIN_ORDER" $F --output data/v24_results.json
       - uses: actions/upload-artifact@v4
         if: always()
         with:

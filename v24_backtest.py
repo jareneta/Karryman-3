@@ -48,6 +48,10 @@ def main():
     ap.add_argument('--seed', type=int, default=42)
     ap.add_argument('--start', default='2009-06-01')
     ap.add_argument('--output', default='data/v24_results.json')
+    ap.add_argument('--capital', type=float, default=3000)
+    ap.add_argument('--fee-min', type=float, default=1.0)
+    ap.add_argument('--min-order', type=float, default=100.0)
+    ap.add_argument('--fractional', action='store_true')
     a = ap.parse_args()
     t0 = time.time()
     names = sb.universe()
@@ -58,7 +62,7 @@ def main():
     p = to_wide({t: frames[t] for t in keep})
     member = liquidity_member(p)
     print(f'Series: {len(keep)} · desde {p["close"].index[0].date()} hasta {p["close"].index[-1].date()} · {time.time()-t0:.0f}s', flush=True)
-    base = ve.Cfg(capital=3000, fee_min=1.0, min_order=100, rank_every=1)
+    base = ve.Cfg(capital=a.capital, fee_min=a.fee_min, min_order=a.min_order, fractional=a.fractional, rank_every=1)
     models = {
         'v24_base_sin_proteccion': replace(base, protection='none'),
         'v24_freno_fijo_8_50': replace(base, protection='fixed'),
@@ -67,7 +71,8 @@ def main():
         'v24_progresiva_ma100': replace(base, protection='progressive', ma100_guard=True),
         'v24_progresiva_rank_mensual': replace(base, protection='progressive', rank_every=21),
     }
-    out = {'universo': {'series': len(keep), 'nota': 'acciones cotizadas hoy: sesgo de supervivencia; filtro de liquidez vigente día a día'},
+    out = {'parametros': {'capital': a.capital, 'fee_min': a.fee_min, 'min_order': a.min_order, 'fractional': a.fractional, 'symbols': a.symbols, 'seed': a.seed},
+           'universo': {'series': len(keep), 'nota': 'acciones cotizadas hoy: sesgo de supervivencia; filtro de liquidez vigente día a día'},
            'modelos': {}, 'comisiones': [], 'benchmark_spy': benchmark(spy)}
     runs = {}
     for name, cfg in models.items():
@@ -76,7 +81,7 @@ def main():
         m = out['modelos'][name]['todo']
         print(f'{name}: CAGR {m["cagr_pct"]}% · DD {m["max_dd_pct"]}% · Sharpe {m["sharpe"]} · órdenes {m["orders"]} · {time.time()-t0:.0f}s', flush=True)
     cfg = replace(base, protection='progressive', band=0.10)
-    out['comisiones'] = json.loads(ve.fee_sensitivity(p, cfg, fees=(0.35, 0.50, 1.00), min_order=100.0, member=member).to_json(orient='records'))
+    out['comisiones'] = json.loads(ve.fee_sensitivity(p, cfg, fees=(0.35, 0.50, 1.00), min_order=a.min_order, member=member).to_json(orient='records'))
     r = runs['v24_progresiva_banda10']
     tr = r['trades']
     gaps = tr.date.sort_values().diff().dt.days.dropna()
