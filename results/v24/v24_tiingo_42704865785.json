@@ -1,0 +1,78 @@
+{
+ "commit": "e5d8aebd347fa8d4b2b3e7990ab7be382bd12d07",
+ "lista_publica": {
+  "http": 200,
+  "bytes": 800667,
+  "columnas": [
+   "ticker",
+   "exchange",
+   "assetType",
+   "priceCurrency",
+   "startDate",
+   "endDate"
+  ],
+  "filas": 109230,
+  "por_assetType": {
+   "Mutual Fund": 49880,
+   "Stock": 49438,
+   "ETF": 9912
+  },
+  "por_exchange": {
+   "NMFQS": 49827,
+   "PINK": 20410,
+   "NASDAQ": 11118,
+   "NYSE": 9259,
+   "SHE": 3827,
+   "SHG": 3455,
+   "OTCMKTS": 2458,
+   "BATS": 2085,
+   "NYSE ARCA": 1649,
+   "OTCGREY": 1575,
+   "EXPM": 920,
+   "OTCBB": 602,
+   "OTCQB": 468,
+   "OTCCE": 389,
+   "AMEX": 376
+  },
+  "fecha_final_maxima_en_lista": "2026-11-09",
+  "acciones_us": {
+   "total": 16608,
+   "activas": 8266,
+   "deslistadas_o_inactivas": 8342,
+   "primer_inicio": "1962-01-02"
+  },
+  "acciones_us_cotizando_el_1_enero": {
+   "2000": 2412,
+   "2005": 3186,
+   "2010": 4202,
+   "2015": 5530,
+   "2020": 6007
+  },
+  "deslistadas_por_ano_de_fin": {
+   "2006": 1,
+   "2007": 2,
+   "2008": 5,
+   "2009": 41,
+   "2010": 45,
+   "2011": 77,
+   "2012": 55,
+   "2013": 143,
+   "2014": 151,
+   "2015": 299,
+   "2016": 429,
+   "2017": 612,
+   "2018": 609,
+   "2019": 550,
+   "2020": 540,
+   "2021": 885,
+   "2022": 1000,
+   "2023": 1165,
+   "2024": 603,
+   "2025": 433,
+   "2026": 696
+  }
+ },
+ "precios_con_clave": {
+  "estado": "sin clave (TIINGO_API_KEY no definida): prueba de precios no ejecutada"
+ }
+}
