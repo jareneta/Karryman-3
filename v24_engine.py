@@ -61,6 +61,7 @@ class Cfg:
     reject_prob: float = 0.0
     seed: int = 1
     score_mode: str = 'momentum'          # 'momentum' | 'random' (control/placebo: mismo universo y mismas reglas, ranking aleatorio)
+    equal_over_selected: bool = False     # peso = exposición / nº de seleccionados (cartera igualponderada de todo el universo)
     score_block: int = 21                 # el ranking aleatorio se redibuja cada `score_block` sesiones
 
 
@@ -139,7 +140,7 @@ def select(rk, ext_i, held, cool, i, cfg, rebalance=True):
     return sel
 
 
-def run(prices, cfg=None, member=None):
+def run(prices, cfg=None, member=None, market_on=None):
     """prices: dict de DataFrames fecha x ticker con open, high, low, close (y volume opcional).
     member: DataFrame booleano fecha x ticker con el universo vigente cada día (pertenencia histórica)."""
     cfg = cfg or Cfg()
@@ -148,6 +149,11 @@ def run(prices, cfg=None, member=None):
     dates, cols = prices['close'].index, prices['close'].columns
     T, N = C.shape
     mom, ema, atr = indicators(prices, cfg)
+    if cfg.score_mode == 'mom_12_1':           # H1: rentabilidad entre t-252 y t-21 (se omite el último mes)
+        cl = prices['close']
+        mom = (cl.shift(21) / cl.shift(252) - 1).where(cl.notna())
+    elif cfg.score_mode == 'lowvol':           # H2: menor volatilidad de 63 sesiones = mejor
+        mom = -(prices['close'].pct_change(fill_method=None).rolling(63, min_periods=63).std()).where(prices['close'].notna())
     if cfg.score_mode == 'random':
         rg = np.random.default_rng(cfg.seed)
         blocks = rg.normal(size=(T // cfg.score_block + 1, N))
@@ -170,7 +176,7 @@ def run(prices, cfg=None, member=None):
     eq = np.full(T, np.nan)
     expo = np.full(T, np.nan)
     trades = []
-    i0 = max(cfg.mom_n, cfg.ema_n, cfg.atr_n, cfg.vol_n) + 2
+    i0 = max(cfg.mom_n, cfg.ema_n, cfg.atr_n, cfg.vol_n, 253 if cfg.score_mode == 'mom_12_1' else 0) + 2
     for i in range(T):
         px_c = np.where(np.isnan(C[i]), lastpx, C[i])
         lastpx = px_c
@@ -190,6 +196,8 @@ def run(prices, cfg=None, member=None):
         if cfg.ma100_guard and i >= cfg.ma_n and eq[i] < np.nanmean(eq[i - cfg.ma_n + 1:i + 1]):
             cap = min(cap, cfg.ma_cap)
         exposure = min(scale, cap, 1.0)
+        if market_on is not None and not market_on[i]:
+            exposure = 0.0                       # filtro de mercado: en efectivo (señal al cierre i, orden en la apertura i+1)
         expo[i] = exposure
         risk_cut = exposure < prev_exp - 1e-9
         prev_exp = exposure
@@ -197,7 +205,7 @@ def run(prices, cfg=None, member=None):
         if cfg.min_order > 0:
             n_slots = max(1, min(cfg.max_pos, int(exposure * eq[i] // cfg.min_order)))
         targets = sel[:n_slots]
-        per = exposure * eq[i] / n_slots
+        per = exposure * eq[i] / (len(targets) if cfg.equal_over_selected and targets else n_slots)
         # ---- C. ejecución en la apertura de i+1
         o = O[i + 1]
         tv = np.zeros(N)

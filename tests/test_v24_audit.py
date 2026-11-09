@@ -200,6 +200,65 @@ class Placebo(unittest.TestCase):
         self.assertGreater(len(r1['trades']), 10)
 
 
+class Hipotesis(unittest.TestCase):
+    def test_h1_mom_12_1_referencia(self):
+        p = U(T=600)
+        C = p['close'].to_numpy()
+        # el motor usa la puntuación internamente; se verifica de forma indirecta con una cartera de 1 posición
+        r = ve.run(p, ve.Cfg(score_mode='mom_12_1', rank_every=21, top_in=1, top_out=1, max_pos=1, atr_mult=1e9, vol_target=10.0,
+                             protection='none', capital=100000, fractional=True))
+        tr = r['trades']
+        self.assertGreater(len(tr), 0)
+        first = tr[tr.kind == 'BUY_NEW'].iloc[0]
+        d0 = p['close'].index.get_loc(first.date) - 1                     # sesión de la señal
+        ref = C[d0 - 21] / C[d0 - 252] - 1
+        self.assertEqual(first.ticker, p['close'].columns[int(np.nanargmax(ref))])
+        self.assertGreaterEqual(d0, 253)
+
+    def test_h2_baja_volatilidad_elige_la_menos_volatil(self):
+        p = U(T=600)
+        r = ve.run(p, ve.Cfg(score_mode='lowvol', rank_every=21, top_in=1, top_out=1, max_pos=1, atr_mult=1e9, vol_target=10.0,
+                             protection='none', capital=100000, fractional=True))
+        first = r['trades'][r['trades'].kind == 'BUY_NEW'].iloc[0]
+        d0 = p['close'].index.get_loc(first.date) - 1
+        ret = np.diff(p['close'].to_numpy(), axis=0) / p['close'].to_numpy()[:-1]
+        vol = ret[d0 - 63:d0].std(axis=0, ddof=1)                          # 63 rentabilidades hasta el cierre d0
+        self.assertEqual(first.ticker, p['close'].columns[int(np.argmin(vol))])
+
+    def test_filtro_de_mercado_deja_la_cartera_en_efectivo(self):
+        p = U(T=700)
+        on = np.ones(700, bool)
+        on[300:400] = False
+        r = ve.run(p, ve.Cfg(capital=100000, fractional=True, protection='none', vol_target=10.0), market_on=on)
+        q = r['trades']
+        held = {}
+        for _, t in q.iterrows():
+            held[t.ticker] = held.get(t.ticker, 0) + (t.qty if t.kind.startswith('BUY') else -t.qty)
+        day = p['close'].index[320]
+        pos = q[q.date <= day].assign(s=lambda x: np.where(x.kind.str.startswith('BUY'), x.qty, -x.qty)).groupby('ticker')['s'].sum()
+        self.assertTrue((pos.abs() < 1e-6).all())                          # sin posiciones durante el filtro apagado
+        self.assertGreater(len(q[q.date > p['close'].index[405]]), 0)       # vuelve a invertir después
+
+    def test_igualponderada_de_todo_el_universo_suma_la_exposicion(self):
+        p = U(n=30, T=500)
+        r = ve.run(p, ve.Cfg(capital=100000, fractional=True, protection='none', vol_target=10.0, top_in=30, top_out=30, max_pos=30,
+                             atr_mult=1e9, equal_over_selected=True, rank_every=21, slip_bps=0, fee_per_share=0.0))
+        inv = 1 - r['cash_end'] / r['equity'].iloc[-1]
+        self.assertGreater(inv, 0.97)                                      # prácticamente todo invertido
+
+    def test_sin_futuro_con_filtro_y_puntuaciones_nuevas(self):
+        p = U(T=700)
+        for mode in ('mom_12_1', 'lowvol'):
+            a = ve.run(p, ve.Cfg(score_mode=mode, rank_every=21, atr_mult=1e9))
+            q = {k: v.copy() for k, v in p.items()}
+            for k in ('open', 'high', 'low', 'close'):
+                q[k].iloc[560:] *= 2.0
+            b = ve.run(q, ve.Cfg(score_mode=mode, rank_every=21, atr_mult=1e9))
+            cut = p['close'].index[558]
+            pd.testing.assert_frame_equal(a['trades'][a['trades'].date <= cut].reset_index(drop=True),
+                                          b['trades'][b['trades'].date <= cut].reset_index(drop=True))
+
+
 class Riesgo(unittest.TestCase):
     def test_exposicion_nunca_supera_100_ni_cae_de_35_con_proteccion_progresiva(self):
         p = U(T=900)

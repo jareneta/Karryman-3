@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'backtest | fuentes | tests'
+        description: 'backtest | fuentes | tests | hipotesis'
         required: false
         default: 'backtest'
       symbols:
@@ -66,6 +66,9 @@ jobs:
         run: |
           F=""; [ "$FRACTIONAL" = "true" ] && F="--fractional"
           python v24_backtest.py --symbols "$SYMBOLS" --seed "$SEED" --capital "$CAPITAL" --fee-min "$FEE_MIN" --min-order "$MIN_ORDER" --source "$SOURCE" --tag "$TAG" $F --output data/v24_results.json
+      - name: Contraste de hipótesis registradas H1-H4 (prueba final bloqueada)
+        if: ${{ inputs.mode == 'hipotesis' }}
+        run: python v24_hipotesis.py --output data/v24_hipotesis.json
       - name: Sondeo de fuentes de datos con deslistadas (investigación)
         if: ${{ inputs.mode == 'fuentes' }}
         env:
