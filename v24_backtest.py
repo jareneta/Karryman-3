@@ -134,6 +134,11 @@ def main():
         'v24_progresiva_banda10': replace(base, protection='progressive', band=0.10),
         'v24_progresiva_ma100': replace(base, protection='progressive', ma100_guard=True),
         'v24_progresiva_rank_mensual': replace(base, protection='progressive', rank_every=21),
+        # --- controles: mismo universo, costes y reglas de riesgo; solo cambia el ranking ---
+        'control_v24_base_rank_mensual': replace(base, protection='none', rank_every=21),
+        'control_placebo_aleatorio_mensual_s1': replace(base, protection='none', rank_every=21, score_mode='random', seed=1),
+        'control_placebo_aleatorio_mensual_s2': replace(base, protection='none', rank_every=21, score_mode='random', seed=2),
+        'control_placebo_aleatorio_mensual_s3': replace(base, protection='none', rank_every=21, score_mode='random', seed=3),
     }
     import os as _os
     out = {'commit': _os.environ.get('GITHUB_SHA'), 'parametros': {'capital': a.capital, 'fee_min': a.fee_min, 'min_order': a.min_order, 'fractional': a.fractional, 'symbols': a.symbols, 'seed': a.seed},
@@ -146,6 +151,14 @@ def main():
         out['modelos'][name] = {seg: ve.metrics(runs[name], s, e) for seg, (s, e) in SEGS.items()}
         m = out['modelos'][name]['todo']
         print(f'{name}: CAGR {m["cagr_pct"]}% · DD {m["max_dd_pct"]}% · Sharpe {m["sharpe"]} · órdenes {m["orders"]} · {time.time()-t0:.0f}s', flush=True)
+    # control del dato: cartera igualponderada de todos los miembros del día anterior, rebalanceo diario (sin costes)
+    ew = None
+    if a.source == 'sp500data':
+        r_ = p['close'].pct_change(fill_method=None)
+        w_ = member.shift(1, fill_value=False) & r_.notna()
+        ew_ret = r_.where(w_).mean(axis=1).fillna(0.0)
+        ew = (1 + ew_ret).cumprod()
+        out['control_igualponderado_sp500'] = benchmark(ew.loc[ew.index >= pd.Timestamp('2010-01-01')])
     cfg = replace(base, protection='progressive', band=0.10)
     out['comisiones'] = json.loads(ve.fee_sensitivity(p, cfg, fees=(0.35, 0.50, 1.00), min_order=a.min_order, member=member).to_json(orient='records'))
     r = runs['v24_progresiva_banda10']

@@ -60,6 +60,8 @@ class Cfg:
     adv_frac: float | None = None         # máximo % del volumen medio de 20 sesiones por orden
     reject_prob: float = 0.0
     seed: int = 1
+    score_mode: str = 'momentum'          # 'momentum' | 'random' (control/placebo: mismo universo y mismas reglas, ranking aleatorio)
+    score_block: int = 21                 # el ranking aleatorio se redibuja cada `score_block` sesiones
 
 
 def cap_from_dd(dd):
@@ -146,6 +148,10 @@ def run(prices, cfg=None, member=None):
     dates, cols = prices['close'].index, prices['close'].columns
     T, N = C.shape
     mom, ema, atr = indicators(prices, cfg)
+    if cfg.score_mode == 'random':
+        rg = np.random.default_rng(cfg.seed)
+        blocks = rg.normal(size=(T // cfg.score_block + 1, N))
+        mom = pd.DataFrame(blocks[np.arange(T) // cfg.score_block], index=dates, columns=cols).where(mom.notna())
     ext = (prices['close'] > ema + cfg.atr_mult * atr).to_numpy()
     elig = mom.notna() & prices['close'].notna()
     if member is not None:

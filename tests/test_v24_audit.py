@@ -188,6 +188,18 @@ class Ejecucion(unittest.TestCase):
         self.assertAlmostEqual(val, r['equity'].iloc[-1], delta=1e-6 * val)
 
 
+class Placebo(unittest.TestCase):
+    def test_ranking_aleatorio_no_usa_precios(self):
+        p = U(T=600)
+        r1 = ve.run(p, ve.Cfg(score_mode='random', rank_every=21, seed=5))
+        q = {k: v.copy() for k, v in p.items()}
+        r2 = ve.run(q, ve.Cfg(score_mode='random', rank_every=21, seed=5))
+        pd.testing.assert_frame_equal(r1['trades'].reset_index(drop=True), r2['trades'].reset_index(drop=True))
+        r3 = ve.run(p, ve.Cfg(score_mode='random', rank_every=21, seed=6))
+        self.assertFalse(r1['trades'].equals(r3['trades']))               # otra semilla, otra selección
+        self.assertGreater(len(r1['trades']), 10)
+
+
 class Riesgo(unittest.TestCase):
     def test_exposicion_nunca_supera_100_ni_cae_de_35_con_proteccion_progresiva(self):
         p = U(T=900)
