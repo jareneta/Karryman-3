@@ -1,0 +1,175 @@
+{
+ "commit": "7978a901334f1c4f5c9d029dc3075680adc3435a",
+ "registro": "docs/V24_H5_PLAN_HTML.md",
+ "datos": {
+  "tag": "snapshot-2026-11",
+  "sha256": {
+   "prices.parquet": "7b58eeafc855a502469fc5090eb703f76516172deebe13d51609fd6eb2c5f3f5",
+   "membership_intervals.parquet": "1e22ffca5e15d52872912413c55e64ead85bbb835e2148f5bbaaf84f33ea7cd0"
+  },
+  "filas_precios_usadas": 2352660,
+  "series": 824,
+  "por_fuente": {
+   "yahoo": 1767782,
+   "tiingo": 396299,
+   "wiki": 117475,
+   "crsp": 59332,
+   "kaggle": 7513,
+   "kaggle-splice": 2476,
+   "archive-tsaustin": 1321,
+   "crsp-patch": 259,
+   "archive-patch": 187,
+   "nasdaq-patch": 9,
+   "wiki-patch": 5,
+   "tiingo-patch": 2
+  },
+  "miembros_con_precio_por_dia": {
+   "media": 502.1,
+   "min": 498,
+   "max": 508
+  },
+  "ultimo_dia_cargado": "2020-12-31",
+  "bloqueo": "datos posteriores a 2020-12-31 no cargados"
+ },
+ "operaciones": {
+  "train": {
+   "trades": 4372,
+   "expectancy_R": 1.5276,
+   "ci95_R": [
+    1.4005,
+    1.6634
+   ],
+   "win_rate_pct": 40.1
+  },
+  "valid": {
+   "trades": 2063,
+   "expectancy_R": 0.2834,
+   "ci95_R": [
+    0.1762,
+    0.393
+   ],
+   "win_rate_pct": 33.4
+  },
+  "todo_2010_2020": {
+   "trades": 6435,
+   "expectancy_R": 1.1287,
+   "ci95_R": [
+    1.0303,
+    1.2255
+   ],
+   "win_rate_pct": 38.0
+  }
+ },
+ "placebo_agrupado": {
+  "train": {
+   "trades": 58040,
+   "expectancy_R": 1.4317,
+   "ci95_R": [
+    1.348,
+    1.5182
+   ],
+   "win_rate_pct": 35.2
+  },
+  "valid": {
+   "trades": 33300,
+   "expectancy_R": 0.3176,
+   "ci95_R": [
+    0.2703,
+    0.3668
+   ],
+   "win_rate_pct": 33.7
+  },
+  "todo_2010_2020": {
+   "trades": 91340,
+   "expectancy_R": 1.0255,
+   "ci95_R": [
+    0.9714,
+    1.083
+   ],
+   "win_rate_pct": 34.7
+  }
+ },
+ "cartera": {
+  "h5": {
+   "train": {
+    "cagr_pct": 7.44,
+    "max_dd_pct": -12.27,
+    "sharpe": 0.92,
+    "final_multiple": 1.651,
+    "calmar": 0.61
+   },
+   "valid": {
+    "cagr_pct": 8.74,
+    "max_dd_pct": -9.54,
+    "sharpe": 1.01,
+    "final_multiple": 1.397,
+    "calmar": 0.92
+   },
+   "todo_2010_2020": {
+    "cagr_pct": 7.94,
+    "max_dd_pct": -12.27,
+    "sharpe": 0.96,
+    "final_multiple": 2.316,
+    "calmar": 0.65
+   }
+  },
+  "spy": {
+   "train": {
+    "cagr_pct": 12.49,
+    "max_dd_pct": -18.61,
+    "sharpe": 0.84,
+    "final_multiple": 2.276,
+    "calmar": 0.67
+   },
+   "valid": {
+    "cagr_pct": 15.71,
+    "max_dd_pct": -33.7,
+    "sharpe": 0.83,
+    "final_multiple": 1.791,
+    "calmar": 0.47
+   },
+   "todo_2010_2020": {
+    "cagr_pct": 13.72,
+    "max_dd_pct": -33.7,
+    "sharpe": 0.83,
+    "final_multiple": 4.107,
+    "calmar": 0.41
+   }
+  },
+  "placebo_cagr_mediana": {
+   "train": 7.46,
+   "valid": 9.45,
+   "todo_2010_2020": 7.89
+  },
+  "placebo_cagr_rango": {
+   "train": [
+    4.4,
+    10.73
+   ],
+   "valid": [
+    3.6,
+    13.75
+   ],
+   "todo_2010_2020": [
+    5.35,
+    11.32
+   ]
+  },
+  "operaciones_cartera": 49
+ },
+ "criterios": {
+  "N_operaciones_ge_300": true,
+  "Q1_esperanza_R_positiva": true,
+  "Q2_ic95_diferencia_vs_placebo": {
+   "low": -0.008086893220913181,
+   "high": 0.21866935588083672,
+   "media": 0.10318206536734387,
+   "pasa": false
+  },
+  "Q3_supera_al_indice_en_riesgo_retorno": true,
+  "Q4_cartera_sobre_mediana_placebo_en_train_y_valid": false,
+  "candidata": false,
+  "supera_al_indice": false,
+  "inconclusivo_por_pocas_operaciones": false
+ }
+}
