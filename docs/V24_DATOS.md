@@ -47,3 +47,19 @@ día (mín. 499, máx. 509) entre 2009 y 2026, y la cartera igualponderada de lo
 Usar `sp500data` como **universo de investigación** (S&P 500 point-in-time) mientras se aclara la licencia, registrando `tag` y
 SHA-256 en cada resultado. Para decidir con dinero real haría falta un contraste independiente de precios (p. ej. IBKR o un proveedor
 de pago) de una muestra de valores y fechas.
+
+## 4. Tiingo (sondeo del 2026-11-09; `results/v24/v24_tiingo_42704865785.json` y `v24_tiingo_42706721641.json`)
+**Lista pública (`supported_tickers.zip`, sin clave):** 16.608 acciones de bolsas de EE. UU. con fechas de inicio y fin (8.266 activas, 8.342 inactivas).
+Cotizando a 1 de enero: 2.412 (2000), 3.186 (2005), 4.202 (2010), 5.530 (2015), 6.007 (2020). Deslistadas por año de fin: 5 (2008), 41 (2009), 45 (2010),
+143 (2013), 612 (2017), 1.165 (2023). **Antes de ~2010 hay muy pocas deslistadas (a mi recuerdo, sin comprobar, en 2000 cotizaban más de 7.000 empresas):
+el sesgo de supervivencia seguiría presente en ese tramo.**
+
+**Precios con clave (25 deslistadas al azar con fin 2010-2024):** 25/25 devolvieron datos (HTTP 200, 0,1-0,4 s por petición, sin 429 ni cabeceras de límite
+observadas). Campos: open/high/low/close/volume, versiones ajustadas (`adj*`), `divCash`, `splitFactor`. Empresas reales con histórico desde 2009 hasta su fin
+(p. ej. CYBX, SAFM, MWIV, MSON). **Hallazgos de higiene de datos:**
+- La mayoría de la muestra son instrumentos que no son acciones ordinarias: warrants (`-WS`, `...W`), unidades (`-U`, `...U`), derechos (`...R`), preferentes (`AES-P-C`), SPAC.
+  La lista no distingue tipos; haría falta filtrarlos.
+- **Tickers reutilizados:** `POM` figura como finalizado en 2016-04-01 pero sus precios empiezan en 2026-10-21; `AZ`, `ADSE` y `DSACU` tienen precios que no coinciden con las fechas
+  de la lista. Hay que validar las fechas de cada serie antes de usarla (si no, se mezclan empresas distintas).
+- Límites de la capa gratuita (peticiones/hora, símbolos únicos al mes) y precios de planes de pago: **no verificados**. No se pudo leer la página de precios desde el entorno
+  de trabajo (dominio no permitido) y no se han tomado cifras de memoria; consultar tiingo.com/about/pricing.
