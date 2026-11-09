@@ -46,10 +46,11 @@ def prepare_all(p, member, bench):
     return prepared, regime
 
 
-def run_period(prepared, regime, bench, segs, level_diff, tag):
+def run_period(prepared, regime, bench, segs, level_diff, tag, cfg=None):
+    cfg = cfg or CFG
     full = (segs[0][1][0], segs[-1][1][1])
-    tr = h5.in_win(sb.simulate_independent(prepared, CFG, regime), full)
-    plc = pd.concat([h5.in_win(sb.simulate_independent(prepared, replace(CFG, placebo=True, name=f'p{s}'), regime, seed=s), full) for s in range(1, N_PLACEBO + 1)])
+    tr = h5.in_win(sb.simulate_independent(prepared, cfg, regime), full)
+    plc = pd.concat([h5.in_win(sb.simulate_independent(prepared, replace(cfg, placebo=True, name=f'p{s}'), regime, seed=s), full) for s in range(1, N_PLACEBO + 1)])
     res = {'operaciones': {k: h5.rstats(h5.in_win(tr, w).r) for k, w in segs + [('todo', full)]},
            'placebo_agrupado': {k: h5.rstats(h5.in_win(plc, w).r) for k, w in segs + [('todo', full)]}}
     n_ok = len(tr) >= 300
@@ -63,8 +64,8 @@ def run_period(prepared, regime, bench, segs, level_diff, tag):
     else:
         lo, hi, mean = float('nan'), float('nan'), float('nan')
     start, end = pd.Timestamp(full[0]), pd.Timestamp(full[1])
-    eq, ntr = sb.simulate_portfolio(prepared, CFG, regime, start, end)
-    peq = [sb.simulate_portfolio(prepared, replace(CFG, placebo=True), regime, start, end, seed=s)[0] for s in range(1, N_PLACEBO + 1)]
+    eq, ntr = sb.simulate_portfolio(prepared, cfg, regime, start, end)
+    peq = [sb.simulate_portfolio(prepared, replace(cfg, placebo=True), regime, start, end, seed=s)[0] for s in range(1, N_PLACEBO + 1)]
     spyc = bench[(bench.index >= start) & (bench.index <= end)]
     wins = segs + [('todo', full)]
     res['cartera'] = {'h7': {k: h5.curve(h5.sl(eq, w)) for k, w in wins}, 'spy': {k: h5.curve(h5.sl(spyc, w)) for k, w in wins},

@@ -56,7 +56,7 @@ class Config:
     rs_min: float = 0.0
     near_high: float = 0.85
     placebo: bool = False
-    entry: str = 'pivot30'        # pivot30 | base (VCP/asa, disparo diario) | base_weekly (cierre semanal)
+    entry: str = 'pivot30'        # pivot30 | base (VCP/asa, disparo diario) | base_weekly (cierre semanal) | kell (Wedge Pop + EMA Crossback)
     min_base_weeks: int = 5
     max_base_depth: float = 0.35
     min_prior_advance: float = 0.30
@@ -247,6 +247,23 @@ def signals(d, cfg, regime, rng=None):
         if len(idx) and rng is not None:
             for i in rng.choice(idx, size=max(1, len(idx) // 120), replace=False):
                 out.append((int(i), 'placebo', float(c.iloc[i]) * (1 + cfg.max_chase), float(d.low10.iloc[i]), 0.0))
+        return out
+    if cfg.entry == 'kell':
+        # Patrones tipo Oliver Kell (docs/V24_H8_KELL.md): Wedge Pop y EMA Crossback, siempre con datos hasta el cierre de i.
+        o, h, lo, e10, e20 = d.Open, d.High, d.Low, d.ema10, d.ema20
+        rng5 = (h.shift(1).rolling(5).max() - lo.shift(1).rolling(5).min()) / c.shift(1)
+        conv = (e10.shift(1) / e20.shift(1) - 1).abs() <= 0.02
+        wp = (base & (rng5 <= 0.10) & conv & (c.shift(1) <= np.maximum(e10.shift(1), e20.shift(1))) & (c > e10) & (c > e20)
+              & (v >= 1.2 * d.vol50) & (c > o) & (c >= lo + 0.5 * (h - lo)))
+        hi50 = h.shift(1).rolling(50).max()
+        low3 = lo.rolling(3).min()
+        ec = (base & (e20 > e20.shift(5)) & (h.rolling(15).max() >= 0.98 * hi50) & (low3 <= 1.01 * e20)
+              & (c.shift(1) <= e10.shift(1)) & (c > e10) & (c > o) & (c > h.shift(1)))
+        wpv, ecv = wp.fillna(False).values, ec.fillna(False).values
+        for i in np.flatnonzero(wpv | ecv):
+            kind = 'wedge_pop' if wpv[i] else 'crossback'
+            stop = float(lo.iloc[i]) if wpv[i] else float(low3.iloc[i])
+            out.append((int(i), kind, float(c.iloc[i]), stop, float(d.rs_rank.iloc[i]) if d.rs_rank.notna().iloc[i] else float(d.rs.iloc[i])))
         return out
     if cfg.entry in ('base', 'base_weekly'):
         common = (base & (d.prior_adv >= cfg.min_prior_advance))
