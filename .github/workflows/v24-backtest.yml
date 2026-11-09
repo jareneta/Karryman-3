@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | h5 | h6'
+        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6'
         required: false
         default: 'backtest'
       symbols:
@@ -78,6 +78,11 @@ jobs:
       - name: Contraste de H6, momentum 63 sesiones (prueba final bloqueada)
         if: ${{ inputs.mode == 'h6' }}
         run: python v24_h6.py --output data/v24_h6.json
+      - name: Límites y calidad de Tiingo para un universo amplio (no guarda precios)
+        if: ${{ inputs.mode == 'tiingo_limites' }}
+        env:
+          TIINGO_API_KEY: ${{ secrets.TIINGO_API_KEY }}
+        run: python tiingo_limits.py data/v24_tiingo_limites.json
       - name: Sondeo de Tiingo (lista pública y, si hay clave, precios de deslistadas)
         if: ${{ inputs.mode == 'tiingo' }}
         env:
