@@ -1,0 +1,108 @@
+{
+ "commit": "56f8d1e6ada7ef3d523f8e66d9a9df7654b57d7a",
+ "registro": "docs/V24_REPLICA_H2.md",
+ "datos": {
+  "tag": "snapshot-2026-11",
+  "sha256": {
+   "prices.parquet": "7b58eeafc855a502469fc5090eb703f76516172deebe13d51609fd6eb2c5f3f5",
+   "membership_intervals.parquet": "1e22ffca5e15d52872912413c55e64ead85bbb835e2148f5bbaaf84f33ea7cd0"
+  },
+  "filas_precios_usadas": 2461825,
+  "series": 913,
+  "por_fuente": {
+   "yahoo": 1195374,
+   "crsp": 679375,
+   "tiingo": 361873,
+   "wiki": 158560,
+   "crsp-splice": 42412,
+   "crsp-patch": 13282,
+   "kaggle": 7052,
+   "kaggle-splice": 3486,
+   "archive-tsaustin": 293,
+   "archive-patch": 89,
+   "carried-patch": 29
+  },
+  "miembros_con_precio_por_dia": {
+   "media": 500.0,
+   "min": 498,
+   "max": 507
+  },
+  "primer_dia": "1996-01-02",
+  "ultimo_dia_cargado": "2009-12-31"
+ },
+ "spy": {
+  "P1_1997_2002": {
+   "cagr_pct": 4.32,
+   "max_dd_pct": -47.5,
+   "sharpe": 0.301,
+   "calmar": 0.09
+  },
+  "P2_2003_2009": {
+   "cagr_pct": 4.94,
+   "max_dd_pct": -55.2,
+   "sharpe": 0.331,
+   "calmar": 0.09
+  },
+  "todo_1997_2009": {
+   "cagr_pct": 4.91,
+   "max_dd_pct": -55.2,
+   "sharpe": 0.328,
+   "calmar": 0.09
+  }
+ },
+ "h2": {
+  "P1_1997_2002": {
+   "cagr_pct": 5.7,
+   "max_dd_pct": -26.61,
+   "sharpe": 0.551,
+   "calmar": 0.21,
+   "orders": 16277,
+   "avg_exposure_pct": 100.0
+  },
+  "P2_2003_2009": {
+   "cagr_pct": 4.38,
+   "max_dd_pct": -34.55,
+   "sharpe": 0.409,
+   "calmar": 0.13,
+   "orders": 21900,
+   "avg_exposure_pct": 100.0
+  },
+  "todo_1997_2009": {
+   "cagr_pct": 5.09,
+   "max_dd_pct": -34.55,
+   "sharpe": 0.479,
+   "calmar": 0.15,
+   "orders": 38177,
+   "avg_exposure_pct": 100.0
+  }
+ },
+ "placebos": {
+  "P1_1997_2002": {
+   "cagr_mediana": 3.71,
+   "cagr_min": 0.06,
+   "cagr_max": 7.27
+  },
+  "P2_2003_2009": {
+   "cagr_mediana": 5.94,
+   "cagr_min": 2.99,
+   "cagr_max": 8.97
+  },
+  "todo_1997_2009": {
+   "cagr_mediana": 5.34,
+   "cagr_min": 3.51,
+   "cagr_max": 6.73
+  }
+ },
+ "criterios": {
+  "R1_cagr_sobre_mediana_placebo_en_P1_y_P2": false,
+  "R2_ic95_diferencia_mensual": {
+   "low": -0.006276365715437378,
+   "high": 0.005003214478973805,
+   "media": -0.0006605354724621091,
+   "pasa": false
+  },
+  "R3_supera_al_indice": true,
+  "replica": false,
+  "replica_y_supera_al_indice": false
+ }
+}
