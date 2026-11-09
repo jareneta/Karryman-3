@@ -225,6 +225,8 @@ def signals(d, cfg, regime, rng=None):
     c, v = d.Close, d.Volume
     base = ((c >= 5) & (d.vol50 >= 500_000) & (c > d.ma50) & (d.ma50 > d.ma200) & (d.ma200 > d.ma200_prev)
             & (c >= cfg.near_high * d.hi252) & (d.rs > cfg.rs_min))
+    if 'member' in d.columns:   # universo point-in-time: solo cuentan los días en que el valor pertenecía al índice
+        base &= d['member'].astype(bool)
     if cfg.rs_rank_min > 0:
         base &= d.rs_rank.fillna(0) >= cfg.rs_rank_min
     if cfg.regime != 'none':
@@ -233,6 +235,8 @@ def signals(d, cfg, regime, rng=None):
     if cfg.placebo:
         # Control: mismos filtros de liquidez, fecha aleatoria, mismo stop y salidas.
         liquid = (c >= 5) & (d.vol50 >= 500_000) & d.low10.notna() & d.ma200.notna()
+        if 'member' in d.columns:
+            liquid &= d['member'].astype(bool)
         idx = np.flatnonzero(liquid.values)
         if len(idx) and rng is not None:
             for i in rng.choice(idx, size=max(1, len(idx) // 120), replace=False):
