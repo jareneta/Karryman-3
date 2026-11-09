@@ -1,0 +1,20 @@
+name: Karryman V24 pruebas
+on:
+  workflow_dispatch:
+  push:
+    branches: [karryman-v24]
+    paths: ['v24_*.py', 'tests/test_v24_*.py', '.github/workflows/v24-*.yml']
+permissions:
+  contents: read
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install -r requirements.txt
+      - name: Pruebas del motor y auditoría independiente
+        run: python -m unittest tests.test_v24_engine tests.test_v24_audit -v

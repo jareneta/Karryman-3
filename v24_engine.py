@@ -110,6 +110,33 @@ def fee_of(q, px, cfg):
     return min(f, max(cfg.fee_min, cfg.fee_pct_max * q * px)) if cfg.fee_per_share > 0 else cfg.fee_min
 
 
+def select(rk, ext_i, held, cool, i, cfg, rebalance=True):
+    """A. Selección con datos hasta el cierre del día i (función pura salvo `cool`, que se actualiza).
+
+    rk: ranking de momentum (1 = mejor, NaN = no elegible) · ext_i: señal de extensión (cierre > EMA + k ATR)
+    held: posiciones actuales · cool: sesión de la última salida por extensión de cada valor.
+    Entran los `top_in` primeros, permanecen mientras estén en el `top_out`, máximo `max_pos`. Tras una salida
+    por extensión en la sesión i_e el valor no puede ser elegido hasta la sesión i_e + cooldown + 1 (las
+    `cooldown` sesiones i_e+1 .. i_e+cooldown son de espera; la orden de entrada iría a la apertura siguiente).
+    """
+    if rebalance:
+        keep = held & ~ext_i & (rk <= cfg.top_out) & ~np.isnan(rk)
+        for j in np.where(held & ~keep & ext_i)[0]:
+            cool[j] = i
+        cand = np.where((rk <= cfg.top_in) & ~held & ~ext_i & (i > cool + cfg.cooldown))[0]
+        cand = cand[np.argsort(rk[cand])]
+        sel = list(np.where(keep)[0][np.argsort(rk[keep])])
+        for j in cand:
+            if len(sel) >= cfg.max_pos:
+                break
+            sel.append(j)
+        return sel
+    sel = [j for j in np.where(held)[0] if not ext_i[j]]
+    for j in np.where(held & ext_i)[0]:
+        cool[j] = i
+    return sel
+
+
 def run(prices, cfg=None, member=None):
     """prices: dict de DataFrames fecha x ticker con open, high, low, close (y volume opcional).
     member: DataFrame booleano fecha x ticker con el universo vigente cada día (pertenencia histórica)."""
@@ -124,7 +151,7 @@ def run(prices, cfg=None, member=None):
     if member is not None:
         elig &= member.reindex(index=dates, columns=cols).fillna(False).astype(bool)
     rank = mom.where(elig).rank(axis=1, ascending=False, method='first').to_numpy()
-    ret = prices['close'].pct_change().to_numpy()
+    ret = prices['close'].pct_change(fill_method=None).to_numpy()
     adv = (prices['volume'].rolling(20).mean().to_numpy() if V is not None else None)
     rng = np.random.default_rng(cfg.seed)
 
@@ -148,22 +175,7 @@ def run(prices, cfg=None, member=None):
         peak = max(peak, eq[i])
         dd = 1 - eq[i] / peak
         # ---- A. selección con datos hasta el cierre i
-        if i % cfg.rank_every == 0 or not held.any():
-            rk = rank[i]
-            keep = held & ~ext[i] & (rk <= cfg.top_out) & ~np.isnan(rk)
-            for j in np.where(held & ~keep & ext[i])[0]:
-                cool[j] = i
-            cand = np.where((rk <= cfg.top_in) & ~held & ~ext[i] & (i > cool + cfg.cooldown))[0]
-            cand = cand[np.argsort(rk[cand])]
-            sel = list(np.where(keep)[0][np.argsort(rk[keep])])
-            for j in cand:
-                if len(sel) >= cfg.max_pos:
-                    break
-                sel.append(j)
-        else:
-            sel = [j for j in np.where(held)[0] if not ext[i][j]]
-            for j in np.where(held & ext[i])[0]:
-                cool[j] = i
+        sel = select(rank[i], ext[i], held, cool, i, cfg, i % cfg.rank_every == 0 or not held.any())
         # ---- B. riesgo
         basket = np.nanmean(ret[i - cfg.vol_n + 1:i + 1][:, sel], axis=1) if sel else None
         vol = float(np.nanstd(basket, ddof=1) * np.sqrt(252)) if basket is not None and len(basket) > 2 else 0.0

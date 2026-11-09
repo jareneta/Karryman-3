@@ -61,6 +61,8 @@ def main():
     keep = list(frames)[:a.symbols] if len(frames) > a.symbols else list(frames)
     p = to_wide({t: frames[t] for t in keep})
     member = liquidity_member(p)
+    chg = p['close'].pct_change(fill_method=None).abs()
+    sus = {t: int((chg[t] > 0.40).sum()) for t in chg.columns if (chg[t] > 0.40).any()}
     print(f'Series: {len(keep)} · desde {p["close"].index[0].date()} hasta {p["close"].index[-1].date()} · {time.time()-t0:.0f}s', flush=True)
     base = ve.Cfg(capital=a.capital, fee_min=a.fee_min, min_order=a.min_order, fractional=a.fractional, rank_every=1)
     models = {
@@ -71,8 +73,10 @@ def main():
         'v24_progresiva_ma100': replace(base, protection='progressive', ma100_guard=True),
         'v24_progresiva_rank_mensual': replace(base, protection='progressive', rank_every=21),
     }
-    out = {'parametros': {'capital': a.capital, 'fee_min': a.fee_min, 'min_order': a.min_order, 'fractional': a.fractional, 'symbols': a.symbols, 'seed': a.seed},
+    import os as _os
+    out = {'commit': _os.environ.get('GITHUB_SHA'), 'parametros': {'capital': a.capital, 'fee_min': a.fee_min, 'min_order': a.min_order, 'fractional': a.fractional, 'symbols': a.symbols, 'seed': a.seed},
            'universo': {'series': len(keep), 'nota': 'acciones cotizadas hoy: sesgo de supervivencia; filtro de liquidez vigente día a día'},
+           'calidad_datos': {'series_con_saltos_diarios_mayores_40pct': len(sus), 'detalle': dict(list(sus.items())[:30]), 'nota': 'posibles splits sin ajustar o errores de datos'},
            'modelos': {}, 'comisiones': [], 'benchmark_spy': benchmark(spy)}
     runs = {}
     for name, cfg in models.items():
