@@ -247,7 +247,11 @@ def _afford(q, px, cash, cfg):
     return q
 
 
-def metrics(res):
+def metrics(res, start=None, end=None):
+    """Métricas de todo el periodo o de un tramo [start, end] (para entrenamiento / validación / prueba)."""
+    sl = slice(start, end)
+    res = {**res, 'equity': res['equity'].loc[sl], 'exposure': res['exposure'].loc[sl],
+           'trades': res['trades'][(res['trades'].date >= pd.Timestamp(start or '1900-01-01')) & (res['trades'].date <= pd.Timestamp(end or '2100-01-01'))]}
     e = res['equity'].dropna()
     r = e.pct_change().dropna()
     yrs = (e.index[-1] - e.index[0]).days / 365.25

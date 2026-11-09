@@ -124,6 +124,13 @@ class Engine(unittest.TestCase):
         b = ve.run(p, ve.Cfg(band=0.10, capital=200000, fractional=True))
         self.assertLess(len(b['trades']), len(a['trades']))
 
+    def test_metrics_segment(self):
+        p = universe()
+        r = ve.run(p, ve.Cfg())
+        full = ve.metrics(r)
+        part = ve.metrics(r, '2016-01-01', '2017-06-30')
+        self.assertLessEqual(part['orders'], full['orders'])
+
     def test_fee_sensitivity_table(self):
         t = ve.fee_sensitivity(universe())
         self.assertEqual(list(t.fee_min), [0.35, 0.5, 1.0])
