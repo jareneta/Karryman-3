@@ -69,6 +69,44 @@ def probe_repo():
     return out
 
 
+def probe_dataset(tag='snapshot-2026-11'):
+    """Descarga los ficheros de la release y mide su estructura (no asume nombres de columnas)."""
+    import pyarrow.parquet as pq
+    base = f'https://github.com/{REPO}/releases/download/{tag}/'
+    out = {'tag': tag}
+    os.makedirs('/tmp/sp500', exist_ok=True)
+    for name in ('verification_report.txt', 'membership_intervals.parquet', 'prices.parquet', 'members.parquet'):
+        r = requests.get(base + name, timeout=600)
+        out[f'{name}_http'] = r.status_code
+        if r.status_code != 200:
+            continue
+        open(f'/tmp/sp500/{name}', 'wb').write(r.content)
+        out[f'{name}_bytes'] = len(r.content)
+    vr = '/tmp/sp500/verification_report.txt'
+    if os.path.exists(vr):
+        out['verification_report'] = open(vr, errors='replace').read()[:7000]
+    for name in ('membership_intervals.parquet', 'members.parquet', 'prices.parquet'):
+        p = f'/tmp/sp500/{name}'
+        if not os.path.exists(p):
+            continue
+        pf = pq.ParquetFile(p)
+        info = {'filas': pf.metadata.num_rows, 'columnas': [(f.name, str(f.type)) for f in pf.schema_arrow]}
+        d = pd.read_parquet(p)
+        info['head'] = d.head(3).astype(str).values.tolist()
+        info['tail'] = d.tail(2).astype(str).values.tolist()
+        for c in d.columns:
+            lc = c.lower()
+            if lc in ('ticker', 'symbol', 'label', 'permno'):
+                info[f'n_{c}'] = int(d[c].nunique())
+            if 'date' in lc or lc in ('start', 'end', 'from', 'to'):
+                try:
+                    info[f'rango_{c}'] = [str(d[c].min()), str(d[c].max())]
+                except Exception:
+                    pass
+        out[name] = info
+    return out
+
+
 def sp500_changes():
     import warnings
     warnings.simplefilter('ignore')
@@ -135,6 +173,10 @@ def main():
             out[name] = fn()
         except Exception as e:
             out[name] = {'error': f'{type(e).__name__}: {str(e)[:200]}'}
+    try:
+        out['dataset_release'] = probe_dataset()
+    except Exception as e:
+        out['dataset_release'] = {'error': f'{type(e).__name__}: {str(e)[:300]}'}
     try:
         info, ch = sp500_changes()
         out['wikipedia_cambios_sp500'] = info

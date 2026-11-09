@@ -41,7 +41,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      - run: pip install -r requirements.txt lxml
+      - run: pip install -r requirements.txt lxml pyarrow
       - name: Pruebas del motor V24 y auditoría independiente
         run: python -m unittest tests.test_v24_engine tests.test_v24_audit -v
       - name: Backtest V24 (investigación, sin órdenes)
