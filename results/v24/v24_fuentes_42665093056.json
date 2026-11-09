@@ -1,0 +1,428 @@
+{
+ "repo_candidato": {
+  "repo": "Johnbrick123/sp500-data",
+  "licencia": null,
+  "rama": "main",
+  "ultimo_push": "2026-11-06T01:31:00Z",
+  "estrellas": 11,
+  "tamano_kb": 2045,
+  "archivado": false,
+  "n_ficheros": 161,
+  "truncado": false,
+  "extensiones": {
+   "md": 7,
+   "yml": 44,
+   "gitignore": 1,
+   "py": 87,
+   "csv": 19,
+   "txt": 3
+  },
+  "ejemplos": [
+   ".claude/skills/backtest/SKILL.md",
+   ".github/workflows/archive_dividends.yml",
+   ".github/workflows/archive_fetch.yml",
+   ".github/workflows/audit_dividends.yml",
+   ".github/workflows/audit_dividends_wiki.yml",
+   ".github/workflows/audit_year.yml",
+   ".github/workflows/crosscheck_dataset.yml",
+   ".github/workflows/crsp_fetch.yml",
+   ".github/workflows/crsp_identity_audit.yml",
+   ".github/workflows/crsp_index_gap.yml",
+   ".github/workflows/crsp_return_compare.yml",
+   ".github/workflows/fetch_releases.yml",
+   ".github/workflows/full_crsp_check.yml",
+   ".github/workflows/kaggle_crosscheck.yml",
+   ".github/workflows/kaggle_fetch.yml",
+   ".github/workflows/kaggle_files.yml",
+   ".github/workflows/kaggle_search.yml",
+   ".github/workflows/kaggle_snapshot.yml",
+   ".github/workflows/label_permno_probe.yml",
+   ".github/workflows/nasdaq_div_audit.yml",
+   ".github/workflows/nightly_guard_test.yml",
+   ".github/workflows/perma.yml",
+   ".github/workflows/perma_names.yml",
+   ".github/workflows/pre1996_check.yml",
+   ".github/workflows/probe.yml"
+  ],
+  "mayores": [
+   [
+    "price_patches.csv",
+    7849275
+   ],
+   [
+    "corporate_action_overrides.csv",
+    301425
+   ],
+   [
+    "series_splices.csv",
+    157658
+   ],
+   [
+    "drop_raw_files.txt",
+    91131
+   ],
+   [
+    "spinoffs.csv",
+    89546
+   ],
+   [
+    "bridge_membership.py",
+    49967
+   ],
+   [
+    "compute_adjusted.py",
+    39720
+   ],
+   [
+    "pre1996/membership.csv",
+    38822
+   ]
+  ],
+  "md": [
+   ".claude/skills/backtest/SKILL.md",
+   "CLAUDE.md",
+   "README.md",
+   "SETUP.md",
+   "docs/BACKTEST_API.md",
+   "docs/strategy-log.md",
+   "tools/README.md"
+  ],
+  "licencia_ficheros": [],
+  "docs_md": {
+   ".claude/skills/backtest/SKILL.md": "---\nname: backtest\ndescription: Turn a plain-English trading idea into a strategy file for the qbt backtester in the sp500-data repo, run it against the point-in-time S&P 500 / ETF dataset (1970\u2013today), and report the results honestly against SPY. Use whenever John describes a strategy to test (\"backtest X\", \"what if I bought ... and sold ...\", \"test this rule\", \"/backtest\"), asks to change or re-run one, or asks to sweep a parameter. Not for data-quality work on the dataset itself.\n---\n\n# /backtest \u2014 custom strategy backtests\n\nJohn describes what he wants in plain English. You write the Python, run it,\nand tell him what happened. He is not a coder: never ask him to edit code or\nrun commands.\n\n## 1. Set up (once per session)\n\n```bash\n# repo not present?  attach it with the add_repo tool, then:\ngit clone --depth 1 https://github.com/Johnbrick123/sp500-data /home/claude/sp500-data\npip install -q pandas pyarrow duckdb numpy --break-system-packages\ncd /home/claude/sp500-data && python backtest.py strategies/momentum_15.py --quiet --no-report\n```\nThe first run downloads the release data (~235 MB) and builds the panel cache.\nThen read `docs/BACKTEST_API.md` \u2014 it is the whole API.\n\n## 2. Translate the idea into a strategy file\n\nWrite `strategies/<short_slug>.py` with one `Strategy` subclass. The docstring\nrestates his request in plain English; `name` is a short human title.\n\nMap his words to the API:\n- \"rotate / rebalance monthly\" \u2192 `schedule = \"monthly\"`, rank, `ctx.equal_weight(ctx.top(score, n))`\n- \"hold until ...\" / \"sell when ...\" \u2192 keep `ctx.portfolio.holdings` that still pass the sell test, refill freed slots, `ctx.hold(book, rebalance=False)` if he wants winners to run\n- \"stop loss / trailing stop / exit after N days\" \u2192 `on_day` with `ctx.sell(t)`\n- \"only when the market is above its 200-day\" \u2192 `ctx.price_to_sma(200, tickers=[\"SPY\"])[\"SPY\"] > 0`\n- \"weight by inverse vol\" \u2192 `ctx.inverse_vol_weight(...)`\n- \"ETFs\" \u2192 `universe = \"etfs\"` or an explicit list; sector ETF menu lives in `strategies/etf_rotation.py`\n- \"since 19xx\" \u2192 `start`; signals still use all prior history\n- costs unstated \u2192 10 bps (5 for ETFs); start unstated \u2192 2010-01-01; weighting unstated \u2192 equal\n\nDecide defaults yourself and state them in the write-up. Ask at most one\nquestion, and only if the answer changes the result materially (e.g. he says\n\"sell when it breaks down\" with no definition). Otherwise pick the sensible\nreading and say what you picked.\n\nBefore running, check the strategy against the data's limits\n(`docs/BACKTEST_API.md` \u2192 Mechanics): no open/high/low/volume before 1996,\nSPY from 1995, membership from 1970.\n\n## 3. Run\n\n```bash\ncd /home/claude/sp500-data\npython backtest.py strategies/<slug>.py --quiet\n```\nRead `results/<name>/summary.txt`, `yearly.csv`, and `log.txt` (delistings,\nstop-outs). If the run errors, fix the strategy file and rerun \u2014 do not hand\nthe error to John.\n\nCheap robustness checks worth running when the result looks good:\n- `--sweep cost_bps=5,10,20,35` (does the edge survive real-world costs?)\n- `--start 1997-01-01` and `--start 2010-01-01` (does it depend on the window?)\n- the main parameter \u00b1: `--sweep n=10,15,20,30`\n\n## 4. Report back (chat, mobile-sized)\n\nLead with the verdict in one sentence, then a compact table: CAGR, Sharpe,\nmax drawdown, worst year, turnover \u2014 strategy vs SPY. Then 3\u20135 plain-English\nfindings, including the honest risks: which years carry the return, what\ncosts do to it, turnover/tax implications, data-coverage caveats for\npre-1996 runs. He values honest risk disclosure next to the bull case.\n\nPublish `results/<name>/report.html` as an Artifact (it is self-contained) so\nhe can open it on his phone. Do not paste the URL; the card carries it.\n\n## 5. Keep the record\n\n```bash\ngit add strategies/<slug>.py docs/strategy-log.md\ngit commit -m \"backtest: <name>\" && git push\n```\nAppend a dated entry to `docs/strategy-log.md`: the plain-English rule, the\nheadline numbers vs SPY, and the verdict. Results folders are git-ignored;\nthe strategy file and the log are the record. If `claude/backtester.md` in\nthe Claude Project exists, add the same entry there.\n\n## Changing the engine\n\nIf an idea needs something the API lacks (a new indicator, a new order type),\nadd it to `qbt/indicators.py` or `qbt/engine.py`, keep it general, document\nit in `docs/BACKTEST_API.md`, and commit it. The engine is his, not a vendor's.\n",
+   "CLAUDE.md": "# sp500-data\n\nPoint-in-time S&P 500 + ETF dataset (1970\u2013today) and the `qbt` backtester.\n\n- Data pipeline, verification: `README.md`, `verify.py`, `tools/`\n- **Backtester:** `qbt/` (engine), `backtest.py` (runner), `strategies/` (examples),\n  `docs/BACKTEST_API.md` (API). Run: `python backtest.py strategies/<file>.py`\n- Plain-English strategy requests \u2192 the `backtest` skill (`.claude/skills/backtest/SKILL.md`)\n- Record of every strategy tested: `docs/strategy-log.md`\n\nData files are release assets, not in git. `qbt` downloads them on first use.\n",
+   "README.md": "# S&P 500 + ETF Historical Dataset\n\nFree, reproducible, point-in-time S&P 500 history: who was in the index on\nevery trading day since **1970**, with a price for every one of them on every\nday, plus ETFs. No paid data vendor.\n\n> **Read this first.** Two tiers, checked differently (details in the\n> verification log):\n> - **1996 to today** \u2014 every member priced on every day, every close and\n>   dividend cross-checked against CRSP and at least one vendor or archive,\n>   membership matched to S&P's own announcements.\n> - **1970\u20131995** \u2014 membership from CRSP's own S&P 500 list and prices from\n>   CRSP (no free vendor carries the companies that disappeared before\n>   1996). Checked against the published S&P 500 (the index rebuilt from\n>   these members tracks it within ~3\u20135 basis points a day), against CRSP's\n>   own returns, and against Yahoo for the 174 survivors. No\n>   open/high/low/volume.\n>\n> **Every member-day from 1970 to 2024 is compared with CRSP's daily total\n> return** (`tools/full_crsp_check.py`, published as `full_check_*` files).\n> Disagreements over 0.5pp go to the published S&P 500's own daily return,\n> which decides when the member is big enough. Results:\n> - 99.990% of 6,943,082 member-days are within 0.5pp. The 669 that are not are\n>   listed in `full_check_flagged.csv`.\n> - Where the index can judge, it never sides with CRSP against this data: 12 runs\n>   favour ours, and the other 333 are too small or too close to call (mostly\n>   1995\u20132004 fractional-price closes, where CRSP and the vendors print\n>   different eighths).\n> - Dividends are tested by each label-year's summed difference: 100 of the 28,710\n>   label-years drift more than 0.1pp, each listed in `full_check_drift.csv`.\n>\n> **Two files to use in any backtest:**\n> - `no_trade_days.csv` lists the 3,019 member-days that are not trades:\n>   halts, suspensions and CRSP's missing days, carried at the prior close\n>   (source `carried-patch`). Don't trade on them. Don't read their zero\n>   return as a calm day: a low-volatility screen would otherwise pick a\n>   suspended stock.\n> - `exit_gaps.csv` lists removals whose last member day was not a trade:\n>   SVB and Signature Bank 2023, HealthSouth 2003 and five 1970s companies.\n>   A holder could not sell at that close. Book the next trade instead:\n>   SVB \u221299.6% and Signature \u221299.8% on 3/28/2023.\n\n## What you have\n\n| | |\n|---|---|\n| Rows | 12,285,625 |\n| Tickers | 1,895 (1,742 that were ever index members) |\n| Prices | 1968-01-02 \u2192 today (nightly) |\n| Membership | 1970-01-02 \u2192 today, 500-505 members every day |\n| Size | 235 MB (Parquet) |\n\n`data/prices.parquet` \u2014 one tidy table (`close` is as its `source` stores it \u2014 Yahoo's is split-adjusted, Tiingo's, WIKI's and CRSP's are as traded \u2014 so use `adj_close`, split+dividend adjusted, for returns): `date, ticker, open, high, low, close, volume, adj_close, dividends, stock_splits, source`\n\n## Run it\n\n```bash\npip install yfinance pandas pyarrow duckdb\n\npython build_universe.py     # ticker universe + point-in-time membership\npython bridge_membership.py  # extend membership 2019 -> today, normalize renames\npython fetch_prices.py       # pull raw OHLCV + corporate actions (resumable)\npython fetch_delisted_tiingo.py   # optional: recover delisted names (needs free key)\npython compute_adjusted.py   # derive our own adjusted prices\npython verify.py             # 8 independent data-quality checks\npython build_db.py           # load into DuckDB (local)\npython load_motherduck.py    # or push to MotherDuck (online, free tier)\n```\n\n`fetch_prices.py` is resumable and incremental \u2014 re-running only fetches what's\nmissing. A full cold backfill takes ~20 minutes. A nightly update takes seconds.\n\n## Three things that will bite you (and what was done about them)\n\n**1. Survivorship bias.** 1,742 companies have been in the S&P 500 since 1970;\n503 are in it today. A \"current members\" dataset silently deletes the rest and\nwill flatter every backtest you run.\n\n*Handled:* `membership_intervals.parquet` holds [start, end) spans per label\n(dead companies carry a `-YYYYMM` suffix), and every member has a price on\nevery day it was a member \u2014 the dead ones recovered from Tiingo, Quandl's WIKI\nfile, archives and, for most of them, CRSP. The `v_sp500` view joins prices to\nthose spans.\n\n**2. Yahoo's `Adj Close` is unstable.** It gets silently restated every time a\nnew dividend posts, so last month's snapshot won't reproduce today.\n\n*Handled:* we store raw OHLCV plus a separate corporate-actions record and\nderive `adj_close` ourselves in `compute_adjusted.py`. Same inputs always give\nthe same outputs \u2014 your backtests become reproducible.\n\n**3. Ticker recycling.** When a company is acquired or delisted, its symbol gets\nreassigned to an unrelated company. Example found in this data: **STI** was\nSunTrust Banks, an S&P 500 bank that merged into Truist in 2019. Yahoo purged\nSunTrust's history, and STI now returns a ~$6 microcap with data starting 2022.\nJoin that to the membership table and you're backtesting the wrong company\nentirely \u2014 silently, with no error.\n\n*Handled:* check 7 in `verify.py` flags any ticker whose price history begins\nafter it left the index. **17 found**, listed in `data/recycled_tickers.csv`.\nExclude them from point-in-time work.\n\n## Verification (`verify.py`)\n\n1. **Split spot-checks** \u2014 AAPL 7:1 and 4:1, NVDA 10:1, TSLA 5:1, AMZN/GOOGL 20:1\n2. **Cross-source** \u2014 Stooq vs Yahoo adjusted returns\n3. **Calendar** \u2014 duplicate, weekend, and missing rows\n4. **Outliers** \u2014 >25% daily moves with no matching corporate action\n5. **Continuity** \u2014 gaps longer than 10 calendar days\n6. **Index reconstruction** \u2014 equal-weight large-cap basket vs SPY\n7. **Recycled tickers** \u2014 symbol reassignment detection\n8. **Adjustment reconciliation** \u2014 our derived total return vs Yahoo's\n\nEvery check reports PASS, FAIL or UNVERIFIED. A check that cannot run\n(source unreachable, sample missing) is UNVERIFIED and never counted as a pass.\n\n### Why check 8 exists\n\nThe first build had a bug: Yahoo's `Close` column is *already* split-adjusted,\nso dividing by the split ratio again double-counted it. SPY and XOM looked\nperfect (no splits since 2005) while AAPL was off by 56x.\n\nThe damage it did to check 6 is the real lesson \u2014 the 20-name basket showed\n**18.33% CAGR against SPY's 14.08%.** Over 4% a year of pure phantom alpha,\nfrom a data bug, in names you'd never suspect. After the fix: 14.18% vs 14.08%,\ncorrelation 0.91.\n\nThat is the entire argument for running verification before you trust a\nbacktest. The bug was invisible in the price series and obvious in the returns.\n\n## Known limitations \u2014 read before trusting a backtest\n\n- **Before 1996 the data rests on CRSP** (see the top of this file), with\n  Yahoo as a second source only for the companies that still trade under\n  their own symbol. The 1996-onward years were verified day by day against\n  several sources.\n- **2025 and 2026 are not in the CRSP check** (the free CRSP file ends in\n  December 2024). Instead:\n  - Every member's daily return is audited against Nasdaq. Two days differed\n    in 2025\u201326, and both are now explained and booked.\n  - The ETFs are audited the same way.\n  - Dividends of the Nasdaq-listed members match Nasdaq's record exactly.\n  - An equal-weight rebuild tracks RSP within the range of the CRSP-checked\n    years.\n\n  Two gaps remain:\n  - Dividends of the NYSE-listed members have no second source until\n    Tiingo's monthly allowance resets (November 2026).\n  - Twelve companies acquired in 2025\u201326 (about 2,000 member-days) rest on\n    Tiingo alone.\n- **Dividends use the total-return convention**: the ex-date return is\n  (close + dividend) / previous close \u2212 1, which is CRSP's and S&P's\n  convention. Since 2026-10-16 this replaces Yahoo's formula, which was off\n  by about the yield times the day's move. `adj_close` therefore differs\n  slightly from Yahoo's adjusted close on ex-dividend days.\n- **Membership 2019 -> today is replayed from Wikipedia's change log**\n  (`bridge_membership.py`). Wikipedia dropped that table from the live page in\n  mid-2026, so the script reads it from an older page revision. Renamed symbols\n  (FB->META, ANTM->ELV, 37 total in `renames.csv`) are normalized to the symbol\n  Yahoo keeps the history under, which recovered those names for free.\n- **Most ETFs don't go back 25 years.** SPY (1993), MDY (1995), DIA (1998),\n  QQQ and the sector SPDRs (1998\u201399) do. Most others start 2003\u20132010. Splicing\n  in index history before inception is a modeling choice \u2014 make it deliberately.\n- **yfinance is an unofficial scraper.** Yahoo can change or throttle the\n  endpoints at any time. The fetcher batches 25 tickers per request with a\n  1-second pause to stay clear of rate limits.\n\n## Online access (all free)\n\n**MotherDuck** \u2014 DuckDB hosted in the cloud. `load_motherduck.py` pushes the\ntables; then `duckdb.connect('md:market')` from any machine, or use their web\nSQL editor. Every query in this repo runs unchanged.\n\n**GitHub Releases** \u2014 `.g",
+   "SETUP.md": "# Setup \u2014 about 5 minutes, all free\n\nThe database is a public GitHub repo. GitHub Actions refreshes the data every\nweeknight and publishes it as a Release asset at a fixed URL. Anyone with the\nURL \u2014 you, a colleague, Claude \u2014 queries it directly with DuckDB. No server,\nno account needed to read, nothing to pay.\n\n## 1. Create the repo\nGitHub \u2192 New repository \u2192 name it (e.g. `sp500-data`) \u2192 **Public** \u2192 Create.\n\nPublic is what makes this work: reading needs no token, so Claude can query it\nin any session and a colleague needs only the link. The data is Yahoo-derived\ndaily prices \u2014 nothing proprietary. (A private repo works too, but then every\nreader needs a token, including Claude, every time.)\n\n## 2. Upload the files\nUnzip `sp500-dataset-pipeline.zip` and upload everything to the repo\n(drag-and-drop on the GitHub website works; `.github/workflows/update.yml`\nmust keep its folder path).\n\n## 3. Optional secrets  (Settings \u2192 Secrets and variables \u2192 Actions)\n- `TIINGO_API_KEY` \u2014 free key from tiingo.com. Recovers the ~588 delisted\n  companies Yahoo purged. Strongly recommended for backtesting.\n- `MOTHERDUCK_TOKEN` \u2014 only if you also want a hosted SQL console.\n\n## 4. Run it once\nActions tab \u2192 \"Nightly market data update\" \u2192 Run workflow. First run is the\nfull 20-minute backfill; every night after that takes a couple of minutes.\nIt then runs itself, weekdays at 6 pm Chicago.\n\n## 5. Share it\nThe data URL is stable and public:\n\n    https://github.com/<you>/<repo>/releases/download/data/prices.parquet\n\nSend that to a colleague with `query_remote.py`, or the repo link. To give a\ncolleague edit rights: Settings \u2192 Collaborators.\n\nSend the repo URL to Claude and it can query the live data in any conversation.\n",
+   "docs/BACKTEST_API.md": "# qbt \u2014 the backtester\n\nA QuantConnect-style engine for the `sp500-data` dataset. You describe a\nstrategy as a short Python class; the engine walks every trading day from\n1970 to today, fills your orders, charges costs, marks the book daily on\ntotal returns, and writes a one-page report.\n\n```\npython backtest.py strategies/momentum_15.py                    # run it\npython backtest.py strategies/momentum_15.py --start 1990-01-01 # different window\npython backtest.py strategies/momentum_15.py --set n=20 --set cost_bps=20\npython backtest.py strategies/momentum_15.py --sweep cost_bps=5,10,20,35\n```\n\nOutput: `results/<name>/report.html` plus `equity.csv`, `trades.csv`,\n`round_trips.csv`, `holdings.csv`, `yearly.csv`, `summary.json`, `log.txt`.\n\nFirst run downloads the release data (~235 MB) and builds the panel cache\n(~10 s). After that a 17-year monthly strategy runs in about 3 seconds; a\ndaily strategy in 10\u201320 seconds; the full 1970\u20132026 record in under 10.\n\n## Anatomy of a strategy\n\n```python\nfrom qbt import Strategy\n\nclass Momentum15(Strategy):\n    name = \"Momentum 15\"\n    start = \"2010-01-01\"      # None = 1970\n    end = None                # None = latest day\n    schedule = \"monthly\"      # when on_rebalance runs\n    cost_bps = 10             # per side\n    n = 15                    # any extra attribute becomes a parameter (--set n=20)\n\n    def on_rebalance(self, ctx):\n        score = (0.4 * ctx.momentum(252, 21) + 0.3 * ctx.momentum(126, 21)\n                 + 0.2 * ctx.momentum(63, 21) + 0.1 * ctx.pct_of_high(252))\n        ctx.equal_weight(ctx.top(score, self.n))\n```\n\nThree hooks, all optional except `on_rebalance`:\n\n| hook | runs | use it for |\n|---|---|---|\n| `initialize(self)` | once, before the first day | set up state (`self.highs = {}`) |\n| `on_rebalance(self, ctx)` | on every schedule day | ranking, buying, selling |\n| `on_day(self, ctx)` | every trading day | stops, circuit breakers, daily checks |\n\n## Settings (class attributes)\n\n| setting | default | meaning |\n|---|---|---|\n| `start`, `end` | `\"2010-01-01\"`, `None` | test window; signals still use all history before `start` |\n| `cash` | 1,000,000 | starting capital |\n| `schedule` | `\"monthly\"` | `\"daily\"`, `\"weekly\"`, `\"monthly\"`, `\"quarterly\"`, `\"annual\"`, a list of dates, or a function `f(date) -> bool` |\n| `schedule_when` | `\"end\"` | `\"end\"` = last trading day of the period, `\"start\"` = first |\n| `entry_lag` | 1 | fill N trading days after the signal day (0 = same close) |\n| `fill` | `\"close\"` | `\"close\"` or `\"open\"` (open prices exist from 1996) |\n| `cost_bps` | 10 | commission + spread per side |\n| `slippage_bps` | 0 | extra adverse move on every fill |\n| `cash_rate` | 0.0 | annual interest earned on idle cash |\n| `benchmark` | `\"SPY\"` | any ticker, or `None` (SPY prices begin Jan 1995) |\n| `universe` | `\"sp500\"` | `\"sp500\"` (point-in-time members), `\"etfs\"`, `\"all\"`, or a list of tickers |\n| `min_history` | 0 | days of prices a name needs before it is eligible |\n| `min_dollar_volume` | 0 | 63-day median dollar volume floor |\n| `sell_if_not_eligible` | False | auto-sell names that drop out of the universe |\n| `buy_order_ttl` | 5 | days an unfilled buy is retried before it is dropped |\n\n## What `ctx` gives you on a day\n\nEverything is **point-in-time**: values are as of `ctx.date`, computed from\ntrailing data only. There is no way to read tomorrow.\n\n### Universe\n- `ctx.date`, `ctx.i` \u2014 today\n- `ctx.universe` \u2014 eligible tickers today (list)\n- `ctx.sp500` \u2014 S&P 500 members today, regardless of the strategy universe\n- `ctx.etfs` \u2014 the ETF set\n- `ctx.in_index(t)`, `ctx.tradable(t)`\n\n### Prices\n- `ctx.price(\"AAPL\")` \u2192 float; `ctx.price()` \u2192 Series over the universe\n- `ctx.price(field=\"close\")` for raw `close`, `open`, `high`, `low`, `volume`, `dividends`\n- `ctx.history(\"adj_close\", days=252)` \u2192 DataFrame of the last 252 rows (dates \u00d7 tickers); `tickers=[...]` to narrow\n\n### Indicators (Series over the universe; `tickers=[...]` to narrow; `days=N` for a DataFrame of history)\n| call | meaning |\n|---|---|\n| `ctx.returns(63)` | trailing 63-day total return |\n| `ctx.momentum(252, 21)` | return from 252 days ago to 21 days ago (the \"12-1\") |\n| `ctx.sma(200)`, `ctx.ema(50)` | moving averages |\n| `ctx.price_to_sma(200)` | price / SMA \u2212 1 (> 0 means above) |\n| `ctx.above_sma(200, buffer=0.02)` | boolean: price > SMA \u00d7 1.02 |\n| `ctx.pct_of_high(252)` | price / 52-week high (1.0 = at the high) |\n| `ctx.rolling_high(252)`, `ctx.rolling_low(252)` | trailing extremes |\n| `ctx.drawdown()` | distance from all-time high |\n| `ctx.volatility(63)` | annualised vol of daily returns |\n| `ctx.atr(14)` | average true range (1996+) |\n| `ctx.dollar_volume(63)` | median daily $ volume |\n| `ctx.rsi(14)` | RSI |\n| `ctx.macd(12, 26, 9)` | MACD histogram |\n| `ctx.monthly_macd(8, 17, 9)` | MACD histogram on month-end closes |\n| `ctx.zscore(20)`, `ctx.bollinger_pct(20, 2)` | mean-reversion measures |\n| `ctx.days_of_history()` | how many priced days a name has |\n| `ctx.indicator(\"name\", ...)` | any function in `qbt/indicators.py` |\n\nAdd a new indicator by writing a function in `qbt/indicators.py` decorated\nwith `@cached` that returns a DataFrame computed with rolling/trailing windows.\n\n### Ranking helpers\n- `ctx.top(score, 15)` \u2014 15 highest; `ascending=True` for lowest\n- `ctx.where(cond)` \u2014 tickers where a boolean Series is True\n- `ctx.rank(score)`\n\n### Portfolio\n- `ctx.portfolio.holdings` (list), `.weights` (Series), `.weight(t)`, `.has(t)`\n- `.value`, `.cash`, `.invested` (fraction)\n- `.pnl_pct(t)` since entry, `.days_held(t)`, `.entry_date(t)`, `.price(t)`\n\n### Orders (target weights of portfolio value, filled `entry_lag` days later)\n- `ctx.set_weights({\"AAPL\": .5, \"MSFT\": .5})` \u2014 the whole book; anything not named is sold\n- `ctx.equal_weight(tickers, total=1.0)`\n- `ctx.inverse_vol_weight(tickers, window=63)`\n- `ctx.hold(tickers, rebalance=False)` \u2014 keep these names; `rebalance=False` lets winners run instead of trimming to equal weight\n- `ctx.buy(t, weight)` / `ctx.target(t, weight)` \u2014 change one name, leave the rest\n- `ctx.sell(t)`, `ctx.liquidate()`\n- weights that sum to less than 1 leave the rest in cash\n\n### Diagnostics\n- `ctx.log(\"text\")` \u2192 `log.txt`\n- `ctx.record(cash_pct=0.2)` \u2192 `result.records` DataFrame\n\n## Mechanics you should know\n\n- **Fills.** Orders placed on day *d* fill at the close (or open) of day\n  *d + entry_lag*. A name that is not tradable that day is retried daily (sells\n  indefinitely, buys for `buy_order_ttl` days).\n- **Marking.** Daily, on `adj_close` (split- and dividend-adjusted total\n  return). Drawdowns are real daily drawdowns, not rebalance-to-rebalance.\n- **Costs.** `cost_bps` on every dollar traded, each side. Delisting exits pay it too.\n- **Delistings.** When a holding stops trading it is closed at its last real\n  trade. For the companies in `exit_gaps.csv` (SVB, Signature, HealthSouth \u2026)\n  the next trade price is used instead: you could not have sold at the last\n  close. Every such exit is in `log.txt`.\n- **No-trade days** (`no_trade_days.csv`) are never fill days and never count\n  as a trading opportunity; the strategy still sees the carried price.\n- **Index membership** is point-in-time. A name that leaves the index stays\n  in the book until the strategy sells it (or `sell_if_not_eligible = True`).\n- **Before 1996** only closes exist: `open/high/low/volume`, `atr`,\n  `dollar_volume` and `fill = \"open\"` are empty there.\n- **Statistics.** CAGR is geometric. Sharpe and Sortino use the annualised\n  arithmetic mean of daily returns over the annualised standard deviation\n  (risk-free rate 0). Turnover = one-way traded value / average equity / year.\n\n## Running from Python\n\n```python\nfrom qbt import run_file\nres = run_file(\"strategies/momentum_15.py\", n=20, start=\"2000-01-01\")\nprint(res.summary())\nres.stats[\"strategy\"][\"cagr\"]; res.equity; res.trades; res.holdings\n```\n\n## Describing a strategy in plain English\n\nYou do not need to write the Python. Say what you want and Claude turns it\ninto a strategy file using this API, runs it, and reports back. The things to\nspecify (defaults in brackets):\n\n1. **Universe** \u2014 S&P 500 [default], ETFs, or a list\n2. **When to act** \u2014 monthly [default], weekly, daily, quarterly, annual\n3. **What to buy** \u2014 the rule or ranking (momentum, low vol, RSI, above the 200-day \u2026)\n4. **How many / how to weight** \u2014 top 15 equal weight [default], inverse vol, let winners run\n5. **When to sell** \u2014 rotate out of the top N [default], or a sell rule, stop, time limit\n6. **Costs, start date, cash rate** \u2014 10 bps, 2010, 0% [defaults]\n\nExample: *\"Buy the 20 S&P 500 stocks with the best 6-month return that are\nabove their 200-day average. Rebalance quarterly. Sell anything that falls\n15% from its high. Run it from 1990 at 15 bps.\"*\n",
+   "docs/strategy-log.md": "# Strategy log\n\nOne entry per strategy tested with `qbt`. Pre-tax, 10 bps a side unless the\nfile says otherwise, benchmark SPY over the same window, fills one day after\nthe signal. Sharpe = annualised arithmetic mean / volatility.\n\n## 2026-10-17 \u2014 engine built; bundled examples run on the 16 Oct dataset\n\n| Strategy (file in `strategies/`) | Window | CAGR | Sharpe | Max DD | Worst yr | Turnover | SPY CAGR | SPY Sharpe |\n|---|---|---|---|---|---|---|---|---|\n| Momentum 15 (`momentum_15.py`) | 2010\u201326 | 17.83% | 0.73 | \u221236.4% | \u221213.0% | 453% | 14.11% | 0.86 |\n| Momentum 15, full record (`momentum_15.py --start 1997-01-01`) | 1997\u201326 | 13.27% | 0.57 | \u221268.8% | \u221254.0% | 461% | 10.06% | 0.59 |\n| Golden cross hold 15, winners run (`golden_cross_hold.py`) | 2010\u201326 | 16.89% | 0.72 | \u221237.0% | \u221215.7% | 95% | 14.11% | 0.86 |\n| Momentum 15 + 20% trailing stop + SPY 200d half-book (`momentum_with_stops.py`) | 2010\u201326 | 12.91% | 0.66 | \u221228.5% | \u221210.7% | 535% | 14.11% | 0.86 |\n| Low vol 50 quarterly, inverse-vol (`low_vol_quarterly.py`) | 1975\u201326 | 12.09% | 0.98 | \u221235.0% | \u221219.1% | 84% | 11.21% | 0.66 |\n| SPY 200-day switch, 2% on cash, 5 bps (`spy_200d_switch.py`) | 1996\u201326 | 9.87% | 0.79 | \u221226.6% | \u221221.0% | 78% | 10.41% | 0.61 |\n| ETF rotation top 3 of 17, 5 bps (`etf_rotation.py`) | 2008\u201326 | 6.37% | 0.46 | \u221224.7% | \u221213.4% | 442% | 11.32% | 0.64 |\n| RSI(2) mean reversion, daily (`rsi_mean_reversion.py`) | 2005\u201326 | 1.64% | 0.18 | \u221241.7% | \u221231.9% | 4368% | 10.91% | 0.64 |\n| Top 20 by 6-mo return, above 200d, quarterly, 15% trailing stop, 15 bps (`example_request.py`) | 1990\u201326 | 7.68% | 0.53 | \u221254.9% | \u221231.6% | 355% | 11.21% | 0.66 |\n\nCost sweep, Momentum 15 2010\u201326: 5 bps 18.39% \u00b7 10 bps 17.83% \u00b7 20 bps 16.72% \u00b7 35 bps 15.06% (SPY 14.11%).\n\nNotes\n- Momentum 15 on the full, survivorship-free record now shows a \u221268.8% max\n  drawdown and a \u221254% worst year (2008). The 7 Oct engine on the old data\n  showed \u221263.5% / \u221255.3%; the missing failed companies made it look shallower.\n- The RSI(2) and `example_request` strategies are API demonstrations\n  (daily logic, stops, filters), not recommendations.\n- The 7 Oct engine's Sharpe used a different convention; its 0.78 for\n  Momentum 15 is not comparable with the 0.73 here.\n",
+   "tools/README.md": "# Checking tools (run locally against downloaded release assets)\n\nDownload the published build first (GitHub's release CLI is blocked in some sandboxes; plain `curl -sSL` works):\n\n    mkdir -p /tmp/b && cd /tmp/b\n    for a in prices.parquet membership_intervals.parquet wiki_changes.csv; do\n      curl -sSL -o $a https://github.com/Johnbrick123/sp500-data/releases/download/data/$a; done\n\n| Tool | What it answers |\n|---|---|\n| `daily_coverage.py DIR Y0 Y1` | Does every index member have a price on every trading day of each year? Lists the members with missing days (days within 7 of a name's last trade count as \"carried\": S&P held it after its deal closed). |\n| `member_changes.py DIR YEAR` | Our membership changes in a year next to Wikipedia's change log (a lead only: S&P DJI's releases are the authority). |\n| `volume_spikes.py DIR YEAR` | For each add and removal in a year, the day of the name's biggest volume around it: index funds trade at the close BEFORE the effective date, so a peak on another day flags a wrong date (IGT/Cimarex 2014). Share-class lines and spin-offs the index receives show no spike. |\n| `bridge_test.py WORKDIR [Y0 Y1]` | Rebuilds membership from the upstream file with the repo's `bridge_membership.py` and prints each year's daily member count and every interval that differs from the published one. Run it before committing a membership change. |\n| `bigmoves.py DIR YEAR [THRESH]` | Members' one-day total returns beyond a threshold (default 10%), with that row's dividend, split factor and source \u2014 finds unbooked spin-offs and bad bars. |\n| `spin_inventory_2015_2026.csv` | Candidate spin-off / large-distribution days found from Yahoo factors and big dividends (`done` = converted in `spinoffs.csv`). Not complete: Biogen 2017 had no vendor record at all and was found by the Nasdaq audit. |\n| `spin_dry.py DIR` | Runs the spin-off step of `compute_adjusted.py` for every parent in `spinoffs.csv` against raw files in `DIR/data/raw` and prints each outcome (applied / refused and why). |\n| `div_scale_scan.py RAWDIR` | Yahoo dividends left on a different basis than the closes (AT&T before its 2022 spin-off). |\n| `div_pattern_scan.py DIR Y0 Y1` | Dividend schedules with a skipped payment, an interleaved extra stream, or an amount far from its neighbours. |\n| `release_sentences.py 'DIR/*.html'` | The S&P 500 sentences from saved S&P DJI press releases (adds, removals, effective dates). |\n| `crsp_fullcent_fit.py REPORTS DIR YEAR OUT.csv` | Every member-day close against CRSP's, a cent or more apart; each label's basis is fitted per split segment (the ratio that matches the most days; exactly 1 for raw Tiingo/WIKI/CRSP closes). `EXTRA_BREAKS=LABEL:DATE` adds a segment break where a vendor's adjusted line carries no split flag (Alcoa 2000-06-12, Moody's 2000-10-03). Added in the 2000 pass. |\n| `crsp_index_check.py REPORT DIR SPX.csv FLAGGED.csv OUT.csv [MIN_BP]` | Settles ours-vs-CRSP closes with the S&P 500's own daily return: the index's daily move is rebuilt from members' CRSP returns (CRSP market caps as weights), and a vendor close is kept only where it brings that rebuilt move closer to the published one (YEAR env picks the year). In 2000 CRSP's closes fit the index far better (Jul-Sep residual 3 bp vs 9 bp a day). |\n| `crsp_return_scan.py REPORT YEAR PRICES MEMBERSHIP` | Wrong-company screen: each matched label's share of member days whose daily move agrees with CRSP's RET within 1% (and its median level ratio). Run right after the all-member check; a label well under ~97% is another company's file. |\n| `crsp_sp500_list_check.py` | Checks every permno in `crsp_permnos.csv` and every add and drop in the membership (1996\u20132022) against CRSP's own S&P 500 list, which WRDS publishes as public teaching material (every change 1959\u20132022 with permno, names, tickers and dates). Read-only; download the page first (URL in the docstring). The table is CRSP's licensed data: read for checking, never copied into the repo or a release. Added 2026-10-15: it found four wrong-company lines the identity audit had passed (THY, DIGI, UAWGQ and the Allegheny Ludlum slot, which was Dial). |\n| `crsp_index_gap.py` (workflow `crsp_index_gap.yml`) | Looks for an index member missing from the membership file: regresses the S&P 500 residual (published daily return minus the one rebuilt from our members) on every CRSP permno's excess return. Read-only. **Weak by nature**: a member worth 0.2% of the index moves the residual by well under 1 bp a day against 3-4 bp of noise, so only a very large missing member would stand out; in the 1998 pass it found nothing, and the missing member (the old Marriott International) was found from the membership count and Marriott's own history instead. |\n| `crsp_identity_audit.py crsp_permnos.csv` (workflow `crsp_identity_audit.yml`) | Identity audit of every CRSP permno the dataset uses (`crsp_permnos.csv`, label \u2192 permno): each line's whole-life first and last day, exchange, share code, last price and market cap, and its 'rivals' (other permnos ending within 3 days at a similar price and size). Read-only \u2192 `crsp_identity.csv`. Compare the last day with the label's delisting-suffix month and the first day with the company's IPO or spin-off date: the 1999 'Nalco' (Premark, permno 71001) ends a month before its suffix month and starts at Premark's 1986 spin-off. Added 2026-10-15. |\n| `deal_tracking.py DATA_DIR OUT.csv [N] [LABEL ...]` | Merger-arbitrage identity test for CRSP-sourced lines: over the last N days, the line's daily volatility (a cash target is pinned near the price) and the series that track it best (a stock target moves with its acquirer at the exchange ratio). In the 2026-10-15 audit 165 lines tracked their known acquirers and 101 sat pinned at their cash prices (the 'Nalco' line tracks Illinois Tool Works \u2014 Premark's buyer). Added 2026-10-15. |\n\nThe year-by-year sign-off procedure and its results are in the project's verification log (`claude/data-verification-log.md`).\n"
+  },
+  "releases": [
+   {
+    "tag": "snapshot-2026-11",
+    "fecha": "2026-11-03T02:57:47Z",
+    "assets": [
+     [
+      "members.parquet",
+      513783
+     ],
+     [
+      "membership_intervals.parquet",
+      36131
+     ],
+     [
+      "prices.parquet",
+      235854103
+     ],
+     [
+      "recycled_tickers.csv",
+      21
+     ],
+     [
+      "verification_report.txt",
+      5963
+     ]
+    ]
+   },
+   {
+    "tag": "snapshot-2026-10",
+    "fecha": "2026-10-01T01:55:15Z",
+    "assets": [
+     [
+      "members.parquet",
+      371883
+     ],
+     [
+      "membership_intervals.parquet",
+      24114
+     ],
+     [
+      "prices.parquet",
+      153426204
+     ],
+     [
+      "recycled_tickers.csv",
+      383
+     ],
+     [
+      "verification_report.txt",
+      3807
+     ]
+    ]
+   },
+   {
+    "tag": "snapshot-2026-09",
+    "fecha": "2026-09-24T01:17:05Z",
+    "assets": [
+     [
+      "members.parquet",
+      371883
+     ],
+     [
+      "membership_intervals.parquet",
+      24124
+     ],
+     [
+      "prices.parquet",
+      153856750
+     ],
+     [
+      "recycled_tickers.csv",
+      383
+     ],
+     [
+      "verification_report.txt",
+      3806
+     ]
+    ]
+   },
+   {
+    "tag": "data",
+    "fecha": "2026-09-19T20:23:00Z",
+    "assets": [
+     [
+      "adjustment_anomalies.csv",
+      162
+     ],
+     [
+      "archive_dividends_ehallmar.csv",
+      9585
+     ],
+     [
+      "archive_dividends_ehallmar.txt",
+      13258
+     ],
+     [
+      "archive_dividends_jacksoncrow.csv",
+      5454
+     ],
+     [
+      "archive_dividends_jacksoncrow.txt",
+      7665
+     ],
+     [
+      "archive_fetch_report.txt",
+      495
+     ],
+     [
+      "audit_2015.txt",
+      9120
+     ],
+     [
+      "audit_2016.txt",
+      4667
+     ],
+     [
+      "audit_2017.txt",
+      4264
+     ],
+     [
+      "audit_2018.txt",
+      3167
+     ],
+     [
+      "audit_2019.txt",
+      3070
+     ],
+     [
+      "audit_2020.txt",
+      2906
+     ],
+     [
+      "audit_2021.txt",
+      2512
+     ],
+     [
+      "audit_2022.txt",
+      2092
+     ],
+     [
+      "audit_2023.txt",
+      2073
+     ]
+    ]
+   }
+  ],
+  "csv_ficheros": [
+   [
+    "corporate_action_overrides.csv",
+    301425
+   ],
+   [
+    "crsp_permnos.csv",
+    24065
+   ],
+   [
+    "dividend_rescale.csv",
+    453
+   ],
+   [
+    "perma_ids.csv",
+    167
+   ],
+   [
+    "pre1996/departed_labels.csv",
+    19565
+   ],
+   [
+    "pre1996/members_19960102.csv",
+    6969
+   ],
+   [
+    "pre1996/membership.csv",
+    38822
+   ],
+   [
+    "pre1996/permnos_1970_1985.csv",
+    4147
+   ],
+   [
+    "pre1996/start_late.csv",
+    1143
+   ],
+   [
+    "pre1996/yahoo_want.csv",
+    3468
+   ],
+   [
+    "pre1996_permnos.csv",
+    10863
+   ],
+   [
+    "price_patches.csv",
+    7849275
+   ],
+   [
+    "series_carves.csv",
+    513
+   ],
+   [
+    "series_end.csv",
+    2160
+   ],
+   [
+    "series_splices.csv",
+    157658
+   ],
+   [
+    "series_start.csv",
+    465
+   ],
+   [
+    "spinoffs.csv",
+    89546
+   ],
+   [
+    "tiingo_aliases.csv",
+    1971
+   ],
+   [
+    "tools/spin_inventory_2015_2026.csv",
+    11114
+   ]
+  ],
+  "muestras_csv": [
+   {
+    "fichero": "corporate_action_overrides.csv",
+    "filas": 1366,
+    "columnas": [
+     "ticker",
+     "date",
+     "split_factor",
+     "dividend",
+     "note"
+    ],
+    "primeras": [
+     [
+      "KSU",
+      "2000-07-13",
+      "0.5",
+      "nan",
+      "Tiingo books the Stilwell Financial spin-off as a $181 dividend per POST-split share but omits the 1-for-2 reverse split of the same day. Adding the split makes the record consistent: holders kept ~3.5% of value in KSU and received the rest as Stilwell stock."
+     ],
+     [
+      "RRD",
+      "2016-10-03",
+      "0.333333",
+      "nan",
+      "R.R. Donnelley spun off LSC Communications and Donnelley Financial and did a 1-for-3 reverse split the same day. Tiingo books the distribution ($25.61 per post-split share) but omits the split; the close moves 15.72 -> 23.81 on that date."
+     ]
+    ],
+    "ultimas": [
+     [
+      "TLT",
+      "2026-10-01",
+      "nan",
+      "0.312",
+      "iShares 20+ Year Treasury Bond ETF monthly distribution, ex/record 2026-10-01, paid 2026-10-06 (iShares 2026 distribution schedule; $0.31158 a share per stockanalysis.com). Yahoo carried 0.312 until 2026-11-02 (snapshot-2026-11) and deleted it in the 2026-11-03 pull with every other 10/1 ex-date. Restored at the value Yahoo carried."
+     ],
+     [
+      "CPB",
+      "2026-10-01",
+      "nan",
+      "0.25",
+      "The Campbell's Company's $0.25 quarterly dividend (cut from $0.39; $1.00 annualized), declared 2026-09-03, ex-date and record 2026-10-01, payable 2026-11-02 (the company's own dividend history table at investor.thecampbellscompany.com/stock-info/dividends-and-splits; S&P Capital IQ via MarketScreener 2026-09-03). Yahoo carried 0.25 until 2026-11-02 (snapshot-2026-11) and deleted it in the 2026-11-03 pull with every other 10/1 ex-date; CPB left the index 2026-06-22, so the nightly guard did not list it. Restored from the company's own record."
+     ]
+    ]
+   },
+   {
+    "fichero": "crsp_permnos.csv",
+    "filas": 1387,
+    "columnas": [
+     "label",
+     "permno"
+    ],
+    "primeras": [
+     [
+      "AAL-199702",
+      "63845"
+     ],
+     [
+      "AAMRQ-201312_crsp",
+      "21020"
+     ]
+    ],
+    "ultimas": [
+     [
+      "FDSH-197902",
+      "80411"
+     ],
+     [
+      "CFIP-199105",
+      "86239"
+     ]
+    ]
+   },
+   {
+    "fichero": "dividend_rescale.csv",
+    "filas": 1,
+    "columnas": [
+     "ticker",
+     "before",
+     "divide_by",
+     "note"
+    ],
+    "primeras": [
+     [
+      "T",
+      "2022-04-11",
+      "1.324",
+      "Yahoo scales AT&T's closes before the WarnerMedia spin-off (2022-04-11) by its 1.324 spin factor but left the dividends as declared ($0.52 a quarter in 2021 against a close of ~$19.9 instead of ~$26.3), so every AT&T dividend yield before April 2022 came out 32% too high (1996-2022 total return 339% instead of 194%). Every other parent's dividends are scaled; checked by verify.py ('dividend basis')."
+     ]
+    ],
+    "ultimas": [
+     [
+      "T",
+      "2022-04-11",
+      "1.324",
+      "Yahoo scales AT&T's closes before the WarnerMedia spin-off (2022-04-11) by its 1.324 spin factor but left the dividends as declared ($0.52 a quarter in 2021 against a close of ~$19.9 instead of ~$26.3), so every AT&T dividend yield before April 2022 came out 32% too high (1996-2022 total return 339% instead of 194%). Every other parent's dividends are scaled; checked by verify.py ('dividend basis')."
+     ]
+    ]
+   }
+  ]
+ },
+ "wikipedia_cambios_sp500": {
+  "error": "ValueError: tabla de cambios no encontrada; columnas: [['vteS&P 500 companies', 'vteS&P 500 companies.1']]"
+ },
+ "commit": "e8ca486d104d91e5944f05c7f7de5694858993f0"
+}
