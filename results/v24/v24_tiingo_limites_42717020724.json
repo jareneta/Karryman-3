@@ -1,0 +1,40 @@
+{
+ "commit": "2008388499e05bd954003c87ce954e0323f22bcf",
+ "lista": {
+  "acciones_us": {
+   "total": 16608,
+   "activas": 8266,
+   "deslistadas_o_inactivas": 8342,
+   "primer_inicio": "1962-01-02"
+  }
+ },
+ "universo_comun": {
+  "total": 11813,
+  "activas": 6744,
+  "inactivas": 5069,
+  "cotizando_1ene": {
+   "2005": 3078,
+   "2010": 4058,
+   "2015": 5049,
+   "2020": 5195
+  }
+ },
+ "descarga": {
+  "peticiones_ok": 50,
+  "error": {
+   "n_antes_del_error": 50,
+   "http": 429,
+   "texto": "{\"detail\":\"Error: You have run over your hourly request allocation. Please upgrade at https://api.tiingo.com/pricing to have your limits increased.\"}",
+   "cabeceras": {},
+   "segundos": 27
+  },
+  "segundos_totales": 27
+ },
+ "calidad": {
+  "series": 50,
+  "con_fechas_coherentes_con_la_lista": 49,
+  "pct_coherentes": 98.0,
+  "filas_mediana": 2224.0,
+  "inactivas_coherentes_pct": 95.2
+ }
+}
