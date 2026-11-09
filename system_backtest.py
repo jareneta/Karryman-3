@@ -65,6 +65,8 @@ class Config:
     climax_run: float = 0.25      # subida mínima en 15 sesiones para considerar clímax
     rs_rank_min: float = 0.0      # rango RS (percentil IBD) mínimo, 0 = sin filtro
     max_positions: int = 0        # 0 = sin límite de posiciones activas (los runners no cuentan)
+    template: bool = False        # Trend Template (tipo Minervini): MA150, 50>150>200 y cierre >= 30 % sobre el mínimo de 252 sesiones
+    stop_pct: float = 0.0         # 0 = sin tope; p. ej. 0.08 = stop no más lejos del 8 % bajo la entrada (el más ajustado con el mínimo de 10 sesiones)
 
 
 VARIANTS = [
@@ -148,6 +150,8 @@ def prepare(df, spy_close):
     c, h, lo, v = d.Close, d.High, d.Low, d.Volume
     d['ma50'] = c.rolling(50).mean()
     d['ma200'] = c.rolling(200).mean()
+    d['ma150'] = c.rolling(150).mean()
+    d['lo252'] = lo.rolling(252).min()
     d['ma200_prev'] = d['ma200'].shift(20)
     d['ema10'] = c.ewm(span=10, adjust=False).mean()
     d['ema20'] = c.ewm(span=20, adjust=False).mean()
@@ -225,6 +229,8 @@ def signals(d, cfg, regime, rng=None):
     c, v = d.Close, d.Volume
     base = ((c >= 5) & (d.vol50 >= 500_000) & (c > d.ma50) & (d.ma50 > d.ma200) & (d.ma200 > d.ma200_prev)
             & (c >= cfg.near_high * d.hi252) & (d.rs > cfg.rs_min))
+    if cfg.template:
+        base &= (c > d.ma150) & (d.ma50 > d.ma150) & (d.ma150 > d.ma200) & (c >= 1.30 * d.lo252)
     if 'member' in d.columns:   # universo point-in-time: solo cuentan los días en que el valor pertenecía al índice
         base &= d['member'].astype(bool)
     if cfg.rs_rank_min > 0:
@@ -302,11 +308,15 @@ def open_trade(d, ticker, sig, cfg):
         return None
     a = d.attrs['a']
     close = a['Close'][i]
+    if cfg.stop_pct > 0:
+        stop = max(stop, close * (1 - cfg.stop_pct))
     if (close - stop) / close > cfg.max_risk or close <= stop:
         return None
     if not cfg.placebo and close > pivot * (1 + cfg.max_chase):
         return None
     o = a['Open'][i + 1]
+    if cfg.stop_pct > 0:
+        stop = max(stop, o * (1 - cfg.stop_pct))
     if o > pivot * (1 + cfg.max_chase) or o <= stop:
         return None
     t = Trade(ticker, kind, i + 1, o * (1 + COST), stop, rs)

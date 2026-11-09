@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6'
+        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7'
         required: false
         default: 'backtest'
       symbols:
@@ -51,7 +51,7 @@ jobs:
           python-version: '3.11'
       - run: pip install -r requirements.txt lxml pyarrow
       - name: Pruebas del motor V24 y auditoría independiente
-        run: python -m unittest tests.test_v24_engine tests.test_v24_audit tests.test_v24_sp500data tests.test_v24_h5 tests.test_v24_h6 tests.test_system_backtest -v
+        run: python -m unittest tests.test_v24_engine tests.test_v24_audit tests.test_v24_sp500data tests.test_v24_h5 tests.test_v24_h6 tests.test_v24_h7 tests.test_system_backtest -v
       - name: Backtest V24 (investigación, sin órdenes)
         if: ${{ inputs.mode == 'backtest' || inputs.mode == '' }}
         env:
@@ -83,6 +83,9 @@ jobs:
         env:
           TIINGO_API_KEY: ${{ secrets.TIINGO_API_KEY }}
         run: python tiingo_limits.py data/v24_tiingo_limites.json
+      - name: Contraste de H7, sistema tipo Minervini (prueba final bloqueada)
+        if: ${{ inputs.mode == 'h7' }}
+        run: python v24_h7.py --output data/v24_h7.json
       - name: Sondeo de Tiingo (lista pública y, si hay clave, precios de deslistadas)
         if: ${{ inputs.mode == 'tiingo' }}
         env:
