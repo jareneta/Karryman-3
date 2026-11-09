@@ -42,3 +42,12 @@ Una hipótesis H1-H3 se considera **candidata** si cumple C1 y C2; **supera al �
 ## 5. Qué NO se hará
 Ajustar ventanas, umbrales o número de posiciones tras ver resultados; añadir hipótesis después; mirar la prueba final antes de tiempo;
 presentar como validada una hipótesis sin pasar los criterios.
+
+## Enmiendas (no cambian hipótesis, criterios ni datos)
+**2026-11-09, antes de ver ningún resultado de H1-H4.** La primera ejecución se canceló tras 55 min sin terminar. Causa: `_afford` del
+motor reducía una cantidad fraccionaria un 0,1 % por iteración (hasta ~14.000 iteraciones por orden cuando faltaba efectivo).
+Se sustituyó por una estimación directa más un ajuste fino. Comprobación sobre datos sintéticos: con acciones enteras resultado idéntico;
+con fraccionarias el patrimonio final difiere ~1e-6 en términos relativos y desaparecen operaciones de importe despreciable. Velocidad ×16-28.
+Los resultados válidos A y B de `docs/V24_RESULTADOS.md` se generaron con la versión anterior del motor (commit indicado en cada JSON).
+Implementación aclarada: en todas las carteras (hipótesis, referencias y placebos) los pesos se reajustan a diario al objetivo (banda 0);
+la selección de valores se actualiza cada 21 sesiones. También se subió el límite de tiempo de la ejecución a 150 min.

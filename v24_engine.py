@@ -265,11 +265,22 @@ def run(prices, cfg=None, member=None, market_on=None):
 
 
 def _afford(q, px, cash, cfg):
-    """Cantidad máxima <= q que cabe en el efectivo incluida la comisión (nunca efectivo negativo)."""
-    while q > 0 and q * px + fee_of(q, px, cfg) > cash + 1e-9:
-        q = q * 0.999 if cfg.fractional else q - 1
-        if cfg.fractional and q * px < 1e-6:
+    """Cantidad máxima <= q que cabe en el efectivo incluida la comisión (nunca efectivo negativo).
+    Estimación directa (coste por acción <= precio + comisión por acción) y ajuste fino en pocos pasos."""
+    if q <= 0 or cash <= 0:
+        return 0.0
+    if q * px + fee_of(q, px, cfg) <= cash + 1e-9:
+        return q
+    est = max(0.0, (cash - cfg.fee_min) / (px + cfg.fee_per_share))
+    q = min(q, est if cfg.fractional else float(np.floor(est)))
+    for _ in range(200):
+        if q <= 0:
             return 0.0
+        if q * px + fee_of(q, px, cfg) <= cash + 1e-9:
+            break
+        q = q * 0.9999 if cfg.fractional else q - 1
+    if cfg.fractional and q * px < 1e-6:
+        return 0.0
     return q
 
 
