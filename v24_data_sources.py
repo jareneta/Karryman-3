@@ -43,10 +43,19 @@ def probe_repo():
     out['extensiones'] = ext
     out['ejemplos'] = [p for p, _ in files[:25]]
     out['mayores'] = sorted(files, key=lambda x: -x[1])[:8]
-    rd = [p for p, _ in files if p.lower().startswith('readme')]
-    if rd:
-        r = requests.get(f'https://raw.githubusercontent.com/{REPO}/{m.get("default_branch")}/{rd[0]}', timeout=60)
-        out['readme_inicio'] = r.text[:1500]
+    br = m.get('default_branch')
+    out['md'] = [p for p, _ in files if p.lower().endswith('.md')]
+    out['licencia_ficheros'] = [p for p, _ in files if p.lower().split('/')[-1].startswith(('license', 'licence', 'copying'))]
+    docs = {}
+    for p in out['md'][:7]:
+        r = requests.get(f'https://raw.githubusercontent.com/{REPO}/{br}/{p}', timeout=60)
+        docs[p] = r.text[:9000]
+    out['docs_md'] = docs
+    rel = gh(f'/repos/{REPO}/releases?per_page=5')
+    if rel.status_code == 200:
+        out['releases'] = [{'tag': x.get('tag_name'), 'fecha': x.get('published_at'),
+                            'assets': [(a['name'], a['size']) for a in x.get('assets', [])][:15]} for x in rel.json()]
+    out['csv_ficheros'] = [(p, s) for p, s in files if p.lower().endswith('.csv')]
     samples = []
     for p, s in [x for x in files if x[0].lower().endswith('.csv') and x[1] < 8_000_000][:3]:
         r = requests.get(f'https://raw.githubusercontent.com/{REPO}/{m.get("default_branch")}/{p}', timeout=60)
@@ -65,9 +74,15 @@ def sp500_changes():
     warnings.simplefilter('ignore')
     html = requests.get('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies', headers={'User-Agent': 'karryman-research/1.0'}, timeout=60).text
     tabs = pd.read_html(io.StringIO(html))
-    cur = tabs[0]
-    ch = tabs[1]
-    ch.columns = [' '.join(map(str, c)).strip() if isinstance(c, tuple) else str(c) for c in ch.columns]
+    cur, ch = tabs[0], None
+    for t in tabs[1:]:
+        t = t.copy()
+        t.columns = [' '.join(dict.fromkeys(map(str, c))).strip() if isinstance(c, tuple) else str(c) for c in t.columns]
+        if any('Added' in c for c in t.columns) and any('Removed' in c for c in t.columns):
+            ch = t
+            break
+    if ch is None:
+        raise ValueError('tabla de cambios no encontrada; columnas: ' + str([list(map(str, t.columns))[:6] for t in tabs[1:4]]))
     date_col = [c for c in ch.columns if 'Date' in c][0]
     rem = [c for c in ch.columns if 'Removed' in c and 'Ticker' in c][0]
     add = [c for c in ch.columns if 'Added' in c and 'Ticker' in c][0]
