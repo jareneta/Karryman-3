@@ -30,6 +30,14 @@ on:
         description: 'Acciones fraccionarias (true/false)'
         required: false
         default: 'false'
+      source:
+        description: 'yahoo | sp500data (S&P 500 point-in-time con deslistadas)'
+        required: false
+        default: 'yahoo'
+      tag:
+        description: 'Release del repositorio de datos (source=sp500data)'
+        required: false
+        default: 'snapshot-2026-11'
 permissions:
   contents: write
 jobs:
@@ -43,7 +51,7 @@ jobs:
           python-version: '3.11'
       - run: pip install -r requirements.txt lxml pyarrow
       - name: Pruebas del motor V24 y auditoría independiente
-        run: python -m unittest tests.test_v24_engine tests.test_v24_audit -v
+        run: python -m unittest tests.test_v24_engine tests.test_v24_audit tests.test_v24_sp500data -v
       - name: Backtest V24 (investigación, sin órdenes)
         if: ${{ inputs.mode == 'backtest' || inputs.mode == '' }}
         env:
@@ -53,9 +61,11 @@ jobs:
           FEE_MIN: ${{ inputs.fee_min }}
           MIN_ORDER: ${{ inputs.min_order }}
           FRACTIONAL: ${{ inputs.fractional }}
+          SOURCE: ${{ inputs.source }}
+          TAG: ${{ inputs.tag }}
         run: |
           F=""; [ "$FRACTIONAL" = "true" ] && F="--fractional"
-          python v24_backtest.py --symbols "$SYMBOLS" --seed "$SEED" --capital "$CAPITAL" --fee-min "$FEE_MIN" --min-order "$MIN_ORDER" $F --output data/v24_results.json
+          python v24_backtest.py --symbols "$SYMBOLS" --seed "$SEED" --capital "$CAPITAL" --fee-min "$FEE_MIN" --min-order "$MIN_ORDER" --source "$SOURCE" --tag "$TAG" $F --output data/v24_results.json
       - name: Sondeo de fuentes de datos con deslistadas (investigación)
         if: ${{ inputs.mode == 'fuentes' }}
         env:

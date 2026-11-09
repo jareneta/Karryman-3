@@ -31,6 +31,56 @@ def liquidity_member(p, min_dollar_vol=5e6, min_price=5.0):
     dv = (p['close'] * p['volume']).rolling(60, min_periods=40).median()
     return (dv >= min_dollar_vol) & (p['close'] >= min_price)
 
+SP500_REPO = 'Johnbrick123/sp500-data'
+
+
+def download_sp500data(tag, dest='/tmp/sp500'):
+    """Descarga prices.parquet y members.parquet de la release `tag` y devuelve rutas y huella SHA-256."""
+    import hashlib
+    import os
+    import requests
+    os.makedirs(dest, exist_ok=True)
+    paths, sha = {}, {}
+    for name in ('prices.parquet', 'members.parquet'):
+        p = f'{dest}/{tag}_{name}'
+        if not os.path.exists(p):
+            r = requests.get(f'https://github.com/{SP500_REPO}/releases/download/{tag}/{name}', timeout=900)
+            r.raise_for_status()
+            open(p, 'wb').write(r.content)
+        paths[name] = p
+        sha[name] = hashlib.sha256(open(p, 'rb').read()).hexdigest()
+    return paths, sha
+
+
+def load_sp500data(prices_path, members_path, start='2009-06-01', end=None, benchmark='SPY'):
+    """Lee los parquet y construye el universo (ver build_universe)."""
+    members = pd.read_parquet(members_path)
+    tickers = sorted(members[members['date'] >= pd.Timestamp(start)]['ticker'].unique())
+    d = pd.read_parquet(prices_path, filters=[('date', '>=', pd.Timestamp(start)), ('ticker', 'in', tickers + [benchmark])])
+    return build_universe(d, members, start, end, benchmark)
+
+
+def build_universe(d, members, start='2009-06-01', end=None, benchmark='SPY'):
+    """Precios OHLC ajustados por dividendos y splits (factor adj_close/close), máscara de pertenencia diaria al
+    S&P 500 (incluye empresas deslistadas) y serie del benchmark."""
+    members = members[members['date'] >= pd.Timestamp(start)]
+    d = d[d['date'] >= pd.Timestamp(start)]
+    if end:
+        members, d = members[members['date'] <= pd.Timestamp(end)], d[d['date'] <= pd.Timestamp(end)]
+    tickers = sorted(members['ticker'].unique())
+    bench = d[d['ticker'] == benchmark].set_index('date')['adj_close'].sort_index()
+    d = d[d['ticker'].isin(tickers)].dropna(subset=['close', 'adj_close'])
+    d = d[(d['close'] > 0) & (d['adj_close'] > 0)].copy()
+    f = d['adj_close'] / d['close']
+    for k in ('open', 'high', 'low'):
+        d[k] = d[k] * f
+    d['close'] = d['adj_close']
+    srcs = d['source'].value_counts().to_dict() if 'source' in d else {}
+    wide = {k: d.pivot(index='date', columns='ticker', values=k).sort_index() for k in ('open', 'high', 'low', 'close', 'volume')}
+    idx, cols = wide['close'].index, wide['close'].columns
+    mem = members.assign(v=True).pivot(index='date', columns='ticker', values='v').reindex(index=idx, columns=cols).fillna(False).astype(bool)
+    return wide, mem, bench, {'filas_precios_usadas': int(len(d)), 'series': int(len(cols)), 'por_fuente': srcs}
+
 
 def benchmark(spy):
     rows = {}
@@ -52,18 +102,30 @@ def main():
     ap.add_argument('--fee-min', type=float, default=1.0)
     ap.add_argument('--min-order', type=float, default=100.0)
     ap.add_argument('--fractional', action='store_true')
+    ap.add_argument('--source', default='yahoo', choices=['yahoo', 'sp500data'])
+    ap.add_argument('--tag', default='snapshot-2026-11')
     a = ap.parse_args()
     t0 = time.time()
-    names = sb.universe()
-    random.Random(a.seed).shuffle(names)
-    frames = sb.download(['SPY'] + names[:a.symbols * 2], a.start)   # se piden el doble: muchas no pasan filtros
-    spy = frames.pop('SPY')['Close']
-    keep = list(frames)[:a.symbols] if len(frames) > a.symbols else list(frames)
-    p = to_wide({t: frames[t] for t in keep})
-    member = liquidity_member(p)
+    meta = {}
+    if a.source == 'sp500data':
+        paths, sha = download_sp500data(a.tag)
+        p, member, spy, info = load_sp500data(paths['prices.parquet'], paths['members.parquet'], a.start)
+        keep = list(p['close'].columns)
+        meta = {'fuente': 'sp500data', 'tag': a.tag, 'sha256': sha, **info,
+                'nota': 'S&P 500 point-in-time con deslistadas; sin licencia explícita en el repositorio; no verificado de forma independiente'}
+        print(f'sp500data {a.tag}: {info} · {time.time()-t0:.0f}s', flush=True)
+    else:
+        names = sb.universe()
+        random.Random(a.seed).shuffle(names)
+        frames = sb.download(['SPY'] + names[:a.symbols * 2], a.start)   # se piden el doble: muchas no pasan filtros
+        spy = frames.pop('SPY')['Close']
+        keep = list(frames)[:a.symbols] if len(frames) > a.symbols else list(frames)
+        p = to_wide({t: frames[t] for t in keep})
+        member = liquidity_member(p)
+        meta = {'fuente': 'yahoo', 'nota': 'acciones cotizadas hoy: sesgo de supervivencia'}
+    print(f'Series: {len(keep)} · desde {p["close"].index[0].date()} hasta {p["close"].index[-1].date()} · {time.time()-t0:.0f}s', flush=True)
     chg = p['close'].pct_change(fill_method=None).abs()
     sus = {t: int((chg[t] > 0.40).sum()) for t in chg.columns if (chg[t] > 0.40).any()}
-    print(f'Series: {len(keep)} · desde {p["close"].index[0].date()} hasta {p["close"].index[-1].date()} · {time.time()-t0:.0f}s', flush=True)
     base = ve.Cfg(capital=a.capital, fee_min=a.fee_min, min_order=a.min_order, fractional=a.fractional, rank_every=1)
     models = {
         'v24_base_sin_proteccion': replace(base, protection='none'),
@@ -75,7 +137,7 @@ def main():
     }
     import os as _os
     out = {'commit': _os.environ.get('GITHUB_SHA'), 'parametros': {'capital': a.capital, 'fee_min': a.fee_min, 'min_order': a.min_order, 'fractional': a.fractional, 'symbols': a.symbols, 'seed': a.seed},
-           'universo': {'series': len(keep), 'nota': 'acciones cotizadas hoy: sesgo de supervivencia; filtro de liquidez vigente día a día'},
+           'datos': meta, 'universo': {'series': len(keep), 'nota': 'acciones cotizadas hoy: sesgo de supervivencia; filtro de liquidez vigente día a día'},
            'calidad_datos': {'series_con_saltos_diarios_mayores_40pct': len(sus), 'detalle': dict(list(sus.items())[:30]), 'nota': 'posibles splits sin ajustar o errores de datos'},
            'modelos': {}, 'comisiones': [], 'benchmark_spy': benchmark(spy)}
     runs = {}
