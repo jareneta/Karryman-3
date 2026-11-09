@@ -1,0 +1,707 @@
+{
+ "commit": "955cc89d142e21fdf7dd4b8c3cd2eb048b8884f4",
+ "parametros": {
+  "capital": 100000.0,
+  "fee_min": 0.0,
+  "min_order": 0.0,
+  "fractional": true,
+  "symbols": 300,
+  "seed": 42
+ },
+ "datos": {
+  "fuente": "sp500data",
+  "tag": "snapshot-2026-11",
+  "sha256": {
+   "prices.parquet": "7b58eeafc855a502469fc5090eb703f76516172deebe13d51609fd6eb2c5f3f5",
+   "members.parquet": "4ce5a2cd8ff85a2ae334f8c33abe3447ab1e4fcf70202fc261278a68dce58e63"
+  },
+  "filas_precios_usadas": 2966787,
+  "series": 843,
+  "por_fuente": {
+   "yahoo": 2499966,
+   "tiingo": 352842,
+   "wiki": 85130,
+   "crsp": 21232,
+   "kaggle": 4264,
+   "kaggle-splice": 1870,
+   "archive-tsaustin": 1178,
+   "archive-patch": 157,
+   "crsp-patch": 130,
+   "nasdaq-patch": 9,
+   "wiki-patch": 5,
+   "tiingo-patch": 4
+  },
+  "nota": "S&P 500 point-in-time con deslistadas; sin licencia expl\u00edcita en el repositorio; no verificado de forma independiente"
+ },
+ "universo": {
+  "series": 843,
+  "nota": "acciones cotizadas hoy: sesgo de supervivencia; filtro de liquidez vigente d\u00eda a d\u00eda"
+ },
+ "calidad_datos": {
+  "series_con_saltos_diarios_mayores_40pct": 84,
+  "detalle": {
+   "AAL": 1,
+   "AAP": 1,
+   "ABMD": 1,
+   "ADT-201604": 1,
+   "AIG": 1,
+   "AMD": 1,
+   "ANRZQ-201607": 5,
+   "APA": 1,
+   "APP": 1,
+   "ARG-201605": 1,
+   "BE": 4,
+   "BIIB": 1,
+   "BLDR": 1,
+   "BTUUQ-201704": 3,
+   "CAM-201604": 1,
+   "CHK": 7,
+   "CITGQ-200912": 5,
+   "CNC": 1,
+   "CPRI": 2,
+   "CVNA": 6,
+   "CZR": 1,
+   "DF": 2,
+   "DNR": 4,
+   "DXC": 2,
+   "DXCM": 1,
+   "DYN-201804": 2,
+   "ECHO": 2,
+   "EKDKQ-201309": 3,
+   "ENPH": 1,
+   "EPAM": 1
+  },
+  "nota": "posibles splits sin ajustar o errores de datos"
+ },
+ "modelos": {
+  "v24_base_sin_proteccion": {
+   "entrenamiento_2010_16": {
+    "cagr_pct": 2.26,
+    "max_dd_pct": -24.59,
+    "sharpe": 0.289,
+    "calmar": 0.09,
+    "vol_pct": 9.16,
+    "orders": 15095,
+    "orders_per_day": 8.567,
+    "fees_usd": 16266.34,
+    "neg_years": 2,
+    "avg_exposure_pct": 89.6,
+    "days_flat": 704
+   },
+   "validacion_2017_20": {
+    "cagr_pct": -3.63,
+    "max_dd_pct": -19.49,
+    "sharpe": -0.463,
+    "calmar": -0.19,
+    "vol_pct": 7.4,
+    "orders": 5683,
+    "orders_per_day": 5.643,
+    "fees_usd": 3439.85,
+    "neg_years": 2,
+    "avg_exposure_pct": 96.3,
+    "days_flat": 624
+   },
+   "prueba_2021_26": {
+    "cagr_pct": -0.09,
+    "max_dd_pct": -9.54,
+    "sharpe": -0.007,
+    "calmar": -0.01,
+    "vol_pct": 3.46,
+    "orders": 2311,
+    "orders_per_day": 1.579,
+    "fees_usd": 667.11,
+    "neg_years": 2,
+    "avg_exposure_pct": 97.9,
+    "days_flat": 1308
+   },
+   "todo": {
+    "cagr_pct": 0.39,
+    "max_dd_pct": -24.59,
+    "sharpe": 0.09,
+    "calmar": 0.02,
+    "vol_pct": 7.19,
+    "orders": 23750,
+    "orders_per_day": 5.419,
+    "fees_usd": 21151.33,
+    "neg_years": 7,
+    "avg_exposure_pct": 93.8,
+    "days_flat": 2673
+   }
+  },
+  "v24_freno_fijo_8_50": {
+   "entrenamiento_2010_16": {
+    "cagr_pct": 0.9,
+    "max_dd_pct": -19.38,
+    "sharpe": 0.15,
+    "calmar": 0.05,
+    "vol_pct": 8.24,
+    "orders": 15145,
+    "orders_per_day": 8.595,
+    "fees_usd": 14142.81,
+    "neg_years": 3,
+    "avg_exposure_pct": 74.8,
+    "days_flat": 704
+   },
+   "validacion_2017_20": {
+    "cagr_pct": -2.57,
+    "max_dd_pct": -15.61,
+    "sharpe": -0.405,
+    "calmar": -0.16,
+    "vol_pct": 5.98,
+    "orders": 5711,
+    "orders_per_day": 5.671,
+    "fees_usd": 2703.42,
+    "neg_years": 2,
+    "avg_exposure_pct": 65.0,
+    "days_flat": 624
+   },
+   "prueba_2021_26": {
+    "cagr_pct": 0.28,
+    "max_dd_pct": -5.91,
+    "sharpe": 0.11,
+    "calmar": 0.05,
+    "vol_pct": 2.92,
+    "orders": 2311,
+    "orders_per_day": 1.579,
+    "fees_usd": 488.07,
+    "neg_years": 1,
+    "avg_exposure_pct": 49.8,
+    "days_flat": 1308
+   },
+   "todo": {
+    "cagr_pct": 0.23,
+    "max_dd_pct": -19.38,
+    "sharpe": 0.067,
+    "calmar": 0.01,
+    "vol_pct": 6.31,
+    "orders": 23828,
+    "orders_per_day": 5.436,
+    "fees_usd": 18112.33,
+    "neg_years": 7,
+    "avg_exposure_pct": 64.1,
+    "days_flat": 2673
+   }
+  },
+  "v24_progresiva": {
+   "entrenamiento_2010_16": {
+    "cagr_pct": 1.21,
+    "max_dd_pct": -17.55,
+    "sharpe": 0.194,
+    "calmar": 0.07,
+    "vol_pct": 7.74,
+    "orders": 15233,
+    "orders_per_day": 8.645,
+    "fees_usd": 12996.47,
+    "neg_years": 3,
+    "avg_exposure_pct": 66.3,
+    "days_flat": 704
+   },
+   "validacion_2017_20": {
+    "cagr_pct": -3.18,
+    "max_dd_pct": -14.22,
+    "sharpe": -0.615,
+    "calmar": -0.22,
+    "vol_pct": 5.04,
+    "orders": 5766,
+    "orders_per_day": 5.726,
+    "fees_usd": 2193.96,
+    "neg_years": 2,
+    "avg_exposure_pct": 48.4,
+    "days_flat": 624
+   },
+   "prueba_2021_26": {
+    "cagr_pct": 0.24,
+    "max_dd_pct": -4.36,
+    "sharpe": 0.114,
+    "calmar": 0.06,
+    "vol_pct": 2.34,
+    "orders": 2311,
+    "orders_per_day": 1.579,
+    "fees_usd": 357.91,
+    "neg_years": 1,
+    "avg_exposure_pct": 35.0,
+    "days_flat": 1308
+   },
+   "todo": {
+    "cagr_pct": 0.19,
+    "max_dd_pct": -17.66,
+    "sharpe": 0.062,
+    "calmar": 0.01,
+    "vol_pct": 5.76,
+    "orders": 23971,
+    "orders_per_day": 5.469,
+    "fees_usd": 16326.37,
+    "neg_years": 7,
+    "avg_exposure_pct": 51.8,
+    "days_flat": 2673
+   }
+  },
+  "v24_progresiva_banda10": {
+   "entrenamiento_2010_16": {
+    "cagr_pct": 1.15,
+    "max_dd_pct": -17.58,
+    "sharpe": 0.187,
+    "calmar": 0.07,
+    "vol_pct": 7.7,
+    "orders": 10017,
+    "orders_per_day": 5.685,
+    "fees_usd": 12791.59,
+    "neg_years": 3,
+    "avg_exposure_pct": 66.3,
+    "days_flat": 704
+   },
+   "validacion_2017_20": {
+    "cagr_pct": -2.96,
+    "max_dd_pct": -15.12,
+    "sharpe": -0.551,
+    "calmar": -0.2,
+    "vol_pct": 5.21,
+    "orders": 3897,
+    "orders_per_day": 3.87,
+    "fees_usd": 2321.93,
+    "neg_years": 2,
+    "avg_exposure_pct": 51.8,
+    "days_flat": 624
+   },
+   "prueba_2021_26": {
+    "cagr_pct": 0.23,
+    "max_dd_pct": -4.36,
+    "sharpe": 0.111,
+    "calmar": 0.05,
+    "vol_pct": 2.34,
+    "orders": 2134,
+    "orders_per_day": 1.458,
+    "fees_usd": 359.21,
+    "neg_years": 1,
+    "avg_exposure_pct": 35.0,
+    "days_flat": 1308
+   },
+   "todo": {
+    "cagr_pct": 0.21,
+    "max_dd_pct": -17.58,
+    "sharpe": 0.066,
+    "calmar": 0.01,
+    "vol_pct": 5.77,
+    "orders": 16572,
+    "orders_per_day": 3.781,
+    "fees_usd": 16244.9,
+    "neg_years": 7,
+    "avg_exposure_pct": 52.6,
+    "days_flat": 2673
+   }
+  },
+  "v24_progresiva_ma100": {
+   "entrenamiento_2010_16": {
+    "cagr_pct": 0.15,
+    "max_dd_pct": -14.62,
+    "sharpe": 0.054,
+    "calmar": 0.01,
+    "vol_pct": 5.88,
+    "orders": 15252,
+    "orders_per_day": 8.656,
+    "fees_usd": 9122.76,
+    "neg_years": 3,
+    "avg_exposure_pct": 41.6,
+    "days_flat": 704
+   },
+   "validacion_2017_20": {
+    "cagr_pct": -2.11,
+    "max_dd_pct": -10.83,
+    "sharpe": -0.733,
+    "calmar": -0.19,
+    "vol_pct": 2.85,
+    "orders": 5776,
+    "orders_per_day": 5.736,
+    "fees_usd": 1154.67,
+    "neg_years": 2,
+    "avg_exposure_pct": 30.3,
+    "days_flat": 624
+   },
+   "prueba_2021_26": {
+    "cagr_pct": 0.25,
+    "max_dd_pct": -3.26,
+    "sharpe": 0.136,
+    "calmar": 0.08,
+    "vol_pct": 2.0,
+    "orders": 2311,
+    "orders_per_day": 1.579,
+    "fees_usd": 289.25,
+    "neg_years": 2,
+    "avg_exposure_pct": 30.1,
+    "days_flat": 1308
+   },
+   "todo": {
+    "cagr_pct": 0.0,
+    "max_dd_pct": -15.76,
+    "sharpe": 0.022,
+    "calmar": 0.0,
+    "vol_pct": 4.3,
+    "orders": 24000,
+    "orders_per_day": 5.476,
+    "fees_usd": 11344.7,
+    "neg_years": 8,
+    "avg_exposure_pct": 35.8,
+    "days_flat": 2673
+   }
+  },
+  "v24_progresiva_rank_mensual": {
+   "entrenamiento_2010_16": {
+    "cagr_pct": 4.98,
+    "max_dd_pct": -13.87,
+    "sharpe": 0.478,
+    "calmar": 0.36,
+    "vol_pct": 11.58,
+    "orders": 24239,
+    "orders_per_day": 13.757,
+    "fees_usd": 4270.44,
+    "neg_years": 3,
+    "avg_exposure_pct": 65.0,
+    "days_flat": 72
+   },
+   "validacion_2017_20": {
+    "cagr_pct": 2.81,
+    "max_dd_pct": -14.4,
+    "sharpe": 0.338,
+    "calmar": 0.19,
+    "vol_pct": 9.54,
+    "orders": 11302,
+    "orders_per_day": 11.223,
+    "fees_usd": 1262.82,
+    "neg_years": 1,
+    "avg_exposure_pct": 61.8,
+    "days_flat": 250
+   },
+   "prueba_2021_26": {
+    "cagr_pct": 1.6,
+    "max_dd_pct": -17.95,
+    "sharpe": 0.252,
+    "calmar": 0.09,
+    "vol_pct": 7.38,
+    "orders": 9404,
+    "orders_per_day": 6.423,
+    "fees_usd": 499.46,
+    "neg_years": 3,
+    "avg_exposure_pct": 41.1,
+    "days_flat": 835
+   },
+   "todo": {
+    "cagr_pct": 3.42,
+    "max_dd_pct": -20.15,
+    "sharpe": 0.392,
+    "calmar": 0.17,
+    "vol_pct": 9.81,
+    "orders": 46108,
+    "orders_per_day": 10.52,
+    "fees_usd": 6304.38,
+    "neg_years": 8,
+    "avg_exposure_pct": 55.8,
+    "days_flat": 1158
+   }
+  },
+  "control_v24_base_rank_mensual": {
+   "entrenamiento_2010_16": {
+    "cagr_pct": 6.86,
+    "max_dd_pct": -17.98,
+    "sharpe": 0.554,
+    "calmar": 0.38,
+    "vol_pct": 13.69,
+    "orders": 23876,
+    "orders_per_day": 13.551,
+    "fees_usd": 5381.69,
+    "neg_years": 2,
+    "avg_exposure_pct": 78.3,
+    "days_flat": 72
+   },
+   "validacion_2017_20": {
+    "cagr_pct": 3.6,
+    "max_dd_pct": -18.21,
+    "sharpe": 0.36,
+    "calmar": 0.2,
+    "vol_pct": 11.77,
+    "orders": 11102,
+    "orders_per_day": 11.025,
+    "fees_usd": 1849.5,
+    "neg_years": 1,
+    "avg_exposure_pct": 87.7,
+    "days_flat": 250
+   },
+   "prueba_2021_26": {
+    "cagr_pct": -0.27,
+    "max_dd_pct": -31.53,
+    "sharpe": 0.024,
+    "calmar": -0.01,
+    "vol_pct": 10.14,
+    "orders": 9327,
+    "orders_per_day": 6.371,
+    "fees_usd": 915.16,
+    "neg_years": 3,
+    "avg_exposure_pct": 85.7,
+    "days_flat": 835
+   },
+   "todo": {
+    "cagr_pct": 3.75,
+    "max_dd_pct": -31.53,
+    "sharpe": 0.366,
+    "calmar": 0.12,
+    "vol_pct": 12.03,
+    "orders": 45468,
+    "orders_per_day": 10.374,
+    "fees_usd": 8418.72,
+    "neg_years": 6,
+    "avg_exposure_pct": 82.5,
+    "days_flat": 1158
+   }
+  },
+  "control_placebo_aleatorio_mensual_s1": {
+   "entrenamiento_2010_16": {
+    "cagr_pct": 3.51,
+    "max_dd_pct": -23.98,
+    "sharpe": 0.327,
+    "calmar": 0.15,
+    "vol_pct": 13.26,
+    "orders": 24139,
+    "orders_per_day": 13.7,
+    "fees_usd": 5772.94,
+    "neg_years": 3,
+    "avg_exposure_pct": 88.7,
+    "days_flat": 72
+   },
+   "validacion_2017_20": {
+    "cagr_pct": 5.79,
+    "max_dd_pct": -18.24,
+    "sharpe": 0.585,
+    "calmar": 0.32,
+    "vol_pct": 10.58,
+    "orders": 10931,
+    "orders_per_day": 10.855,
+    "fees_usd": 1752.69,
+    "neg_years": 1,
+    "avg_exposure_pct": 91.4,
+    "days_flat": 250
+   },
+   "prueba_2021_26": {
+    "cagr_pct": 1.43,
+    "max_dd_pct": -20.0,
+    "sharpe": 0.2,
+    "calmar": 0.07,
+    "vol_pct": 9.19,
+    "orders": 9040,
+    "orders_per_day": 6.175,
+    "fees_usd": 1332.68,
+    "neg_years": 2,
+    "avg_exposure_pct": 95.9,
+    "days_flat": 835
+   },
+   "todo": {
+    "cagr_pct": 3.76,
+    "max_dd_pct": -23.98,
+    "sharpe": 0.384,
+    "calmar": 0.16,
+    "vol_pct": 11.32,
+    "orders": 45352,
+    "orders_per_day": 10.347,
+    "fees_usd": 9167.92,
+    "neg_years": 6,
+    "avg_exposure_pct": 91.5,
+    "days_flat": 1158
+   }
+  },
+  "control_placebo_aleatorio_mensual_s2": {
+   "entrenamiento_2010_16": {
+    "cagr_pct": 6.57,
+    "max_dd_pct": -20.04,
+    "sharpe": 0.551,
+    "calmar": 0.33,
+    "vol_pct": 13.1,
+    "orders": 24004,
+    "orders_per_day": 13.623,
+    "fees_usd": 5438.01,
+    "neg_years": 1,
+    "avg_exposure_pct": 88.3,
+    "days_flat": 72
+   },
+   "validacion_2017_20": {
+    "cagr_pct": 4.96,
+    "max_dd_pct": -20.83,
+    "sharpe": 0.521,
+    "calmar": 0.24,
+    "vol_pct": 10.31,
+    "orders": 10888,
+    "orders_per_day": 10.812,
+    "fees_usd": 2024.69,
+    "neg_years": 1,
+    "avg_exposure_pct": 91.7,
+    "days_flat": 250
+   },
+   "prueba_2021_26": {
+    "cagr_pct": -1.65,
+    "max_dd_pct": -24.99,
+    "sharpe": -0.125,
+    "calmar": -0.07,
+    "vol_pct": 9.62,
+    "orders": 9057,
+    "orders_per_day": 6.186,
+    "fees_usd": 1431.27,
+    "neg_years": 3,
+    "avg_exposure_pct": 95.1,
+    "days_flat": 835
+   },
+   "todo": {
+    "cagr_pct": 3.54,
+    "max_dd_pct": -24.99,
+    "sharpe": 0.364,
+    "calmar": 0.14,
+    "vol_pct": 11.31,
+    "orders": 45171,
+    "orders_per_day": 10.306,
+    "fees_usd": 9293.89,
+    "neg_years": 5,
+    "avg_exposure_pct": 91.0,
+    "days_flat": 1158
+   }
+  },
+  "control_placebo_aleatorio_mensual_s3": {
+   "entrenamiento_2010_16": {
+    "cagr_pct": 9.09,
+    "max_dd_pct": -16.08,
+    "sharpe": 0.733,
+    "calmar": 0.57,
+    "vol_pct": 13.03,
+    "orders": 24061,
+    "orders_per_day": 13.656,
+    "fees_usd": 5617.76,
+    "neg_years": 1,
+    "avg_exposure_pct": 87.8,
+    "days_flat": 72
+   },
+   "validacion_2017_20": {
+    "cagr_pct": 7.19,
+    "max_dd_pct": -16.31,
+    "sharpe": 0.726,
+    "calmar": 0.44,
+    "vol_pct": 10.29,
+    "orders": 10924,
+    "orders_per_day": 10.848,
+    "fees_usd": 2085.09,
+    "neg_years": 1,
+    "avg_exposure_pct": 91.7,
+    "days_flat": 250
+   },
+   "prueba_2021_26": {
+    "cagr_pct": 1.43,
+    "max_dd_pct": -19.3,
+    "sharpe": 0.201,
+    "calmar": 0.07,
+    "vol_pct": 9.2,
+    "orders": 9079,
+    "orders_per_day": 6.202,
+    "fees_usd": 2026.88,
+    "neg_years": 3,
+    "avg_exposure_pct": 95.9,
+    "days_flat": 835
+   },
+   "todo": {
+    "cagr_pct": 5.88,
+    "max_dd_pct": -19.3,
+    "sharpe": 0.569,
+    "calmar": 0.3,
+    "vol_pct": 11.13,
+    "orders": 45190,
+    "orders_per_day": 10.31,
+    "fees_usd": 10005.53,
+    "neg_years": 5,
+    "avg_exposure_pct": 91.1,
+    "days_flat": 1158
+   }
+  }
+ },
+ "comisiones": [
+  {
+   "fee_min": 0.35,
+   "min_order": 0.0,
+   "cagr_pct": 0.11,
+   "max_dd_pct": -17.75,
+   "sharpe": 0.049,
+   "calmar": 0.01,
+   "vol_pct": 5.73,
+   "orders": 16536,
+   "orders_per_day": 3.773,
+   "fees_usd": 17567.67,
+   "neg_years": 7,
+   "avg_exposure_pct": 51.8,
+   "days_flat": 2673
+  },
+  {
+   "fee_min": 0.5,
+   "min_order": 0.0,
+   "cagr_pct": 0.05,
+   "max_dd_pct": -18.01,
+   "sharpe": 0.037,
+   "calmar": 0.0,
+   "vol_pct": 5.72,
+   "orders": 16513,
+   "orders_per_day": 3.768,
+   "fees_usd": 18735.1,
+   "neg_years": 7,
+   "avg_exposure_pct": 51.7,
+   "days_flat": 2673
+  },
+  {
+   "fee_min": 1.0,
+   "min_order": 0.0,
+   "cagr_pct": -0.37,
+   "max_dd_pct": -19.0,
+   "sharpe": -0.042,
+   "calmar": -0.02,
+   "vol_pct": 5.44,
+   "orders": 16134,
+   "orders_per_day": 3.681,
+   "fees_usd": 23246.71,
+   "neg_years": 9,
+   "avg_exposure_pct": 48.9,
+   "days_flat": 2673
+  }
+ ],
+ "benchmark_spy": {
+  "entrenamiento_2010_16": {
+   "cagr_pct": 12.49,
+   "max_dd_pct": -18.61
+  },
+  "validacion_2017_20": {
+   "cagr_pct": 15.71,
+   "max_dd_pct": -33.7
+  },
+  "prueba_2021_26": {
+   "cagr_pct": 14.63,
+   "max_dd_pct": -24.5
+  },
+  "todo": {
+   "cagr_pct": 14.7,
+   "max_dd_pct": -33.7
+  }
+ },
+ "control_igualponderado_sp500": {
+  "entrenamiento_2010_16": {
+   "cagr_pct": 5.02,
+   "max_dd_pct": -14.48
+  },
+  "validacion_2017_20": {
+   "cagr_pct": 5.37,
+   "max_dd_pct": -11.15
+  },
+  "prueba_2021_26": {
+   "cagr_pct": 0.13,
+   "max_dd_pct": -6.75
+  },
+  "todo": {
+   "cagr_pct": 3.43,
+   "max_dd_pct": -14.48
+  }
+ },
+ "anti_bloqueo": {
+  "ultima_orden": "2026-10-08",
+  "efectivo_final": 103778.58,
+  "patrimonio_final": 103778.58,
+  "mayor_periodo_sin_operar_dias": 90
+ }
+}
