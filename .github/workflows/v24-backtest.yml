@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7'
+        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor'
         required: false
         default: 'backtest'
       symbols:
@@ -86,6 +86,9 @@ jobs:
       - name: Contraste de H7, sistema tipo Minervini (prueba final bloqueada)
         if: ${{ inputs.mode == 'h7' }}
         run: python v24_h7.py --output data/v24_h7.json
+      - name: H7 exploratoria en acciones que cotizan hoy (sesgo declarado; prueba final bloqueada)
+        if: ${{ inputs.mode == 'h7_explor' }}
+        run: python v24_h7_explor.py --output data/v24_h7_explor.json
       - name: Sondeo de Tiingo (lista pública y, si hay clave, precios de deslistadas)
         if: ${{ inputs.mode == 'tiingo' }}
         env:
