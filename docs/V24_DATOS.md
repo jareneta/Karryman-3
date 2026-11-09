@@ -63,3 +63,12 @@ observadas). Campos: open/high/low/close/volume, versiones ajustadas (`adj*`), `
   de la lista. Hay que validar las fechas de cada serie antes de usarla (si no, se mezclan empresas distintas).
 - Límites de la capa gratuita (peticiones/hora, símbolos únicos al mes) y precios de planes de pago: **no verificados**. No se pudo leer la página de precios desde el entorno
   de trabajo (dominio no permitido) y no se han tomado cifras de memoria; consultar tiingo.com/about/pricing.
+
+## 5. Límites medidos de la capa gratuita de Tiingo (2026-11-09; `results/v24/v24_tiingo_limites_42717020724.json`)
+- **Límite horario:** tras **50 peticiones** correctas la API devolvió HTTP 429: *"You have run over your hourly request allocation. Please upgrade …"*. Es decir, ~50 series por hora.
+  No se han medido todavía posibles límites diarios o mensuales (de símbolos únicos).
+- **Universo de acciones ordinarias (heurística sobre el símbolo):** 11.813 valores (6.744 activos, 5.069 inactivos); cotizando el 1 de enero: 3.078 (2005), 4.058 (2010), 5.049 (2015), 5.195 (2020).
+- **Calidad (50 series):** 49 con fechas coherentes con la lista (98 %); entre las inactivas, 95,2 %. Mediana de 2.224 filas por serie. Hace falta validar las fechas de cada serie.
+- **Consecuencia:** descargar un universo de miles de acciones con la capa gratuita llevaría días de peticiones espaciadas (p. ej. 2.000 series ≈ 40 horas a 50/hora). Opciones: plan de pago,
+  muestra reducida (cientos de acciones) repartida en varias horas, o descarga paulatina guardada en un almacenamiento privado del usuario (los términos de Tiingo restringen la redistribución,
+  por lo que los precios no deben guardarse en este repositorio público ni en artefactos).
