@@ -34,14 +34,14 @@ def liquidity_member(p, min_dollar_vol=5e6, min_price=5.0):
 SP500_REPO = 'Johnbrick123/sp500-data'
 
 
-def download_sp500data(tag, dest='/tmp/sp500'):
+def download_sp500data(tag, dest='/tmp/sp500', names=('prices.parquet', 'membership_intervals.parquet')):
     """Descarga prices.parquet y members.parquet de la release `tag` y devuelve rutas y huella SHA-256."""
     import hashlib
     import os
     import requests
     os.makedirs(dest, exist_ok=True)
     paths, sha = {}, {}
-    for name in ('prices.parquet', 'membership_intervals.parquet'):
+    for name in names:
         p = f'{dest}/{tag}_{name}'
         if not os.path.exists(p):
             r = requests.get(f'https://github.com/{SP500_REPO}/releases/download/{tag}/{name}', timeout=900)

@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor | h8'
+        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor | h8 | sic'
         required: false
         default: 'backtest'
       symbols:
@@ -92,6 +92,11 @@ jobs:
       - name: Contraste de H8, sistema tipo Oliver Kell (prueba final bloqueada)
         if: ${{ inputs.mode == 'h8' }}
         run: python v24_kell.py --output data/v24_kell.json
+      - name: Clasificación SIC (SEC) del S&P 500 point-in-time y cobertura
+        if: ${{ inputs.mode == 'sic' }}
+        env:
+          SEC_CONTACT: ${{ secrets.SEC_CONTACT }}
+        run: python sic_coverage.py data/v24_sic.json
       - name: Sondeo de Tiingo (lista pública y, si hay clave, precios de deslistadas)
         if: ${{ inputs.mode == 'tiingo' }}
         env:
