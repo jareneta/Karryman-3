@@ -56,7 +56,7 @@ class Config:
     rs_min: float = 0.0
     near_high: float = 0.85
     placebo: bool = False
-    entry: str = 'pivot30'        # pivot30 | base (VCP/asa, disparo diario) | base_weekly (cierre semanal) | kell (Wedge Pop + EMA Crossback)
+    entry: str = 'pivot30'        # pivot30 | base (VCP/asa, disparo diario) | base_weekly (cierre semanal) | kell (Wedge Pop + EMA Crossback) | dip (comprar caídas)
     min_base_weeks: int = 5
     max_base_depth: float = 0.35
     min_prior_advance: float = 0.30
@@ -66,6 +66,10 @@ class Config:
     rs_rank_min: float = 0.0      # rango RS (percentil IBD) mínimo, 0 = sin filtro
     max_positions: int = 0        # 0 = sin límite de posiciones activas (los runners no cuentan)
     template: bool = False        # Trend Template (tipo Minervini): MA150, 50>150>200 y cierre >= 30 % sobre el mínimo de 252 sesiones
+    exit_above_sma20: bool = False   # salida de reversión a la media: cierre > SMA20 (apertura siguiente)
+    max_hold: int = 0             # salida incondicional tras N sesiones (0 = no)
+    dip_lo: float = 0.15          # entry='dip': caída mínima desde el máximo de cierre de las 60 sesiones previas
+    dip_hi: float = 0.35          # entry='dip': caída máxima
     stop_pct: float = 0.0         # 0 = sin tope; p. ej. 0.08 = stop no más lejos del 8 % bajo la entrada (el más ajustado con el mínimo de 10 sesiones)
 
 
@@ -150,6 +154,7 @@ def prepare(df, spy_close):
     c, h, lo, v = d.Close, d.High, d.Low, d.Volume
     d['ma50'] = c.rolling(50).mean()
     d['ma200'] = c.rolling(200).mean()
+    d['sma20'] = c.rolling(20).mean()
     d['ma150'] = c.rolling(150).mean()
     d['lo252'] = lo.rolling(252).min()
     d['ma200_prev'] = d['ma200'].shift(20)
@@ -200,7 +205,7 @@ def prepare(df, spy_close):
     wk_vol = v.groupby(week).sum()
     d['week_vol_ratio'] = wvol / wk.map(wk_vol.shift(1).rolling(10).mean())
     d.attrs['a'] = {k: d[k].to_numpy(dtype=float) for k in ('Open', 'High', 'Low', 'Close', 'ema10', 'ema20', 'ema21', 'ma50',
-                                                            'w50_exit', 'w10_exit', 'ret15')}
+                                                            'w50_exit', 'w10_exit', 'ret15', 'sma20')}
     return d
 
 
@@ -227,6 +232,23 @@ def attach_rs_rank(prepared, index):
 def signals(d, cfg, regime, rng=None):
     """Señales al cierre del día i; la compra se intenta en la apertura de i+1."""
     c, v = d.Close, d.Volume
+    if cfg.entry == 'dip':
+        # Comprar caídas (docs/V24_H9B_CAIDAS_SP500.md): cruce a una caída de 15-35 % desde el máximo de cierre de las 60 sesiones previas, sobre la SMA200.
+        liq = (c >= 5) & (d.vol50 >= 500_000)
+        if 'member' in d.columns:
+            liq &= d['member'].astype(bool)
+        dd = c / c.shift(1).rolling(60).max() - 1
+        dd_prev = c.shift(1) / c.shift(2).rolling(60).max() - 1
+        if cfg.placebo:
+            ok = liq & d.ma200.notna()
+            idx = np.flatnonzero(ok.values)
+            out = []
+            if len(idx) and rng is not None:
+                for i in rng.choice(idx, size=max(1, len(idx) // 120), replace=False):
+                    out.append((int(i), 'placebo', float(c.iloc[i]), 1e-6, 0.0))
+            return out
+        sig = liq & (c > d.ma200) & (dd <= -cfg.dip_lo) & (dd >= -cfg.dip_hi) & (dd_prev > -cfg.dip_lo)
+        return [(int(i), 'caida', float(c.iloc[i]), 1e-6, 0.0) for i in np.flatnonzero(sig.fillna(False).values)]
     base = ((c >= 5) & (d.vol50 >= 500_000) & (c > d.ma50) & (d.ma50 > d.ma200) & (d.ma200 > d.ma200_prev)
             & (c >= cfg.near_high * d.hi252) & (d.rs > cfg.rs_min))
     if cfg.template:
@@ -336,6 +358,8 @@ def open_trade(d, ticker, sig, cfg):
         stop = max(stop, o * (1 - cfg.stop_pct))
     if o > pivot * (1 + cfg.max_chase) or o <= stop:
         return None
+    if cfg.entry == 'dip' and not cfg.placebo and o < pivot * (1 - cfg.max_chase):
+        return None
     t = Trade(ticker, kind, i + 1, o * (1 + COST), stop, rs)
     t.stop = stop
     t.costs = COST
@@ -372,6 +396,10 @@ def step(t, d, j, cfg):
         t.pending = True  # clímax: subida vertical muy extendida sobre la MA50 -> vender todo
         t.climax = True
     elif c <= t.stop:
+        t.pending = True
+    elif cfg.exit_above_sma20 and c > a['sma20'][j]:
+        t.pending = True
+    elif cfg.max_hold and j - t.entry_i + 1 >= cfg.max_hold:
         t.pending = True
     elif trail_on and cfg.trail in ('w50', 'w10') and a[cfg.trail + '_exit'][j] > 0:
         t.pending = True
