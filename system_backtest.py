@@ -66,6 +66,10 @@ class Config:
     rs_rank_min: float = 0.0      # rango RS (percentil IBD) mínimo, 0 = sin filtro
     max_positions: int = 0        # 0 = sin límite de posiciones activas (los runners no cuentan)
     template: bool = False        # Trend Template (tipo Minervini): MA150, 50>150>200 y cierre >= 30 % sobre el mínimo de 252 sesiones
+    tp_pct: float = 0.0           # beneficio: vende todo si el máximo alcanza +tp_pct sobre la entrada (0 = no)
+    eight_week: bool = False      # regla de las 8 semanas: +20 % en <15 sesiones -> sin venta en tp_pct y salida en la sesión 40
+    fixed_stop: bool = False      # stop = stop_pct bajo la entrada (sin el mínimo de la base)
+    oneil_bases: bool = False     # base >= 35 sesiones y prof. <= max_base_depth, o base >= 25 sesiones y prof. <= 15 %
     exit_above_sma20: bool = False   # salida de reversión a la media: cierre > SMA20 (apertura siguiente)
     max_hold: int = 0             # salida incondicional tras N sesiones (0 = no)
     dip_lo: float = 0.15          # entry='dip': caída mínima desde el máximo de cierre de las 60 sesiones previas
@@ -268,7 +272,7 @@ def signals(d, cfg, regime, rng=None):
         idx = np.flatnonzero(liquid.values)
         if len(idx) and rng is not None:
             for i in rng.choice(idx, size=max(1, len(idx) // 120), replace=False):
-                out.append((int(i), 'placebo', float(c.iloc[i]) * (1 + cfg.max_chase), float(d.low10.iloc[i]), 0.0))
+                out.append((int(i), 'placebo', float(c.iloc[i]) * (1 + cfg.max_chase), 1e-6 if cfg.fixed_stop else float(d.low10.iloc[i]), 0.0))
         return out
     if cfg.entry == 'kell':
         # Patrones tipo Oliver Kell (docs/V24_H8_KELL.md): Wedge Pop y EMA Crossback, siempre con datos hasta el cierre de i.
@@ -294,13 +298,15 @@ def signals(d, cfg, regime, rng=None):
                    & (d.tight <= cfg.max_tight) & (c > d.base_high) & (c.shift(1) <= d.base_high.shift(1))
                    & (v >= cfg.vol_breakout * d.vol50))
             piv = d.base_high
+            if cfg.oneil_bases:
+                sig &= (d.base_len >= 35) | (d.base_depth <= 0.15)
         else:
             sig = (common & d.last_of_week & (d.week_base_len >= 5 * cfg.min_base_weeks)
                    & (d.week_depth <= cfg.max_base_depth) & (c > d.week_pivot)
                    & (d.week_vol_ratio >= cfg.vol_breakout) & (d.tight <= cfg.max_tight * 1.5))
             piv = d.week_pivot
         for i in np.flatnonzero(sig.fillna(False).values):
-            out.append((int(i), 'base', float(piv.iloc[i]), float(d.low10.iloc[i]),
+            out.append((int(i), 'base', float(piv.iloc[i]), 1e-6 if cfg.fixed_stop else float(d.low10.iloc[i]),
                         float(d.rs_rank.iloc[i]) if d.rs_rank.notna().iloc[i] else float(d.rs.iloc[i])))
         return out
     if cfg.breakout:
@@ -333,6 +339,7 @@ class Trade:
     costs: float = 0.0
     exit_i: int = -1
     climax: bool = False
+    hold8: bool = False
     hi: float = 0.0
     fills: list = field(default_factory=list)
 
@@ -382,6 +389,12 @@ def step(t, d, j, cfg):
     R = t.R
     if cfg.be_at_1r and h >= t.entry + R:
         t.stop = max(t.stop, t.entry)
+    if cfg.eight_week and not t.hold8 and j - t.entry_i < 15 and h >= t.entry * 1.20:
+        t.hold8 = True
+    if cfg.tp_pct > 0 and not t.hold8 and h >= t.entry * (1 + cfg.tp_pct):
+        sell(t.rem, max(o, t.entry * (1 + cfg.tp_pct)))
+        t.exit_i = j
+        return True
     if not t.partial and cfg.partial_r > 0 and h >= t.entry + cfg.partial_r * R:
         frac = min(t.rem, cfg.partial_frac)
         sell(frac, max(o, t.entry + cfg.partial_r * R))
@@ -396,6 +409,8 @@ def step(t, d, j, cfg):
         t.pending = True  # clímax: subida vertical muy extendida sobre la MA50 -> vender todo
         t.climax = True
     elif c <= t.stop:
+        t.pending = True
+    elif cfg.eight_week and t.hold8 and j - t.entry_i + 1 >= 40:
         t.pending = True
     elif cfg.exit_above_sma20 and c > a['sma20'][j]:
         t.pending = True
