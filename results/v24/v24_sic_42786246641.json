@@ -1,0 +1,6264 @@
+{
+ "tag": "snapshot-2026-11",
+ "activas": {
+  "intervalos": 521,
+  "con_cik": 515,
+  "clasificadas_con_sic": 515,
+  "pct_clasificadas": 98.8,
+  "tecnologicas": 78
+ },
+ "deslistadas": {
+  "intervalos": 742,
+  "con_cik": 267,
+  "clasificadas_con_sic": 264,
+  "pct_clasificadas": 35.6,
+  "tecnologicas": 28
+ },
+ "total": {
+  "intervalos": 1263,
+  "con_cik": 782,
+  "clasificadas_con_sic": 779,
+  "pct_clasificadas": 61.7,
+  "tecnologicas": 106
+ },
+ "deslistadas_tecnologicas_ejemplos_clasificadas": [
+  "AMD",
+  "CIEN",
+  "DELL",
+  "DXC",
+  "ENPH",
+  "FSLR",
+  "IPGP",
+  "JBL",
+  "LDOS",
+  "PBI",
+  "PD",
+  "PTC",
+  "Q",
+  "S",
+  "SANM",
+  "SEDG",
+  "SNDK",
+  "SNT",
+  "TDC",
+  "TE",
+  "TRIP",
+  "UIS",
+  "VIAV",
+  "WB",
+  "XRX"
+ ],
+ "deslistadas_sin_clasificar_ejemplos": [
+  "AABA",
+  "AAMRQ",
+  "ABI",
+  "ABKFQ",
+  "ABMD",
+  "ABS",
+  "ACAS",
+  "ACKH",
+  "ACS",
+  "ACV",
+  "AET",
+  "AFS-A",
+  "AGC",
+  "AGN",
+  "AHM",
+  "AIRC",
+  "AKS",
+  "AL",
+  "ALTR",
+  "ALXN",
+  "AMCC",
+  "ANDV",
+  "ANDW",
+  "ANRZQ",
+  "ANSS",
+  "ANV",
+  "APCC",
+  "APOL",
+  "ARC",
+  "ARG",
+  "ARNC",
+  "ASN",
+  "AT",
+  "ATGE",
+  "ATVI",
+  "AV",
+  "AVP",
+  "AW",
+  "AWE",
+  "AYE",
+  "AZA-A",
+  "BAY",
+  "BBBY",
+  "BBI",
+  "BCR",
+  "BDK",
+  "BEV",
+  "BFI",
+  "BFO",
+  "BGEN",
+  "BGG",
+  "BHMSQ",
+  "BIG",
+  "BJS",
+  "BKB",
+  "BLS",
+  "BLY",
+  "BMC",
+  "BMET",
+  "BMGCA"
+ ],
+ "regla_cobertura_70pct": {
+  "umbral": 70.0,
+  "cumple": false
+ },
+ "mapa": {
+  "A": {
+   "cik": 1090872,
+   "sic": "3826",
+   "tech": false
+  },
+  "AABA": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AAL": {
+   "cik": 6201,
+   "sic": "4512",
+   "tech": false
+  },
+  "AAL-199702": {
+   "cik": 6201,
+   "sic": "4512",
+   "tech": false
+  },
+  "AAMRQ-201312": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AAP": {
+   "cik": 1158449,
+   "sic": "5531",
+   "tech": false
+  },
+  "AAPL": {
+   "cik": 320193,
+   "sic": "3571",
+   "tech": true
+  },
+  "ABBV": {
+   "cik": 1551152,
+   "sic": "2834",
+   "tech": false
+  },
+  "ABI-200811": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ABKFQ-201304": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ABMD": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ABNB": {
+   "cik": 1559720,
+   "sic": "7340",
+   "tech": false
+  },
+  "ABS-200606": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ABT": {
+   "cik": 1800,
+   "sic": "2834",
+   "tech": false
+  },
+  "ABX-201812": {
+   "cik": 1814287,
+   "sic": "6282",
+   "tech": false
+  },
+  "ACAS-201701": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ACGL": {
+   "cik": 947484,
+   "sic": "6331",
+   "tech": false
+  },
+  "ACKH-200211": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ACN": {
+   "cik": 1467373,
+   "sic": "7389",
+   "tech": false
+  },
+  "ACS-201002": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ACV-201105": {
+   "cik": 1636289,
+   "sic": "",
+   "tech": false
+  },
+  "ADBE": {
+   "cik": 796343,
+   "sic": "7372",
+   "tech": true
+  },
+  "ADCT-201012": {
+   "cik": 1771910,
+   "sic": "2834",
+   "tech": false
+  },
+  "ADI": {
+   "cik": 6281,
+   "sic": "3674",
+   "tech": true
+  },
+  "ADM": {
+   "cik": 7084,
+   "sic": "2070",
+   "tech": false
+  },
+  "ADP": {
+   "cik": 8670,
+   "sic": "7374",
+   "tech": true
+  },
+  "ADSK": {
+   "cik": 769397,
+   "sic": "7372",
+   "tech": true
+  },
+  "ADT-201604": {
+   "cik": 1703056,
+   "sic": "7381",
+   "tech": false
+  },
+  "AEE": {
+   "cik": 1002910,
+   "sic": "4931",
+   "tech": false
+  },
+  "AEP": {
+   "cik": 4904,
+   "sic": "4911",
+   "tech": false
+  },
+  "AES": {
+   "cik": 874761,
+   "sic": "4991",
+   "tech": false
+  },
+  "AET-201811": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AFL": {
+   "cik": 4977,
+   "sic": "6321",
+   "tech": false
+  },
+  "AFS-A-200011": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AGC-200108": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AGN": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AGN-201503": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AHM-199810": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AIG": {
+   "cik": 5272,
+   "sic": "6331",
+   "tech": false
+  },
+  "AIRC": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AIT-199910": {
+   "cik": 109563,
+   "sic": "5080",
+   "tech": false
+  },
+  "AIV": {
+   "cik": 922864,
+   "sic": "6798",
+   "tech": false
+  },
+  "AIZ": {
+   "cik": 1267238,
+   "sic": "6399",
+   "tech": false
+  },
+  "AJG": {
+   "cik": 354190,
+   "sic": "6411",
+   "tech": false
+  },
+  "AKAM": {
+   "cik": 1086222,
+   "sic": "7389",
+   "tech": false
+  },
+  "AKS": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AL-200711": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ALB": {
+   "cik": 915913,
+   "sic": "2821",
+   "tech": false
+  },
+  "ALGN": {
+   "cik": 1097149,
+   "sic": "3842",
+   "tech": false
+  },
+  "ALK": {
+   "cik": 766421,
+   "sic": "4512",
+   "tech": false
+  },
+  "ALL": {
+   "cik": 899051,
+   "sic": "6331",
+   "tech": false
+  },
+  "ALLE": {
+   "cik": 1579241,
+   "sic": "7381",
+   "tech": false
+  },
+  "ALTR-201512": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ALXN": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AM-201308": {
+   "cik": 1623925,
+   "sic": "4922",
+   "tech": false
+  },
+  "AMAT": {
+   "cik": 6951,
+   "sic": "3674",
+   "tech": true
+  },
+  "AMCC-201701": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AMCR": {
+   "cik": 1748790,
+   "sic": "3990",
+   "tech": false
+  },
+  "AMD": {
+   "cik": 2488,
+   "sic": "3674",
+   "tech": true
+  },
+  "AME": {
+   "cik": 1037868,
+   "sic": "3823",
+   "tech": false
+  },
+  "AMG": {
+   "cik": 1004434,
+   "sic": "6282",
+   "tech": false
+  },
+  "AMGN": {
+   "cik": 318154,
+   "sic": "2836",
+   "tech": false
+  },
+  "AMH-199709": {
+   "cik": 1562401,
+   "sic": "6798",
+   "tech": false
+  },
+  "AMP": {
+   "cik": 820027,
+   "sic": "6282",
+   "tech": false
+  },
+  "AMP-199904": {
+   "cik": 820027,
+   "sic": "6282",
+   "tech": false
+  },
+  "AMT": {
+   "cik": 1053507,
+   "sic": "6798",
+   "tech": false
+  },
+  "AMTM": {
+   "cik": 2011286,
+   "sic": "7389",
+   "tech": false
+  },
+  "AMZN": {
+   "cik": 1018724,
+   "sic": "5961",
+   "tech": false
+  },
+  "AN": {
+   "cik": 350698,
+   "sic": "5500",
+   "tech": false
+  },
+  "AN-199812": {
+   "cik": 350698,
+   "sic": "5500",
+   "tech": false
+  },
+  "ANDV-201809": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ANDW-200712": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ANET": {
+   "cik": 1596532,
+   "sic": "3576",
+   "tech": true
+  },
+  "ANF": {
+   "cik": 1018840,
+   "sic": "5651",
+   "tech": false
+  },
+  "ANRZQ-201607": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ANSS": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ANV-199904": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AON": {
+   "cik": 315293,
+   "sic": "6411",
+   "tech": false
+  },
+  "AOS": {
+   "cik": 91142,
+   "sic": "3630",
+   "tech": false
+  },
+  "APA": {
+   "cik": 1841666,
+   "sic": "1311",
+   "tech": false
+  },
+  "APC-201908": {
+   "cik": 2080921,
+   "sic": "5172",
+   "tech": false
+  },
+  "APCC-200702": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "APD": {
+   "cik": 2969,
+   "sic": "2810",
+   "tech": false
+  },
+  "APH": {
+   "cik": 820313,
+   "sic": "3678",
+   "tech": true
+  },
+  "APO": {
+   "cik": 1858681,
+   "sic": "6282",
+   "tech": false
+  },
+  "APOL-201702": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "APP": {
+   "cik": 1751008,
+   "sic": "7370",
+   "tech": true
+  },
+  "APTV": {
+   "cik": 1521332,
+   "sic": "3714",
+   "tech": false
+  },
+  "AR-199911": {
+   "cik": 1433270,
+   "sic": "1311",
+   "tech": false
+  },
+  "ARC-200004": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ARE": {
+   "cik": 1035443,
+   "sic": "6798",
+   "tech": false
+  },
+  "ARES": {
+   "cik": 1176948,
+   "sic": "6282",
+   "tech": false
+  },
+  "ARG-201605": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ARNC-202308": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AS-199909": {
+   "cik": 1988894,
+   "sic": "2300",
+   "tech": false
+  },
+  "ASC-199906": {
+   "cik": 1577437,
+   "sic": "4412",
+   "tech": false
+  },
+  "ASH": {
+   "cik": 1674862,
+   "sic": "5160",
+   "tech": false
+  },
+  "ASN-200710": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ASND-199906": {
+   "cik": 1612042,
+   "sic": "2834",
+   "tech": false
+  },
+  "ASO-200611": {
+   "cik": 1817358,
+   "sic": "5940",
+   "tech": false
+  },
+  "AT-200711": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ATGE": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ATI": {
+   "cik": 1018963,
+   "sic": "3317",
+   "tech": false
+  },
+  "ATI-199906": {
+   "cik": 1018963,
+   "sic": "3317",
+   "tech": false
+  },
+  "ATO": {
+   "cik": 731802,
+   "sic": "4924",
+   "tech": false
+  },
+  "ATVI": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AV-200710": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AVB": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AVGO": {
+   "cik": 1730168,
+   "sic": "3674",
+   "tech": true
+  },
+  "AVP": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AVY": {
+   "cik": 8818,
+   "sic": "2670",
+   "tech": false
+  },
+  "AW-200812": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AWE-200410": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AWK": {
+   "cik": 1410636,
+   "sic": "4941",
+   "tech": false
+  },
+  "AXON": {
+   "cik": 1069183,
+   "sic": "3480",
+   "tech": false
+  },
+  "AXP": {
+   "cik": 4962,
+   "sic": "6199",
+   "tech": false
+  },
+  "AYE-201102": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AYI": {
+   "cik": 1144215,
+   "sic": "3640",
+   "tech": false
+  },
+  "AZA-A-200106": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "AZO": {
+   "cik": 866787,
+   "sic": "5531",
+   "tech": false
+  },
+  "BA": {
+   "cik": 12927,
+   "sic": "3721",
+   "tech": false
+  },
+  "BAC": {
+   "cik": 70858,
+   "sic": "6021",
+   "tech": false
+  },
+  "BAC-199809": {
+   "cik": 70858,
+   "sic": "6021",
+   "tech": false
+  },
+  "BALL": {
+   "cik": 9389,
+   "sic": "3411",
+   "tech": false
+  },
+  "BAX": {
+   "cik": 10456,
+   "sic": "3841",
+   "tech": false
+  },
+  "BAY-199808": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BBBY-202305": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BBI-199801": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BBWI": {
+   "cik": 701985,
+   "sic": "5990",
+   "tech": false
+  },
+  "BBY": {
+   "cik": 764478,
+   "sic": "5731",
+   "tech": false
+  },
+  "BC": {
+   "cik": 14930,
+   "sic": "3510",
+   "tech": false
+  },
+  "BCO": {
+   "cik": 78890,
+   "sic": "4731",
+   "tech": false
+  },
+  "BCR-201712": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BDK-201003": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BDX": {
+   "cik": 10795,
+   "sic": "3841",
+   "tech": false
+  },
+  "BE": {
+   "cik": 1664703,
+   "sic": "3620",
+   "tech": false
+  },
+  "BEAM-201404": {
+   "cik": 1745999,
+   "sic": "2836",
+   "tech": false
+  },
+  "BEN": {
+   "cik": 38777,
+   "sic": "6282",
+   "tech": false
+  },
+  "BEV-200603": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BF-B": {
+   "cik": 14693,
+   "sic": "2080",
+   "tech": false
+  },
+  "BFH": {
+   "cik": 1101215,
+   "sic": "6141",
+   "tech": false
+  },
+  "BFI-199907": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BFO-200010": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BG": {
+   "cik": 1996862,
+   "sic": "2070",
+   "tech": false
+  },
+  "BGEN-200311": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BGG": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BHF": {
+   "cik": 1685040,
+   "sic": "6311",
+   "tech": false
+  },
+  "BHMSQ-200401": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BIG": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BIIB": {
+   "cik": 875045,
+   "sic": "2836",
+   "tech": false
+  },
+  "BIO": {
+   "cik": 12208,
+   "sic": "3826",
+   "tech": false
+  },
+  "BJS-201004": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BKB-199909": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BKNG": {
+   "cik": 1075531,
+   "sic": "4700",
+   "tech": false
+  },
+  "BKR": {
+   "cik": 1701605,
+   "sic": "3533",
+   "tech": false
+  },
+  "BLDR": {
+   "cik": 1316835,
+   "sic": "5211",
+   "tech": false
+  },
+  "BLK": {
+   "cik": 2012383,
+   "sic": "6211",
+   "tech": false
+  },
+  "BLS-200612": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BLY-199612": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BMC-201309": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BMET-200709": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BMGCA-200101": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BMS": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BMY": {
+   "cik": 14272,
+   "sic": "2834",
+   "tech": false
+  },
+  "BNI-201002": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BNL-199806": {
+   "cik": 1424182,
+   "sic": "6798",
+   "tech": false
+  },
+  "BNY": {
+   "cik": 1390777,
+   "sic": "6022",
+   "tech": false
+  },
+  "BOAT-199701": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BOL-200710": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BR": {
+   "cik": 1383312,
+   "sic": "7389",
+   "tech": false
+  },
+  "BR-200603": {
+   "cik": 1383312,
+   "sic": "7389",
+   "tech": false
+  },
+  "BRCM-201601": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BRK-B": {
+   "cik": 1067983,
+   "sic": "6331",
+   "tech": false
+  },
+  "BRL-200812": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BRO": {
+   "cik": 79282,
+   "sic": "6411",
+   "tech": false
+  },
+  "BSC-200805": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BSX": {
+   "cik": 885725,
+   "sic": "3841",
+   "tech": false
+  },
+  "BT-199906": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BTUUQ-201704": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BUD-200811": {
+   "cik": 1668717,
+   "sic": "2082",
+   "tech": false
+  },
+  "BVSN": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BWA": {
+   "cik": 908255,
+   "sic": "3714",
+   "tech": false
+  },
+  "BX": {
+   "cik": 1393818,
+   "sic": "6282",
+   "tech": false
+  },
+  "BXLT-201606": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "BXP": {
+   "cik": 1037540,
+   "sic": "6798",
+   "tech": false
+  },
+  "C": {
+   "cik": 831001,
+   "sic": "6021",
+   "tech": false
+  },
+  "C-199811": {
+   "cik": 831001,
+   "sic": "6021",
+   "tech": false
+  },
+  "CA-201811": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CAG": {
+   "cik": 23217,
+   "sic": "2000",
+   "tech": false
+  },
+  "CAH": {
+   "cik": 721371,
+   "sic": "5122",
+   "tech": false
+  },
+  "CAL": {
+   "cik": 14707,
+   "sic": "3140",
+   "tech": false
+  },
+  "CAM-201604": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CAR": {
+   "cik": 723612,
+   "sic": "7510",
+   "tech": false
+  },
+  "CARR": {
+   "cik": 1783180,
+   "sic": "3585",
+   "tech": false
+  },
+  "CASY": {
+   "cik": 726958,
+   "sic": "5500",
+   "tech": false
+  },
+  "CAT": {
+   "cik": 18230,
+   "sic": "3531",
+   "tech": false
+  },
+  "CB": {
+   "cik": 896159,
+   "sic": "6331",
+   "tech": false
+  },
+  "CB-201601": {
+   "cik": 896159,
+   "sic": "6331",
+   "tech": false
+  },
+  "CBB-199801": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CBE-201211": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CBH-200803": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CBOE": {
+   "cik": 1374310,
+   "sic": "6200",
+   "tech": false
+  },
+  "CBRE": {
+   "cik": 1138118,
+   "sic": "6500",
+   "tech": false
+  },
+  "CBS-200005": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CBSS-200709": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CCB-199602": {
+   "cik": 1437958,
+   "sic": "6022",
+   "tech": false
+  },
+  "CCE": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CCI": {
+   "cik": 1051470,
+   "sic": "6798",
+   "tech": false
+  },
+  "CCI-199810": {
+   "cik": 1051470,
+   "sic": "6798",
+   "tech": false
+  },
+  "CCK": {
+   "cik": 1219601,
+   "sic": "3411",
+   "tech": false
+  },
+  "CCL": {
+   "cik": 815097,
+   "sic": "4400",
+   "tech": false
+  },
+  "CCTYQ-201009": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CCU-200807": {
+   "cik": 888746,
+   "sic": "2082",
+   "tech": false
+  },
+  "CDNS": {
+   "cik": 813672,
+   "sic": "7372",
+   "tech": true
+  },
+  "CDW": {
+   "cik": 1402057,
+   "sic": "5961",
+   "tech": false
+  },
+  "CE": {
+   "cik": 1306830,
+   "sic": "2820",
+   "tech": false
+  },
+  "CE-200402": {
+   "cik": 1306830,
+   "sic": "2820",
+   "tech": false
+  },
+  "CEG": {
+   "cik": 1868275,
+   "sic": "4911",
+   "tech": false
+  },
+  "CEG-201203": {
+   "cik": 1868275,
+   "sic": "4911",
+   "tech": false
+  },
+  "CELG": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CEN-200711": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CEPH-201110": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CERN": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CF": {
+   "cik": 1324404,
+   "sic": "2870",
+   "tech": false
+  },
+  "CF-200408": {
+   "cik": 1324404,
+   "sic": "2870",
+   "tech": false
+  },
+  "CFC-200806": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CFG": {
+   "cik": 759944,
+   "sic": "6022",
+   "tech": false
+  },
+  "CFL-199804": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CFN-201503": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CG-200011": {
+   "cik": 1527166,
+   "sic": "6282",
+   "tech": false
+  },
+  "CGP-200101": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CHA-200006": {
+   "cik": 2013649,
+   "sic": "5810",
+   "tech": false
+  },
+  "CHD": {
+   "cik": 313927,
+   "sic": "2840",
+   "tech": false
+  },
+  "CHIR-200604": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CHK": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CHRS-201206": {
+   "cik": 1512762,
+   "sic": "2836",
+   "tech": false
+  },
+  "CHRW": {
+   "cik": 1043277,
+   "sic": "4731",
+   "tech": false
+  },
+  "CHTR": {
+   "cik": 1091667,
+   "sic": "4841",
+   "tech": false
+  },
+  "CI": {
+   "cik": 1739940,
+   "sic": "6324",
+   "tech": false
+  },
+  "CIEN": {
+   "cik": 936395,
+   "sic": "3661",
+   "tech": true
+  },
+  "CIN-200603": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CINF": {
+   "cik": 20286,
+   "sic": "6331",
+   "tech": false
+  },
+  "CIT-A-200106": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CITGQ-200912": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CL": {
+   "cik": 21665,
+   "sic": "2844",
+   "tech": false
+  },
+  "CLF": {
+   "cik": 764065,
+   "sic": "1000",
+   "tech": false
+  },
+  "CLX": {
+   "cik": 21076,
+   "sic": "2842",
+   "tech": false
+  },
+  "CMA": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CMB-199603": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CMCSA": {
+   "cik": 1166691,
+   "sic": "4841",
+   "tech": false
+  },
+  "CMCSK-201512": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CME": {
+   "cik": 1156375,
+   "sic": "6200",
+   "tech": false
+  },
+  "CMG": {
+   "cik": 1058090,
+   "sic": "5812",
+   "tech": false
+  },
+  "CMI": {
+   "cik": 26172,
+   "sic": "3510",
+   "tech": false
+  },
+  "CMS": {
+   "cik": 811156,
+   "sic": "4931",
+   "tech": false
+  },
+  "CMVT-201302": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CMX-200703": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CNC": {
+   "cik": 1071739,
+   "sic": "6324",
+   "tech": false
+  },
+  "CNC-200208": {
+   "cik": 1071739,
+   "sic": "6324",
+   "tech": false
+  },
+  "CNG-200001": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CNP": {
+   "cik": 1130310,
+   "sic": "4911",
+   "tech": false
+  },
+  "CNW-201510": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CNX": {
+   "cik": 1070412,
+   "sic": "1311",
+   "tech": false
+  },
+  "CNXT-201104": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "COC-B-200208": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "COF": {
+   "cik": 927628,
+   "sic": "6021",
+   "tech": false
+  },
+  "COHR": {
+   "cik": 820318,
+   "sic": "3827",
+   "tech": false
+  },
+  "COIN": {
+   "cik": 1679788,
+   "sic": "6199",
+   "tech": false
+  },
+  "COL-201811": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "COMS-201004": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "COO": {
+   "cik": 711404,
+   "sic": "3851",
+   "tech": false
+  },
+  "COP": {
+   "cik": 1163165,
+   "sic": "2911",
+   "tech": false
+  },
+  "COR": {
+   "cik": 1140859,
+   "sic": "5122",
+   "tech": false
+  },
+  "COST": {
+   "cik": 909832,
+   "sic": "5331",
+   "tech": false
+  },
+  "COTY": {
+   "cik": 1024305,
+   "sic": "2844",
+   "tech": false
+  },
+  "COV-200203": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "COV-201501": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CPAY": {
+   "cik": 1175454,
+   "sic": "7389",
+   "tech": false
+  },
+  "CPB": {
+   "cik": 16732,
+   "sic": "2000",
+   "tech": false
+  },
+  "CPGX-201606": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CPNLQ-200802": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CPQ-200205": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CPRI": {
+   "cik": 1530721,
+   "sic": "3100",
+   "tech": false
+  },
+  "CPRT": {
+   "cik": 900075,
+   "sic": "5500",
+   "tech": false
+  },
+  "CPT": {
+   "cik": 906345,
+   "sic": "6798",
+   "tech": false
+  },
+  "CPWR-201412": {
+   "cik": 827099,
+   "sic": "4931",
+   "tech": false
+  },
+  "CR-202304": {
+   "cik": 1944013,
+   "sic": "3490",
+   "tech": false
+  },
+  "CRH": {
+   "cik": 849395,
+   "sic": "3241",
+   "tech": false
+  },
+  "CRL": {
+   "cik": 1100682,
+   "sic": "8731",
+   "tech": false
+  },
+  "CRM": {
+   "cik": 1108524,
+   "sic": "7372",
+   "tech": true
+  },
+  "CRR-199706": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CRWD": {
+   "cik": 1535527,
+   "sic": "7372",
+   "tech": true
+  },
+  "CSCO": {
+   "cik": 858877,
+   "sic": "3576",
+   "tech": true
+  },
+  "CSE-199911": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CSGP": {
+   "cik": 1057352,
+   "sic": "7389",
+   "tech": false
+  },
+  "CSR-200006": {
+   "cik": 798359,
+   "sic": "6798",
+   "tech": false
+  },
+  "CSRA-201804": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CSX": {
+   "cik": 277948,
+   "sic": "4011",
+   "tech": false
+  },
+  "CTAS": {
+   "cik": 723254,
+   "sic": "2320",
+   "tech": false
+  },
+  "CTB": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CTLT": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CTRA": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CTSH": {
+   "cik": 1058290,
+   "sic": "7371",
+   "tech": true
+  },
+  "CTVA": {
+   "cik": 1755672,
+   "sic": "0100",
+   "tech": false
+  },
+  "CTX-200908": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CTXS": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CVC-201606": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CVG": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CVH-201305": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CVNA": {
+   "cik": 1690820,
+   "sic": "5500",
+   "tech": false
+  },
+  "CVS": {
+   "cik": 64803,
+   "sic": "5912",
+   "tech": false
+  },
+  "CVX": {
+   "cik": 93410,
+   "sic": "2911",
+   "tech": false
+  },
+  "CXO": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CYM-199912": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CYR-199606": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "CZR": {
+   "cik": 1590895,
+   "sic": "7011",
+   "tech": false
+  },
+  "D": {
+   "cik": 715957,
+   "sic": "4911",
+   "tech": false
+  },
+  "DAL": {
+   "cik": 27904,
+   "sic": "4512",
+   "tech": false
+  },
+  "DALRQ-200704": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DASH": {
+   "cik": 1792789,
+   "sic": "7389",
+   "tech": false
+  },
+  "DAY": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DCNAQ-200801": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DD": {
+   "cik": 1666700,
+   "sic": "2821",
+   "tech": false
+  },
+  "DD-201708": {
+   "cik": 1666700,
+   "sic": "2821",
+   "tech": false
+  },
+  "DDOG": {
+   "cik": 1561550,
+   "sic": "7372",
+   "tech": true
+  },
+  "DDR": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DDS": {
+   "cik": 28917,
+   "sic": "5311",
+   "tech": false
+  },
+  "DE": {
+   "cik": 315189,
+   "sic": "3523",
+   "tech": false
+  },
+  "DEC-199806": {
+   "cik": 1922446,
+   "sic": "1311",
+   "tech": false
+  },
+  "DECK": {
+   "cik": 910521,
+   "sic": "3021",
+   "tech": false
+  },
+  "DELL": {
+   "cik": 1571996,
+   "sic": "3571",
+   "tech": true
+  },
+  "DELL-201310": {
+   "cik": 1571996,
+   "sic": "3571",
+   "tech": true
+  },
+  "DF": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DFS": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DG": {
+   "cik": 29534,
+   "sic": "5331",
+   "tech": false
+  },
+  "DG-200707": {
+   "cik": 29534,
+   "sic": "5331",
+   "tech": false
+  },
+  "DGN-199910": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DGX": {
+   "cik": 1022079,
+   "sic": "8071",
+   "tech": false
+  },
+  "DHI": {
+   "cik": 882184,
+   "sic": "1531",
+   "tech": false
+  },
+  "DHR": {
+   "cik": 313616,
+   "sic": "3823",
+   "tech": false
+  },
+  "DI-199809": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DIGI-199809": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DINO": {
+   "cik": 1915657,
+   "sic": "4610",
+   "tech": false
+  },
+  "DIS": {
+   "cik": 1744489,
+   "sic": "7990",
+   "tech": false
+  },
+  "DISCK": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DISH": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DJ-200712": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DL-199608": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DLR": {
+   "cik": 1297996,
+   "sic": "6798",
+   "tech": false
+  },
+  "DLTR": {
+   "cik": 935703,
+   "sic": "5331",
+   "tech": false
+  },
+  "DLX": {
+   "cik": 27996,
+   "sic": "2780",
+   "tech": false
+  },
+  "DNB": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DNR": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DO": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DOC": {
+   "cik": 765880,
+   "sic": "6798",
+   "tech": false
+  },
+  "DOV": {
+   "cik": 29905,
+   "sic": "3530",
+   "tech": false
+  },
+  "DOW": {
+   "cik": 1751788,
+   "sic": "2821",
+   "tech": false
+  },
+  "DOW-201708": {
+   "cik": 1751788,
+   "sic": "2821",
+   "tech": false
+  },
+  "DPHIQ-200910": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DPZ": {
+   "cik": 1286681,
+   "sic": "5140",
+   "tech": false
+  },
+  "DRE": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DRI": {
+   "cik": 940944,
+   "sic": "5812",
+   "tech": false
+  },
+  "DTE": {
+   "cik": 936340,
+   "sic": "4911",
+   "tech": false
+  },
+  "DTV-201507": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DUK": {
+   "cik": 1326160,
+   "sic": "4931",
+   "tech": false
+  },
+  "DVA": {
+   "cik": 927066,
+   "sic": "8090",
+   "tech": false
+  },
+  "DVN": {
+   "cik": 1090012,
+   "sic": "1311",
+   "tech": false
+  },
+  "DWD-199705": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "DXC": {
+   "cik": 1688568,
+   "sic": "7374",
+   "tech": true
+  },
+  "DXCM": {
+   "cik": 1093557,
+   "sic": "3841",
+   "tech": false
+  },
+  "DYN-201804": {
+   "cik": 1818794,
+   "sic": "2834",
+   "tech": false
+  },
+  "EA": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "EBAY": {
+   "cik": 1065088,
+   "sic": "7389",
+   "tech": false
+  },
+  "EC-200606": {
+   "cik": 1444406,
+   "sic": "1311",
+   "tech": false
+  },
+  "ECH-199807": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ECHO": {
+   "cik": 1415404,
+   "sic": "4899",
+   "tech": false
+  },
+  "ECL": {
+   "cik": 31462,
+   "sic": "2840",
+   "tech": false
+  },
+  "ECO-200301": {
+   "cik": 1964954,
+   "sic": "4412",
+   "tech": false
+  },
+  "ED": {
+   "cik": 1047862,
+   "sic": "4931",
+   "tech": false
+  },
+  "EDS-200808": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "EFU-200011": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "EFX": {
+   "cik": 33185,
+   "sic": "7320",
+   "tech": false
+  },
+  "EG": {
+   "cik": 1095073,
+   "sic": "6331",
+   "tech": false
+  },
+  "EHC": {
+   "cik": 785161,
+   "sic": "8060",
+   "tech": false
+  },
+  "EIX": {
+   "cik": 827052,
+   "sic": "4911",
+   "tech": false
+  },
+  "EKDKQ-201309": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "EL": {
+   "cik": 1001250,
+   "sic": "2844",
+   "tech": false
+  },
+  "ELV": {
+   "cik": 1156039,
+   "sic": "6324",
+   "tech": false
+  },
+  "EMC-201609": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "EME": {
+   "cik": 105634,
+   "sic": "1731",
+   "tech": false
+  },
+  "EMN": {
+   "cik": 915389,
+   "sic": "2821",
+   "tech": false
+  },
+  "EMR": {
+   "cik": 32604,
+   "sic": "3600",
+   "tech": false
+  },
+  "ENDP": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ENPH": {
+   "cik": 1463101,
+   "sic": "3674",
+   "tech": true
+  },
+  "ENRNQ-200411": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ENS-199708": {
+   "cik": 1289308,
+   "sic": "3690",
+   "tech": false
+  },
+  "EOG": {
+   "cik": 821189,
+   "sic": "1311",
+   "tech": false
+  },
+  "EOP-200702": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "EP-201205": {
+   "cik": 887396,
+   "sic": "1311",
+   "tech": false
+  },
+  "EPAM": {
+   "cik": 1352010,
+   "sic": "7371",
+   "tech": true
+  },
+  "EQ-200906": {
+   "cik": 1746466,
+   "sic": "2834",
+   "tech": false
+  },
+  "EQIX": {
+   "cik": 1101239,
+   "sic": "6798",
+   "tech": false
+  },
+  "EQT": {
+   "cik": 33213,
+   "sic": "1311",
+   "tech": false
+  },
+  "ERIE": {
+   "cik": 922621,
+   "sic": "6411",
+   "tech": false
+  },
+  "ES": {
+   "cik": 72741,
+   "sic": "4911",
+   "tech": false
+  },
+  "ESRX-201812": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ESS": {
+   "cik": 920522,
+   "sic": "6798",
+   "tech": false
+  },
+  "ESV": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ETFC": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ETN": {
+   "cik": 1551182,
+   "sic": "3590",
+   "tech": false
+  },
+  "ETR": {
+   "cik": 65984,
+   "sic": "4911",
+   "tech": false
+  },
+  "ETS-200603": {
+   "cik": 2053641,
+   "sic": "4210",
+   "tech": false
+  },
+  "ETSY": {
+   "cik": 1370637,
+   "sic": "7389",
+   "tech": false
+  },
+  "EVHC-201810": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "EVRG": {
+   "cik": 1711269,
+   "sic": "4931",
+   "tech": false
+  },
+  "EW": {
+   "cik": 1099800,
+   "sic": "3842",
+   "tech": false
+  },
+  "EXC": {
+   "cik": 1109357,
+   "sic": "4931",
+   "tech": false
+  },
+  "EXE": {
+   "cik": 895126,
+   "sic": "1311",
+   "tech": false
+  },
+  "EXPD": {
+   "cik": 746515,
+   "sic": "4731",
+   "tech": false
+  },
+  "EXPE": {
+   "cik": 1324424,
+   "sic": "4700",
+   "tech": false
+  },
+  "EXR": {
+   "cik": 1289490,
+   "sic": "6798",
+   "tech": false
+  },
+  "F": {
+   "cik": 37996,
+   "sic": "3711",
+   "tech": false
+  },
+  "FANG": {
+   "cik": 1539838,
+   "sic": "1311",
+   "tech": false
+  },
+  "FAST": {
+   "cik": 815556,
+   "sic": "5200",
+   "tech": false
+  },
+  "FBF-200403": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FBIN": {
+   "cik": 1519751,
+   "sic": "2430",
+   "tech": false
+  },
+  "FBO-199603": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FCN-199810": {
+   "cik": 887936,
+   "sic": "8742",
+   "tech": false
+  },
+  "FCPT": {
+   "cik": 1650132,
+   "sic": "6798",
+   "tech": false
+  },
+  "FCX": {
+   "cik": 831259,
+   "sic": "1000",
+   "tech": false
+  },
+  "FDC-200709": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FDO-201507": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FDS": {
+   "cik": 1013237,
+   "sic": "7370",
+   "tech": true
+  },
+  "FDX": {
+   "cik": 1048911,
+   "sic": "4513",
+   "tech": false
+  },
+  "FDXF": {
+   "cik": 2082247,
+   "sic": "4513",
+   "tech": false
+  },
+  "FE": {
+   "cik": 1031296,
+   "sic": "4911",
+   "tech": false
+  },
+  "FERG": {
+   "cik": 2011641,
+   "sic": "5070",
+   "tech": false
+  },
+  "FFB-199512": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FFIV": {
+   "cik": 1048695,
+   "sic": "3576",
+   "tech": true
+  },
+  "FG-199804": {
+   "cik": 1934850,
+   "sic": "6311",
+   "tech": false
+  },
+  "FHN": {
+   "cik": 36966,
+   "sic": "6021",
+   "tech": false
+  },
+  "FICO": {
+   "cik": 814547,
+   "sic": "7389",
+   "tech": false
+  },
+  "FII": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FIS": {
+   "cik": 1136893,
+   "sic": "7389",
+   "tech": false
+  },
+  "FISV": {
+   "cik": 798354,
+   "sic": "7389",
+   "tech": false
+  },
+  "FITB": {
+   "cik": 35527,
+   "sic": "6022",
+   "tech": false
+  },
+  "FIX": {
+   "cik": 1035983,
+   "sic": "1731",
+   "tech": false
+  },
+  "FJ-200011": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FL": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FLEX": {
+   "cik": 866374,
+   "sic": "3672",
+   "tech": true
+  },
+  "FLIR": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FLMIQ-200408": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FLR": {
+   "cik": 1124198,
+   "sic": "1600",
+   "tech": false
+  },
+  "FLS": {
+   "cik": 30625,
+   "sic": "3561",
+   "tech": false
+  },
+  "FLTWQ-200907": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FMC": {
+   "cik": 37785,
+   "sic": "2800",
+   "tech": false
+  },
+  "FMCC": {
+   "cik": 1026214,
+   "sic": "6111",
+   "tech": false
+  },
+  "FMY-199905": {
+   "cik": 1319183,
+   "sic": "",
+   "tech": false
+  },
+  "FNMA": {
+   "cik": 310522,
+   "sic": "6111",
+   "tech": false
+  },
+  "FOSL": {
+   "cik": 883569,
+   "sic": "3873",
+   "tech": false
+  },
+  "FOX": {
+   "cik": 1754301,
+   "sic": "4833",
+   "tech": false
+  },
+  "FOX-201903": {
+   "cik": 1754301,
+   "sic": "4833",
+   "tech": false
+  },
+  "FOXA": {
+   "cik": 1754301,
+   "sic": "4833",
+   "tech": false
+  },
+  "FOXA-201903": {
+   "cik": 1754301,
+   "sic": "4833",
+   "tech": false
+  },
+  "FPC-200011": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FRC": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FRO-199909": {
+   "cik": 913290,
+   "sic": "4412",
+   "tech": false
+  },
+  "FRT": {
+   "cik": 34903,
+   "sic": "6798",
+   "tech": false
+  },
+  "FRX-201406": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FSH-200611": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FSL-200612": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FSLR": {
+   "cik": 1274494,
+   "sic": "3674",
+   "tech": true
+  },
+  "FTI": {
+   "cik": 1681459,
+   "sic": "3533",
+   "tech": false
+  },
+  "FTI-201701": {
+   "cik": 1681459,
+   "sic": "3533",
+   "tech": false
+  },
+  "FTL-A-200004": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FTNT": {
+   "cik": 1262039,
+   "sic": "3577",
+   "tech": true
+  },
+  "FTR": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "FTRE": {
+   "cik": 1965040,
+   "sic": "8071",
+   "tech": false
+  },
+  "FTV": {
+   "cik": 1659166,
+   "sic": "3823",
+   "tech": false
+  },
+  "FWLT-201412": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "G-200509": {
+   "cik": 1398659,
+   "sic": "8742",
+   "tech": false
+  },
+  "GAP": {
+   "cik": 39911,
+   "sic": "5651",
+   "tech": false
+  },
+  "GAPTQ-201203": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GAS-201112": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GAS-201606": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GD": {
+   "cik": 40533,
+   "sic": "3730",
+   "tech": false
+  },
+  "GDDY": {
+   "cik": 1609711,
+   "sic": "7373",
+   "tech": true
+  },
+  "GDT-200604": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GDW-200609": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GE": {
+   "cik": 40545,
+   "sic": "3600",
+   "tech": false
+  },
+  "GEHC": {
+   "cik": 1932393,
+   "sic": "3844",
+   "tech": false
+  },
+  "GEN": {
+   "cik": 849399,
+   "sic": "7372",
+   "tech": true
+  },
+  "GENZ-201104": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GEV": {
+   "cik": 1996810,
+   "sic": "3600",
+   "tech": false
+  },
+  "GFS-A-199810": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GGP-201808": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GHC": {
+   "cik": 104889,
+   "sic": "8200",
+   "tech": false
+  },
+  "GIDL-199709": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GILD": {
+   "cik": 882095,
+   "sic": "2836",
+   "tech": false
+  },
+  "GIS": {
+   "cik": 40704,
+   "sic": "2040",
+   "tech": false
+  },
+  "GL": {
+   "cik": 320335,
+   "sic": "6311",
+   "tech": false
+  },
+  "GLD-199705": {
+   "cik": 1222333,
+   "sic": "6221",
+   "tech": false
+  },
+  "GLK-200507": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GLW": {
+   "cik": 24741,
+   "sic": "3357",
+   "tech": false
+  },
+  "GM": {
+   "cik": 1467858,
+   "sic": "3711",
+   "tech": false
+  },
+  "GMCR-201603": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GME": {
+   "cik": 1326380,
+   "sic": "5734",
+   "tech": false
+  },
+  "GNRC": {
+   "cik": 1474735,
+   "sic": "3621",
+   "tech": false
+  },
+  "GNT-199806": {
+   "cik": 1438893,
+   "sic": "",
+   "tech": false
+  },
+  "GNW": {
+   "cik": 1276520,
+   "sic": "6311",
+   "tech": false
+  },
+  "GOOG": {
+   "cik": 1652044,
+   "sic": "7370",
+   "tech": true
+  },
+  "GOOGL": {
+   "cik": 1652044,
+   "sic": "7370",
+   "tech": true
+  },
+  "GP-200512": {
+   "cik": 1584547,
+   "sic": "3713",
+   "tech": false
+  },
+  "GPC": {
+   "cik": 40987,
+   "sic": "5013",
+   "tech": false
+  },
+  "GPN": {
+   "cik": 1123360,
+   "sic": "7389",
+   "tech": false
+  },
+  "GPU-200111": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GR-201207": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GRA": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GRA-199609": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GRA-199803": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GRMN": {
+   "cik": 1121788,
+   "sic": "3812",
+   "tech": false
+  },
+  "GRN-199812": {
+   "cik": 312070,
+   "sic": "6029",
+   "tech": false
+  },
+  "GS": {
+   "cik": 886982,
+   "sic": "6211",
+   "tech": false
+  },
+  "GSX-199810": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GT": {
+   "cik": 42582,
+   "sic": "3011",
+   "tech": false
+  },
+  "GTE-200006": {
+   "cik": 1273441,
+   "sic": "1311",
+   "tech": false
+  },
+  "GTW-200710": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GWF-199707": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "GWW": {
+   "cik": 277135,
+   "sic": "5000",
+   "tech": false
+  },
+  "GX-200201": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "H-200107": {
+   "cik": 1468174,
+   "sic": "7011",
+   "tech": false
+  },
+  "H-200704": {
+   "cik": 1468174,
+   "sic": "7011",
+   "tech": false
+  },
+  "HAL": {
+   "cik": 45012,
+   "sic": "1389",
+   "tech": false
+  },
+  "HAR-201703": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HAS": {
+   "cik": 46080,
+   "sic": "3944",
+   "tech": false
+  },
+  "HBAN": {
+   "cik": 49196,
+   "sic": "6021",
+   "tech": false
+  },
+  "HBI": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HBOC-199901": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HCA": {
+   "cik": 860730,
+   "sic": "8062",
+   "tech": false
+  },
+  "HCA-200611": {
+   "cik": 860730,
+   "sic": "8062",
+   "tech": false
+  },
+  "HCBK-201510": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HCR-200712": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HD": {
+   "cik": 354950,
+   "sic": "5211",
+   "tech": false
+  },
+  "HDLM-201301": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HES": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HET-200801": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HFS-199712": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HI-200303": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HIG": {
+   "cik": 874766,
+   "sic": "6331",
+   "tech": false
+  },
+  "HII": {
+   "cik": 1501585,
+   "sic": "3730",
+   "tech": false
+  },
+  "HLT": {
+   "cik": 1585689,
+   "sic": "7011",
+   "tech": false
+  },
+  "HLT-200710": {
+   "cik": 1585689,
+   "sic": "7011",
+   "tech": false
+  },
+  "HM-200112": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HMA-201401": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HNZ-201306": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HOG": {
+   "cik": 793952,
+   "sic": "3751",
+   "tech": false
+  },
+  "HOLX": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HON": {
+   "cik": 773840,
+   "sic": "3724",
+   "tech": false
+  },
+  "HON-199912": {
+   "cik": 773840,
+   "sic": "3724",
+   "tech": false
+  },
+  "HONA": {
+   "cik": 2089271,
+   "sic": "3724",
+   "tech": false
+  },
+  "HOOD": {
+   "cik": 1783879,
+   "sic": "6211",
+   "tech": false
+  },
+  "HOT-201609": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HP": {
+   "cik": 46765,
+   "sic": "1381",
+   "tech": false
+  },
+  "HPC-200811": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HPE": {
+   "cik": 1645590,
+   "sic": "3570",
+   "tech": true
+  },
+  "HPH-199912": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HPQ": {
+   "cik": 47217,
+   "sic": "3570",
+   "tech": true
+  },
+  "HRB": {
+   "cik": 12659,
+   "sic": "7200",
+   "tech": false
+  },
+  "HRL": {
+   "cik": 48465,
+   "sic": "2011",
+   "tech": false
+  },
+  "HSH-201408": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HSIC": {
+   "cik": 1000228,
+   "sic": "5047",
+   "tech": false
+  },
+  "HSP-201509": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "HST": {
+   "cik": 1070750,
+   "sic": "6798",
+   "tech": false
+  },
+  "HSY": {
+   "cik": 47111,
+   "sic": "2060",
+   "tech": false
+  },
+  "HUBB": {
+   "cik": 48898,
+   "sic": "3670",
+   "tech": true
+  },
+  "HUM": {
+   "cik": 49071,
+   "sic": "6324",
+   "tech": false
+  },
+  "HWM": {
+   "cik": 4281,
+   "sic": "3350",
+   "tech": false
+  },
+  "I-199603": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "IAC": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "IBKR": {
+   "cik": 1381197,
+   "sic": "6211",
+   "tech": false
+  },
+  "IBM": {
+   "cik": 51143,
+   "sic": "3570",
+   "tech": true
+  },
+  "ICE": {
+   "cik": 1571949,
+   "sic": "6200",
+   "tech": false
+  },
+  "IDXX": {
+   "cik": 874716,
+   "sic": "2835",
+   "tech": false
+  },
+  "IEX": {
+   "cik": 832101,
+   "sic": "3561",
+   "tech": false
+  },
+  "IFF": {
+   "cik": 51253,
+   "sic": "2860",
+   "tech": false
+  },
+  "IGT-201504": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "IKN-200810": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ILMN": {
+   "cik": 1110803,
+   "sic": "3826",
+   "tech": false
+  },
+  "IMNX-200207": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "INCLF-200701": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "INCY": {
+   "cik": 879169,
+   "sic": "8731",
+   "tech": false
+  },
+  "INFO-202203": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "INGR-200611": {
+   "cik": 1046257,
+   "sic": "2040",
+   "tech": false
+  },
+  "INTC": {
+   "cik": 50863,
+   "sic": "3674",
+   "tech": true
+  },
+  "INTU": {
+   "cik": 896878,
+   "sic": "7372",
+   "tech": true
+  },
+  "INVH": {
+   "cik": 1687229,
+   "sic": "6510",
+   "tech": false
+  },
+  "IP": {
+   "cik": 51434,
+   "sic": "2621",
+   "tech": false
+  },
+  "IPG": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "IPGP": {
+   "cik": 1111928,
+   "sic": "3674",
+   "tech": true
+  },
+  "IQV": {
+   "cik": 1478242,
+   "sic": "8731",
+   "tech": false
+  },
+  "IR": {
+   "cik": 1699150,
+   "sic": "3560",
+   "tech": false
+  },
+  "IRM": {
+   "cik": 1020569,
+   "sic": "6798",
+   "tech": false
+  },
+  "ISRG": {
+   "cik": 1035267,
+   "sic": "3842",
+   "tech": false
+  },
+  "IT": {
+   "cik": 749251,
+   "sic": "8741",
+   "tech": false
+  },
+  "ITT": {
+   "cik": 216228,
+   "sic": "3561",
+   "tech": false
+  },
+  "ITT-199802": {
+   "cik": 216228,
+   "sic": "3561",
+   "tech": false
+  },
+  "ITW": {
+   "cik": 49826,
+   "sic": "3560",
+   "tech": false
+  },
+  "IVZ": {
+   "cik": 914208,
+   "sic": "6282",
+   "tech": false
+  },
+  "J": {
+   "cik": 52988,
+   "sic": "1600",
+   "tech": false
+  },
+  "JAVA-201001": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "JBHT": {
+   "cik": 728535,
+   "sic": "4213",
+   "tech": false
+  },
+  "JBL": {
+   "cik": 898293,
+   "sic": "3672",
+   "tech": true
+  },
+  "JCI": {
+   "cik": 833444,
+   "sic": "3585",
+   "tech": false
+  },
+  "JCI-201609": {
+   "cik": 833444,
+   "sic": "3585",
+   "tech": false
+  },
+  "JCP": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "JEF": {
+   "cik": 96223,
+   "sic": "6211",
+   "tech": false
+  },
+  "JH-200705": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "JHF-200404": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "JKHY": {
+   "cik": 779152,
+   "sic": "7373",
+   "tech": true
+  },
+  "JNJ": {
+   "cik": 200406,
+   "sic": "2834",
+   "tech": false
+  },
+  "JNPR": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "JNS-201705": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "JNY-201404": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "JOS-200005": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "JOY-201704": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "JP-200603": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "JPM": {
+   "cik": 19617,
+   "sic": "6021",
+   "tech": false
+  },
+  "JPM-200012": {
+   "cik": 19617,
+   "sic": "6021",
+   "tech": false
+  },
+  "JWN": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "K": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "KATE-201707": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "KBH": {
+   "cik": 795266,
+   "sic": "1531",
+   "tech": false
+  },
+  "KDP": {
+   "cik": 1418135,
+   "sic": "2080",
+   "tech": false
+  },
+  "KEY": {
+   "cik": 91576,
+   "sic": "6021",
+   "tech": false
+  },
+  "KEYS": {
+   "cik": 1601046,
+   "sic": "3823",
+   "tech": false
+  },
+  "KG-201102": {
+   "cik": 2055116,
+   "sic": "6331",
+   "tech": false
+  },
+  "KHC": {
+   "cik": 1637459,
+   "sic": "2030",
+   "tech": false
+  },
+  "KIM": {
+   "cik": 879101,
+   "sic": "6798",
+   "tech": false
+  },
+  "KKR": {
+   "cik": 1404912,
+   "sic": "6282",
+   "tech": false
+  },
+  "KLAC": {
+   "cik": 319201,
+   "sic": "3827",
+   "tech": false
+  },
+  "KM-200212": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "KMB": {
+   "cik": 55785,
+   "sic": "2670",
+   "tech": false
+  },
+  "KMG-200608": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "KMI": {
+   "cik": 1506307,
+   "sic": "4922",
+   "tech": false
+  },
+  "KMI-200705": {
+   "cik": 1506307,
+   "sic": "4922",
+   "tech": false
+  },
+  "KMX": {
+   "cik": 1170010,
+   "sic": "5500",
+   "tech": false
+  },
+  "KO": {
+   "cik": 21344,
+   "sic": "2080",
+   "tech": false
+  },
+  "KR": {
+   "cik": 56873,
+   "sic": "5411",
+   "tech": false
+  },
+  "KRB-200512": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "KRFT-201507": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "KRI-200606": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "KSE-200708": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "KSS": {
+   "cik": 885639,
+   "sic": "5311",
+   "tech": false
+  },
+  "KSU": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "KVUE": {
+   "cik": 1944048,
+   "sic": "2844",
+   "tech": false
+  },
+  "KWP-199911": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "L": {
+   "cik": 60086,
+   "sic": "6331",
+   "tech": false
+  },
+  "LDG-200810": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LDOS": {
+   "cik": 1336920,
+   "sic": "7373",
+   "tech": true
+  },
+  "LDW-B-200012": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LEG": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LEHMQ-201203": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LEN": {
+   "cik": 920760,
+   "sic": "1520",
+   "tech": false
+  },
+  "LH": {
+   "cik": 920148,
+   "sic": "8071",
+   "tech": false
+  },
+  "LHX": {
+   "cik": 202058,
+   "sic": "3812",
+   "tech": false
+  },
+  "LIFE-201402": {
+   "cik": 1788451,
+   "sic": "6411",
+   "tech": false
+  },
+  "LII": {
+   "cik": 1069202,
+   "sic": "3585",
+   "tech": false
+  },
+  "LIN": {
+   "cik": 1707925,
+   "sic": "2810",
+   "tech": false
+  },
+  "LITE": {
+   "cik": 1633978,
+   "sic": "3669",
+   "tech": true
+  },
+  "LKQ": {
+   "cik": 1065696,
+   "sic": "5010",
+   "tech": false
+  },
+  "LLL": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LLTC-201703": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LLX-199710": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LLY": {
+   "cik": 59478,
+   "sic": "2834",
+   "tech": false
+  },
+  "LM": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LMT": {
+   "cik": 936468,
+   "sic": "3760",
+   "tech": false
+  },
+  "LNC": {
+   "cik": 59558,
+   "sic": "6311",
+   "tech": false
+  },
+  "LNT": {
+   "cik": 352541,
+   "sic": "4931",
+   "tech": false
+  },
+  "LO-201506": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LOR-199604": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LOW": {
+   "cik": 60667,
+   "sic": "5211",
+   "tech": false
+  },
+  "LPX": {
+   "cik": 60519,
+   "sic": "2400",
+   "tech": false
+  },
+  "LRCX": {
+   "cik": 707549,
+   "sic": "3559",
+   "tech": false
+  },
+  "LSI-201405": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LU-200611": {
+   "cik": 1816007,
+   "sic": "6199",
+   "tech": false
+  },
+  "LUB": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LULU": {
+   "cik": 1397187,
+   "sic": "2300",
+   "tech": false
+  },
+  "LUMN": {
+   "cik": 18926,
+   "sic": "4813",
+   "tech": false
+  },
+  "LUV": {
+   "cik": 92380,
+   "sic": "4512",
+   "tech": false
+  },
+  "LVLT-201710": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LVS": {
+   "cik": 1300514,
+   "sic": "7011",
+   "tech": false
+  },
+  "LW": {
+   "cik": 1679273,
+   "sic": "2030",
+   "tech": false
+  },
+  "LXK-201611": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "LYB": {
+   "cik": 1489393,
+   "sic": "2860",
+   "tech": false
+  },
+  "LYV": {
+   "cik": 1335258,
+   "sic": "7900",
+   "tech": false
+  },
+  "M": {
+   "cik": 794367,
+   "sic": "5311",
+   "tech": false
+  },
+  "MA": {
+   "cik": 1141391,
+   "sic": "7389",
+   "tech": false
+  },
+  "MAA": {
+   "cik": 912595,
+   "sic": "6798",
+   "tech": false
+  },
+  "MAC": {
+   "cik": 912242,
+   "sic": "6798",
+   "tech": false
+  },
+  "MAR": {
+   "cik": 1048286,
+   "sic": "7011",
+   "tech": false
+  },
+  "MAS": {
+   "cik": 62996,
+   "sic": "3430",
+   "tech": false
+  },
+  "MAT": {
+   "cik": 63276,
+   "sic": "3942",
+   "tech": false
+  },
+  "MAY-200508": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MBC": {
+   "cik": 1941365,
+   "sic": "2511",
+   "tech": false
+  },
+  "MBI": {
+   "cik": 814585,
+   "sic": "6351",
+   "tech": false
+  },
+  "MCD": {
+   "cik": 63908,
+   "sic": "5812",
+   "tech": false
+  },
+  "MCHP": {
+   "cik": 827054,
+   "sic": "3674",
+   "tech": true
+  },
+  "MCIC-199809": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MCK": {
+   "cik": 927653,
+   "sic": "5122",
+   "tech": false
+  },
+  "MCO": {
+   "cik": 1059556,
+   "sic": "7320",
+   "tech": false
+  },
+  "MD-199707": {
+   "cik": 893949,
+   "sic": "8060",
+   "tech": false
+  },
+  "MDLZ": {
+   "cik": 1103982,
+   "sic": "2000",
+   "tech": false
+  },
+  "MDP": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MDR": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MDT": {
+   "cik": 1613103,
+   "sic": "3845",
+   "tech": false
+  },
+  "MEA-200201": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MEDI-200706": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MEE-201106": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MEL-200706": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MER-200812": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MERQ-200611": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MET": {
+   "cik": 1099219,
+   "sic": "6311",
+   "tech": false
+  },
+  "META": {
+   "cik": 1326801,
+   "sic": "7370",
+   "tech": true
+  },
+  "MFE-201102": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MGM": {
+   "cik": 789570,
+   "sic": "7011",
+   "tech": false
+  },
+  "MHK": {
+   "cik": 851968,
+   "sic": "2273",
+   "tech": false
+  },
+  "MHS-201203": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MI-201107": {
+   "cik": 1958713,
+   "sic": "6199",
+   "tech": false
+  },
+  "MII-199906": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MIL-201007": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MIR-200005": {
+   "cik": 1809987,
+   "sic": "3829",
+   "tech": false
+  },
+  "MIR-201012": {
+   "cik": 1809987,
+   "sic": "3829",
+   "tech": false
+  },
+  "MJN-201706": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MKC": {
+   "cik": 63754,
+   "sic": "2090",
+   "tech": false
+  },
+  "MKG-200010": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MKTX": {
+   "cik": 1278021,
+   "sic": "6211",
+   "tech": false
+  },
+  "MLM": {
+   "cik": 916076,
+   "sic": "1400",
+   "tech": false
+  },
+  "MMI-201205": {
+   "cik": 1578732,
+   "sic": "6531",
+   "tech": false
+  },
+  "MMM": {
+   "cik": 66740,
+   "sic": "3841",
+   "tech": false
+  },
+  "MNK": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MNR-199809": {
+   "cik": 1980088,
+   "sic": "1311",
+   "tech": false
+  },
+  "MNST": {
+   "cik": 865752,
+   "sic": "2086",
+   "tech": false
+  },
+  "MO": {
+   "cik": 764180,
+   "sic": "2111",
+   "tech": false
+  },
+  "MOB-199911": {
+   "cik": 1898643,
+   "sic": "3721",
+   "tech": false
+  },
+  "MOH": {
+   "cik": 1179929,
+   "sic": "6324",
+   "tech": false
+  },
+  "MOLX-201312": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MON-201806": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MOS": {
+   "cik": 1285785,
+   "sic": "2870",
+   "tech": false
+  },
+  "MPC": {
+   "cik": 1510295,
+   "sic": "2911",
+   "tech": false
+  },
+  "MPWR": {
+   "cik": 1280452,
+   "sic": "3674",
+   "tech": true
+  },
+  "MRK": {
+   "cik": 310158,
+   "sic": "2834",
+   "tech": false
+  },
+  "MRNA": {
+   "cik": 1682852,
+   "sic": "2836",
+   "tech": false
+  },
+  "MRO": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MRSH": {
+   "cik": 62709,
+   "sic": "6411",
+   "tech": false
+  },
+  "MRVL": {
+   "cik": 1835632,
+   "sic": "3674",
+   "tech": true
+  },
+  "MS": {
+   "cik": 895421,
+   "sic": "6211",
+   "tech": false
+  },
+  "MSCI": {
+   "cik": 1408198,
+   "sic": "7389",
+   "tech": false
+  },
+  "MSFT": {
+   "cik": 789019,
+   "sic": "7372",
+   "tech": true
+  },
+  "MSI": {
+   "cik": 68505,
+   "sic": "3663",
+   "tech": true
+  },
+  "MST-199808": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MTB": {
+   "cik": 36270,
+   "sic": "6022",
+   "tech": false
+  },
+  "MTCH": {
+   "cik": 891103,
+   "sic": "7370",
+   "tech": true
+  },
+  "MTD": {
+   "cik": 1037646,
+   "sic": "3826",
+   "tech": false
+  },
+  "MTG": {
+   "cik": 876437,
+   "sic": "6351",
+   "tech": false
+  },
+  "MTL-199909": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MTLQQ-201103": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MTW": {
+   "cik": 61986,
+   "sic": "3531",
+   "tech": false
+  },
+  "MU": {
+   "cik": 723125,
+   "sic": "3674",
+   "tech": true
+  },
+  "MUR": {
+   "cik": 717423,
+   "sic": "1311",
+   "tech": false
+  },
+  "MWI-200402": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MWV-201507": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MWW-201610": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MXIM": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MYG-200603": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "MZIAQ-201010": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NAE-199708": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NAV": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NAVI": {
+   "cik": 2152623,
+   "sic": "6211",
+   "tech": false
+  },
+  "NBL": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NBR": {
+   "cik": 1163739,
+   "sic": "1381",
+   "tech": false
+  },
+  "NC": {
+   "cik": 789933,
+   "sic": "1221",
+   "tech": false
+  },
+  "NCC-200812": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NCE-200008": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NCLH": {
+   "cik": 1513761,
+   "sic": "4400",
+   "tech": false
+  },
+  "NCR": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NDAQ": {
+   "cik": 1120193,
+   "sic": "6200",
+   "tech": false
+  },
+  "NDSN": {
+   "cik": 72331,
+   "sic": "3569",
+   "tech": false
+  },
+  "NE-202102": {
+   "cik": 1895262,
+   "sic": "1381",
+   "tech": false
+  },
+  "NEE": {
+   "cik": 753308,
+   "sic": "4911",
+   "tech": false
+  },
+  "NEM": {
+   "cik": 1164727,
+   "sic": "1040",
+   "tech": false
+  },
+  "NFB-200611": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NFLX": {
+   "cik": 1065280,
+   "sic": "7841",
+   "tech": false
+  },
+  "NFX-201902": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NGH-200012": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NI": {
+   "cik": 1111711,
+   "sic": "4931",
+   "tech": false
+  },
+  "NKE": {
+   "cik": 320187,
+   "sic": "3021",
+   "tech": false
+  },
+  "NKTR": {
+   "cik": 906709,
+   "sic": "2834",
+   "tech": false
+  },
+  "NLC-199912": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NLSN": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NLV-200001": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NMK-200201": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NOC": {
+   "cik": 1133421,
+   "sic": "3812",
+   "tech": false
+  },
+  "NOV": {
+   "cik": 1021860,
+   "sic": "3533",
+   "tech": false
+  },
+  "NOVL-201104": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NOW": {
+   "cik": 1373715,
+   "sic": "7372",
+   "tech": true
+  },
+  "NRG": {
+   "cik": 1013871,
+   "sic": "4911",
+   "tech": false
+  },
+  "NRTLQ-201510": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NSC": {
+   "cik": 702165,
+   "sic": "4011",
+   "tech": false
+  },
+  "NSI-200306": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NSM-201109": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NTAP": {
+   "cik": 1002047,
+   "sic": "3572",
+   "tech": true
+  },
+  "NTRS": {
+   "cik": 73124,
+   "sic": "6022",
+   "tech": false
+  },
+  "NUE": {
+   "cik": 73309,
+   "sic": "3312",
+   "tech": false
+  },
+  "NVDA": {
+   "cik": 1045810,
+   "sic": "3674",
+   "tech": true
+  },
+  "NVLS-201206": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NVR": {
+   "cik": 906163,
+   "sic": "1531",
+   "tech": false
+  },
+  "NWL": {
+   "cik": 814453,
+   "sic": "3089",
+   "tech": false
+  },
+  "NWS": {
+   "cik": 1564708,
+   "sic": "2711",
+   "tech": false
+  },
+  "NWSA": {
+   "cik": 1564708,
+   "sic": "2711",
+   "tech": false
+  },
+  "NXPI": {
+   "cik": 1413447,
+   "sic": "3674",
+   "tech": true
+  },
+  "NXTL-200508": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NYN-199708": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "NYT": {
+   "cik": 71691,
+   "sic": "2711",
+   "tech": false
+  },
+  "NYX-201311": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "O": {
+   "cik": 726728,
+   "sic": "6798",
+   "tech": false
+  },
+  "OAT-200108": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ODFL": {
+   "cik": 878927,
+   "sic": "4213",
+   "tech": false
+  },
+  "ODP": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "OGN": {
+   "cik": 1821825,
+   "sic": "2834",
+   "tech": false
+  },
+  "OI": {
+   "cik": 812074,
+   "sic": "3221",
+   "tech": false
+  },
+  "OK-200104": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "OKE": {
+   "cik": 1039684,
+   "sic": "4923",
+   "tech": false
+  },
+  "OM-199709": {
+   "cik": 1484612,
+   "sic": "3845",
+   "tech": false
+  },
+  "OMC": {
+   "cik": 29989,
+   "sic": "7311",
+   "tech": false
+  },
+  "OMX-201311": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ON": {
+   "cik": 1097864,
+   "sic": "3674",
+   "tech": true
+  },
+  "ONE-200406": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ORCL": {
+   "cik": 1341439,
+   "sic": "7372",
+   "tech": true
+  },
+  "ORLY": {
+   "cik": 898173,
+   "sic": "5531",
+   "tech": false
+  },
+  "ORX-199902": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "OTIS": {
+   "cik": 1781335,
+   "sic": "3600",
+   "tech": false
+  },
+  "OWENQ-200610": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "OXY": {
+   "cik": 797468,
+   "sic": "1311",
+   "tech": false
+  },
+  "P": {
+   "cik": 1474432,
+   "sic": "3572",
+   "tech": true
+  },
+  "PAC-199703": {
+   "cik": 1347557,
+   "sic": "4581",
+   "tech": false
+  },
+  "PALM-201006": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PANW": {
+   "cik": 1327567,
+   "sic": "3577",
+   "tech": true
+  },
+  "PAS-201002": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PAYC": {
+   "cik": 1590955,
+   "sic": "7372",
+   "tech": true
+  },
+  "PAYX": {
+   "cik": 723531,
+   "sic": "8700",
+   "tech": false
+  },
+  "PBCT": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PBG-201002": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PBI": {
+   "cik": 78814,
+   "sic": "3579",
+   "tech": true
+  },
+  "PBY-201602": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PCAR": {
+   "cik": 75362,
+   "sic": "3711",
+   "tech": false
+  },
+  "PCG": {
+   "cik": 1004980,
+   "sic": "4931",
+   "tech": false
+  },
+  "PCH": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PCL-201602": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PCP-201601": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PCS-200404": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PD-200703": {
+   "cik": 1568100,
+   "sic": "7372",
+   "tech": true
+  },
+  "PDCO": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PDG-200603": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PEG": {
+   "cik": 788784,
+   "sic": "4931",
+   "tech": false
+  },
+  "PEL-199706": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PENN": {
+   "cik": 921738,
+   "sic": "7011",
+   "tech": false
+  },
+  "PEP": {
+   "cik": 77476,
+   "sic": "2080",
+   "tech": false
+  },
+  "PET-199806": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PETM-201503": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PFE": {
+   "cik": 78003,
+   "sic": "2834",
+   "tech": false
+  },
+  "PFG": {
+   "cik": 1126328,
+   "sic": "6321",
+   "tech": false
+  },
+  "PG": {
+   "cik": 80424,
+   "sic": "2840",
+   "tech": false
+  },
+  "PGL-200702": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PGN-201207": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PGR": {
+   "cik": 80661,
+   "sic": "6331",
+   "tech": false
+  },
+  "PH": {
+   "cik": 76334,
+   "sic": "3490",
+   "tech": false
+  },
+  "PHA-200304": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PHB-199910": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PHM": {
+   "cik": 822416,
+   "sic": "1531",
+   "tech": false
+  },
+  "PKG": {
+   "cik": 75677,
+   "sic": "2650",
+   "tech": false
+  },
+  "PLD": {
+   "cik": 1045609,
+   "sic": "6798",
+   "tech": false
+  },
+  "PLD-201106": {
+   "cik": 1045609,
+   "sic": "6798",
+   "tech": false
+  },
+  "PLL-201508": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PLTR": {
+   "cik": 1321655,
+   "sic": "7372",
+   "tech": true
+  },
+  "PM": {
+   "cik": 1413329,
+   "sic": "2111",
+   "tech": false
+  },
+  "PMCS-201601": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PMI-199911": {
+   "cik": 2030617,
+   "sic": "3841",
+   "tech": false
+  },
+  "PNC": {
+   "cik": 713676,
+   "sic": "6021",
+   "tech": false
+  },
+  "PNR": {
+   "cik": 77360,
+   "sic": "3550",
+   "tech": false
+  },
+  "PNU-200003": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PNW": {
+   "cik": 764622,
+   "sic": "4911",
+   "tech": false
+  },
+  "PODD": {
+   "cik": 1145197,
+   "sic": "3841",
+   "tech": false
+  },
+  "POM-201603": {
+   "cik": 1877971,
+   "sic": "5900",
+   "tech": false
+  },
+  "POOL": {
+   "cik": 945841,
+   "sic": "5090",
+   "tech": false
+  },
+  "PPG": {
+   "cik": 79879,
+   "sic": "2851",
+   "tech": false
+  },
+  "PPL": {
+   "cik": 922224,
+   "sic": "4911",
+   "tech": false
+  },
+  "PPW-199911": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PRD-200110": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PRGO": {
+   "cik": 1585364,
+   "sic": "2834",
+   "tech": false
+  },
+  "PRU": {
+   "cik": 1137774,
+   "sic": "6311",
+   "tech": false
+  },
+  "PSA": {
+   "cik": 1393311,
+   "sic": "6798",
+   "tech": false
+  },
+  "PSFT-200501": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PSX": {
+   "cik": 1534701,
+   "sic": "2911",
+   "tech": false
+  },
+  "PTC": {
+   "cik": 857005,
+   "sic": "7372",
+   "tech": true
+  },
+  "PTV-201011": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PVH": {
+   "cik": 78239,
+   "sic": "2320",
+   "tech": false
+  },
+  "PVN-199706": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PVN-200509": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PVT-199906": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PWER-201307": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PWJ-200011": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PWR": {
+   "cik": 1050915,
+   "sic": "1731",
+   "tech": false
+  },
+  "PXD": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "PYPL": {
+   "cik": 1633917,
+   "sic": "7389",
+   "tech": false
+  },
+  "PZE-199908": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "Q": {
+   "cik": 2058873,
+   "sic": "3674",
+   "tech": true
+  },
+  "Q-201103": {
+   "cik": 2058873,
+   "sic": "3674",
+   "tech": true
+  },
+  "QCOM": {
+   "cik": 804328,
+   "sic": "3663",
+   "tech": true
+  },
+  "QEP": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "QLGC-201608": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "QRVO": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "QTRN-200309": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "R": {
+   "cik": 85961,
+   "sic": "7510",
+   "tech": false
+  },
+  "RAD": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RAI-201707": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RAL-200112": {
+   "cik": 2041385,
+   "sic": "3823",
+   "tech": false
+  },
+  "RATL-200302": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RBD-199903": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RBK-200601": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RCL": {
+   "cik": 884887,
+   "sic": "4400",
+   "tech": false
+  },
+  "RDC": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RDDT": {
+   "cik": 1713445,
+   "sic": "7374",
+   "tech": true
+  },
+  "RDS-A": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "REG": {
+   "cik": 910606,
+   "sic": "6798",
+   "tech": false
+  },
+  "REGN": {
+   "cik": 872589,
+   "sic": "2834",
+   "tech": false
+  },
+  "RF": {
+   "cik": 1281761,
+   "sic": "6021",
+   "tech": false
+  },
+  "RHI": {
+   "cik": 315213,
+   "sic": "7363",
+   "tech": false
+  },
+  "RHT": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RIG": {
+   "cik": 1451505,
+   "sic": "1381",
+   "tech": false
+  },
+  "RJF": {
+   "cik": 720005,
+   "sic": "6211",
+   "tech": false
+  },
+  "RL": {
+   "cik": 1037038,
+   "sic": "2320",
+   "tech": false
+  },
+  "RLM-200005": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RMD": {
+   "cik": 943819,
+   "sic": "3841",
+   "tech": false
+  },
+  "RML-200608": {
+   "cik": 2102907,
+   "sic": "1040",
+   "tech": false
+  },
+  "RNB-199912": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ROH-200904": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "ROK": {
+   "cik": 1024478,
+   "sic": "3829",
+   "tech": false
+  },
+  "ROL": {
+   "cik": 84839,
+   "sic": "7340",
+   "tech": false
+  },
+  "ROP": {
+   "cik": 882835,
+   "sic": "3823",
+   "tech": false
+  },
+  "ROST": {
+   "cik": 745732,
+   "sic": "5651",
+   "tech": false
+  },
+  "RRC": {
+   "cik": 315852,
+   "sic": "1311",
+   "tech": false
+  },
+  "RRD": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RSG": {
+   "cik": 1060391,
+   "sic": "4953",
+   "tech": false
+  },
+  "RSHCQ-201510": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RTN": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RTX": {
+   "cik": 101829,
+   "sic": "3724",
+   "tech": false
+  },
+  "RVTY": {
+   "cik": 31791,
+   "sic": "3826",
+   "tech": false
+  },
+  "RX-201002": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RYAN-200610": {
+   "cik": 1849253,
+   "sic": "6411",
+   "tech": false
+  },
+  "RYC-199908": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "RYI-200710": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "S-200503": {
+   "cik": 1583708,
+   "sic": "7372",
+   "tech": true
+  },
+  "S-202004": {
+   "cik": 1583708,
+   "sic": "7372",
+   "tech": true
+  },
+  "SAF-200809": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SAI-199812": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SANM": {
+   "cik": 897723,
+   "sic": "3672",
+   "tech": true
+  },
+  "SAPE-201502": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SB-199711": {
+   "cik": 1434754,
+   "sic": "4412",
+   "tech": false
+  },
+  "SBAC": {
+   "cik": 1034054,
+   "sic": "6798",
+   "tech": false
+  },
+  "SBL-200701": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SBNY": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SBUX": {
+   "cik": 829224,
+   "sic": "5810",
+   "tech": false
+  },
+  "SCG-201812": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SCHW": {
+   "cik": 316709,
+   "sic": "6211",
+   "tech": false
+  },
+  "SCI": {
+   "cik": 89089,
+   "sic": "7200",
+   "tech": false
+  },
+  "SDS-200508": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SE-201702": {
+   "cik": 1703399,
+   "sic": "7380",
+   "tech": false
+  },
+  "SEBL-200601": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SEDG": {
+   "cik": 1419612,
+   "sic": "3674",
+   "tech": true
+  },
+  "SEE": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SEG-200011": {
+   "cik": 2009684,
+   "sic": "7990",
+   "tech": false
+  },
+  "SFA-200602": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SFS-200008": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SGID-200610": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SGP-200911": {
+   "cik": 1778922,
+   "sic": "3841",
+   "tech": false
+  },
+  "SHLD-201810": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SHN-200007": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SHW": {
+   "cik": 89800,
+   "sic": "5200",
+   "tech": false
+  },
+  "SIAL-201511": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SIG": {
+   "cik": 832988,
+   "sic": "5944",
+   "tech": false
+  },
+  "SII-201008": {
+   "cik": 1512920,
+   "sic": "6199",
+   "tech": false
+  },
+  "SIVB": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SJM": {
+   "cik": 91419,
+   "sic": "2033",
+   "tech": false
+  },
+  "SK-199805": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SKYD": {
+   "cik": 2041610,
+   "sic": "4833",
+   "tech": false
+  },
+  "SLB": {
+   "cik": 87347,
+   "sic": "1389",
+   "tech": false
+  },
+  "SLG": {
+   "cik": 1040971,
+   "sic": "6798",
+   "tech": false
+  },
+  "SLM": {
+   "cik": 1032033,
+   "sic": "6141",
+   "tech": false
+  },
+  "SLR-200710": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SMCI": {
+   "cik": 1375365,
+   "sic": "3571",
+   "tech": true
+  },
+  "SMI-200109": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SMS-200007": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SNA": {
+   "cik": 91440,
+   "sic": "3420",
+   "tech": false
+  },
+  "SNDK": {
+   "cik": 2023554,
+   "sic": "3572",
+   "tech": true
+  },
+  "SNDK-201605": {
+   "cik": 2023554,
+   "sic": "3572",
+   "tech": true
+  },
+  "SNI-201803": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SNPS": {
+   "cik": 883241,
+   "sic": "7372",
+   "tech": true
+  },
+  "SNT-199910": {
+   "cik": 1993727,
+   "sic": "3669",
+   "tech": true
+  },
+  "SNV": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SO": {
+   "cik": 92122,
+   "sic": "4911",
+   "tech": false
+  },
+  "SOLS": {
+   "cik": 2064953,
+   "sic": "2800",
+   "tech": false
+  },
+  "SOLV": {
+   "cik": 1964738,
+   "sic": "3841",
+   "tech": false
+  },
+  "SOTR-200410": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SOV-200901": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SPG": {
+   "cik": 1063761,
+   "sic": "6798",
+   "tech": false
+  },
+  "SPGI": {
+   "cik": 64040,
+   "sic": "7320",
+   "tech": false
+  },
+  "SPLS-201709": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SRCL": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SRE": {
+   "cik": 1032208,
+   "sic": "4932",
+   "tech": false
+  },
+  "SRR-200708": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SSP": {
+   "cik": 832428,
+   "sic": "4833",
+   "tech": false
+  },
+  "STE": {
+   "cik": 1757898,
+   "sic": "3842",
+   "tech": false
+  },
+  "STI-201912": {
+   "cik": 1881551,
+   "sic": "3690",
+   "tech": false
+  },
+  "STJ-201701": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "STLD": {
+   "cik": 1022671,
+   "sic": "3312",
+   "tech": false
+  },
+  "STO-199811": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "STR-201609": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "STT": {
+   "cik": 93751,
+   "sic": "6022",
+   "tech": false
+  },
+  "STX": {
+   "cik": 1137789,
+   "sic": "3572",
+   "tech": true
+  },
+  "STZ": {
+   "cik": 16918,
+   "sic": "2080",
+   "tech": false
+  },
+  "SUB-200102": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SUN-201210": {
+   "cik": 1552275,
+   "sic": "2911",
+   "tech": false
+  },
+  "SUNEQ-201712": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SVU": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SW": {
+   "cik": 2005951,
+   "sic": "2650",
+   "tech": false
+  },
+  "SWK": {
+   "cik": 93556,
+   "sic": "3420",
+   "tech": false
+  },
+  "SWKS": {
+   "cik": 4127,
+   "sic": "3674",
+   "tech": true
+  },
+  "SWN": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SWY-201501": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SXCL-201702": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "SYF": {
+   "cik": 1601712,
+   "sic": "6199",
+   "tech": false
+  },
+  "SYK": {
+   "cik": 310764,
+   "sic": "3841",
+   "tech": false
+  },
+  "SYY": {
+   "cik": 96021,
+   "sic": "5140",
+   "tech": false
+  },
+  "T": {
+   "cik": 732717,
+   "sic": "4813",
+   "tech": false
+  },
+  "T-200511": {
+   "cik": 732717,
+   "sic": "4813",
+   "tech": false
+  },
+  "TA-199907": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TAP": {
+   "cik": 24545,
+   "sic": "2082",
+   "tech": false
+  },
+  "TAP-200404": {
+   "cik": 24545,
+   "sic": "2082",
+   "tech": false
+  },
+  "TCOMA-199903": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TDC": {
+   "cik": 816761,
+   "sic": "7372",
+   "tech": true
+  },
+  "TDG": {
+   "cik": 1260221,
+   "sic": "3728",
+   "tech": false
+  },
+  "TDM-199708": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TDY": {
+   "cik": 1094285,
+   "sic": "3812",
+   "tech": false
+  },
+  "TE-201606": {
+   "cik": 1992243,
+   "sic": "3674",
+   "tech": true
+  },
+  "TECH": {
+   "cik": 842023,
+   "sic": "2836",
+   "tech": false
+  },
+  "TEG-201506": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TEK-200711": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TEL": {
+   "cik": 1385157,
+   "sic": "5065",
+   "tech": false
+  },
+  "TEN-199612": {
+   "cik": 1166663,
+   "sic": "4412",
+   "tech": false
+  },
+  "TEN-202211": {
+   "cik": 1166663,
+   "sic": "4412",
+   "tech": false
+  },
+  "TER": {
+   "cik": 97210,
+   "sic": "3825",
+   "tech": false
+  },
+  "TEX": {
+   "cik": 97216,
+   "sic": "3537",
+   "tech": false
+  },
+  "TFC": {
+   "cik": 92230,
+   "sic": "6021",
+   "tech": false
+  },
+  "TFX": {
+   "cik": 96943,
+   "sic": "3841",
+   "tech": false
+  },
+  "TGNA": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TGT": {
+   "cik": 27419,
+   "sic": "5331",
+   "tech": false
+  },
+  "THC": {
+   "cik": 70318,
+   "sic": "8062",
+   "tech": false
+  },
+  "THY-199708": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TIE-201301": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TIF": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TIN-201202": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TJX": {
+   "cik": 109198,
+   "sic": "5651",
+   "tech": false
+  },
+  "TKO": {
+   "cik": 1973266,
+   "sic": "7900",
+   "tech": false
+  },
+  "TKR": {
+   "cik": 98362,
+   "sic": "3562",
+   "tech": false
+  },
+  "TLAB-201312": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TMC-200006": {
+   "cik": 1798562,
+   "sic": "1000",
+   "tech": false
+  },
+  "TMO": {
+   "cik": 97745,
+   "sic": "3829",
+   "tech": false
+  },
+  "TMUS": {
+   "cik": 1283699,
+   "sic": "4812",
+   "tech": false
+  },
+  "TNB-201205": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TOS-200109": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TOY-200507": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TPL": {
+   "cik": 1811074,
+   "sic": "6792",
+   "tech": false
+  },
+  "TPR": {
+   "cik": 1116132,
+   "sic": "3100",
+   "tech": false
+  },
+  "TRB-200712": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TRGP": {
+   "cik": 1389170,
+   "sic": "4922",
+   "tech": false
+  },
+  "TRIP": {
+   "cik": 1526520,
+   "sic": "7370",
+   "tech": true
+  },
+  "TRMB": {
+   "cik": 864749,
+   "sic": "3829",
+   "tech": false
+  },
+  "TROW": {
+   "cik": 1113169,
+   "sic": "6282",
+   "tech": false
+  },
+  "TRV": {
+   "cik": 86312,
+   "sic": "6331",
+   "tech": false
+  },
+  "TRW-200212": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TSCO": {
+   "cik": 916365,
+   "sic": "5200",
+   "tech": false
+  },
+  "TSG-200703": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TSLA": {
+   "cik": 1318605,
+   "sic": "3711",
+   "tech": false
+  },
+  "TSN": {
+   "cik": 100493,
+   "sic": "2015",
+   "tech": false
+  },
+  "TSS": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TT": {
+   "cik": 1466258,
+   "sic": "3822",
+   "tech": false
+  },
+  "TT-200806": {
+   "cik": 1466258,
+   "sic": "3822",
+   "tech": false
+  },
+  "TTD": {
+   "cik": 1671933,
+   "sic": "7370",
+   "tech": true
+  },
+  "TTWO": {
+   "cik": 946581,
+   "sic": "7372",
+   "tech": true
+  },
+  "TUP": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TWC-201605": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TWLO": {
+   "cik": 1447669,
+   "sic": "7372",
+   "tech": true
+  },
+  "TWTR": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TWX-200101": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TWX-201806": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TX-200110": {
+   "cik": 1342874,
+   "sic": "3312",
+   "tech": false
+  },
+  "TXN": {
+   "cik": 97476,
+   "sic": "3674",
+   "tech": true
+  },
+  "TXT": {
+   "cik": 217346,
+   "sic": "3720",
+   "tech": false
+  },
+  "TXU-200710": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "TYL": {
+   "cik": 860731,
+   "sic": "7372",
+   "tech": true
+  },
+  "UA": {
+   "cik": 1336917,
+   "sic": "2300",
+   "tech": false
+  },
+  "UAA": {
+   "cik": 1336917,
+   "sic": "2300",
+   "tech": false
+  },
+  "UAL": {
+   "cik": 100517,
+   "sic": "4512",
+   "tech": false
+  },
+  "UAWGQ-200303": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "UBER": {
+   "cik": 1543151,
+   "sic": "7389",
+   "tech": false
+  },
+  "UCC-199904": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "UCL-200508": {
+   "cik": 1775898,
+   "sic": "4899",
+   "tech": false
+  },
+  "UCM-200010": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "UDR": {
+   "cik": 74208,
+   "sic": "6798",
+   "tech": false
+  },
+  "UHS": {
+   "cik": 352915,
+   "sic": "8062",
+   "tech": false
+  },
+  "UIS": {
+   "cik": 746838,
+   "sic": "7373",
+   "tech": true
+  },
+  "UK-200102": {
+   "cik": 1821424,
+   "sic": "7389",
+   "tech": false
+  },
+  "ULTA": {
+   "cik": 1403568,
+   "sic": "5990",
+   "tech": false
+  },
+  "UMG-200006": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "UN-202011": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "UNH": {
+   "cik": 731766,
+   "sic": "6324",
+   "tech": false
+  },
+  "UNM": {
+   "cik": 5513,
+   "sic": "6321",
+   "tech": false
+  },
+  "UNP": {
+   "cik": 100885,
+   "sic": "4011",
+   "tech": false
+  },
+  "UPC-200406": {
+   "cik": 1809616,
+   "sic": "2834",
+   "tech": false
+  },
+  "UPR-200007": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "UPS": {
+   "cik": 1090727,
+   "sic": "4210",
+   "tech": false
+  },
+  "URBN": {
+   "cik": 912615,
+   "sic": "5651",
+   "tech": false
+  },
+  "URI": {
+   "cik": 1067701,
+   "sic": "7359",
+   "tech": false
+  },
+  "USB": {
+   "cik": 36104,
+   "sic": "6021",
+   "tech": false
+  },
+  "USB-200102": {
+   "cik": 36104,
+   "sic": "6021",
+   "tech": false
+  },
+  "USBC-199708": {
+   "cik": 1074828,
+   "sic": "6199",
+   "tech": false
+  },
+  "USH-199706": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "USHC-199607": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "USS-199810": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "UST-200901": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "USW-200006": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "UVN-200703": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "V": {
+   "cik": 1403161,
+   "sic": "7389",
+   "tech": false
+  },
+  "VAR": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "VAT-199609": {
+   "cik": 2109801,
+   "sic": "2800",
+   "tech": false
+  },
+  "VEEV": {
+   "cik": 1393052,
+   "sic": "7372",
+   "tech": true
+  },
+  "VFC": {
+   "cik": 103379,
+   "sic": "2320",
+   "tech": false
+  },
+  "VIAB": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "VIAV": {
+   "cik": 912093,
+   "sic": "3674",
+   "tech": true
+  },
+  "VICI": {
+   "cik": 1705696,
+   "sic": "6798",
+   "tech": false
+  },
+  "VLO": {
+   "cik": 1035002,
+   "sic": "2911",
+   "tech": false
+  },
+  "VLTO": {
+   "cik": 1967680,
+   "sic": "3825",
+   "tech": false
+  },
+  "VMC": {
+   "cik": 1396009,
+   "sic": "1400",
+   "tech": false
+  },
+  "VMRK": {
+   "cik": 906107,
+   "sic": "6798",
+   "tech": false
+  },
+  "VNO": {
+   "cik": 899689,
+   "sic": "6798",
+   "tech": false
+  },
+  "VNT": {
+   "cik": 1786842,
+   "sic": "3824",
+   "tech": false
+  },
+  "VO-200012": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "VRSK": {
+   "cik": 1442145,
+   "sic": "7374",
+   "tech": true
+  },
+  "VRSN": {
+   "cik": 1014473,
+   "sic": "7371",
+   "tech": true
+  },
+  "VRT": {
+   "cik": 1674101,
+   "sic": "3679",
+   "tech": true
+  },
+  "VRTS-200507": {
+   "cik": 883237,
+   "sic": "6282",
+   "tech": false
+  },
+  "VRTX": {
+   "cik": 875320,
+   "sic": "2834",
+   "tech": false
+  },
+  "VST": {
+   "cik": 1692819,
+   "sic": "4911",
+   "tech": false
+  },
+  "VSTNQ-201010": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "VTR": {
+   "cik": 740260,
+   "sic": "6798",
+   "tech": false
+  },
+  "VTRS": {
+   "cik": 1792044,
+   "sic": "2834",
+   "tech": false
+  },
+  "VTSS-201504": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "VYLR": {
+   "cik": 2128626,
+   "sic": "0100",
+   "tech": false
+  },
+  "VZ": {
+   "cik": 732712,
+   "sic": "4813",
+   "tech": false
+  },
+  "WAB": {
+   "cik": 943452,
+   "sic": "3743",
+   "tech": false
+  },
+  "WAI-199808": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WAMUQ-201203": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WAT": {
+   "cik": 1000697,
+   "sic": "3826",
+   "tech": false
+  },
+  "WB-200108": {
+   "cik": 1595761,
+   "sic": "7370",
+   "tech": true
+  },
+  "WB-200812": {
+   "cik": 1595761,
+   "sic": "7370",
+   "tech": true
+  },
+  "WBA": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WBD": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WCG": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WCOEQ-200404": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WDAY": {
+   "cik": 1327811,
+   "sic": "7374",
+   "tech": true
+  },
+  "WDC": {
+   "cik": 106040,
+   "sic": "3572",
+   "tech": true
+  },
+  "WEC": {
+   "cik": 783325,
+   "sic": "4931",
+   "tech": false
+  },
+  "WELL": {
+   "cik": 766704,
+   "sic": "6798",
+   "tech": false
+  },
+  "WEN-200809": {
+   "cik": 30697,
+   "sic": "5810",
+   "tech": false
+  },
+  "WFC": {
+   "cik": 72971,
+   "sic": "6021",
+   "tech": false
+  },
+  "WFC-199811": {
+   "cik": 72971,
+   "sic": "6021",
+   "tech": false
+  },
+  "WFM-201708": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WFT": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WHR": {
+   "cik": 106640,
+   "sic": "3630",
+   "tech": false
+  },
+  "WIN": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WLA-200006": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WLL-200203": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WLP-200411": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WM": {
+   "cik": 823768,
+   "sic": "4953",
+   "tech": false
+  },
+  "WMB": {
+   "cik": 107263,
+   "sic": "4922",
+   "tech": false
+  },
+  "WMT": {
+   "cik": 104169,
+   "sic": "5331",
+   "tech": false
+  },
+  "WMX-199807": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WNDXQ-200611": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WOR": {
+   "cik": 108516,
+   "sic": "3310",
+   "tech": false
+  },
+  "WPX": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WRB": {
+   "cik": 11544,
+   "sic": "6331",
+   "tech": false
+  },
+  "WRK": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WSM": {
+   "cik": 719955,
+   "sic": "5700",
+   "tech": false
+  },
+  "WST": {
+   "cik": 105770,
+   "sic": "3841",
+   "tech": false
+  },
+  "WTW": {
+   "cik": 1140536,
+   "sic": "6411",
+   "tech": false
+  },
+  "WU": {
+   "cik": 1365135,
+   "sic": "7389",
+   "tech": false
+  },
+  "WWY-200810": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WY": {
+   "cik": 106535,
+   "sic": "6798",
+   "tech": false
+  },
+  "WYE-200910": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WYND": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "WYNN": {
+   "cik": 1174922,
+   "sic": "7011",
+   "tech": false
+  },
+  "X": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "XEC": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "XEL": {
+   "cik": 72903,
+   "sic": "4931",
+   "tech": false
+  },
+  "XL-201809": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "XLNX": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "XOM": {
+   "cik": 2115436,
+   "sic": "2911",
+   "tech": false
+  },
+  "XRAY": {
+   "cik": 818479,
+   "sic": "3843",
+   "tech": false
+  },
+  "XRX": {
+   "cik": 1770450,
+   "sic": "3577",
+   "tech": true
+  },
+  "XTO-201006": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "XYL": {
+   "cik": 1524472,
+   "sic": "3561",
+   "tech": false
+  },
+  "XYZ": {
+   "cik": 1512673,
+   "sic": "7372",
+   "tech": true
+  },
+  "YNR-200010": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "YRCW": {
+   "cik": null,
+   "sic": "",
+   "tech": false
+  },
+  "YUM": {
+   "cik": 1041061,
+   "sic": "5812",
+   "tech": false
+  },
+  "ZBH": {
+   "cik": 1136869,
+   "sic": "3842",
+   "tech": false
+  },
+  "ZBRA": {
+   "cik": 877212,
+   "sic": "3560",
+   "tech": false
+  },
+  "ZION": {
+   "cik": 109380,
+   "sic": "6021",
+   "tech": false
+  },
+  "ZTS": {
+   "cik": 1555280,
+   "sic": "2834",
+   "tech": false
+  }
+ }
+}
