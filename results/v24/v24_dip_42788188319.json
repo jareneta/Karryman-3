@@ -1,0 +1,358 @@
+{
+ "commit": "212b7939b18775e3c3a68014c952a41667001501",
+ "registro": "docs/V24_H9B_CAIDAS_SP500.md",
+ "datos": {
+  "tag": "snapshot-2026-11",
+  "sha256": {
+   "prices.parquet": "7b58eeafc855a502469fc5090eb703f76516172deebe13d51609fd6eb2c5f3f5",
+   "membership_intervals.parquet": "1e22ffca5e15d52872912413c55e64ead85bbb835e2148f5bbaaf84f33ea7cd0"
+  }
+ },
+ "A_2010_2020": {
+  "operaciones": {
+   "train": {
+    "trades": 1720,
+    "expectancy_R": 0.0763,
+    "ci95_R": [
+     0.0469,
+     0.105
+    ],
+    "win_rate_pct": 68.2
+   },
+   "valid": {
+    "trades": 932,
+    "expectancy_R": 0.029,
+    "ci95_R": [
+     -0.0117,
+     0.0682
+    ],
+    "win_rate_pct": 66.7
+   },
+   "todo": {
+    "trades": 2652,
+    "expectancy_R": 0.0597,
+    "ci95_R": [
+     0.0364,
+     0.0842
+    ],
+    "win_rate_pct": 67.7
+   }
+  },
+  "placebo_agrupado": {
+   "train": {
+    "trades": 66840,
+    "expectancy_R": 0.0123,
+    "ci95_R": [
+     0.0099,
+     0.0147
+    ],
+    "win_rate_pct": 57.6
+   },
+   "valid": {
+    "trades": 39233,
+    "expectancy_R": 0.0041,
+    "ci95_R": [
+     -0.0006,
+     0.0087
+    ],
+    "win_rate_pct": 56.9
+   },
+   "todo": {
+    "trades": 106073,
+    "expectancy_R": 0.0093,
+    "ci95_R": [
+     0.007,
+     0.0116
+    ],
+    "win_rate_pct": 57.3
+   }
+  },
+  "cartera": {
+   "h7": {
+    "train": {
+     "cagr_pct": 0.25,
+     "max_dd_pct": -27.76,
+     "sharpe": 0.08,
+     "final_multiple": 1.018,
+     "calmar": 0.01
+    },
+    "valid": {
+     "cagr_pct": 6.15,
+     "max_dd_pct": -25.96,
+     "sharpe": 0.49,
+     "final_multiple": 1.269,
+     "calmar": 0.24
+    },
+    "todo": {
+     "cagr_pct": 2.38,
+     "max_dd_pct": -27.76,
+     "sharpe": 0.25,
+     "final_multiple": 1.295,
+     "calmar": 0.09
+    }
+   },
+   "spy": {
+    "train": {
+     "cagr_pct": 12.49,
+     "max_dd_pct": -18.61,
+     "sharpe": 0.84,
+     "final_multiple": 2.276,
+     "calmar": 0.67
+    },
+    "valid": {
+     "cagr_pct": 15.71,
+     "max_dd_pct": -33.7,
+     "sharpe": 0.83,
+     "final_multiple": 1.791,
+     "calmar": 0.47
+    },
+    "todo": {
+     "cagr_pct": 13.72,
+     "max_dd_pct": -33.7,
+     "sharpe": 0.83,
+     "final_multiple": 4.107,
+     "calmar": 0.41
+    }
+   },
+   "placebo_cagr_mediana": {
+    "train": 0.89,
+    "valid": 0.06,
+    "todo": 0.59
+   },
+   "operaciones_cartera": 1258
+  },
+  "criterios": {
+   "N_ge_300": true,
+   "Q1_esperanza_R_positiva": true,
+   "Q2_diferencia_vs_placebo": {
+    "nivel_exigido": 0.9944444444444445,
+    "low": 0.018150421070842856,
+    "high": 0.08349626800194326,
+    "media": 0.05039224682638517,
+    "pasa": true
+   },
+   "Q3_cartera_sobre_mediana_placebo": false,
+   "riesgo_retorno_vs_spy": false,
+   "periodo_pasa_N_Q1_Q2": true,
+   "Q3_y_riesgo": false
+  },
+  "universo": {
+   "filas_precios_usadas": 2352660,
+   "series": 824,
+   "por_fuente": {
+    "yahoo": 1767782,
+    "tiingo": 396299,
+    "wiki": 117475,
+    "crsp": 59332,
+    "kaggle": 7513,
+    "kaggle-splice": 2476,
+    "archive-tsaustin": 1321,
+    "crsp-patch": 259,
+    "archive-patch": 187,
+    "nasdaq-patch": 9,
+    "wiki-patch": 5,
+    "tiingo-patch": 2
+   },
+   "miembros_con_precio_por_dia": {
+    "media": 502.1,
+    "min": 498,
+    "max": 508
+   }
+  },
+  "descriptivo_tecnologicas_sesgado": {
+   "tecnologicas_clasificadas": {
+    "trades": 411,
+    "expectancy_R": 0.0443,
+    "ci95_R": [
+     -0.0198,
+     0.1063
+    ],
+    "win_rate_pct": 68.4
+   },
+   "resto_o_sin_clasificar": {
+    "trades": 2241,
+    "expectancy_R": 0.0625,
+    "ci95_R": [
+     0.037,
+     0.0885
+    ],
+    "win_rate_pct": 67.6
+   }
+  }
+ },
+ "B_1997_2009": {
+  "operaciones": {
+   "P1": {
+    "trades": 2244,
+    "expectancy_R": 0.0796,
+    "ci95_R": [
+     0.0484,
+     0.1101
+    ],
+    "win_rate_pct": 68.0
+   },
+   "P2": {
+    "trades": 2017,
+    "expectancy_R": 0.0889,
+    "ci95_R": [
+     0.0614,
+     0.1167
+    ],
+    "win_rate_pct": 70.1
+   },
+   "todo": {
+    "trades": 4261,
+    "expectancy_R": 0.084,
+    "ci95_R": [
+     0.0628,
+     0.1047
+    ],
+    "win_rate_pct": 69.0
+   }
+  },
+  "placebo_agrupado": {
+   "P1": {
+    "trades": 27152,
+    "expectancy_R": -0.0072,
+    "ci95_R": [
+     -0.0136,
+     -0.0008
+    ],
+    "win_rate_pct": 57.0
+   },
+   "P2": {
+    "trades": 52133,
+    "expectancy_R": 0.0027,
+    "ci95_R": [
+     -0.0018,
+     0.0071
+    ],
+    "win_rate_pct": 56.9
+   },
+   "todo": {
+    "trades": 79285,
+    "expectancy_R": -0.0007,
+    "ci95_R": [
+     -0.0044,
+     0.0031
+    ],
+    "win_rate_pct": 57.0
+   }
+  },
+  "cartera": {
+   "h7": {
+    "P1": {
+     "cagr_pct": 4.63,
+     "max_dd_pct": -18.9,
+     "sharpe": 0.37,
+     "final_multiple": 1.312,
+     "calmar": 0.24
+    },
+    "P2": {
+     "cagr_pct": 2.69,
+     "max_dd_pct": -38.78,
+     "sharpe": 0.27,
+     "final_multiple": 1.204,
+     "calmar": 0.07
+    },
+    "todo": {
+     "cagr_pct": 3.65,
+     "max_dd_pct": -38.78,
+     "sharpe": 0.33,
+     "final_multiple": 1.593,
+     "calmar": 0.09
+    }
+   },
+   "spy": {
+    "P1": {
+     "cagr_pct": 4.32,
+     "max_dd_pct": -47.5,
+     "sharpe": 0.3,
+     "final_multiple": 1.288,
+     "calmar": 0.09
+    },
+    "P2": {
+     "cagr_pct": 4.94,
+     "max_dd_pct": -55.2,
+     "sharpe": 0.33,
+     "final_multiple": 1.402,
+     "calmar": 0.09
+    },
+    "todo": {
+     "cagr_pct": 4.91,
+     "max_dd_pct": -55.2,
+     "sharpe": 0.33,
+     "final_multiple": 1.864,
+     "calmar": 0.09
+    }
+   },
+   "placebo_cagr_mediana": {
+    "P1": -2.77,
+    "P2": 0.72,
+    "todo": -1.62
+   },
+   "operaciones_cartera": 2042
+  },
+  "criterios": {
+   "N_ge_300": true,
+   "Q1_esperanza_R_positiva": true,
+   "Q2_diferencia_vs_placebo": {
+    "nivel_exigido": 0.95,
+    "low": 0.06334356151187676,
+    "high": 0.10629588737594756,
+    "media": 0.08469946967042162,
+    "pasa": true
+   },
+   "Q3_cartera_sobre_mediana_placebo": true,
+   "riesgo_retorno_vs_spy": true,
+   "periodo_pasa_N_Q1_Q2": true,
+   "Q3_y_riesgo": true
+  },
+  "universo": {
+   "filas_precios_usadas": 2461825,
+   "series": 913,
+   "por_fuente": {
+    "yahoo": 1195374,
+    "crsp": 679375,
+    "tiingo": 361873,
+    "wiki": 158560,
+    "crsp-splice": 42412,
+    "crsp-patch": 13282,
+    "kaggle": 7052,
+    "kaggle-splice": 3486,
+    "archive-tsaustin": 293,
+    "archive-patch": 89,
+    "carried-patch": 29
+   },
+   "miembros_con_precio_por_dia": {
+    "media": 500.0,
+    "min": 498,
+    "max": 507
+   }
+  },
+  "descriptivo_tecnologicas_sesgado": {
+   "tecnologicas_clasificadas": {
+    "trades": 640,
+    "expectancy_R": 0.103,
+    "ci95_R": [
+     0.0434,
+     0.1641
+    ],
+    "win_rate_pct": 71.4
+   },
+   "resto_o_sin_clasificar": {
+    "trades": 3621,
+    "expectancy_R": 0.0807,
+    "ci95_R": [
+     0.058,
+     0.1035
+    ],
+    "win_rate_pct": 68.6
+   }
+  }
+ },
+ "veredicto": {
+  "candidata": true,
+  "supera_al_indice": false
+ }
+}
