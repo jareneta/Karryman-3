@@ -22,7 +22,7 @@ import requests
 
 
 def _ua():
-    contact = os.environ.get('SEC_CONTACT', '').strip()
+    contact = ' '.join(''.join(ch if ch.isprintable() else ' ' for ch in os.environ.get('SEC_CONTACT', '')).split())
     if '@' not in contact:
         raise Blocked('Falta SEC_CONTACT: la SEC exige un contacto en la cabecera User-Agent')
     return {'User-Agent': f'KarrymanResearch {contact}', 'Accept-Encoding': 'gzip, deflate'}
