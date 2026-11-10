@@ -38,3 +38,9 @@ Requiere universo con deslistadas fuera del S&P 500 (Tiingo de pago o muestra li
 
 ## 7. Qué NO se hará
 Cambiar los umbrales (15 %/35 %, 60 sesiones, SMA200, 12 %, SMA20, 20 sesiones), añadir filtros, elegir periodos a posteriori, interpretar un resultado "inconclusivo" por cobertura, mirar 2021-2026.
+
+## Resultado de la regla de cobertura (2026-11-10; `results/v24/v24_sic_42786246641.json`, commit `1311d80`)
+- Intervalos de pertenencia al S&P 500 desde 1996: 1.263. **Activos: 521, clasificados por SIC 515 (98,8 %). Deslistados: 742, clasificados solo 264 (35,6 %)**; entre los clasificados hay 78 tecnológicos activos y 28 deslistados.
+- La regla registrada exigía ≥ 70 % de deslistadas clasificadas. **No se cumple (35,6 %) → H9 etapa 1 queda declarada INCONCLUSIVA por sesgo de supervivencia en la clasificación, y la prueba no se ejecuta ni se interpreta.**
+- Hallazgo adicional: algunos tickers antiguos aparecen asignados a empresas actuales que reutilizaron el símbolo (p. ej. `S`, `Q`, `TE`, `WB`, `PD`), por lo que incluso parte de la clasificación de deslistadas es dudosa.
+- Las empresas sin clasificar son sobre todo las desaparecidas antes de 2020 (fusiones, quiebras): justo las que importan para comprar caídas.
