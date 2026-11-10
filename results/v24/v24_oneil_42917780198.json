@@ -1,0 +1,318 @@
+{
+ "commit": "fd088c3717178ea043018649ce3e695c05664bb2",
+ "registro": "docs/V24_H10_ONEIL.md",
+ "datos": {
+  "tag": "snapshot-2026-11",
+  "sha256": {
+   "prices.parquet": "7b58eeafc855a502469fc5090eb703f76516172deebe13d51609fd6eb2c5f3f5",
+   "membership_intervals.parquet": "1e22ffca5e15d52872912413c55e64ead85bbb835e2148f5bbaaf84f33ea7cd0"
+  }
+ },
+ "A_2010_2020": {
+  "operaciones": {
+   "train": {
+    "trades": 190,
+    "expectancy_R": 0.6321,
+    "ci95_R": [
+     0.3308,
+     0.9526
+    ],
+    "win_rate_pct": 41.6
+   },
+   "valid": {
+    "trades": 99,
+    "expectancy_R": 0.395,
+    "ci95_R": [
+     -0.0146,
+     0.8049
+    ],
+    "win_rate_pct": 37.4
+   },
+   "todo": {
+    "trades": 289,
+    "expectancy_R": 0.5509,
+    "ci95_R": [
+     0.3075,
+     0.797
+    ],
+    "win_rate_pct": 40.1
+   }
+  },
+  "placebo_agrupado": {
+   "train": {
+    "trades": 66925,
+    "expectancy_R": 0.8481,
+    "ci95_R": [
+     0.8306,
+     0.8648
+    ],
+    "win_rate_pct": 46.6
+   },
+   "valid": {
+    "trades": 39385,
+    "expectancy_R": 0.365,
+    "ci95_R": [
+     0.3402,
+     0.3903
+    ],
+    "win_rate_pct": 38.6
+   },
+   "todo": {
+    "trades": 106310,
+    "expectancy_R": 0.6691,
+    "ci95_R": [
+     0.6546,
+     0.6833
+    ],
+    "win_rate_pct": 43.6
+   }
+  },
+  "cartera": {
+   "h7": {
+    "train": {
+     "cagr_pct": 6.48,
+     "max_dd_pct": -10.47,
+     "sharpe": 0.84,
+     "final_multiple": 1.55,
+     "calmar": 0.62
+    },
+    "valid": {
+     "cagr_pct": 2.02,
+     "max_dd_pct": -11.2,
+     "sharpe": 0.32,
+     "final_multiple": 1.083,
+     "calmar": 0.18
+    },
+    "todo": {
+     "cagr_pct": 4.88,
+     "max_dd_pct": -11.2,
+     "sharpe": 0.67,
+     "final_multiple": 1.688,
+     "calmar": 0.44
+    }
+   },
+   "spy": {
+    "train": {
+     "cagr_pct": 12.49,
+     "max_dd_pct": -18.61,
+     "sharpe": 0.84,
+     "final_multiple": 2.276,
+     "calmar": 0.67
+    },
+    "valid": {
+     "cagr_pct": 15.71,
+     "max_dd_pct": -33.7,
+     "sharpe": 0.83,
+     "final_multiple": 1.791,
+     "calmar": 0.47
+    },
+    "todo": {
+     "cagr_pct": 13.72,
+     "max_dd_pct": -33.7,
+     "sharpe": 0.83,
+     "final_multiple": 4.107,
+     "calmar": 0.41
+    }
+   },
+   "placebo_cagr_mediana": {
+    "train": 7.13,
+    "valid": 7.23,
+    "todo": 7.87
+   },
+   "operaciones_cartera": 110
+  },
+  "criterios": {
+   "N_ge_300": false,
+   "Q1_esperanza_R_positiva": false,
+   "Q2_diferencia_vs_placebo": {
+    "nivel_exigido": 0.995,
+    "low": -0.4364852571964557,
+    "high": 0.25073522184133507,
+    "media": -0.11824690157338591,
+    "pasa": false
+   },
+   "Q3_cartera_sobre_mediana_placebo": false,
+   "riesgo_retorno_vs_spy": false,
+   "periodo_pasa_N_Q1_Q2": false,
+   "Q3_y_riesgo": false
+  },
+  "universo": {
+   "filas_precios_usadas": 2352660,
+   "series": 824,
+   "por_fuente": {
+    "yahoo": 1767782,
+    "tiingo": 396299,
+    "wiki": 117475,
+    "crsp": 59332,
+    "kaggle": 7513,
+    "kaggle-splice": 2476,
+    "archive-tsaustin": 1321,
+    "crsp-patch": 259,
+    "archive-patch": 187,
+    "nasdaq-patch": 9,
+    "wiki-patch": 5,
+    "tiingo-patch": 2
+   },
+   "miembros_con_precio_por_dia": {
+    "media": 502.1,
+    "min": 498,
+    "max": 508
+   }
+  }
+ },
+ "B_1997_2009": {
+  "operaciones": {
+   "P1": {
+    "trades": 46,
+    "expectancy_R": 0.717,
+    "ci95_R": [
+     0.0538,
+     1.4235
+    ],
+    "win_rate_pct": 43.5
+   },
+   "P2": {
+    "trades": 139,
+    "expectancy_R": 0.5797,
+    "ci95_R": [
+     0.213,
+     0.942
+    ],
+    "win_rate_pct": 41.7
+   },
+   "todo": {
+    "trades": 185,
+    "expectancy_R": 0.6139,
+    "ci95_R": [
+     0.3026,
+     0.928
+    ],
+    "win_rate_pct": 42.2
+   }
+  },
+  "placebo_agrupado": {
+   "P1": {
+    "trades": 27263,
+    "expectancy_R": -0.0155,
+    "ci95_R": [
+     -0.0412,
+     0.0109
+    ],
+    "win_rate_pct": 27.4
+   },
+   "P2": {
+    "trades": 52305,
+    "expectancy_R": 0.4863,
+    "ci95_R": [
+     0.465,
+     0.5079
+    ],
+    "win_rate_pct": 40.0
+   },
+   "todo": {
+    "trades": 79568,
+    "expectancy_R": 0.3144,
+    "ci95_R": [
+     0.2978,
+     0.3314
+    ],
+    "win_rate_pct": 35.7
+   }
+  },
+  "cartera": {
+   "h7": {
+    "P1": {
+     "cagr_pct": 4.11,
+     "max_dd_pct": -10.82,
+     "sharpe": 0.62,
+     "final_multiple": 1.273,
+     "calmar": 0.38
+    },
+    "P2": {
+     "cagr_pct": 5.37,
+     "max_dd_pct": -9.14,
+     "sharpe": 0.75,
+     "final_multiple": 1.442,
+     "calmar": 0.59
+    },
+    "todo": {
+     "cagr_pct": 4.81,
+     "max_dd_pct": -12.24,
+     "sharpe": 0.69,
+     "final_multiple": 1.841,
+     "calmar": 0.39
+    }
+   },
+   "spy": {
+    "P1": {
+     "cagr_pct": 4.32,
+     "max_dd_pct": -47.5,
+     "sharpe": 0.3,
+     "final_multiple": 1.288,
+     "calmar": 0.09
+    },
+    "P2": {
+     "cagr_pct": 4.94,
+     "max_dd_pct": -55.2,
+     "sharpe": 0.33,
+     "final_multiple": 1.402,
+     "calmar": 0.09
+    },
+    "todo": {
+     "cagr_pct": 4.91,
+     "max_dd_pct": -55.2,
+     "sharpe": 0.33,
+     "final_multiple": 1.864,
+     "calmar": 0.09
+    }
+   },
+   "placebo_cagr_mediana": {
+    "P1": 6.53,
+    "P2": 2.21,
+    "todo": 3.88
+   },
+   "operaciones_cartera": 96
+  },
+  "criterios": {
+   "N_ge_300": false,
+   "Q1_esperanza_R_positiva": false,
+   "Q2_diferencia_vs_placebo": {
+    "nivel_exigido": 0.95,
+    "low": -0.019696413717158186,
+    "high": 0.6240790907768847,
+    "media": 0.2995057207799424,
+    "pasa": false
+   },
+   "Q3_cartera_sobre_mediana_placebo": false,
+   "riesgo_retorno_vs_spy": true,
+   "periodo_pasa_N_Q1_Q2": false,
+   "Q3_y_riesgo": false
+  },
+  "universo": {
+   "filas_precios_usadas": 2461825,
+   "series": 913,
+   "por_fuente": {
+    "yahoo": 1195374,
+    "crsp": 679375,
+    "tiingo": 361873,
+    "wiki": 158560,
+    "crsp-splice": 42412,
+    "crsp-patch": 13282,
+    "kaggle": 7052,
+    "kaggle-splice": 3486,
+    "archive-tsaustin": 293,
+    "archive-patch": 89,
+    "carried-patch": 29
+   },
+   "miembros_con_precio_por_dia": {
+    "media": 500.0,
+    "min": 498,
+    "max": 507
+   }
+  }
+ },
+ "veredicto": {
+  "candidata": false,
+  "supera_al_indice": false
+ }
+}
