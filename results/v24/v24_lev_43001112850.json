@@ -1,0 +1,219 @@
+{
+ "commit": "f04556ae07ec4320f6005b9af2251e7d485a6185",
+ "registro": "docs/V24_H12_INDICE_APALANCADO.md",
+ "ultimo_dia_usado": "2020-12-31",
+ "metricas": {
+  "B_1x_comprar_y_mantener": {
+   "P1_1960_1989": {
+    "cagr_pct": 8.24,
+    "max_dd_pct": -46.38,
+    "sharpe": 0.64,
+    "final_multiple": 10.732,
+    "calmar": 0.18
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 7.96,
+    "max_dd_pct": -55.54,
+    "sharpe": 0.5,
+    "final_multiple": 4.625,
+    "calmar": 0.14
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 13.77,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.83,
+    "final_multiple": 4.129,
+    "calmar": 0.41
+   },
+   "todo_1960_2020": {
+    "cagr_pct": 9.18,
+    "max_dd_pct": -55.54,
+    "sharpe": 0.62,
+    "final_multiple": 211.991,
+    "calmar": 0.17
+   }
+  },
+  "S_2x_filtro_MA200": {
+   "P1_1960_1989": {
+    "cagr_pct": 13.77,
+    "max_dd_pct": -33.07,
+    "sharpe": 0.8,
+    "final_multiple": 47.821,
+    "calmar": 0.42
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 10.45,
+    "max_dd_pct": -50.12,
+    "sharpe": 0.55,
+    "final_multiple": 7.291,
+    "calmar": 0.21
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 11.33,
+    "max_dd_pct": -35.95,
+    "sharpe": 0.57,
+    "final_multiple": 3.254,
+    "calmar": 0.32
+   },
+   "todo_1960_2020": {
+    "cagr_pct": 12.35,
+    "max_dd_pct": -50.12,
+    "sharpe": 0.67,
+    "final_multiple": 1212.703,
+    "calmar": 0.25
+   }
+  },
+  "sens_2x_sin_filtro": {
+   "P1_1960_1989": {
+    "cagr_pct": 6.75,
+    "max_dd_pct": -76.49,
+    "sharpe": 0.38,
+    "final_multiple": 7.098,
+    "calmar": 0.09
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 7.44,
+    "max_dd_pct": -86.99,
+    "sharpe": 0.38,
+    "final_multiple": 4.197,
+    "calmar": 0.09
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 23.68,
+    "max_dd_pct": -59.13,
+    "sharpe": 0.78,
+    "final_multiple": 10.338,
+    "calmar": 0.4
+   },
+   "todo_1960_2020": {
+    "cagr_pct": 9.97,
+    "max_dd_pct": -86.99,
+    "sharpe": 0.46,
+    "final_multiple": 329.155,
+    "calmar": 0.11
+   }
+  },
+  "sens_3x_filtro_MA200": {
+   "P1_1960_1989": {
+    "cagr_pct": 16.72,
+    "max_dd_pct": -48.11,
+    "sharpe": 0.7,
+    "final_multiple": 103.166,
+    "calmar": 0.35
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 12.5,
+    "max_dd_pct": -68.39,
+    "sharpe": 0.52,
+    "final_multiple": 10.541,
+    "calmar": 0.18
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 15.47,
+    "max_dd_pct": -49.6,
+    "sharpe": 0.59,
+    "final_multiple": 4.859,
+    "calmar": 0.31
+   },
+   "todo_1960_2020": {
+    "cagr_pct": 15.28,
+    "max_dd_pct": -68.39,
+    "sharpe": 0.61,
+    "final_multiple": 5833.002,
+    "calmar": 0.22
+   }
+  },
+  "sens_2x_filtro_10_meses": {
+   "P1_1960_1989": {
+    "cagr_pct": 9.44,
+    "max_dd_pct": -58.97,
+    "sharpe": 0.54,
+    "final_multiple": 14.965,
+    "calmar": 0.16
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 14.1,
+    "max_dd_pct": -39.54,
+    "sharpe": 0.68,
+    "final_multiple": 13.973,
+    "calmar": 0.36
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 14.66,
+    "max_dd_pct": -38.36,
+    "sharpe": 0.65,
+    "final_multiple": 4.495,
+    "calmar": 0.38
+   },
+   "todo_1960_2020": {
+    "cagr_pct": 12.0,
+    "max_dd_pct": -58.97,
+    "sharpe": 0.62,
+    "final_multiple": 1004.681,
+    "calmar": 0.2
+   }
+  },
+  "sens_1x_filtro_MA200": {
+   "P1_1960_1989": {
+    "cagr_pct": 10.6,
+    "max_dd_pct": -14.45,
+    "sharpe": 1.15,
+    "final_multiple": 20.51,
+    "calmar": 0.73
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 7.72,
+    "max_dd_pct": -23.91,
+    "sharpe": 0.72,
+    "final_multiple": 4.419,
+    "calmar": 0.32
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 6.61,
+    "max_dd_pct": -19.71,
+    "sharpe": 0.6,
+    "final_multiple": 2.021,
+    "calmar": 0.34
+   },
+   "todo_1960_2020": {
+    "cagr_pct": 8.98,
+    "max_dd_pct": -23.91,
+    "sharpe": 0.88,
+    "final_multiple": 189.501,
+    "calmar": 0.38
+   }
+  }
+ },
+ "criterios": {
+  "L1_cagr_mayor_en_los_tres_periodos": false,
+  "L2_ic_exceso_mensual": {
+   "nivel": 0.9958333333333333,
+   "low": -0.0013996706503227399,
+   "high": 0.007724127167763138,
+   "media": 0.0032504342116553803,
+   "pasa": false
+  },
+  "L3_sharpe_no_peor": true,
+  "L4_caida_maxima_no_peor": true,
+  "caida_maxima_por_periodo": {
+   "P1_1960_1989": {
+    "S": -33.07,
+    "B": -46.38
+   },
+   "P2_1990_2009": {
+    "S": -50.12,
+    "B": -55.54
+   },
+   "P3_2010_2020": {
+    "S": -35.95,
+    "B": -33.8
+   },
+   "todo_1960_2020": {
+    "S": -50.12,
+    "B": -55.54
+   }
+  },
+  "supera_al_sp500": false,
+  "rinde_mas_pero_con_mas_riesgo": false
+ }
+}
