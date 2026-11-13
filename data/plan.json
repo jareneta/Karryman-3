@@ -1,6 +1,6 @@
 {
  "schema_version": 2,
- "generated_utc": "2026-11-12T00:38:16.461271+00:00",
+ "generated_utc": "2026-11-13T00:28:48.429394+00:00",
  "setups_generated_utc": "2026-11-06T11:34:57.179545+00:00",
  "source": "Yahoo Finance OHLCV vía yfinance (no oficial, puede tener retraso)",
  "rules": {
@@ -10,13 +10,13 @@
  },
  "partial_r": 4.0,
  "entries_count": 31,
- "earnings_known_count": 31,
- "earnings_recent_count": 0,
+ "earnings_known_count": 30,
+ "earnings_recent_count": 1,
  "activated_count": 0,
  "quotes_count": 37,
  "tracked_missing": [],
  "errors": [
-  "FIVN: sin datos"
+  "INTA: sin datos"
  ],
  "broker_connected": false,
  "orders_enabled": false,
@@ -1014,10 +1014,10 @@
    "setup": "PULLBACK_FORMACION",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 180.04,
+   "last_session": "2026-11-12",
+   "close": 178.92,
    "entry_status": "ESPERANDO",
-   "status_reason": "Falta un cierre sobre 181.57 (0.8% más arriba) con volumen >= 1.4x",
+   "status_reason": "Falta un cierre sobre 181.57 (1.5% más arriba) con volumen >= 1.4x",
    "pivot": 181.57,
    "entry_reference": 181.57,
    "max_entry_price": 190.64,
@@ -1028,7 +1028,7 @@
    "target_2r": 224.7,
    "partial_r": 4.0,
    "target_partial": 267.83,
-   "distance_to_pivot_pct": 0.84,
+   "distance_to_pivot_pct": 1.46,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1038,7 +1038,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-04",
    "last_earnings_date": "2026-11-05",
-   "days_to_earnings": 84,
+   "days_to_earnings": 83,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1049,21 +1049,21 @@
    "setup": "TENDENCIA",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 258.86,
+   "last_session": "2026-11-12",
+   "close": 256.37,
    "entry_status": "ESPERANDO",
-   "status_reason": "Falta un cierre sobre 263.47 (1.7% más arriba) con volumen >= 1.4x",
+   "status_reason": "Falta un cierre sobre 263.47 (2.7% más arriba) con volumen >= 1.4x",
    "pivot": 263.47,
    "entry_reference": 263.47,
    "max_entry_price": 276.64,
-   "stop_reference": 232.98,
-   "risk_per_share": 30.49,
-   "risk_pct": 11.57,
-   "target_1r": 293.96,
-   "target_2r": 324.45,
+   "stop_reference": 243.02,
+   "risk_per_share": 20.45,
+   "risk_pct": 7.76,
+   "target_1r": 283.92,
+   "target_2r": 304.37,
    "partial_r": 4.0,
-   "target_partial": 385.43,
-   "distance_to_pivot_pct": 1.75,
+   "target_partial": 345.27,
+   "distance_to_pivot_pct": 2.69,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1073,42 +1073,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-02",
    "last_earnings_date": "2026-10-27",
-   "days_to_earnings": 82,
-   "blockers": [],
-   "actionable": false,
-   "warnings": [],
-   "order_enabled": false
-  },
-  {
-   "ticker": "WAT",
-   "setup": "PULLBACK_FORMACION",
-   "entry_kind": "BASE",
-   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 470.9,
-   "entry_status": "ESPERANDO",
-   "status_reason": "Falta un cierre sobre 483.33 (2.6% más arriba) con volumen >= 1.4x",
-   "pivot": 483.33,
-   "entry_reference": 483.33,
-   "max_entry_price": 507.5,
-   "stop_reference": 446.0,
-   "risk_per_share": 37.33,
-   "risk_pct": 7.72,
-   "target_1r": 520.66,
-   "target_2r": 557.99,
-   "partial_r": 4.0,
-   "target_partial": 632.65,
-   "distance_to_pivot_pct": 2.57,
-   "criteria": {
-    "tendencia": true,
-    "cerca_maximos": true,
-    "fuerza_vs_spy": true,
-    "fundamentales": true
-   },
-   "meets_criteria": true,
-   "next_earnings_date": "2027-02-10",
-   "last_earnings_date": "2026-11-03",
-   "days_to_earnings": 90,
+   "days_to_earnings": 81,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1119,10 +1084,10 @@
    "setup": "PULLBACK_FORMACION",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 253.4,
+   "last_session": "2026-11-12",
+   "close": 250.48,
    "entry_status": "ESPERANDO",
-   "status_reason": "Falta un cierre sobre 261.00 (2.9% más arriba) con volumen >= 1.4x",
+   "status_reason": "Falta un cierre sobre 261.00 (4.0% más arriba) con volumen >= 1.4x",
    "pivot": 261.0,
    "entry_reference": 261.0,
    "max_entry_price": 274.05,
@@ -1133,7 +1098,7 @@
    "target_2r": 303.0,
    "partial_r": 4.0,
    "target_partial": 345.0,
-   "distance_to_pivot_pct": 2.91,
+   "distance_to_pivot_pct": 4.03,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1143,7 +1108,42 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-05",
    "last_earnings_date": "2026-10-28",
-   "days_to_earnings": 85,
+   "days_to_earnings": 84,
+   "blockers": [],
+   "actionable": false,
+   "warnings": [],
+   "order_enabled": false
+  },
+  {
+   "ticker": "WAT",
+   "setup": "PULLBACK_FORMACION",
+   "entry_kind": "BASE",
+   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
+   "last_session": "2026-11-12",
+   "close": 462.2,
+   "entry_status": "ESPERANDO",
+   "status_reason": "Falta un cierre sobre 483.33 (4.4% más arriba) con volumen >= 1.4x",
+   "pivot": 483.33,
+   "entry_reference": 483.33,
+   "max_entry_price": 507.5,
+   "stop_reference": 446.0,
+   "risk_per_share": 37.33,
+   "risk_pct": 7.72,
+   "target_1r": 520.66,
+   "target_2r": 557.99,
+   "partial_r": 4.0,
+   "target_partial": 632.65,
+   "distance_to_pivot_pct": 4.37,
+   "criteria": {
+    "tendencia": true,
+    "cerca_maximos": true,
+    "fuerza_vs_spy": true,
+    "fundamentales": true
+   },
+   "meets_criteria": true,
+   "next_earnings_date": "2027-02-10",
+   "last_earnings_date": "2026-11-03",
+   "days_to_earnings": 89,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1154,10 +1154,10 @@
    "setup": "TENDENCIA",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 58.87,
+   "last_session": "2026-11-12",
+   "close": 58.48,
    "entry_status": "ESPERANDO",
-   "status_reason": "Falta un cierre sobre 62.00 (5.0% más arriba) con volumen >= 1.4x",
+   "status_reason": "Falta un cierre sobre 62.00 (5.7% más arriba) con volumen >= 1.4x",
    "pivot": 62.0,
    "entry_reference": 62.0,
    "max_entry_price": 65.1,
@@ -1168,7 +1168,7 @@
    "target_2r": 73.64,
    "partial_r": 4.0,
    "target_partial": 85.28,
-   "distance_to_pivot_pct": 5.05,
+   "distance_to_pivot_pct": 5.68,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1178,7 +1178,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-04",
    "last_earnings_date": "2026-10-29",
-   "days_to_earnings": 84,
+   "days_to_earnings": 83,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1189,10 +1189,10 @@
    "setup": "TENDENCIA",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 16.55,
+   "last_session": "2026-11-12",
+   "close": 16.38,
    "entry_status": "ESPERANDO",
-   "status_reason": "Falta un cierre sobre 17.52 (5.5% más arriba) con volumen >= 1.4x",
+   "status_reason": "Falta un cierre sobre 17.52 (6.5% más arriba) con volumen >= 1.4x",
    "pivot": 17.52,
    "entry_reference": 17.52,
    "max_entry_price": 18.4,
@@ -1203,7 +1203,7 @@
    "target_2r": 20.56,
    "partial_r": 4.0,
    "target_partial": 23.6,
-   "distance_to_pivot_pct": 5.54,
+   "distance_to_pivot_pct": 6.51,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1213,7 +1213,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-25",
    "last_earnings_date": "2026-11-05",
-   "days_to_earnings": 105,
+   "days_to_earnings": 104,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1224,10 +1224,10 @@
    "setup": "PULLBACK_FORMACION",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 86.0,
+   "last_session": "2026-11-12",
+   "close": 84.8,
    "entry_status": "ESPERANDO",
-   "status_reason": "Falta un cierre sobre 93.64 (8.2% más arriba) con volumen >= 1.4x",
+   "status_reason": "Falta un cierre sobre 93.64 (9.4% más arriba) con volumen >= 1.4x",
    "pivot": 93.64,
    "entry_reference": 93.64,
    "max_entry_price": 98.32,
@@ -1238,7 +1238,7 @@
    "target_2r": 112.94,
    "partial_r": 4.0,
    "target_partial": 132.24,
-   "distance_to_pivot_pct": 8.16,
+   "distance_to_pivot_pct": 9.44,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1248,117 +1248,10 @@
    "meets_criteria": true,
    "next_earnings_date": "2026-11-24",
    "last_earnings_date": "2026-08-26",
-   "days_to_earnings": 12,
+   "days_to_earnings": 11,
    "blockers": [
-    "Resultados el 2026-11-24 (en 12 días): no entrar a menos de 14 días de resultados"
+    "Resultados el 2026-11-24 (en 11 días): no entrar a menos de 14 días de resultados"
    ],
-   "actionable": false,
-   "warnings": [],
-   "order_enabled": false
-  },
-  {
-   "ticker": "AVAH",
-   "setup": "PULLBACK_FORMACION",
-   "entry_kind": "BASE",
-   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 13.09,
-   "entry_status": "ESPERANDO",
-   "status_reason": "Falta un cierre sobre 14.55 (10.0% más arriba) con volumen >= 1.4x",
-   "pivot": 14.55,
-   "entry_reference": 14.55,
-   "max_entry_price": 15.28,
-   "stop_reference": 12.87,
-   "risk_per_share": 1.68,
-   "risk_pct": 11.54,
-   "target_1r": 16.23,
-   "target_2r": 17.91,
-   "partial_r": 4.0,
-   "target_partial": 21.27,
-   "distance_to_pivot_pct": 10.03,
-   "criteria": {
-    "tendencia": true,
-    "cerca_maximos": true,
-    "fuerza_vs_spy": true,
-    "fundamentales": true
-   },
-   "meets_criteria": true,
-   "next_earnings_date": "2026-11-12",
-   "last_earnings_date": "2026-08-13",
-   "days_to_earnings": 0,
-   "blockers": [
-    "Resultados el 2026-11-12 (en 0 días): no entrar a menos de 14 días de resultados"
-   ],
-   "actionable": false,
-   "warnings": [],
-   "order_enabled": false
-  },
-  {
-   "ticker": "PRCH",
-   "setup": "TENDENCIA",
-   "entry_kind": "BASE",
-   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 22.14,
-   "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 18.74 a un 16.2% de la entrada 22.36 (máximo 12%)",
-   "pivot": 22.36,
-   "entry_reference": 22.36,
-   "max_entry_price": 23.48,
-   "stop_reference": 18.74,
-   "risk_per_share": 3.62,
-   "risk_pct": 16.19,
-   "target_1r": 25.98,
-   "target_2r": 29.6,
-   "partial_r": 4.0,
-   "target_partial": 36.84,
-   "distance_to_pivot_pct": 0.98,
-   "criteria": {
-    "tendencia": true,
-    "cerca_maximos": true,
-    "fuerza_vs_spy": true,
-    "fundamentales": true
-   },
-   "meets_criteria": true,
-   "next_earnings_date": "2027-02-10",
-   "last_earnings_date": "2026-10-28",
-   "days_to_earnings": 90,
-   "blockers": [],
-   "actionable": false,
-   "warnings": [],
-   "order_enabled": false
-  },
-  {
-   "ticker": "SWIM",
-   "setup": "TENDENCIA",
-   "entry_kind": "BASE",
-   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 8.41,
-   "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 6.94 a un 18.4% de la entrada 8.51 (máximo 12%)",
-   "pivot": 8.51,
-   "entry_reference": 8.51,
-   "max_entry_price": 8.93,
-   "stop_reference": 6.94,
-   "risk_per_share": 1.57,
-   "risk_pct": 18.4,
-   "target_1r": 10.07,
-   "target_2r": 11.64,
-   "partial_r": 4.0,
-   "target_partial": 14.77,
-   "distance_to_pivot_pct": 1.12,
-   "criteria": {
-    "tendencia": true,
-    "cerca_maximos": true,
-    "fuerza_vs_spy": true,
-    "fundamentales": true
-   },
-   "meets_criteria": true,
-   "next_earnings_date": "2027-03-09",
-   "last_earnings_date": "2026-11-03",
-   "days_to_earnings": 117,
-   "blockers": [],
    "actionable": false,
    "warnings": [],
    "order_enabled": false
@@ -1368,21 +1261,21 @@
    "setup": "PULLBACK_FORMACION",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 67.49,
+   "last_session": "2026-11-12",
+   "close": 68.0,
    "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 55.43 a un 18.8% de la entrada 68.28 (máximo 12%)",
-   "pivot": 68.28,
-   "entry_reference": 68.28,
-   "max_entry_price": 71.69,
+   "status_reason": "Stop 55.43 a un 18.9% de la entrada 68.38 (máximo 12%)",
+   "pivot": 68.38,
+   "entry_reference": 68.38,
+   "max_entry_price": 71.8,
    "stop_reference": 55.43,
-   "risk_per_share": 12.85,
-   "risk_pct": 18.82,
-   "target_1r": 81.13,
-   "target_2r": 93.98,
+   "risk_per_share": 12.95,
+   "risk_pct": 18.94,
+   "target_1r": 81.33,
+   "target_2r": 94.28,
    "partial_r": 4.0,
-   "target_partial": 119.68,
-   "distance_to_pivot_pct": 1.16,
+   "target_partial": 120.18,
+   "distance_to_pivot_pct": 0.56,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1392,81 +1285,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-03-10",
    "last_earnings_date": "2026-11-02",
-   "days_to_earnings": 118,
-   "blockers": [],
-   "actionable": false,
-   "warnings": [],
-   "order_enabled": false
-  },
-  {
-   "ticker": "BTSG",
-   "setup": "PULLBACK_FORMACION",
-   "entry_kind": "BASE",
-   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 72.62,
-   "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 59.45 a un 19.1% de la entrada 73.53 (máximo 12%)",
-   "pivot": 73.53,
-   "entry_reference": 73.53,
-   "max_entry_price": 77.2,
-   "stop_reference": 59.45,
-   "risk_per_share": 14.08,
-   "risk_pct": 19.14,
-   "target_1r": 87.6,
-   "target_2r": 101.68,
-   "partial_r": 4.0,
-   "target_partial": 129.83,
-   "distance_to_pivot_pct": 1.23,
-   "criteria": {
-    "tendencia": true,
-    "cerca_maximos": true,
-    "fuerza_vs_spy": true,
-    "fundamentales": true
-   },
-   "meets_criteria": true,
-   "next_earnings_date": "2027-02-26",
-   "last_earnings_date": "2026-10-30",
-   "days_to_earnings": 106,
-   "blockers": [],
-   "actionable": false,
-   "warnings": [],
-   "order_enabled": false
-  },
-  {
-   "ticker": "EW",
-   "setup": "ROTURA_BASE",
-   "entry_kind": "BASE",
-   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 105.81,
-   "trigger_close": 104.71,
-   "trigger_session": "2026-11-09",
-   "sessions_since_trigger": 2,
-   "trigger_volume_ratio": 1.7,
-   "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 87.90 a un 16.9% de la entrada 105.81 (máximo 12%)",
-   "pivot": 104.17,
-   "entry_reference": 105.81,
-   "max_entry_price": 109.38,
-   "stop_reference": 87.9,
-   "risk_per_share": 17.91,
-   "risk_pct": 16.93,
-   "target_1r": 123.72,
-   "target_2r": 141.63,
-   "partial_r": 4.0,
-   "target_partial": 177.45,
-   "distance_to_pivot_pct": -1.57,
-   "criteria": {
-    "tendencia": true,
-    "cerca_maximos": true,
-    "fuerza_vs_spy": true,
-    "fundamentales": true
-   },
-   "meets_criteria": true,
-   "next_earnings_date": "2027-02-09",
-   "last_earnings_date": "2026-11-04",
-   "days_to_earnings": 89,
+   "days_to_earnings": 117,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1477,25 +1296,25 @@
    "setup": "TENDENCIA",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 65.76,
+   "last_session": "2026-11-12",
+   "close": 64.56,
    "trigger_close": 64.26,
    "trigger_session": "2026-11-10",
-   "sessions_since_trigger": 1,
+   "sessions_since_trigger": 2,
    "trigger_volume_ratio": 3.17,
    "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 53.88 a un 18.1% de la entrada 65.76 (máximo 12%)",
+   "status_reason": "Stop 53.88 a un 16.5% de la entrada 64.56 (máximo 12%)",
    "pivot": 63.6,
-   "entry_reference": 65.76,
+   "entry_reference": 64.56,
    "max_entry_price": 66.78,
    "stop_reference": 53.88,
-   "risk_per_share": 11.88,
-   "risk_pct": 18.07,
-   "target_1r": 77.64,
-   "target_2r": 89.52,
+   "risk_per_share": 10.68,
+   "risk_pct": 16.54,
+   "target_1r": 75.24,
+   "target_2r": 85.92,
    "partial_r": 4.0,
-   "target_partial": 113.28,
-   "distance_to_pivot_pct": -3.4,
+   "target_partial": 107.28,
+   "distance_to_pivot_pct": -1.51,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1505,32 +1324,36 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-03-01",
    "last_earnings_date": "2026-11-09",
-   "days_to_earnings": 109,
+   "days_to_earnings": 108,
    "blockers": [],
    "actionable": false,
    "warnings": [],
    "order_enabled": false
   },
   {
-   "ticker": "KNSA",
-   "setup": "TENDENCIA",
+   "ticker": "EW",
+   "setup": "ROTURA_BASE",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 95.76,
+   "last_session": "2026-11-12",
+   "close": 105.8,
+   "trigger_close": 104.71,
+   "trigger_session": "2026-11-09",
+   "sessions_since_trigger": 3,
+   "trigger_volume_ratio": 1.7,
    "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 87.30 a un 12.1% de la entrada 99.31 (máximo 12%)",
-   "pivot": 99.31,
-   "entry_reference": 99.31,
-   "max_entry_price": 104.28,
-   "stop_reference": 87.3,
-   "risk_per_share": 12.01,
-   "risk_pct": 12.09,
-   "target_1r": 111.32,
-   "target_2r": 123.33,
+   "status_reason": "Stop 87.90 a un 16.9% de la entrada 105.80 (máximo 12%)",
+   "pivot": 104.17,
+   "entry_reference": 105.8,
+   "max_entry_price": 109.38,
+   "stop_reference": 87.9,
+   "risk_per_share": 17.9,
+   "risk_pct": 16.92,
+   "target_1r": 123.7,
+   "target_2r": 141.6,
    "partial_r": 4.0,
-   "target_partial": 147.35,
-   "distance_to_pivot_pct": 3.57,
+   "target_partial": 177.4,
+   "distance_to_pivot_pct": -1.56,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1538,9 +1361,9 @@
     "fundamentales": true
    },
    "meets_criteria": true,
-   "next_earnings_date": "2027-02-23",
-   "last_earnings_date": "2026-10-27",
-   "days_to_earnings": 103,
+   "next_earnings_date": "2027-02-09",
+   "last_earnings_date": "2026-11-04",
+   "days_to_earnings": 88,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1551,8 +1374,8 @@
    "setup": "PULLBACK_FORMACION",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 53.6,
+   "last_session": "2026-11-12",
+   "close": 55.15,
    "entry_status": "RIESGO_ALTO",
    "status_reason": "Stop 46.63 a un 17.3% de la entrada 56.38 (máximo 12%)",
    "pivot": 56.38,
@@ -1565,7 +1388,7 @@
    "target_2r": 75.88,
    "partial_r": 4.0,
    "target_partial": 95.37,
-   "distance_to_pivot_pct": 4.93,
+   "distance_to_pivot_pct": 2.18,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1575,32 +1398,32 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-18",
    "last_earnings_date": "2026-11-05",
-   "days_to_earnings": 98,
+   "days_to_earnings": 97,
    "blockers": [],
    "actionable": false,
    "warnings": [],
    "order_enabled": false
   },
   {
-   "ticker": "VSXY",
+   "ticker": "BTSG",
    "setup": "PULLBACK_FORMACION",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 109.86,
+   "last_session": "2026-11-12",
+   "close": 71.45,
    "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 91.36 a un 21.5% de la entrada 116.32 (máximo 12%)",
-   "pivot": 116.32,
-   "entry_reference": 116.32,
-   "max_entry_price": 122.14,
-   "stop_reference": 91.36,
-   "risk_per_share": 24.96,
-   "risk_pct": 21.46,
-   "target_1r": 141.28,
-   "target_2r": 166.24,
+   "status_reason": "Stop 64.21 a un 12.7% de la entrada 73.53 (máximo 12%)",
+   "pivot": 73.53,
+   "entry_reference": 73.53,
+   "max_entry_price": 77.2,
+   "stop_reference": 64.21,
+   "risk_per_share": 9.32,
+   "risk_pct": 12.67,
+   "target_1r": 82.84,
+   "target_2r": 92.16,
    "partial_r": 4.0,
-   "target_partial": 216.16,
-   "distance_to_pivot_pct": 5.55,
+   "target_partial": 110.79,
+   "distance_to_pivot_pct": 2.82,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1608,9 +1431,114 @@
     "fundamentales": true
    },
    "meets_criteria": true,
-   "next_earnings_date": "2026-12-03",
-   "last_earnings_date": "2026-09-03",
-   "days_to_earnings": 21,
+   "next_earnings_date": "2027-02-26",
+   "last_earnings_date": "2026-10-30",
+   "days_to_earnings": 105,
+   "blockers": [],
+   "actionable": false,
+   "warnings": [],
+   "order_enabled": false
+  },
+  {
+   "ticker": "KNSA",
+   "setup": "TENDENCIA",
+   "entry_kind": "BASE",
+   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
+   "last_session": "2026-11-12",
+   "close": 96.28,
+   "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 87.30 a un 12.1% de la entrada 99.31 (máximo 12%)",
+   "pivot": 99.31,
+   "entry_reference": 99.31,
+   "max_entry_price": 104.28,
+   "stop_reference": 87.3,
+   "risk_per_share": 12.01,
+   "risk_pct": 12.09,
+   "target_1r": 111.32,
+   "target_2r": 123.33,
+   "partial_r": 4.0,
+   "target_partial": 147.35,
+   "distance_to_pivot_pct": 3.05,
+   "criteria": {
+    "tendencia": true,
+    "cerca_maximos": true,
+    "fuerza_vs_spy": true,
+    "fundamentales": true
+   },
+   "meets_criteria": true,
+   "next_earnings_date": "2027-02-23",
+   "last_earnings_date": "2026-10-27",
+   "days_to_earnings": 102,
+   "blockers": [],
+   "actionable": false,
+   "warnings": [],
+   "order_enabled": false
+  },
+  {
+   "ticker": "SWIM",
+   "setup": "TENDENCIA",
+   "entry_kind": "BASE",
+   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
+   "last_session": "2026-11-12",
+   "close": 8.19,
+   "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 7.19 a un 15.5% de la entrada 8.51 (máximo 12%)",
+   "pivot": 8.51,
+   "entry_reference": 8.51,
+   "max_entry_price": 8.93,
+   "stop_reference": 7.19,
+   "risk_per_share": 1.32,
+   "risk_pct": 15.46,
+   "target_1r": 9.82,
+   "target_2r": 11.14,
+   "partial_r": 4.0,
+   "target_partial": 13.77,
+   "distance_to_pivot_pct": 3.7,
+   "criteria": {
+    "tendencia": true,
+    "cerca_maximos": true,
+    "fuerza_vs_spy": true,
+    "fundamentales": true
+   },
+   "meets_criteria": true,
+   "next_earnings_date": "2027-03-09",
+   "last_earnings_date": "2026-11-03",
+   "days_to_earnings": 116,
+   "blockers": [],
+   "actionable": false,
+   "warnings": [],
+   "order_enabled": false
+  },
+  {
+   "ticker": "PRCH",
+   "setup": "TENDENCIA",
+   "entry_kind": "BASE",
+   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
+   "last_session": "2026-11-12",
+   "close": 21.31,
+   "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 19.59 a un 12.4% de la entrada 22.36 (máximo 12%)",
+   "pivot": 22.36,
+   "entry_reference": 22.36,
+   "max_entry_price": 23.48,
+   "stop_reference": 19.59,
+   "risk_per_share": 2.77,
+   "risk_pct": 12.39,
+   "target_1r": 25.13,
+   "target_2r": 27.9,
+   "partial_r": 4.0,
+   "target_partial": 33.44,
+   "distance_to_pivot_pct": 4.7,
+   "criteria": {
+    "tendencia": true,
+    "cerca_maximos": true,
+    "fuerza_vs_spy": true,
+    "fundamentales": true
+   },
+   "meets_criteria": true,
+   "next_earnings_date": "2027-02-10",
+   "last_earnings_date": "2026-10-28",
+   "days_to_earnings": 89,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1621,8 +1549,8 @@
    "setup": "TENDENCIA",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 14.37,
+   "last_session": "2026-11-12",
+   "close": 14.15,
    "entry_status": "RIESGO_ALTO",
    "status_reason": "Stop 13.18 a un 15.9% de la entrada 15.66 (máximo 12%)",
    "pivot": 15.66,
@@ -1635,7 +1563,7 @@
    "target_2r": 20.63,
    "partial_r": 4.0,
    "target_partial": 25.6,
-   "distance_to_pivot_pct": 8.24,
+   "distance_to_pivot_pct": 9.64,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1645,32 +1573,32 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-25",
    "last_earnings_date": "2026-11-05",
-   "days_to_earnings": 105,
+   "days_to_earnings": 104,
    "blockers": [],
    "actionable": false,
    "warnings": [],
    "order_enabled": false
   },
   {
-   "ticker": "TREX",
-   "setup": "TENDENCIA",
+   "ticker": "VSXY",
+   "setup": "PULLBACK_FORMACION",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 54.28,
+   "last_session": "2026-11-12",
+   "close": 104.63,
    "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 49.36 a un 18.0% de la entrada 60.21 (máximo 12%)",
-   "pivot": 60.21,
-   "entry_reference": 60.21,
-   "max_entry_price": 63.22,
-   "stop_reference": 49.36,
-   "risk_per_share": 10.85,
-   "risk_pct": 18.02,
-   "target_1r": 71.06,
-   "target_2r": 81.91,
+   "status_reason": "Stop 91.36 a un 21.5% de la entrada 116.32 (máximo 12%)",
+   "pivot": 116.32,
+   "entry_reference": 116.32,
+   "max_entry_price": 122.14,
+   "stop_reference": 91.36,
+   "risk_per_share": 24.96,
+   "risk_pct": 21.46,
+   "target_1r": 141.28,
+   "target_2r": 166.24,
    "partial_r": 4.0,
-   "target_partial": 103.61,
-   "distance_to_pivot_pct": 9.85,
+   "target_partial": 216.16,
+   "distance_to_pivot_pct": 10.05,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1678,9 +1606,44 @@
     "fundamentales": true
    },
    "meets_criteria": true,
-   "next_earnings_date": "2027-02-24",
+   "next_earnings_date": "2026-12-03",
+   "last_earnings_date": "2026-09-03",
+   "days_to_earnings": 20,
+   "blockers": [],
+   "actionable": false,
+   "warnings": [],
+   "order_enabled": false
+  },
+  {
+   "ticker": "QNST",
+   "setup": "TENDENCIA",
+   "entry_kind": "BASE",
+   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
+   "last_session": "2026-11-12",
+   "close": 19.12,
+   "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 16.97 a un 20.9% de la entrada 21.45 (máximo 12%)",
+   "pivot": 21.45,
+   "entry_reference": 21.45,
+   "max_entry_price": 22.52,
+   "stop_reference": 16.97,
+   "risk_per_share": 4.48,
+   "risk_pct": 20.89,
+   "target_1r": 25.93,
+   "target_2r": 30.41,
+   "partial_r": 4.0,
+   "target_partial": 39.37,
+   "distance_to_pivot_pct": 10.86,
+   "criteria": {
+    "tendencia": true,
+    "cerca_maximos": true,
+    "fuerza_vs_spy": true,
+    "fundamentales": true
+   },
+   "meets_criteria": true,
+   "next_earnings_date": "2027-02-04",
    "last_earnings_date": "2026-11-04",
-   "days_to_earnings": 104,
+   "days_to_earnings": 83,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1691,8 +1654,8 @@
    "setup": "TENDENCIA",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 11.8,
+   "last_session": "2026-11-12",
+   "close": 11.76,
    "entry_status": "RIESGO_ALTO",
    "status_reason": "Stop 9.66 a un 27.6% de la entrada 13.34 (máximo 12%)",
    "pivot": 13.34,
@@ -1705,7 +1668,7 @@
    "target_2r": 20.69,
    "partial_r": 4.0,
    "target_partial": 28.04,
-   "distance_to_pivot_pct": 11.51,
+   "distance_to_pivot_pct": 11.81,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1715,7 +1678,42 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-25",
    "last_earnings_date": "2026-11-03",
-   "days_to_earnings": 105,
+   "days_to_earnings": 104,
+   "blockers": [],
+   "actionable": false,
+   "warnings": [],
+   "order_enabled": false
+  },
+  {
+   "ticker": "TREX",
+   "setup": "TENDENCIA",
+   "entry_kind": "BASE",
+   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
+   "last_session": "2026-11-12",
+   "close": 52.81,
+   "entry_status": "RIESGO_ALTO",
+   "status_reason": "Stop 49.52 a un 17.8% de la entrada 60.21 (máximo 12%)",
+   "pivot": 60.21,
+   "entry_reference": 60.21,
+   "max_entry_price": 63.22,
+   "stop_reference": 49.52,
+   "risk_per_share": 10.69,
+   "risk_pct": 17.75,
+   "target_1r": 70.9,
+   "target_2r": 81.59,
+   "partial_r": 4.0,
+   "target_partial": 102.97,
+   "distance_to_pivot_pct": 12.29,
+   "criteria": {
+    "tendencia": true,
+    "cerca_maximos": true,
+    "fuerza_vs_spy": true,
+    "fundamentales": true
+   },
+   "meets_criteria": true,
+   "next_earnings_date": "2027-02-24",
+   "last_earnings_date": "2026-11-04",
+   "days_to_earnings": 103,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1726,10 +1724,10 @@
    "setup": "PULLBACK_FORMACION",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 57.53,
-   "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 54.74 a un 17.1% de la entrada 66.02 (máximo 12%)",
+   "last_session": "2026-11-12",
+   "close": 55.98,
+   "entry_status": "INVALIDADA",
+   "status_reason": "Cierre 55.98 por debajo de la MA50 57.39: tendencia rota",
    "pivot": 66.02,
    "entry_reference": 66.02,
    "max_entry_price": 69.32,
@@ -1740,7 +1738,7 @@
    "target_2r": 88.58,
    "partial_r": 4.0,
    "target_partial": 111.14,
-   "distance_to_pivot_pct": 12.86,
+   "distance_to_pivot_pct": 15.21,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1750,10 +1748,47 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-16",
    "last_earnings_date": "2026-11-03",
-   "days_to_earnings": 96,
+   "days_to_earnings": 95,
    "blockers": [],
    "actionable": false,
    "warnings": [],
+   "order_enabled": false
+  },
+  {
+   "ticker": "AVAH",
+   "setup": "PULLBACK_FORMACION",
+   "entry_kind": "BASE",
+   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
+   "last_session": "2026-11-12",
+   "close": 12.24,
+   "entry_status": "INVALIDADA",
+   "status_reason": "Cierre 12.24 por debajo de la MA50 13.06: tendencia rota",
+   "pivot": 14.55,
+   "entry_reference": 14.55,
+   "max_entry_price": 15.28,
+   "stop_reference": 12.15,
+   "risk_per_share": 2.4,
+   "risk_pct": 16.49,
+   "target_1r": 16.95,
+   "target_2r": 19.35,
+   "partial_r": 4.0,
+   "target_partial": 24.15,
+   "distance_to_pivot_pct": 15.88,
+   "criteria": {
+    "tendencia": true,
+    "cerca_maximos": true,
+    "fuerza_vs_spy": true,
+    "fundamentales": true
+   },
+   "meets_criteria": true,
+   "next_earnings_date": null,
+   "last_earnings_date": "2026-11-12",
+   "days_to_earnings": null,
+   "blockers": [],
+   "actionable": false,
+   "warnings": [
+    "Publicó resultados el 2026-11-12; los próximos aún sin fecha (normalmente unos 3 meses después)"
+   ],
    "order_enabled": false
   },
   {
@@ -1761,10 +1796,10 @@
    "setup": "PULLBACK_FORMACION",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 32.11,
-   "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 29.62 a un 23.1% de la entrada 38.50 (máximo 12%)",
+   "last_session": "2026-11-12",
+   "close": 31.94,
+   "entry_status": "INVALIDADA",
+   "status_reason": "Cierre 31.94 por debajo de la MA50 32.02: tendencia rota",
    "pivot": 38.5,
    "entry_reference": 38.5,
    "max_entry_price": 40.43,
@@ -1775,7 +1810,7 @@
    "target_2r": 56.26,
    "partial_r": 4.0,
    "target_partial": 74.02,
-   "distance_to_pivot_pct": 16.6,
+   "distance_to_pivot_pct": 17.04,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1785,46 +1820,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-10",
    "last_earnings_date": "2026-11-05",
-   "days_to_earnings": 90,
-   "blockers": [],
-   "actionable": false,
-   "warnings": [],
-   "order_enabled": false
-  },
-  {
-   "ticker": "QNST",
-   "setup": "TENDENCIA",
-   "entry_kind": "BASE",
-   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 19.44,
-   "trigger_close": 20.32,
-   "trigger_session": "2026-11-05",
-   "sessions_since_trigger": 4,
-   "trigger_volume_ratio": 2.56,
-   "entry_status": "FALLIDA",
-   "status_reason": "Rompió el pivote 19.73 el 2026-11-05 pero ha vuelto a cerrar por debajo (19.44)",
-   "pivot": 19.73,
-   "entry_reference": 19.44,
-   "max_entry_price": 20.72,
-   "stop_reference": 15.73,
-   "risk_per_share": 3.71,
-   "risk_pct": 19.08,
-   "target_1r": 23.15,
-   "target_2r": 26.86,
-   "partial_r": 4.0,
-   "target_partial": 34.28,
-   "distance_to_pivot_pct": 1.47,
-   "criteria": {
-    "tendencia": true,
-    "cerca_maximos": true,
-    "fuerza_vs_spy": true,
-    "fundamentales": true
-   },
-   "meets_criteria": true,
-   "next_earnings_date": "2027-02-04",
-   "last_earnings_date": "2026-11-04",
-   "days_to_earnings": 84,
+   "days_to_earnings": 89,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1835,21 +1831,21 @@
    "setup": "PULLBACK_FORMACION",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 9.48,
+   "last_session": "2026-11-12",
+   "close": 9.49,
    "entry_status": "INVALIDADA",
-   "status_reason": "Cierre 9.48 por debajo de la MA50 13.76: tendencia rota",
+   "status_reason": "Cierre 9.49 por debajo de la MA50 13.70: tendencia rota",
    "pivot": 16.15,
    "entry_reference": 16.15,
    "max_entry_price": 16.96,
-   "stop_reference": 9.48,
-   "risk_per_share": 6.67,
-   "risk_pct": 41.33,
-   "target_1r": 22.82,
-   "target_2r": 29.5,
+   "stop_reference": 9.16,
+   "risk_per_share": 6.99,
+   "risk_pct": 43.28,
+   "target_1r": 23.14,
+   "target_2r": 30.13,
    "partial_r": 4.0,
-   "target_partial": 42.85,
-   "distance_to_pivot_pct": 41.3,
+   "target_partial": 44.11,
+   "distance_to_pivot_pct": 41.24,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": true,
@@ -1859,7 +1855,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-03-23",
    "last_earnings_date": "2026-11-09",
-   "days_to_earnings": 131,
+   "days_to_earnings": 130,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1870,21 +1866,21 @@
    "setup": "TENDENCIA",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 43.92,
+   "last_session": "2026-11-12",
+   "close": 43.1,
    "entry_status": "ESPERANDO",
-   "status_reason": "Falta un cierre sobre 44.36 (1.0% más arriba) con volumen >= 1.4x",
+   "status_reason": "Falta un cierre sobre 44.36 (2.8% más arriba) con volumen >= 1.4x",
    "pivot": 44.36,
    "entry_reference": 44.36,
    "max_entry_price": 46.58,
-   "stop_reference": 40.25,
-   "risk_per_share": 4.11,
-   "risk_pct": 9.27,
-   "target_1r": 48.47,
-   "target_2r": 52.58,
+   "stop_reference": 41.18,
+   "risk_per_share": 3.18,
+   "risk_pct": 7.17,
+   "target_1r": 47.54,
+   "target_2r": 50.72,
    "partial_r": 4.0,
-   "target_partial": 60.8,
-   "distance_to_pivot_pct": 0.99,
+   "target_partial": 57.08,
+   "distance_to_pivot_pct": 2.84,
    "criteria": {
     "tendencia": false,
     "cerca_maximos": true,
@@ -1894,7 +1890,7 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-23",
    "last_earnings_date": "2026-10-27",
-   "days_to_earnings": 103,
+   "days_to_earnings": 102,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
    ],
@@ -1903,25 +1899,25 @@
    "order_enabled": false
   },
   {
-   "ticker": "INTA",
+   "ticker": "QTWO",
    "setup": "PULLBACK_FORMACION",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 46.45,
+   "last_session": "2026-11-12",
+   "close": 72.95,
    "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 38.03 a un 21.1% de la entrada 48.19 (máximo 12%)",
-   "pivot": 48.19,
-   "entry_reference": 48.19,
-   "max_entry_price": 50.6,
-   "stop_reference": 38.03,
-   "risk_per_share": 10.16,
-   "risk_pct": 21.08,
-   "target_1r": 58.35,
-   "target_2r": 68.51,
+   "status_reason": "Stop 65.05 a un 14.8% de la entrada 76.37 (máximo 12%)",
+   "pivot": 76.37,
+   "entry_reference": 76.37,
+   "max_entry_price": 80.19,
+   "stop_reference": 65.05,
+   "risk_per_share": 11.32,
+   "risk_pct": 14.82,
+   "target_1r": 87.69,
+   "target_2r": 99.01,
    "partial_r": 4.0,
-   "target_partial": 88.83,
-   "distance_to_pivot_pct": 3.61,
+   "target_partial": 121.65,
+   "distance_to_pivot_pct": 4.48,
    "criteria": {
     "tendencia": false,
     "cerca_maximos": true,
@@ -1929,9 +1925,9 @@
     "fundamentales": true
    },
    "meets_criteria": false,
-   "next_earnings_date": "2027-02-02",
-   "last_earnings_date": "2026-10-27",
-   "days_to_earnings": 82,
+   "next_earnings_date": "2027-02-10",
+   "last_earnings_date": "2026-10-28",
+   "days_to_earnings": 89,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
    ],
@@ -1944,21 +1940,21 @@
    "setup": "TENDENCIA",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 81.17,
+   "last_session": "2026-11-12",
+   "close": 79.81,
    "entry_status": "RIESGO_ALTO",
-   "status_reason": "Stop 69.95 a un 23.0% de la entrada 90.87 (máximo 12%)",
+   "status_reason": "Stop 75.81 a un 16.6% de la entrada 90.87 (máximo 12%)",
    "pivot": 90.87,
    "entry_reference": 90.87,
    "max_entry_price": 95.41,
-   "stop_reference": 69.95,
-   "risk_per_share": 20.92,
-   "risk_pct": 23.02,
-   "target_1r": 111.79,
-   "target_2r": 132.71,
+   "stop_reference": 75.81,
+   "risk_per_share": 15.06,
+   "risk_pct": 16.57,
+   "target_1r": 105.93,
+   "target_2r": 120.99,
    "partial_r": 4.0,
-   "target_partial": 174.55,
-   "distance_to_pivot_pct": 10.67,
+   "target_partial": 151.11,
+   "distance_to_pivot_pct": 12.17,
    "criteria": {
     "tendencia": true,
     "cerca_maximos": false,
@@ -1968,7 +1964,7 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-24",
    "last_earnings_date": "2026-10-29",
-   "days_to_earnings": 104,
+   "days_to_earnings": 103,
    "blockers": [
     "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
    ],
@@ -1981,8 +1977,8 @@
    "setup": "TENDENCIA",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 11.41,
+   "last_session": "2026-11-12",
+   "close": 11.53,
    "entry_status": "RIESGO_ALTO",
    "status_reason": "Stop 10.38 a un 22.2% de la entrada 13.35 (máximo 12%)",
    "pivot": 13.35,
@@ -1995,7 +1991,7 @@
    "target_2r": 19.29,
    "partial_r": 4.0,
    "target_partial": 25.23,
-   "distance_to_pivot_pct": 14.53,
+   "distance_to_pivot_pct": 13.63,
    "criteria": {
     "tendencia": false,
     "cerca_maximos": false,
@@ -2005,51 +2001,10 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-25",
    "last_earnings_date": "2026-11-03",
-   "days_to_earnings": 105,
+   "days_to_earnings": 104,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo",
     "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
-   ],
-   "actionable": false,
-   "warnings": [],
-   "order_enabled": false
-  },
-  {
-   "ticker": "QTWO",
-   "setup": "PULLBACK_FORMACION",
-   "entry_kind": "BASE",
-   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 74.14,
-   "trigger_close": 75.62,
-   "trigger_session": "2026-11-05",
-   "sessions_since_trigger": 4,
-   "trigger_volume_ratio": 1.71,
-   "entry_status": "FALLIDA",
-   "status_reason": "Rompió el pivote 74.85 el 2026-11-05 pero ha vuelto a cerrar por debajo (74.14)",
-   "pivot": 74.85,
-   "entry_reference": 74.14,
-   "max_entry_price": 78.59,
-   "stop_reference": 64.65,
-   "risk_per_share": 9.49,
-   "risk_pct": 12.8,
-   "target_1r": 83.63,
-   "target_2r": 93.12,
-   "partial_r": 4.0,
-   "target_partial": 112.1,
-   "distance_to_pivot_pct": 0.95,
-   "criteria": {
-    "tendencia": false,
-    "cerca_maximos": true,
-    "fuerza_vs_spy": true,
-    "fundamentales": true
-   },
-   "meets_criteria": false,
-   "next_earnings_date": "2027-02-10",
-   "last_earnings_date": "2026-10-28",
-   "days_to_earnings": 90,
-   "blockers": [
-    "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
    ],
    "actionable": false,
    "warnings": [],
@@ -2060,21 +2015,21 @@
    "setup": "TENDENCIA",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 172.62,
+   "last_session": "2026-11-12",
+   "close": 166.52,
    "entry_status": "INVALIDADA",
-   "status_reason": "Cierre 172.62 por debajo de la MA50 177.31: tendencia rota",
+   "status_reason": "Cierre 166.52 por debajo de la MA50 177.18: tendencia rota",
    "pivot": 194.36,
    "entry_reference": 194.36,
    "max_entry_price": 204.08,
-   "stop_reference": 168.03,
-   "risk_per_share": 26.33,
-   "risk_pct": 13.55,
-   "target_1r": 220.69,
-   "target_2r": 247.02,
+   "stop_reference": 164.17,
+   "risk_per_share": 30.19,
+   "risk_pct": 15.53,
+   "target_1r": 224.55,
+   "target_2r": 254.74,
    "partial_r": 4.0,
-   "target_partial": 299.68,
-   "distance_to_pivot_pct": 11.19,
+   "target_partial": 315.12,
+   "distance_to_pivot_pct": 14.32,
    "criteria": {
     "tendencia": false,
     "cerca_maximos": false,
@@ -2084,10 +2039,47 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-23",
    "last_earnings_date": "2026-10-27",
-   "days_to_earnings": 103,
+   "days_to_earnings": 102,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo",
     "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
+   ],
+   "actionable": false,
+   "warnings": [],
+   "order_enabled": false
+  },
+  {
+   "ticker": "FIVN",
+   "setup": "TENDENCIA",
+   "entry_kind": "BASE",
+   "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
+   "last_session": "2026-11-12",
+   "close": 28.19,
+   "entry_status": "INVALIDADA",
+   "status_reason": "Cierre 28.19 por debajo de la MA50 34.07: tendencia rota",
+   "pivot": 38.68,
+   "entry_reference": 38.68,
+   "max_entry_price": 40.61,
+   "stop_reference": 25.12,
+   "risk_per_share": 13.56,
+   "risk_pct": 35.05,
+   "target_1r": 52.23,
+   "target_2r": 65.79,
+   "partial_r": 4.0,
+   "target_partial": 92.9,
+   "distance_to_pivot_pct": 27.11,
+   "criteria": {
+    "tendencia": false,
+    "cerca_maximos": true,
+    "fuerza_vs_spy": true,
+    "fundamentales": true
+   },
+   "meets_criteria": false,
+   "next_earnings_date": "2027-02-25",
+   "last_earnings_date": "2026-11-05",
+   "days_to_earnings": 104,
+   "blockers": [
+    "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
    ],
    "actionable": false,
    "warnings": [],
@@ -2098,21 +2090,21 @@
    "setup": "TENDENCIA",
    "entry_kind": "BASE",
    "trigger_rule": "Cierre > pivote con volumen >= 1.4x media 50",
-   "last_session": "2026-11-11",
-   "close": 24.49,
+   "last_session": "2026-11-12",
+   "close": 23.96,
    "entry_status": "INVALIDADA",
-   "status_reason": "Cierre 24.49 por debajo de la MA50 29.45: tendencia rota",
+   "status_reason": "Cierre 23.96 por debajo de la MA50 29.43: tendencia rota",
    "pivot": 36.5,
    "entry_reference": 36.5,
    "max_entry_price": 38.33,
-   "stop_reference": 23.86,
-   "risk_per_share": 12.64,
-   "risk_pct": 34.63,
-   "target_1r": 49.14,
-   "target_2r": 61.78,
+   "stop_reference": 23.05,
+   "risk_per_share": 13.45,
+   "risk_pct": 36.85,
+   "target_1r": 49.95,
+   "target_2r": 63.4,
    "partial_r": 4.0,
-   "target_partial": 87.06,
-   "distance_to_pivot_pct": 32.9,
+   "target_partial": 90.3,
+   "distance_to_pivot_pct": 34.36,
    "criteria": {
     "tendencia": false,
     "cerca_maximos": false,
@@ -2122,7 +2114,7 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-25",
    "last_earnings_date": "2026-11-04",
-   "days_to_earnings": 105,
+   "days_to_earnings": 104,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo",
     "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
@@ -2134,24 +2126,18 @@
  ],
  "quotes": {
   "ALAB": {
-   "last_session": "2026-11-11",
-   "open": 231.97,
-   "high": 237.76,
-   "low": 222.93,
-   "close": 230.91,
-   "ema10": 228.78,
-   "ema20": 251.18,
-   "ma50": 296.41,
+   "last_session": "2026-11-12",
+   "open": 215.5,
+   "high": 233.99,
+   "low": 211.65,
+   "close": 227.79,
+   "ema10": 228.6,
+   "ema20": 248.95,
+   "ma50": 295.49,
    "ma50w": 240.02,
    "week_close": 190.71,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     400.66,
-     374.52,
-     393.16
-    ],
     [
      "2026-07-09",
      436.47,
@@ -2685,28 +2671,28 @@
      237.76,
      222.93,
      230.91
+    ],
+    [
+     "2026-11-12",
+     233.99,
+     211.65,
+     227.79
     ]
    ]
   },
   "AMPL": {
-   "last_session": "2026-11-11",
-   "open": 17.0,
-   "high": 17.31,
-   "low": 16.78,
-   "close": 17.21,
-   "ema10": 16.9,
-   "ema20": 16.54,
-   "ma50": 14.99,
+   "last_session": "2026-11-12",
+   "open": 17.03,
+   "high": 17.5,
+   "low": 16.88,
+   "close": 17.33,
+   "ema10": 16.98,
+   "ema20": 16.61,
+   "ma50": 15.07,
    "ma50w": 9.97,
    "week_close": 16.7,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     9.02,
-     8.68,
-     8.81
-    ],
     [
      "2026-07-09",
      9.41,
@@ -3238,30 +3224,30 @@
     [
      "2026-11-11",
      17.31,
-     16.78,
+     16.77,
      17.21
+    ],
+    [
+     "2026-11-12",
+     17.5,
+     16.88,
+     17.33
     ]
    ]
   },
   "APPN": {
-   "last_session": "2026-11-11",
-   "open": 52.5,
-   "high": 54.7,
-   "low": 52.5,
-   "close": 53.6,
-   "ema10": 51.21,
-   "ema20": 48.9,
-   "ma50": 42.17,
+   "last_session": "2026-11-12",
+   "open": 53.73,
+   "high": 56.35,
+   "low": 52.28,
+   "close": 55.15,
+   "ema10": 51.93,
+   "ema20": 49.49,
+   "ma50": 42.47,
    "ma50w": 30.61,
    "week_close": 51.6,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     24.41,
-     23.89,
-     24.27
-    ],
     [
      "2026-07-09",
      25.27,
@@ -3795,28 +3781,28 @@
      54.7,
      52.5,
      53.6
+    ],
+    [
+     "2026-11-12",
+     56.35,
+     52.28,
+     55.15
     ]
    ]
   },
   "ATRC": {
-   "last_session": "2026-11-11",
-   "open": 56.42,
-   "high": 57.68,
-   "low": 56.03,
-   "close": 57.53,
-   "ema10": 59.09,
-   "ema20": 58.96,
-   "ma50": 57.32,
+   "last_session": "2026-11-12",
+   "open": 58.01,
+   "high": 58.24,
+   "low": 55.76,
+   "close": 55.98,
+   "ema10": 58.52,
+   "ema20": 58.68,
+   "ma50": 57.39,
    "ma50w": 38.86,
    "week_close": 58.54,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     34.07,
-     32.01,
-     33.66
-    ],
     [
      "2026-07-09",
      34.58,
@@ -4350,28 +4336,28 @@
      57.68,
      56.03,
      57.53
+    ],
+    [
+     "2026-11-12",
+     58.24,
+     55.76,
+     55.98
     ]
    ]
   },
   "AVAH": {
-   "last_session": "2026-11-11",
-   "open": 13.19,
-   "high": 13.41,
-   "low": 13.0,
-   "close": 13.09,
-   "ema10": 13.25,
-   "ema20": 13.14,
-   "ma50": 13.08,
+   "last_session": "2026-11-12",
+   "open": 13.17,
+   "high": 14.19,
+   "low": 12.15,
+   "close": 12.24,
+   "ema10": 13.07,
+   "ema20": 13.05,
+   "ma50": 13.06,
    "ma50w": 9.28,
    "week_close": 13.25,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     9.74,
-     9.37,
-     9.59
-    ],
     [
      "2026-07-09",
      9.83,
@@ -4905,28 +4891,28 @@
      13.41,
      13.0,
      13.09
+    ],
+    [
+     "2026-11-12",
+     14.19,
+     12.15,
+     12.24
     ]
    ]
   },
   "AVPT": {
-   "last_session": "2026-11-11",
-   "open": 17.13,
-   "high": 17.42,
-   "low": 16.51,
-   "close": 16.55,
-   "ema10": 16.62,
-   "ema20": 16.21,
-   "ma50": 14.72,
+   "last_session": "2026-11-12",
+   "open": 16.41,
+   "high": 16.52,
+   "low": 16.22,
+   "close": 16.38,
+   "ema10": 16.57,
+   "ema20": 16.22,
+   "ma50": 14.78,
    "ma50w": 12.23,
    "week_close": 16.55,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     12.53,
-     12.14,
-     12.48
-    ],
     [
      "2026-07-09",
      12.67,
@@ -5460,28 +5446,28 @@
      17.42,
      16.51,
      16.55
+    ],
+    [
+     "2026-11-12",
+     16.52,
+     16.22,
+     16.38
     ]
    ]
   },
   "BE": {
-   "last_session": "2026-11-11",
-   "open": 199.52,
-   "high": 217.85,
-   "low": 199.48,
-   "close": 209.47,
-   "ema10": 198.29,
-   "ema20": 210.62,
-   "ma50": 245.23,
+   "last_session": "2026-11-12",
+   "open": 195.89,
+   "high": 208.9,
+   "low": 193.44,
+   "close": 201.93,
+   "ema10": 198.95,
+   "ema20": 209.79,
+   "ma50": 244.92,
    "ma50w": 200.55,
    "week_close": 173.24,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     269.72,
-     235.34,
-     254.29
-    ],
     [
      "2026-07-09",
      276.08,
@@ -6013,30 +5999,30 @@
     [
      "2026-11-11",
      217.85,
-     199.48,
+     199.0,
      209.47
+    ],
+    [
+     "2026-11-12",
+     208.9,
+     193.44,
+     201.93
     ]
    ]
   },
   "BIIB": {
-   "last_session": "2026-11-11",
-   "open": 249.78,
-   "high": 255.19,
-   "low": 249.44,
-   "close": 253.4,
-   "ema10": 250.55,
-   "ema20": 246.25,
-   "ma50": 232.21,
+   "last_session": "2026-11-12",
+   "open": 255.0,
+   "high": 255.05,
+   "low": 250.43,
+   "close": 250.48,
+   "ema10": 250.54,
+   "ema20": 246.65,
+   "ma50": 232.77,
    "ma50w": 199.17,
    "week_close": 248.35,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     206.75,
-     198.93,
-     200.36
-    ],
     [
      "2026-07-09",
      201.01,
@@ -6570,28 +6556,28 @@
      255.19,
      249.44,
      253.4
+    ],
+    [
+     "2026-11-12",
+     255.05,
+     250.43,
+     250.48
     ]
    ]
   },
   "BTSG": {
-   "last_session": "2026-11-11",
-   "open": 73.0,
-   "high": 73.53,
-   "low": 71.03,
-   "close": 72.62,
-   "ema10": 68.23,
-   "ema20": 65.75,
-   "ma50": 61.51,
+   "last_session": "2026-11-12",
+   "open": 72.72,
+   "high": 73.35,
+   "low": 71.43,
+   "close": 71.45,
+   "ema10": 68.81,
+   "ema20": 66.29,
+   "ma50": 61.73,
    "ma50w": 52.5,
    "week_close": 67.15,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     71.4,
-     69.37,
-     70.5
-    ],
     [
      "2026-07-09",
      71.82,
@@ -7125,28 +7111,28 @@
      73.53,
      71.03,
      72.62
+    ],
+    [
+     "2026-11-12",
+     73.35,
+     71.43,
+     71.45
     ]
    ]
   },
   "CAI": {
-   "last_session": "2026-11-11",
-   "open": 25.59,
-   "high": 25.76,
-   "low": 23.86,
-   "close": 24.49,
-   "ema10": 27.96,
-   "ema20": 29.37,
-   "ma50": 29.45,
+   "last_session": "2026-11-12",
+   "open": 23.66,
+   "high": 24.32,
+   "low": 23.05,
+   "close": 23.96,
+   "ema10": 27.23,
+   "ema20": 28.85,
+   "ma50": 29.43,
    "ma50w": 22.49,
    "week_close": 25.23,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     17.43,
-     16.73,
-     17.32
-    ],
     [
      "2026-07-09",
      18.8,
@@ -7680,28 +7666,28 @@
      25.76,
      23.86,
      24.49
+    ],
+    [
+     "2026-11-12",
+     24.32,
+     23.05,
+     23.96
     ]
    ]
   },
   "CART": {
-   "last_session": "2026-11-11",
-   "open": 58.3,
-   "high": 58.91,
-   "low": 58.2,
-   "close": 58.87,
-   "ema10": 57.85,
-   "ema20": 55.88,
-   "ma50": 50.27,
+   "last_session": "2026-11-12",
+   "open": 58.99,
+   "high": 58.99,
+   "low": 58.42,
+   "close": 58.48,
+   "ema10": 57.96,
+   "ema20": 56.13,
+   "ma50": 50.41,
    "ma50w": 43.7,
    "week_close": 58.12,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     48.01,
-     46.45,
-     47.73
-    ],
     [
      "2026-07-09",
      48.32,
@@ -8235,28 +8221,28 @@
      58.91,
      58.2,
      58.87
+    ],
+    [
+     "2026-11-12",
+     58.99,
+     58.42,
+     58.48
     ]
    ]
   },
   "CDNA": {
-   "last_session": "2026-11-11",
-   "open": 82.0,
-   "high": 84.1,
-   "low": 80.18,
-   "close": 81.17,
-   "ema10": 80.07,
-   "ema20": 76.26,
-   "ma50": 65.18,
+   "last_session": "2026-11-12",
+   "open": 78.0,
+   "high": 80.07,
+   "low": 76.55,
+   "close": 79.81,
+   "ema10": 80.02,
+   "ema20": 76.6,
+   "ma50": 65.78,
    "ma50w": 32.82,
    "week_close": 78.56,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     28.68,
-     27.32,
-     27.55
-    ],
     [
      "2026-07-09",
      29.15,
@@ -8790,28 +8776,28 @@
      84.1,
      80.18,
      81.17
+    ],
+    [
+     "2026-11-12",
+     80.07,
+     76.55,
+     79.81
     ]
    ]
   },
   "EW": {
-   "last_session": "2026-11-11",
-   "open": 103.76,
-   "high": 106.04,
-   "low": 102.73,
-   "close": 105.81,
-   "ema10": 100.02,
-   "ema20": 96.04,
-   "ma50": 89.78,
+   "last_session": "2026-11-12",
+   "open": 106.07,
+   "high": 106.77,
+   "low": 104.93,
+   "close": 105.8,
+   "ema10": 101.07,
+   "ema20": 96.97,
+   "ma50": 90.08,
    "ma50w": 85.53,
    "week_close": 102.14,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     95.13,
-     92.89,
-     93.64
-    ],
     [
      "2026-07-09",
      93.22,
@@ -9342,31 +9328,31 @@
     ],
     [
      "2026-11-11",
-     106.04,
+     106.05,
      102.73,
      105.81
+    ],
+    [
+     "2026-11-12",
+     106.77,
+     104.93,
+     105.8
     ]
    ]
   },
   "EXLS": {
-   "last_session": "2026-11-11",
-   "open": 43.76,
-   "high": 44.28,
-   "low": 43.59,
-   "close": 43.92,
-   "ema10": 42.96,
-   "ema20": 41.69,
-   "ma50": 38.21,
+   "last_session": "2026-11-12",
+   "open": 44.25,
+   "high": 44.36,
+   "low": 43.06,
+   "close": 43.1,
+   "ema10": 42.99,
+   "ema20": 41.82,
+   "ma50": 38.33,
    "ma50w": 34.3,
    "week_close": 43.15,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     27.88,
-     27.37,
-     27.38
-    ],
     [
      "2026-07-09",
      27.62,
@@ -9898,30 +9884,585 @@
     [
      "2026-11-11",
      44.28,
-     43.59,
+     43.56,
      43.92
+    ],
+    [
+     "2026-11-12",
+     44.36,
+     43.06,
+     43.1
+    ]
+   ]
+  },
+  "FIVN": {
+   "last_session": "2026-11-12",
+   "open": 27.92,
+   "high": 28.71,
+   "low": 27.23,
+   "close": 28.19,
+   "ema10": 30.98,
+   "ema20": 32.7,
+   "ma50": 34.07,
+   "ma50w": 23.68,
+   "week_close": 28.12,
+   "week_end": "2026-11-06",
+   "bars": [
+    [
+     "2026-07-09",
+     24.98,
+     23.15,
+     24.93
+    ],
+    [
+     "2026-07-10",
+     25.8,
+     25.04,
+     25.42
+    ],
+    [
+     "2026-07-13",
+     26.38,
+     25.31,
+     25.81
+    ],
+    [
+     "2026-07-14",
+     25.85,
+     24.21,
+     25.58
+    ],
+    [
+     "2026-07-15",
+     26.55,
+     24.53,
+     24.86
+    ],
+    [
+     "2026-07-16",
+     25.49,
+     24.54,
+     25.26
+    ],
+    [
+     "2026-07-17",
+     26.18,
+     24.69,
+     25.58
+    ],
+    [
+     "2026-07-20",
+     26.49,
+     25.02,
+     25.7
+    ],
+    [
+     "2026-07-21",
+     26.14,
+     24.96,
+     25.23
+    ],
+    [
+     "2026-07-22",
+     25.01,
+     22.44,
+     22.95
+    ],
+    [
+     "2026-07-23",
+     23.61,
+     20.76,
+     21.75
+    ],
+    [
+     "2026-07-24",
+     23.65,
+     22.25,
+     23.12
+    ],
+    [
+     "2026-07-27",
+     25.92,
+     23.51,
+     25.55
+    ],
+    [
+     "2026-07-28",
+     27.34,
+     26.0,
+     27.12
+    ],
+    [
+     "2026-07-29",
+     28.05,
+     26.86,
+     27.17
+    ],
+    [
+     "2026-07-30",
+     28.86,
+     27.17,
+     27.66
+    ],
+    [
+     "2026-07-31",
+     28.15,
+     26.94,
+     27.51
+    ],
+    [
+     "2026-08-03",
+     29.41,
+     28.17,
+     28.95
+    ],
+    [
+     "2026-08-04",
+     30.21,
+     28.44,
+     29.79
+    ],
+    [
+     "2026-08-05",
+     30.13,
+     29.19,
+     29.6
+    ],
+    [
+     "2026-08-06",
+     29.64,
+     28.0,
+     28.37
+    ],
+    [
+     "2026-08-07",
+     34.1,
+     27.3,
+     33.99
+    ],
+    [
+     "2026-08-10",
+     34.58,
+     32.55,
+     34.48
+    ],
+    [
+     "2026-08-11",
+     34.5,
+     32.59,
+     32.63
+    ],
+    [
+     "2026-08-12",
+     32.12,
+     30.89,
+     31.2
+    ],
+    [
+     "2026-08-13",
+     34.1,
+     30.87,
+     33.8
+    ],
+    [
+     "2026-08-14",
+     34.24,
+     32.13,
+     33.0
+    ],
+    [
+     "2026-08-17",
+     32.79,
+     31.52,
+     31.85
+    ],
+    [
+     "2026-08-18",
+     33.03,
+     31.81,
+     32.45
+    ],
+    [
+     "2026-08-19",
+     33.5,
+     32.18,
+     32.74
+    ],
+    [
+     "2026-08-20",
+     33.09,
+     32.11,
+     32.3
+    ],
+    [
+     "2026-08-21",
+     33.0,
+     31.38,
+     32.75
+    ],
+    [
+     "2026-08-24",
+     33.62,
+     32.52,
+     32.77
+    ],
+    [
+     "2026-08-25",
+     33.17,
+     31.6,
+     32.28
+    ],
+    [
+     "2026-08-26",
+     32.2,
+     30.66,
+     32.0
+    ],
+    [
+     "2026-08-27",
+     34.64,
+     32.83,
+     34.57
+    ],
+    [
+     "2026-08-28",
+     35.17,
+     33.87,
+     34.05
+    ],
+    [
+     "2026-08-31",
+     34.75,
+     33.07,
+     34.56
+    ],
+    [
+     "2026-09-01",
+     34.78,
+     33.38,
+     34.03
+    ],
+    [
+     "2026-09-02",
+     34.8,
+     33.3,
+     33.59
+    ],
+    [
+     "2026-09-03",
+     35.18,
+     33.8,
+     34.1
+    ],
+    [
+     "2026-09-04",
+     33.9,
+     32.11,
+     33.27
+    ],
+    [
+     "2026-09-08",
+     33.06,
+     31.09,
+     31.23
+    ],
+    [
+     "2026-09-09",
+     31.47,
+     30.31,
+     30.37
+    ],
+    [
+     "2026-09-10",
+     31.16,
+     30.1,
+     30.25
+    ],
+    [
+     "2026-09-11",
+     31.14,
+     30.17,
+     30.66
+    ],
+    [
+     "2026-09-14",
+     32.24,
+     30.68,
+     31.75
+    ],
+    [
+     "2026-09-15",
+     33.87,
+     31.23,
+     33.02
+    ],
+    [
+     "2026-09-16",
+     34.87,
+     32.97,
+     34.08
+    ],
+    [
+     "2026-09-17",
+     35.31,
+     33.18,
+     34.5
+    ],
+    [
+     "2026-09-18",
+     34.75,
+     32.14,
+     32.47
+    ],
+    [
+     "2026-09-21",
+     37.13,
+     32.81,
+     37.01
+    ],
+    [
+     "2026-09-22",
+     39.55,
+     36.67,
+     38.65
+    ],
+    [
+     "2026-09-23",
+     40.0,
+     37.42,
+     37.68
+    ],
+    [
+     "2026-09-24",
+     37.8,
+     36.47,
+     36.66
+    ],
+    [
+     "2026-09-25",
+     37.79,
+     35.61,
+     35.77
+    ],
+    [
+     "2026-09-28",
+     35.37,
+     33.79,
+     34.66
+    ],
+    [
+     "2026-09-29",
+     34.76,
+     33.44,
+     34.01
+    ],
+    [
+     "2026-09-30",
+     34.53,
+     33.34,
+     34.01
+    ],
+    [
+     "2026-10-01",
+     36.34,
+     34.22,
+     35.75
+    ],
+    [
+     "2026-10-02",
+     36.47,
+     34.08,
+     34.36
+    ],
+    [
+     "2026-10-05",
+     35.17,
+     33.85,
+     34.37
+    ],
+    [
+     "2026-10-06",
+     35.21,
+     33.11,
+     33.29
+    ],
+    [
+     "2026-10-07",
+     34.44,
+     32.65,
+     33.78
+    ],
+    [
+     "2026-10-08",
+     35.29,
+     33.66,
+     35.15
+    ],
+    [
+     "2026-10-09",
+     36.62,
+     34.88,
+     36.4
+    ],
+    [
+     "2026-10-12",
+     37.34,
+     35.51,
+     35.67
+    ],
+    [
+     "2026-10-13",
+     36.27,
+     35.21,
+     35.41
+    ],
+    [
+     "2026-10-14",
+     35.56,
+     32.69,
+     33.08
+    ],
+    [
+     "2026-10-15",
+     35.43,
+     32.17,
+     35.1
+    ],
+    [
+     "2026-10-16",
+     36.29,
+     31.91,
+     32.23
+    ],
+    [
+     "2026-10-19",
+     33.44,
+     32.21,
+     33.34
+    ],
+    [
+     "2026-10-20",
+     36.0,
+     33.57,
+     34.31
+    ],
+    [
+     "2026-10-21",
+     35.75,
+     34.01,
+     35.29
+    ],
+    [
+     "2026-10-22",
+     36.19,
+     34.94,
+     35.1
+    ],
+    [
+     "2026-10-23",
+     38.34,
+     35.43,
+     37.61
+    ],
+    [
+     "2026-10-26",
+     38.56,
+     36.56,
+     37.74
+    ],
+    [
+     "2026-10-27",
+     37.84,
+     36.95,
+     37.13
+    ],
+    [
+     "2026-10-28",
+     38.68,
+     36.5,
+     37.63
+    ],
+    [
+     "2026-10-29",
+     37.7,
+     35.41,
+     37.41
+    ],
+    [
+     "2026-10-30",
+     37.21,
+     35.47,
+     36.34
+    ],
+    [
+     "2026-11-02",
+     37.24,
+     35.62,
+     35.77
+    ],
+    [
+     "2026-11-03",
+     36.39,
+     34.03,
+     35.77
+    ],
+    [
+     "2026-11-04",
+     37.81,
+     35.82,
+     36.35
+    ],
+    [
+     "2026-11-05",
+     36.0,
+     33.35,
+     34.14
+    ],
+    [
+     "2026-11-06",
+     28.66,
+     25.12,
+     28.12
+    ],
+    [
+     "2026-11-09",
+     29.65,
+     28.0,
+     28.87
+    ],
+    [
+     "2026-11-10",
+     28.95,
+     27.46,
+     27.75
+    ],
+    [
+     "2026-11-11",
+     28.5,
+     27.68,
+     28.07
+    ],
+    [
+     "2026-11-12",
+     28.71,
+     27.23,
+     28.19
     ]
    ]
   },
   "IAU": {
-   "last_session": "2026-11-11",
-   "open": 75.74,
-   "high": 75.74,
-   "low": 74.82,
-   "close": 74.87,
-   "ema10": 75.88,
-   "ema20": 76.32,
-   "ma50": 78.52,
+   "last_session": "2026-11-12",
+   "open": 73.34,
+   "high": 73.35,
+   "low": 72.38,
+   "close": 72.79,
+   "ema10": 75.31,
+   "ema20": 75.98,
+   "ma50": 78.32,
    "ma50w": 83.97,
    "week_close": 76.38,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     76.94,
-     75.63,
-     76.74
-    ],
     [
      "2026-07-09",
      77.8,
@@ -10453,585 +10994,30 @@
     [
      "2026-11-11",
      75.74,
-     74.82,
+     74.83,
      74.87
-    ]
-   ]
-  },
-  "INTA": {
-   "last_session": "2026-11-11",
-   "open": 45.64,
-   "high": 46.86,
-   "low": 45.0,
-   "close": 46.45,
-   "ema10": 44.59,
-   "ema20": 43.61,
-   "ma50": 40.5,
-   "ma50w": 32.54,
-   "week_close": 43.72,
-   "week_end": "2026-11-06",
-   "bars": [
-    [
-     "2026-07-08",
-     28.0,
-     27.09,
-     27.17
-    ],
-    [
-     "2026-07-09",
-     27.77,
-     26.3,
-     27.71
-    ],
-    [
-     "2026-07-10",
-     28.57,
-     27.32,
-     28.07
-    ],
-    [
-     "2026-07-13",
-     29.05,
-     28.07,
-     28.56
-    ],
-    [
-     "2026-07-14",
-     28.45,
-     26.26,
-     27.74
-    ],
-    [
-     "2026-07-15",
-     29.05,
-     28.07,
-     28.28
-    ],
-    [
-     "2026-07-16",
-     30.11,
-     28.31,
-     29.55
-    ],
-    [
-     "2026-07-17",
-     30.04,
-     28.75,
-     29.12
-    ],
-    [
-     "2026-07-20",
-     29.55,
-     28.09,
-     29.16
-    ],
-    [
-     "2026-07-21",
-     29.01,
-     27.48,
-     28.1
-    ],
-    [
-     "2026-07-22",
-     27.92,
-     25.71,
-     26.07
-    ],
-    [
-     "2026-07-23",
-     26.51,
-     25.56,
-     26.27
-    ],
-    [
-     "2026-07-24",
-     27.95,
-     26.51,
-     27.47
-    ],
-    [
-     "2026-07-27",
-     30.53,
-     27.94,
-     29.45
-    ],
-    [
-     "2026-07-28",
-     31.37,
-     29.81,
-     30.6
-    ],
-    [
-     "2026-07-29",
-     32.4,
-     30.2,
-     31.67
-    ],
-    [
-     "2026-07-30",
-     32.24,
-     30.2,
-     32.07
-    ],
-    [
-     "2026-07-31",
-     32.97,
-     31.34,
-     32.69
-    ],
-    [
-     "2026-08-03",
-     35.13,
-     33.35,
-     33.4
-    ],
-    [
-     "2026-08-04",
-     33.58,
-     31.69,
-     32.78
-    ],
-    [
-     "2026-08-05",
-     37.48,
-     35.28,
-     36.96
-    ],
-    [
-     "2026-08-06",
-     36.63,
-     34.83,
-     36.36
-    ],
-    [
-     "2026-08-07",
-     38.63,
-     36.43,
-     37.73
-    ],
-    [
-     "2026-08-10",
-     39.48,
-     37.04,
-     38.74
-    ],
-    [
-     "2026-08-11",
-     39.96,
-     38.19,
-     39.91
-    ],
-    [
-     "2026-08-12",
-     39.88,
-     38.86,
-     39.53
-    ],
-    [
-     "2026-08-13",
-     41.12,
-     38.96,
-     41.02
-    ],
-    [
-     "2026-08-14",
-     41.38,
-     39.45,
-     40.11
-    ],
-    [
-     "2026-08-17",
-     40.02,
-     38.41,
-     38.49
-    ],
-    [
-     "2026-08-18",
-     40.76,
-     39.1,
-     39.74
-    ],
-    [
-     "2026-08-19",
-     40.76,
-     39.15,
-     40.09
-    ],
-    [
-     "2026-08-20",
-     40.39,
-     39.44,
-     40.17
-    ],
-    [
-     "2026-08-21",
-     41.42,
-     39.27,
-     41.35
-    ],
-    [
-     "2026-08-24",
-     41.75,
-     40.35,
-     40.92
-    ],
-    [
-     "2026-08-25",
-     41.48,
-     40.42,
-     40.71
-    ],
-    [
-     "2026-08-26",
-     40.9,
-     39.6,
-     40.4
-    ],
-    [
-     "2026-08-27",
-     43.72,
-     40.81,
-     43.7
-    ],
-    [
-     "2026-08-28",
-     44.33,
-     43.11,
-     43.47
-    ],
-    [
-     "2026-08-31",
-     43.66,
-     42.59,
-     43.37
-    ],
-    [
-     "2026-09-01",
-     43.51,
-     41.85,
-     42.22
-    ],
-    [
-     "2026-09-02",
-     43.38,
-     41.41,
-     41.49
-    ],
-    [
-     "2026-09-03",
-     43.98,
-     42.26,
-     43.11
-    ],
-    [
-     "2026-09-04",
-     42.47,
-     40.68,
-     41.71
-    ],
-    [
-     "2026-09-08",
-     40.88,
-     39.1,
-     39.86
-    ],
-    [
-     "2026-09-09",
-     40.72,
-     38.56,
-     38.64
-    ],
-    [
-     "2026-09-10",
-     39.06,
-     37.97,
-     38.04
-    ],
-    [
-     "2026-09-11",
-     38.65,
-     36.8,
-     37.23
-    ],
-    [
-     "2026-09-14",
-     38.91,
-     37.72,
-     37.98
-    ],
-    [
-     "2026-09-15",
-     38.25,
-     36.76,
-     37.49
-    ],
-    [
-     "2026-09-16",
-     37.44,
-     36.47,
-     37.0
-    ],
-    [
-     "2026-09-17",
-     36.96,
-     35.76,
-     36.69
-    ],
-    [
-     "2026-09-18",
-     37.0,
-     35.55,
-     36.21
-    ],
-    [
-     "2026-09-21",
-     36.77,
-     36.24,
-     36.7
-    ],
-    [
-     "2026-09-22",
-     37.71,
-     35.27,
-     36.09
-    ],
-    [
-     "2026-09-23",
-     36.96,
-     35.67,
-     36.46
-    ],
-    [
-     "2026-09-24",
-     37.14,
-     36.07,
-     36.83
-    ],
-    [
-     "2026-09-25",
-     37.18,
-     36.02,
-     36.1
-    ],
-    [
-     "2026-09-28",
-     35.56,
-     34.58,
-     35.39
-    ],
-    [
-     "2026-09-29",
-     35.23,
-     34.41,
-     35.2
-    ],
-    [
-     "2026-09-30",
-     36.57,
-     35.21,
-     36.21
-    ],
-    [
-     "2026-10-01",
-     37.93,
-     36.6,
-     37.59
-    ],
-    [
-     "2026-10-02",
-     38.55,
-     36.22,
-     36.49
-    ],
-    [
-     "2026-10-05",
-     37.53,
-     36.5,
-     37.38
-    ],
-    [
-     "2026-10-06",
-     37.86,
-     36.63,
-     37.03
-    ],
-    [
-     "2026-10-07",
-     38.39,
-     37.03,
-     37.6
-    ],
-    [
-     "2026-10-08",
-     38.8,
-     37.69,
-     38.65
-    ],
-    [
-     "2026-10-09",
-     39.74,
-     38.8,
-     39.61
-    ],
-    [
-     "2026-10-12",
-     40.36,
-     39.34,
-     39.64
-    ],
-    [
-     "2026-10-13",
-     40.89,
-     39.55,
-     39.64
-    ],
-    [
-     "2026-10-14",
-     39.92,
-     38.87,
-     39.55
-    ],
-    [
-     "2026-10-15",
-     43.7,
-     39.39,
-     43.63
-    ],
-    [
-     "2026-10-16",
-     44.71,
-     42.33,
-     43.64
-    ],
-    [
-     "2026-10-19",
-     44.75,
-     43.51,
-     44.29
-    ],
-    [
-     "2026-10-20",
-     45.95,
-     44.57,
-     44.78
-    ],
-    [
-     "2026-10-21",
-     45.42,
-     44.38,
-     45.33
-    ],
-    [
-     "2026-10-22",
-     47.45,
-     44.99,
-     47.18
-    ],
-    [
-     "2026-10-23",
-     48.19,
-     46.49,
-     47.99
-    ],
-    [
-     "2026-10-26",
-     48.1,
-     46.89,
-     47.15
-    ],
-    [
-     "2026-10-27",
-     46.74,
-     42.86,
-     42.95
-    ],
-    [
-     "2026-10-28",
-     43.68,
-     38.21,
-     40.34
-    ],
-    [
-     "2026-10-29",
-     40.03,
-     38.03,
-     39.1
-    ],
-    [
-     "2026-10-30",
-     42.41,
-     39.24,
-     42.21
-    ],
-    [
-     "2026-11-02",
-     46.26,
-     41.57,
-     45.03
-    ],
-    [
-     "2026-11-03",
-     45.62,
-     43.72,
-     44.8
-    ],
-    [
-     "2026-11-04",
-     46.27,
-     44.6,
-     45.07
-    ],
-    [
-     "2026-11-05",
-     46.5,
-     43.49,
-     44.1
-    ],
-    [
-     "2026-11-06",
-     44.55,
-     42.63,
-     43.72
-    ],
-    [
-     "2026-11-09",
-     44.55,
-     43.37,
-     44.47
-    ],
-    [
-     "2026-11-10",
-     45.55,
-     43.06,
-     45.4
     ],
     [
-     "2026-11-11",
-     46.86,
-     45.0,
-     46.45
+     "2026-11-12",
+     73.35,
+     72.38,
+     72.79
     ]
    ]
   },
   "KNSA": {
-   "last_session": "2026-11-11",
-   "open": 95.35,
-   "high": 96.15,
-   "low": 93.49,
-   "close": 95.76,
-   "ema10": 93.08,
-   "ema20": 89.35,
-   "ma50": 81.53,
+   "last_session": "2026-11-12",
+   "open": 95.85,
+   "high": 96.67,
+   "low": 94.34,
+   "close": 96.28,
+   "ema10": 93.66,
+   "ema20": 90.01,
+   "ma50": 81.86,
    "ma50w": 57.97,
    "week_close": 93.86,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     67.5,
-     63.26,
-     64.76
-    ],
     [
      "2026-07-09",
      66.16,
@@ -11565,28 +11551,28 @@
      96.15,
      93.49,
      95.76
+    ],
+    [
+     "2026-11-12",
+     96.67,
+     94.34,
+     96.28
     ]
    ]
   },
   "LFST": {
-   "last_session": "2026-11-11",
-   "open": 14.68,
-   "high": 14.91,
-   "low": 14.24,
-   "close": 14.37,
-   "ema10": 13.9,
-   "ema20": 13.44,
-   "ma50": 12.74,
+   "last_session": "2026-11-12",
+   "open": 14.34,
+   "high": 14.54,
+   "low": 14.03,
+   "close": 14.15,
+   "ema10": 13.95,
+   "ema20": 13.51,
+   "ma50": 12.77,
    "ma50w": 9.07,
    "week_close": 13.77,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     10.81,
-     10.4,
-     10.49
-    ],
     [
      "2026-07-09",
      10.86,
@@ -12120,28 +12106,28 @@
      14.91,
      14.24,
      14.37
+    ],
+    [
+     "2026-11-12",
+     14.54,
+     14.03,
+     14.15
     ]
    ]
   },
   "MANH": {
-   "last_session": "2026-11-11",
-   "open": 258.03,
-   "high": 259.35,
-   "low": 254.37,
-   "close": 258.86,
-   "ema10": 252.07,
-   "ema20": 243.68,
-   "ma50": 222.62,
+   "last_session": "2026-11-12",
+   "open": 259.24,
+   "high": 260.0,
+   "low": 255.08,
+   "close": 256.37,
+   "ema10": 252.85,
+   "ema20": 244.89,
+   "ma50": 223.42,
    "ma50w": 169.74,
    "week_close": 252.78,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     156.91,
-     152.64,
-     154.78
-    ],
     [
      "2026-07-09",
      157.13,
@@ -12672,31 +12658,31 @@
     ],
     [
      "2026-11-11",
-     259.35,
+     259.42,
      254.37,
      258.86
+    ],
+    [
+     "2026-11-12",
+     260.0,
+     255.08,
+     256.37
     ]
    ]
   },
   "OPRT": {
-   "last_session": "2026-11-11",
-   "open": 11.91,
-   "high": 11.98,
-   "low": 11.64,
-   "close": 11.8,
-   "ema10": 11.13,
-   "ema20": 10.44,
-   "ma50": 9.01,
+   "last_session": "2026-11-12",
+   "open": 11.77,
+   "high": 11.83,
+   "low": 11.54,
+   "close": 11.76,
+   "ema10": 11.25,
+   "ema20": 10.57,
+   "ma50": 9.1,
    "ma50w": 6.22,
    "week_close": 11.31,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     5.66,
-     5.39,
-     5.46
-    ],
     [
      "2026-07-09",
      5.66,
@@ -13230,28 +13216,28 @@
      11.98,
      11.64,
      11.8
+    ],
+    [
+     "2026-11-12",
+     11.83,
+     11.54,
+     11.76
     ]
    ]
   },
   "OSCR": {
-   "last_session": "2026-11-11",
-   "open": 33.74,
-   "high": 34.2,
-   "low": 32.04,
-   "close": 32.11,
-   "ema10": 32.3,
-   "ema20": 32.2,
-   "ma50": 31.99,
+   "last_session": "2026-11-12",
+   "open": 31.86,
+   "high": 31.98,
+   "low": 30.6,
+   "close": 31.94,
+   "ema10": 32.23,
+   "ema20": 32.18,
+   "ma50": 32.02,
    "ma50w": 22.62,
    "week_close": 30.65,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     31.94,
-     30.57,
-     30.81
-    ],
     [
      "2026-07-09",
      31.22,
@@ -13785,28 +13771,28 @@
      34.2,
      32.04,
      32.11
+    ],
+    [
+     "2026-11-12",
+     31.98,
+     30.6,
+     31.94
     ]
    ]
   },
   "PAYS": {
-   "last_session": "2026-11-11",
-   "open": 10.11,
-   "high": 10.14,
-   "low": 9.48,
-   "close": 9.48,
-   "ema10": 12.79,
-   "ema20": 13.57,
-   "ma50": 13.76,
+   "last_session": "2026-11-12",
+   "open": 9.41,
+   "high": 9.96,
+   "low": 9.16,
+   "close": 9.49,
+   "ema10": 12.19,
+   "ema20": 13.18,
+   "ma50": 13.7,
    "ma50w": 8.02,
    "week_close": 14.69,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     8.65,
-     8.2,
-     8.51
-    ],
     [
      "2026-07-09",
      8.78,
@@ -14337,31 +14323,31 @@
     ],
     [
      "2026-11-11",
-     10.14,
+     10.15,
      9.48,
      9.48
+    ],
+    [
+     "2026-11-12",
+     9.96,
+     9.16,
+     9.49
     ]
    ]
   },
   "PCTY": {
-   "last_session": "2026-11-11",
-   "open": 179.68,
-   "high": 180.35,
-   "low": 176.49,
-   "close": 180.04,
-   "ema10": 174.56,
-   "ema20": 170.42,
-   "ma50": 157.36,
+   "last_session": "2026-11-12",
+   "open": 181.3,
+   "high": 181.3,
+   "low": 177.88,
+   "close": 178.92,
+   "ema10": 175.35,
+   "ema20": 171.23,
+   "ma50": 157.85,
    "ma50w": 130.84,
    "week_close": 173.15,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     118.15,
-     114.72,
-     115.21
-    ],
     [
      "2026-07-09",
      116.83,
@@ -14895,28 +14881,28 @@
      180.35,
      176.49,
      180.04
+    ],
+    [
+     "2026-11-12",
+     181.3,
+     177.88,
+     178.92
     ]
    ]
   },
   "PLTR": {
-   "last_session": "2026-11-11",
-   "open": 173.31,
-   "high": 175.41,
-   "low": 170.8,
-   "close": 172.4,
-   "ema10": 173.74,
-   "ema20": 180.14,
-   "ma50": 185.04,
+   "last_session": "2026-11-12",
+   "open": 169.94,
+   "high": 173.05,
+   "low": 168.25,
+   "close": 171.58,
+   "ema10": 173.35,
+   "ema20": 179.32,
+   "ma50": 185.08,
    "ma50w": 157.02,
    "week_close": 160.38,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     132.39,
-     126.71,
-     132.22
-    ],
     [
      "2026-07-09",
      129.19,
@@ -15450,28 +15436,28 @@
      175.41,
      170.8,
      172.4
+    ],
+    [
+     "2026-11-12",
+     173.05,
+     168.25,
+     171.58
     ]
    ]
   },
   "PRCH": {
-   "last_session": "2026-11-11",
-   "open": 22.17,
+   "last_session": "2026-11-12",
+   "open": 22.08,
    "high": 22.24,
-   "low": 21.56,
-   "close": 22.14,
-   "ema10": 20.65,
-   "ema20": 19.69,
-   "ma50": 17.83,
+   "low": 21.26,
+   "close": 21.31,
+   "ema10": 20.77,
+   "ema20": 19.84,
+   "ma50": 17.9,
    "ma50w": 11.88,
    "week_close": 19.73,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     14.93,
-     14.37,
-     14.85
-    ],
     [
      "2026-07-09",
      15.36,
@@ -16002,31 +15988,31 @@
     ],
     [
      "2026-11-11",
-     22.24,
+     22.25,
      21.56,
      22.14
+    ],
+    [
+     "2026-11-12",
+     22.24,
+     21.26,
+     21.31
     ]
    ]
   },
   "QNST": {
-   "last_session": "2026-11-11",
-   "open": 18.5,
-   "high": 19.66,
-   "low": 18.35,
-   "close": 19.44,
-   "ema10": 18.74,
-   "ema20": 17.95,
+   "last_session": "2026-11-12",
+   "open": 19.46,
+   "high": 20.09,
+   "low": 19.05,
+   "close": 19.12,
+   "ema10": 18.81,
+   "ema20": 18.06,
    "ma50": 16.88,
    "ma50w": 14.68,
    "week_close": 20.66,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     16.37,
-     16.06,
-     16.34
-    ],
     [
      "2026-07-09",
      16.85,
@@ -16560,28 +16546,28 @@
      19.66,
      18.35,
      19.44
+    ],
+    [
+     "2026-11-12",
+     20.09,
+     19.05,
+     19.12
     ]
    ]
   },
   "QTWO": {
-   "last_session": "2026-11-11",
-   "open": 74.93,
-   "high": 75.5,
-   "low": 74.13,
-   "close": 74.14,
-   "ema10": 72.55,
-   "ema20": 69.59,
-   "ma50": 62.9,
+   "last_session": "2026-11-12",
+   "open": 75.0,
+   "high": 74.64,
+   "low": 72.58,
+   "close": 72.95,
+   "ema10": 72.62,
+   "ema20": 69.91,
+   "ma50": 63.08,
    "ma50w": 57.6,
    "week_close": 73.92,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     52.94,
-     50.96,
-     51.67
-    ],
     [
      "2026-07-09",
      52.24,
@@ -17113,30 +17099,30 @@
     [
      "2026-11-11",
      75.5,
-     74.13,
+     74.09,
      74.14
+    ],
+    [
+     "2026-11-12",
+     74.64,
+     72.58,
+     72.95
     ]
    ]
   },
   "RBRK": {
-   "last_session": "2026-11-11",
-   "open": 115.3,
-   "high": 116.0,
-   "low": 109.17,
-   "close": 109.26,
-   "ema10": 113.78,
-   "ema20": 116.33,
-   "ma50": 112.93,
+   "last_session": "2026-11-12",
+   "open": 106.28,
+   "high": 112.21,
+   "low": 105.2,
+   "close": 110.38,
+   "ema10": 113.16,
+   "ema20": 115.76,
+   "ma50": 113.39,
    "ma50w": 76.84,
    "week_close": 105.75,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     87.5,
-     83.28,
-     84.4
-    ],
     [
      "2026-07-09",
      88.88,
@@ -17670,28 +17656,28 @@
      116.0,
      109.17,
      109.26
+    ],
+    [
+     "2026-11-12",
+     112.21,
+     105.2,
+     110.38
     ]
    ]
   },
   "RGEN": {
-   "last_session": "2026-11-11",
-   "open": 176.11,
-   "high": 178.5,
-   "low": 171.99,
-   "close": 172.62,
-   "ema10": 175.54,
-   "ema20": 176.65,
-   "ma50": 177.31,
+   "last_session": "2026-11-12",
+   "open": 167.71,
+   "high": 169.4,
+   "low": 164.17,
+   "close": 166.52,
+   "ema10": 173.9,
+   "ema20": 175.69,
+   "ma50": 177.18,
    "ma50w": 147.64,
    "week_close": 173.49,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     138.88,
-     135.08,
-     137.41
-    ],
     [
      "2026-07-09",
      144.48,
@@ -18225,28 +18211,28 @@
      178.5,
      171.99,
      172.62
+    ],
+    [
+     "2026-11-12",
+     169.4,
+     164.17,
+     166.52
     ]
    ]
   },
   "SPT": {
-   "last_session": "2026-11-11",
-   "open": 11.19,
-   "high": 11.51,
-   "low": 11.11,
-   "close": 11.41,
-   "ema10": 11.43,
-   "ema20": 11.5,
+   "last_session": "2026-11-12",
+   "open": 11.37,
+   "high": 11.68,
+   "low": 11.2,
+   "close": 11.53,
+   "ema10": 11.45,
+   "ema20": 11.51,
    "ma50": 11.08,
    "ma50w": 8.68,
    "week_close": 11.06,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     8.15,
-     7.84,
-     8.04
-    ],
     [
      "2026-07-09",
      8.38,
@@ -18780,28 +18766,28 @@
      11.51,
      11.11,
      11.41
+    ],
+    [
+     "2026-11-12",
+     11.68,
+     11.2,
+     11.53
     ]
    ]
   },
   "SWIM": {
-   "last_session": "2026-11-11",
-   "open": 8.3,
-   "high": 8.41,
-   "low": 8.15,
-   "close": 8.41,
-   "ema10": 7.86,
-   "ema20": 7.4,
-   "ma50": 6.68,
+   "last_session": "2026-11-12",
+   "open": 8.32,
+   "high": 8.42,
+   "low": 8.13,
+   "close": 8.19,
+   "ema10": 7.92,
+   "ema20": 7.48,
+   "ma50": 6.71,
    "ma50w": 6.28,
    "week_close": 7.85,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     5.91,
-     5.72,
-     5.88
-    ],
     [
      "2026-07-09",
      6.12,
@@ -19335,28 +19321,28 @@
      8.41,
      8.15,
      8.41
+    ],
+    [
+     "2026-11-12",
+     8.42,
+     8.13,
+     8.19
     ]
    ]
   },
   "TBBB": {
-   "last_session": "2026-11-11",
-   "open": 68.0,
-   "high": 68.28,
-   "low": 67.23,
-   "close": 67.49,
-   "ema10": 64.11,
-   "ema20": 61.24,
-   "ma50": 55.59,
+   "last_session": "2026-11-12",
+   "open": 67.66,
+   "high": 68.38,
+   "low": 66.97,
+   "close": 68.0,
+   "ema10": 64.82,
+   "ema20": 61.89,
+   "ma50": 55.96,
    "ma50w": 41.34,
    "week_close": 65.62,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     41.25,
-     40.26,
-     41.0
-    ],
     [
      "2026-07-09",
      42.19,
@@ -19890,28 +19876,28 @@
      68.28,
      67.23,
      67.49
+    ],
+    [
+     "2026-11-12",
+     68.38,
+     66.97,
+     68.0
     ]
    ]
   },
   "TGTX": {
-   "last_session": "2026-11-11",
-   "open": 64.01,
-   "high": 66.07,
-   "low": 62.79,
-   "close": 65.76,
-   "ema10": 61.38,
-   "ema20": 59.25,
-   "ma50": 56.39,
+   "last_session": "2026-11-12",
+   "open": 65.51,
+   "high": 65.85,
+   "low": 63.28,
+   "close": 64.56,
+   "ema10": 61.96,
+   "ema20": 59.76,
+   "ma50": 56.54,
    "ma50w": 42.32,
    "week_close": 59.83,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     58.48,
-     55.94,
-     57.23
-    ],
     [
      "2026-07-09",
      59.3,
@@ -20445,28 +20431,28 @@
      66.07,
      62.79,
      65.76
+    ],
+    [
+     "2026-11-12",
+     65.85,
+     63.28,
+     64.56
     ]
    ]
   },
   "TREX": {
-   "last_session": "2026-11-11",
-   "open": 54.3,
-   "high": 55.12,
-   "low": 53.62,
-   "close": 54.28,
-   "ema10": 53.85,
-   "ema20": 51.72,
-   "ma50": 46.95,
+   "last_session": "2026-11-12",
+   "open": 54.34,
+   "high": 54.67,
+   "low": 52.7,
+   "close": 52.81,
+   "ema10": 53.66,
+   "ema20": 51.82,
+   "ma50": 47.13,
    "ma50w": 42.46,
    "week_close": 54.74,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     46.57,
-     44.91,
-     45.83
-    ],
     [
      "2026-07-09",
      47.28,
@@ -20997,31 +20983,31 @@
     ],
     [
      "2026-11-11",
-     55.12,
+     55.5,
      53.62,
      54.28
+    ],
+    [
+     "2026-11-12",
+     54.67,
+     52.7,
+     52.81
     ]
    ]
   },
   "URBN": {
-   "last_session": "2026-11-11",
-   "open": 86.65,
-   "high": 87.0,
-   "low": 84.83,
-   "close": 86.0,
-   "ema10": 87.57,
-   "ema20": 86.96,
-   "ma50": 82.3,
+   "last_session": "2026-11-12",
+   "open": 87.25,
+   "high": 87.32,
+   "low": 84.36,
+   "close": 84.8,
+   "ema10": 87.07,
+   "ema20": 86.75,
+   "ma50": 82.42,
    "ma50w": 74.13,
    "week_close": 84.7,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     68.4,
-     65.7,
-     68.02
-    ],
     [
      "2026-07-09",
      69.87,
@@ -21555,28 +21541,28 @@
      87.0,
      84.83,
      86.0
+    ],
+    [
+     "2026-11-12",
+     87.32,
+     84.36,
+     84.8
     ]
    ]
   },
   "VSXY": {
-   "last_session": "2026-11-11",
-   "open": 111.04,
-   "high": 113.1,
-   "low": 107.05,
-   "close": 109.86,
-   "ema10": 105.59,
-   "ema20": 100.24,
-   "ma50": 88.6,
+   "last_session": "2026-11-12",
+   "open": 106.97,
+   "high": 107.57,
+   "low": 103.57,
+   "close": 104.63,
+   "ema10": 105.41,
+   "ema20": 100.66,
+   "ma50": 89.0,
    "ma50w": 67.93,
    "week_close": 108.05,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     78.31,
-     74.63,
-     76.58
-    ],
     [
      "2026-07-09",
      78.41,
@@ -22110,28 +22096,28 @@
      113.1,
      107.05,
      109.86
+    ],
+    [
+     "2026-11-12",
+     107.57,
+     103.57,
+     104.63
     ]
    ]
   },
   "WAT": {
-   "last_session": "2026-11-11",
-   "open": 479.25,
-   "high": 483.33,
-   "low": 470.65,
-   "close": 470.9,
-   "ema10": 465.67,
-   "ema20": 458.85,
-   "ma50": 438.27,
+   "last_session": "2026-11-12",
+   "open": 465.0,
+   "high": 470.1,
+   "low": 459.98,
+   "close": 462.2,
+   "ema10": 465.04,
+   "ema20": 459.17,
+   "ma50": 439.27,
    "ma50w": 374.11,
    "week_close": 457.6,
    "week_end": "2026-11-06",
    "bars": [
-    [
-     "2026-07-08",
-     374.49,
-     367.06,
-     368.13
-    ],
     [
      "2026-07-09",
      381.32,
@@ -22665,6 +22651,12 @@
      483.33,
      470.65,
      470.9
+    ],
+    [
+     "2026-11-12",
+     470.1,
+     459.98,
+     462.2
     ]
    ]
   }
