@@ -1,0 +1,292 @@
+{
+ "commit": "c290758c0bc4c8fce0a8f07cb0b1635bf933614a",
+ "registro": "docs/V24_H14_LIQUIDEZ_FED.md",
+ "ultimo_dia_usado": "2020-12-31",
+ "metricas": {
+  "B_1x_comprar_y_mantener": {
+   "P1_1961_1989": {
+    "cagr_pct": 8.61,
+    "max_dd_pct": -46.38,
+    "sharpe": 0.66,
+    "final_multiple": 10.947,
+    "calmar": 0.19
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 7.96,
+    "max_dd_pct": -55.54,
+    "sharpe": 0.5,
+    "final_multiple": 4.625,
+    "calmar": 0.14
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 13.77,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.83,
+    "final_multiple": 4.129,
+    "calmar": 0.41
+   },
+   "todo_1961_2020": {
+    "cagr_pct": 9.38,
+    "max_dd_pct": -55.54,
+    "sharpe": 0.63,
+    "final_multiple": 216.239,
+    "calmar": 0.17
+   }
+  },
+  "S_no_pelees_contra_la_Fed": {
+   "P1_1961_1989": {
+    "cagr_pct": 13.18,
+    "max_dd_pct": -25.96,
+    "sharpe": 1.19,
+    "final_multiple": 36.193,
+    "calmar": 0.51
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 5.95,
+    "max_dd_pct": -55.96,
+    "sharpe": 0.42,
+    "final_multiple": 3.175,
+    "calmar": 0.11
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 12.54,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.77,
+    "final_multiple": 3.663,
+    "calmar": 0.37
+   },
+   "todo_1961_2020": {
+    "cagr_pct": 10.66,
+    "max_dd_pct": -55.96,
+    "sharpe": 0.76,
+    "final_multiple": 435.342,
+    "calmar": 0.19
+   }
+  },
+  "sens_umbral_0.25pp": {
+   "P1_1961_1989": {
+    "cagr_pct": 13.58,
+    "max_dd_pct": -22.85,
+    "sharpe": 1.31,
+    "final_multiple": 40.089,
+    "calmar": 0.59
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 6.73,
+    "max_dd_pct": -52.29,
+    "sharpe": 0.46,
+    "final_multiple": 3.678,
+    "calmar": 0.13
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 10.81,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.71,
+    "final_multiple": 3.088,
+    "calmar": 0.32
+   },
+   "todo_1961_2020": {
+    "cagr_pct": 10.8,
+    "max_dd_pct": -52.29,
+    "sharpe": 0.8,
+    "final_multiple": 471.04,
+    "calmar": 0.21
+   }
+  },
+  "sens_umbral_1.00pp": {
+   "P1_1961_1989": {
+    "cagr_pct": 12.81,
+    "max_dd_pct": -28.21,
+    "sharpe": 1.07,
+    "final_multiple": 32.887,
+    "calmar": 0.45
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 6.61,
+    "max_dd_pct": -55.54,
+    "sharpe": 0.44,
+    "final_multiple": 3.593,
+    "calmar": 0.12
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 13.77,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.83,
+    "final_multiple": 4.129,
+    "calmar": 0.41
+   },
+   "todo_1961_2020": {
+    "cagr_pct": 10.93,
+    "max_dd_pct": -55.54,
+    "sharpe": 0.75,
+    "final_multiple": 504.613,
+    "calmar": 0.2
+   }
+  },
+  "sens_ventana_63": {
+   "P1_1961_1989": {
+    "cagr_pct": 12.42,
+    "max_dd_pct": -27.2,
+    "sharpe": 1.08,
+    "final_multiple": 29.747,
+    "calmar": 0.46
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 7.23,
+    "max_dd_pct": -53.27,
+    "sharpe": 0.47,
+    "final_multiple": 4.035,
+    "calmar": 0.14
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 13.77,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.83,
+    "final_multiple": 4.129,
+    "calmar": 0.41
+   },
+   "todo_1961_2020": {
+    "cagr_pct": 10.96,
+    "max_dd_pct": -53.27,
+    "sharpe": 0.76,
+    "final_multiple": 512.589,
+    "calmar": 0.21
+   }
+  },
+  "sens_ventana_252": {
+   "P1_1961_1989": {
+    "cagr_pct": 10.94,
+    "max_dd_pct": -30.48,
+    "sharpe": 1.06,
+    "final_multiple": 20.284,
+    "calmar": 0.36
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 5.97,
+    "max_dd_pct": -55.54,
+    "sharpe": 0.42,
+    "final_multiple": 3.189,
+    "calmar": 0.11
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 11.72,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.76,
+    "final_multiple": 3.381,
+    "calmar": 0.35
+   },
+   "todo_1961_2020": {
+    "cagr_pct": 9.46,
+    "max_dd_pct": -55.54,
+    "sharpe": 0.71,
+    "final_multiple": 226.25,
+    "calmar": 0.17
+   }
+  },
+  "sens_solo_MA200": {
+   "P1_1961_1989": {
+    "cagr_pct": 11.07,
+    "max_dd_pct": -14.45,
+    "sharpe": 1.18,
+    "final_multiple": 20.985,
+    "calmar": 0.77
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 7.72,
+    "max_dd_pct": -23.91,
+    "sharpe": 0.72,
+    "final_multiple": 4.419,
+    "calmar": 0.32
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 6.61,
+    "max_dd_pct": -19.71,
+    "sharpe": 0.6,
+    "final_multiple": 2.021,
+    "calmar": 0.34
+   },
+   "todo_1961_2020": {
+    "cagr_pct": 9.18,
+    "max_dd_pct": -23.91,
+    "sharpe": 0.89,
+    "final_multiple": 193.895,
+    "calmar": 0.38
+   }
+  },
+  "sens_liquidez_y_MA200": {
+   "P1_1961_1989": {
+    "cagr_pct": 13.47,
+    "max_dd_pct": -11.64,
+    "sharpe": 1.71,
+    "final_multiple": 38.957,
+    "calmar": 1.16
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 8.27,
+    "max_dd_pct": -20.97,
+    "sharpe": 0.84,
+    "final_multiple": 4.894,
+    "calmar": 0.39
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 5.67,
+    "max_dd_pct": -19.71,
+    "sharpe": 0.54,
+    "final_multiple": 1.833,
+    "calmar": 0.29
+   },
+   "todo_1961_2020": {
+    "cagr_pct": 10.32,
+    "max_dd_pct": -20.97,
+    "sharpe": 1.11,
+    "final_multiple": 361.544,
+    "calmar": 0.49
+   }
+  },
+  "sens_curva_10a_menos_3m_positiva": {
+   "P1_1961_1989": {
+    "cagr_pct": 10.17,
+    "max_dd_pct": -33.13,
+    "sharpe": 0.83,
+    "final_multiple": 16.564,
+    "calmar": 0.31
+   },
+   "P2_1990_2009": {
+    "cagr_pct": 7.54,
+    "max_dd_pct": -57.22,
+    "sharpe": 0.49,
+    "final_multiple": 4.276,
+    "calmar": 0.13
+   },
+   "P3_2010_2020": {
+    "cagr_pct": 14.11,
+    "max_dd_pct": -28.44,
+    "sharpe": 0.86,
+    "final_multiple": 4.267,
+    "calmar": 0.5
+   },
+   "todo_1961_2020": {
+    "cagr_pct": 10.05,
+    "max_dd_pct": -57.22,
+    "sharpe": 0.7,
+    "final_multiple": 312.569,
+    "calmar": 0.18
+   }
+  }
+ },
+ "dias_en_regimen_de_endurecimiento_pct": 25.7,
+ "criterios": {
+  "M1_cagr_mayor_en_los_tres_periodos": false,
+  "M2_ic_exceso_mensual": {
+   "nivel": 0.9964285714285714,
+   "low": -0.0014599734817083375,
+   "high": 0.003226820981509123,
+   "media": 0.0007619486088732238,
+   "pasa": false
+  },
+  "M3_sharpe_no_peor": true,
+  "M4_caida_maxima_no_peor": false,
+  "supera_al_sp500": false,
+  "reduce_riesgo_sin_superar_en_rentabilidad": false
+ }
+}
