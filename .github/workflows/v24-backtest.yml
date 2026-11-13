@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
     inputs:
       mode:
-        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor | h8 | sic | h9b | h10 | h11 | h12 | h13'
+        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor | h8 | sic | h9b | h10 | h11 | h12 | h13 | h14'
         required: false
         default: 'backtest'
       symbols:
@@ -51,7 +51,7 @@ jobs:
           python-version: '3.11'
       - run: pip install -r requirements.txt lxml pyarrow
       - name: Pruebas del motor V24 y auditoría independiente
-        run: python -m unittest tests.test_v24_engine tests.test_v24_audit tests.test_v24_sp500data tests.test_v24_h5 tests.test_v24_h6 tests.test_v24_h7 tests.test_v24_kell tests.test_v24_dip tests.test_v24_oneil tests.test_v24_overlay tests.test_v24_lev tests.test_v24_statarb tests.test_system_backtest -v
+        run: python -m unittest tests.test_v24_engine tests.test_v24_audit tests.test_v24_sp500data tests.test_v24_h5 tests.test_v24_h6 tests.test_v24_h7 tests.test_v24_kell tests.test_v24_dip tests.test_v24_oneil tests.test_v24_overlay tests.test_v24_lev tests.test_v24_statarb tests.test_v24_macro tests.test_system_backtest -v
       - name: Backtest V24 (investigación, sin órdenes)
         if: ${{ inputs.mode == 'backtest' || inputs.mode == '' }}
         env:
@@ -107,6 +107,9 @@ jobs:
       - name: Contraste de H13, arbitraje estadístico larga-corta (prueba final bloqueada)
         if: ${{ inputs.mode == 'h13' }}
         run: python v24_statarb.py --output data/v24_statarb.json
+      - name: Contraste de H14, no pelees contra la Fed (prueba final bloqueada)
+        if: ${{ inputs.mode == 'h14' }}
+        run: python v24_macro.py --output data/v24_macro.json
       - name: Clasificación SIC (SEC) del S&P 500 point-in-time y cobertura
         if: ${{ inputs.mode == 'sic' }}
         env:
