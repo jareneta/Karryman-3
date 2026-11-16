@@ -1,0 +1,230 @@
+{
+ "regimen": "2015",
+ "commit": "c723350bd55d1c74bbddf613e9a6c635428d5ec9",
+ "registro": "docs/V24_H14_LIQUIDEZ_FED.md",
+ "ultimo_dia_usado": "2026-10-30",
+ "metricas": {
+  "B_1x_comprar_y_mantener": {
+   "S1_2015_2020": {
+    "cagr_pct": 12.78,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.74,
+    "final_multiple": 2.057,
+    "calmar": 0.38
+   },
+   "S2_2021_2026": {
+    "cagr_pct": 15.39,
+    "max_dd_pct": -24.26,
+    "sharpe": 0.95,
+    "final_multiple": 2.3,
+    "calmar": 0.63
+   },
+   "todo_2015_2026": {
+    "cagr_pct": 13.91,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.83,
+    "final_multiple": 4.663,
+    "calmar": 0.41
+   }
+  },
+  "S_no_pelees_contra_la_Fed": {
+   "S1_2015_2020": {
+    "cagr_pct": 10.55,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.64,
+    "final_multiple": 1.825,
+    "calmar": 0.31
+   },
+   "S2_2021_2026": {
+    "cagr_pct": 16.92,
+    "max_dd_pct": -18.68,
+    "sharpe": 1.28,
+    "final_multiple": 2.483,
+    "calmar": 0.91
+   },
+   "todo_2015_2026": {
+    "cagr_pct": 13.49,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.88,
+    "final_multiple": 4.465,
+    "calmar": 0.4
+   }
+  },
+  "sens_umbral_0.25pp": {
+   "S1_2015_2020": {
+    "cagr_pct": 7.45,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.51,
+    "final_multiple": 1.539,
+    "calmar": 0.22
+   },
+   "S2_2021_2026": {
+    "cagr_pct": 16.99,
+    "max_dd_pct": -18.68,
+    "sharpe": 1.35,
+    "final_multiple": 2.491,
+    "calmar": 0.91
+   },
+   "todo_2015_2026": {
+    "cagr_pct": 11.89,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.84,
+    "final_multiple": 3.777,
+    "calmar": 0.35
+   }
+  },
+  "sens_umbral_1.00pp": {
+   "S1_2015_2020": {
+    "cagr_pct": 12.78,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.74,
+    "final_multiple": 2.057,
+    "calmar": 0.38
+   },
+   "S2_2021_2026": {
+    "cagr_pct": 14.15,
+    "max_dd_pct": -18.68,
+    "sharpe": 1.02,
+    "final_multiple": 2.16,
+    "calmar": 0.76
+   },
+   "todo_2015_2026": {
+    "cagr_pct": 13.3,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.84,
+    "final_multiple": 4.378,
+    "calmar": 0.39
+   }
+  },
+  "sens_ventana_63": {
+   "S1_2015_2020": {
+    "cagr_pct": 12.78,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.74,
+    "final_multiple": 2.057,
+    "calmar": 0.38
+   },
+   "S2_2021_2026": {
+    "cagr_pct": 17.51,
+    "max_dd_pct": -18.68,
+    "sharpe": 1.28,
+    "final_multiple": 2.557,
+    "calmar": 0.94
+   },
+   "todo_2015_2026": {
+    "cagr_pct": 14.93,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.94,
+    "final_multiple": 5.184,
+    "calmar": 0.44
+   }
+  },
+  "sens_ventana_252": {
+   "S1_2015_2020": {
+    "cagr_pct": 9.09,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.6,
+    "final_multiple": 1.685,
+    "calmar": 0.27
+   },
+   "S2_2021_2026": {
+    "cagr_pct": 13.75,
+    "max_dd_pct": -18.68,
+    "sharpe": 1.1,
+    "final_multiple": 2.115,
+    "calmar": 0.74
+   },
+   "todo_2015_2026": {
+    "cagr_pct": 11.21,
+    "max_dd_pct": -33.8,
+    "sharpe": 0.79,
+    "final_multiple": 3.511,
+    "calmar": 0.33
+   }
+  },
+  "sens_solo_MA200": {
+   "S1_2015_2020": {
+    "cagr_pct": 5.31,
+    "max_dd_pct": -19.71,
+    "sharpe": 0.5,
+    "final_multiple": 1.364,
+    "calmar": 0.27
+   },
+   "S2_2021_2026": {
+    "cagr_pct": 12.37,
+    "max_dd_pct": -19.02,
+    "sharpe": 1.08,
+    "final_multiple": 1.971,
+    "calmar": 0.65
+   },
+   "todo_2015_2026": {
+    "cagr_pct": 8.58,
+    "max_dd_pct": -19.71,
+    "sharpe": 0.77,
+    "final_multiple": 2.648,
+    "calmar": 0.44
+   }
+  },
+  "sens_liquidez_y_MA200": {
+   "S1_2015_2020": {
+    "cagr_pct": 3.61,
+    "max_dd_pct": -19.71,
+    "sharpe": 0.38,
+    "final_multiple": 1.237,
+    "calmar": 0.18
+   },
+   "S2_2021_2026": {
+    "cagr_pct": 12.8,
+    "max_dd_pct": -13.58,
+    "sharpe": 1.2,
+    "final_multiple": 2.015,
+    "calmar": 0.94
+   },
+   "todo_2015_2026": {
+    "cagr_pct": 7.89,
+    "max_dd_pct": -19.71,
+    "sharpe": 0.76,
+    "final_multiple": 2.455,
+    "calmar": 0.4
+   }
+  },
+  "sens_curva_10a_menos_3m_positiva": {
+   "S1_2015_2020": {
+    "cagr_pct": 13.4,
+    "max_dd_pct": -28.44,
+    "sharpe": 0.79,
+    "final_multiple": 2.126,
+    "calmar": 0.47
+   },
+   "S2_2021_2026": {
+    "cagr_pct": 10.03,
+    "max_dd_pct": -24.26,
+    "sharpe": 0.75,
+    "final_multiple": 1.744,
+    "calmar": 0.41
+   },
+   "todo_2015_2026": {
+    "cagr_pct": 11.58,
+    "max_dd_pct": -28.44,
+    "sharpe": 0.76,
+    "final_multiple": 3.652,
+    "calmar": 0.41
+   }
+  }
+ },
+ "dias_en_regimen_de_endurecimiento_pct": 18.6,
+ "criterios": {
+  "M1_cagr_mayor_en_los_tres_periodos": false,
+  "M2_ic_exceso_mensual": {
+   "nivel": 0.9964285714285714,
+   "low": -0.005590473699720223,
+   "high": 0.005081913528638449,
+   "media": -0.0005261515035253215,
+   "pasa": false
+  },
+  "M3_sharpe_no_peor": true,
+  "M4_caida_maxima_no_peor": true,
+  "supera_al_sp500": false,
+  "reduce_riesgo_sin_superar_en_rentabilidad": true
+ }
+}
