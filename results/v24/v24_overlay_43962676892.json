@@ -1,0 +1,167 @@
+{
+ "regimen": "2015",
+ "commit": "086c44c32f804b3185967feb51b7d7fe8c29cbe6",
+ "registro": "docs/V24_H11_SPY_MAS_CAIDAS.md",
+ "datos": {
+  "tag": "snapshot-2026-11",
+  "sha256": {
+   "prices.parquet": "7b58eeafc855a502469fc5090eb703f76516172deebe13d51609fd6eb2c5f3f5",
+   "membership_intervals.parquet": "1e22ffca5e15d52872912413c55e64ead85bbb835e2148f5bbaaf84f33ea7cd0"
+  }
+ },
+ "N_2015_2026": {
+  "h11": {
+   "S1_2015_2020": {
+    "cagr_pct": 14.63,
+    "max_dd_pct": -31.37,
+    "sharpe": 0.77,
+    "final_multiple": 2.268,
+    "calmar": 0.47
+   },
+   "S2_2021_2026": {
+    "cagr_pct": 13.54,
+    "max_dd_pct": -25.23,
+    "sharpe": 0.72,
+    "final_multiple": 2.093,
+    "calmar": 0.54
+   },
+   "todo": {
+    "cagr_pct": 13.94,
+    "max_dd_pct": -31.37,
+    "sharpe": 0.73,
+    "final_multiple": 4.677,
+    "calmar": 0.44
+   }
+  },
+  "spy": {
+   "S1_2015_2020": {
+    "cagr_pct": 12.69,
+    "max_dd_pct": -33.7,
+    "sharpe": 0.74,
+    "final_multiple": 2.047,
+    "calmar": 0.38
+   },
+   "S2_2021_2026": {
+    "cagr_pct": 14.63,
+    "max_dd_pct": -24.5,
+    "sharpe": 0.91,
+    "final_multiple": 2.213,
+    "calmar": 0.6
+   },
+   "todo": {
+    "cagr_pct": 13.5,
+    "max_dd_pct": -33.7,
+    "sharpe": 0.81,
+    "final_multiple": 4.469,
+    "calmar": 0.4
+   }
+  },
+  "placebo_cagr_mediana": {
+   "S1_2015_2020": 6.34,
+   "S2_2021_2026": 5.15,
+   "todo": 5.91
+  },
+  "placebo_cagr_rango": {
+   "S1_2015_2020": [
+    2.25,
+    8.79
+   ],
+   "S2_2021_2026": [
+    0.07,
+    9.31
+   ],
+   "todo": [
+    2.4,
+    7.17
+   ]
+  },
+  "operaciones_complemento": 1712,
+  "criterios": {
+   "E1_supera_al_sp500": {
+    "cagr_h11": 13.94,
+    "cagr_spy": 13.5,
+    "exceso_mensual_medio": 0.0006748064685709506,
+    "ic": [
+     -0.004782369210149668,
+     0.006088663447690722
+    ],
+    "nivel": 0.9954545454545455,
+    "pasa": false
+   },
+   "E2_mejor_que_placebo_en_cada_tramo": true,
+   "E3_sharpe_y_caida_no_peores": false,
+   "periodo_pasa": false
+  },
+  "sensibilidades_no_deciden": {
+   "coste_0.2pct_por_lado": {
+    "h11": {
+     "cagr_pct": 11.56,
+     "max_dd_pct": -31.7,
+     "sharpe": 0.63,
+     "final_multiple": 3.645,
+     "calmar": 0.36
+    },
+    "exceso_cagr_vs_spy": -1.94
+   },
+   "coste_0.3pct_por_lado": {
+    "h11": {
+     "cagr_pct": 9.2,
+     "max_dd_pct": -31.94,
+     "sharpe": 0.53,
+     "final_multiple": 2.831,
+     "calmar": 0.29
+    },
+    "exceso_cagr_vs_spy": -4.3
+   },
+   "riesgo_2pct": {
+    "h11": {
+     "cagr_pct": 12.69,
+     "max_dd_pct": -33.81,
+     "sharpe": 0.61,
+     "final_multiple": 4.105,
+     "calmar": 0.38
+    },
+    "exceso_cagr_vs_spy": -0.81
+   },
+   "riesgo_3pct": {
+    "h11": {
+     "cagr_pct": 12.23,
+     "max_dd_pct": -36.07,
+     "sharpe": 0.58,
+     "final_multiple": 3.913,
+     "calmar": 0.34
+    },
+    "exceso_cagr_vs_spy": -1.27
+   }
+  },
+  "universo": {
+   "filas_precios_usadas": 2208382,
+   "series": 775,
+   "por_fuente": {
+    "yahoo": 1958948,
+    "tiingo": 214805,
+    "wiki": 29868,
+    "kaggle": 1937,
+    "crsp": 1708,
+    "kaggle-splice": 862,
+    "archive-tsaustin": 170,
+    "archive-patch": 45,
+    "crsp-patch": 21,
+    "nasdaq-patch": 9,
+    "wiki-patch": 5,
+    "tiingo-patch": 4
+   },
+   "miembros_con_precio_por_dia": {
+    "media": 503.7,
+    "min": 499,
+    "max": 509
+   }
+  }
+ },
+ "veredicto": {
+  "supera_al_sp500": false,
+  "por_periodo": {
+   "N_2015_2026": false
+  }
+ }
+}
