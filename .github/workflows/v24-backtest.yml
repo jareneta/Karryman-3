@@ -116,7 +116,7 @@ jobs:
       - name: Escaneo de anomalías (sección cruzada y calendario; prueba final bloqueada)
         if: ${{ inputs.mode == 'escaneo' }}
         run: |
-          python v24_calendar.py data/v24_calendar.json
+          python v24_calendar.py --output data/v24_calendar.json
           python v24_scan.py --output data/v24_scan.json
       - name: Clasificación SIC (SEC) del S&P 500 point-in-time y cobertura
         if: ${{ inputs.mode == 'sic' }}
