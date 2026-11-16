@@ -1,0 +1,168 @@
+{
+ "regimen": "2015",
+ "commit": "086c44c32f804b3185967feb51b7d7fe8c29cbe6",
+ "registro": "docs/V24_H10_ONEIL.md",
+ "datos": {
+  "tag": "snapshot-2026-11",
+  "sha256": {
+   "prices.parquet": "7b58eeafc855a502469fc5090eb703f76516172deebe13d51609fd6eb2c5f3f5",
+   "membership_intervals.parquet": "1e22ffca5e15d52872912413c55e64ead85bbb835e2148f5bbaaf84f33ea7cd0"
+  }
+ },
+ "N_2015_2026": {
+  "operaciones": {
+   "S1_2015_2020": {
+    "trades": 159,
+    "expectancy_R": 0.5095,
+    "ci95_R": [
+     0.1737,
+     0.8444
+    ],
+    "win_rate_pct": 40.3
+   },
+   "S2_2021_2026": {
+    "trades": 112,
+    "expectancy_R": 0.2774,
+    "ci95_R": [
+     -0.1351,
+     0.7095
+    ],
+    "win_rate_pct": 33.0
+   },
+   "todo": {
+    "trades": 271,
+    "expectancy_R": 0.4136,
+    "ci95_R": [
+     0.1476,
+     0.6774
+    ],
+    "win_rate_pct": 37.3
+   }
+  },
+  "placebo_agrupado": {
+   "S1_2015_2020": {
+    "trades": 59283,
+    "expectancy_R": 0.4728,
+    "ci95_R": [
+     0.45,
+     0.4962
+    ],
+    "win_rate_pct": 38.1
+   },
+   "S2_2021_2026": {
+    "trades": 56179,
+    "expectancy_R": 0.3166,
+    "ci95_R": [
+     0.2979,
+     0.3352
+    ],
+    "win_rate_pct": 36.6
+   },
+   "todo": {
+    "trades": 115462,
+    "expectancy_R": 0.3968,
+    "ci95_R": [
+     0.382,
+     0.4112
+    ],
+    "win_rate_pct": 37.4
+   }
+  },
+  "cartera": {
+   "h7": {
+    "S1_2015_2020": {
+     "cagr_pct": -0.01,
+     "max_dd_pct": -13.14,
+     "sharpe": 0.04,
+     "final_multiple": 0.999,
+     "calmar": -0.0
+    },
+    "S2_2021_2026": {
+     "cagr_pct": 1.83,
+     "max_dd_pct": -12.18,
+     "sharpe": 0.3,
+     "final_multiple": 1.111,
+     "calmar": 0.15
+    },
+    "todo": {
+     "cagr_pct": 0.81,
+     "max_dd_pct": -13.14,
+     "sharpe": 0.15,
+     "final_multiple": 1.1,
+     "calmar": 0.06
+    }
+   },
+   "spy": {
+    "S1_2015_2020": {
+     "cagr_pct": 12.69,
+     "max_dd_pct": -33.7,
+     "sharpe": 0.74,
+     "final_multiple": 2.047,
+     "calmar": 0.38
+    },
+    "S2_2021_2026": {
+     "cagr_pct": 14.63,
+     "max_dd_pct": -24.5,
+     "sharpe": 0.91,
+     "final_multiple": 2.213,
+     "calmar": 0.6
+    },
+    "todo": {
+     "cagr_pct": 13.5,
+     "max_dd_pct": -33.7,
+     "sharpe": 0.81,
+     "final_multiple": 4.469,
+     "calmar": 0.4
+    }
+   },
+   "placebo_cagr_mediana": {
+    "S1_2015_2020": 7.0,
+    "S2_2021_2026": 7.63,
+    "todo": 7.05
+   },
+   "operaciones_cartera": 94
+  },
+  "criterios": {
+   "N_ge_300": false,
+   "Q1_esperanza_R_positiva": false,
+   "Q2_diferencia_vs_placebo": {
+    "nivel_exigido": 0.995,
+    "low": -0.33917679370356796,
+    "high": 0.3685491472637839,
+    "media": 0.016814419320754614,
+    "pasa": false
+   },
+   "Q3_cartera_sobre_mediana_placebo": false,
+   "riesgo_retorno_vs_spy": false,
+   "periodo_pasa_N_Q1_Q2": false,
+   "Q3_y_riesgo": false
+  },
+  "universo": {
+   "filas_precios_usadas": 2208382,
+   "series": 775,
+   "por_fuente": {
+    "yahoo": 1958948,
+    "tiingo": 214805,
+    "wiki": 29868,
+    "kaggle": 1937,
+    "crsp": 1708,
+    "kaggle-splice": 862,
+    "archive-tsaustin": 170,
+    "archive-patch": 45,
+    "crsp-patch": 21,
+    "nasdaq-patch": 9,
+    "wiki-patch": 5,
+    "tiingo-patch": 4
+   },
+   "miembros_con_precio_por_dia": {
+    "media": 503.7,
+    "min": 499,
+    "max": 509
+   }
+  }
+ },
+ "veredicto": {
+  "candidata": false,
+  "supera_al_indice": false
+ }
+}
