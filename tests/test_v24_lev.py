@@ -16,12 +16,12 @@ class Lev(unittest.TestCase):
 
     def test_bloqueo_y_referencia_1x(self):
         out = lev.run_all(self.px, self.rate)
-        self.assertLessEqual(pd.Timestamp(out['ultimo_dia_usado']), pd.Timestamp('2020-12-31'))
+        self.assertLessEqual(pd.Timestamp(out['ultimo_dia_usado']), pd.Timestamp(lev.LOCK_END))
         # referencia 1x: rentabilidad diaria del índice + 2 %/año de dividendo, sin comisión
-        px = self.px[self.px.index <= '2020-12-31']
+        px = self.px[self.px.index <= lev.LOCK_END]
         eq = (1 + px.pct_change().fillna(0) + il.DIV_YIELD / 252).cumprod()
-        w = out['metricas']['B_1x_comprar_y_mantener']['todo_1960_2020']
-        e = eq.loc['1960-01-01':'2020-12-31']
+        w = out['metricas']['B_1x_comprar_y_mantener'][lev.FULL_KEY]
+        e = eq.loc[lev.FULL[0]:lev.FULL[1]]
         e = e / e.iloc[0]
         self.assertAlmostEqual(w['final_multiple'], float(e.iloc[-1]), places=2)
 

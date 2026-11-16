@@ -43,7 +43,7 @@ class Macro(unittest.TestCase):
     def test_bloqueo_y_criterios(self):
         px, rate = data()
         out = mc.run_all(px, rate, tnx=pd.Series(0.04 * 100, index=px.index))
-        self.assertLessEqual(pd.Timestamp(out['ultimo_dia_usado']), pd.Timestamp('2020-12-31'))
+        self.assertLessEqual(pd.Timestamp(out['ultimo_dia_usado']), pd.Timestamp(mc.LOCK_END))
         for k in ('M1_cagr_mayor_en_los_tres_periodos', 'M2_ic_exceso_mensual', 'M3_sharpe_no_peor', 'M4_caida_maxima_no_peor', 'supera_al_sp500'):
             self.assertIn(k, out['criterios'])
         self.assertAlmostEqual(out['criterios']['M2_ic_exceso_mensual']['nivel'], 1 - 0.05 / 14)
