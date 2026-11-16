@@ -1,0 +1,575 @@
+{
+ "regimen": "2015",
+ "commit": "086c44c32f804b3185967feb51b7d7fe8c29cbe6",
+ "parametros": {
+  "capital": 100000.0,
+  "fee_min": 0.0,
+  "min_order": 0.0,
+  "fractional": true,
+  "symbols": 300,
+  "seed": 42
+ },
+ "datos": {
+  "fuente": "sp500data",
+  "tag": "snapshot-2026-11",
+  "sha256": {
+   "prices.parquet": "7b58eeafc855a502469fc5090eb703f76516172deebe13d51609fd6eb2c5f3f5",
+   "membership_intervals.parquet": "1e22ffca5e15d52872912413c55e64ead85bbb835e2148f5bbaaf84f33ea7cd0"
+  },
+  "filas_precios_usadas": 2966788,
+  "series": 844,
+  "por_fuente": {
+   "yahoo": 2499966,
+   "tiingo": 352842,
+   "wiki": 85130,
+   "crsp": 21233,
+   "kaggle": 4264,
+   "kaggle-splice": 1870,
+   "archive-tsaustin": 1178,
+   "archive-patch": 157,
+   "crsp-patch": 130,
+   "nasdaq-patch": 9,
+   "wiki-patch": 5,
+   "tiingo-patch": 4
+  },
+  "miembros_con_precio_por_dia": {
+   "media": 502.8,
+   "min": 499,
+   "max": 509
+  },
+  "nota": "S&P 500 point-in-time con deslistadas; sin licencia expl\u00edcita en el repositorio; no verificado de forma independiente"
+ },
+ "universo": {
+  "series": 844,
+  "nota": "acciones cotizadas hoy: sesgo de supervivencia; filtro de liquidez vigente d\u00eda a d\u00eda"
+ },
+ "calidad_datos": {
+  "series_con_saltos_diarios_mayores_40pct": 84,
+  "detalle": {
+   "AAL": 1,
+   "AAP": 1,
+   "ABMD": 1,
+   "ADT-201604": 1,
+   "AIG": 1,
+   "AMD": 1,
+   "ANRZQ-201607": 5,
+   "APA": 1,
+   "APP": 1,
+   "ARG-201605": 1,
+   "BE": 4,
+   "BIIB": 1,
+   "BLDR": 1,
+   "BTUUQ-201704": 3,
+   "CAM-201604": 1,
+   "CHK": 7,
+   "CITGQ-200912": 5,
+   "CNC": 1,
+   "CPRI": 2,
+   "CVNA": 6,
+   "CZR": 1,
+   "DF": 2,
+   "DNR": 4,
+   "DXC": 2,
+   "DXCM": 1,
+   "DYN-201804": 2,
+   "ECHO": 2,
+   "EKDKQ-201309": 3,
+   "ENPH": 1,
+   "EPAM": 1
+  },
+  "nota": "posibles splits sin ajustar o errores de datos"
+ },
+ "modelos": {
+  "v24_base_sin_proteccion": {
+   "2015_2020": {
+    "cagr_pct": 3.42,
+    "max_dd_pct": -27.08,
+    "sharpe": 0.307,
+    "calmar": 0.13,
+    "vol_pct": 14.35,
+    "orders": 22329,
+    "orders_per_day": 14.778,
+    "fees_usd": 4048.05,
+    "neg_years": 1,
+    "avg_exposure_pct": 80.9,
+    "days_flat": 0
+   },
+   "2021_2026": {
+    "cagr_pct": 5.72,
+    "max_dd_pct": -29.01,
+    "sharpe": 0.426,
+    "calmar": 0.2,
+    "vol_pct": 16.14,
+    "orders": 22327,
+    "orders_per_day": 15.251,
+    "fees_usd": 1623.1,
+    "neg_years": 2,
+    "avg_exposure_pct": 66.1,
+    "days_flat": 0
+   },
+   "todo": {
+    "cagr_pct": 4.58,
+    "max_dd_pct": -29.01,
+    "sharpe": 0.371,
+    "calmar": 0.16,
+    "vol_pct": 15.25,
+    "orders": 44656,
+    "orders_per_day": 15.01,
+    "fees_usd": 5671.15,
+    "neg_years": 3,
+    "avg_exposure_pct": 73.6,
+    "days_flat": 0
+   }
+  },
+  "v24_freno_fijo_8_50": {
+   "2015_2020": {
+    "cagr_pct": 4.18,
+    "max_dd_pct": -23.04,
+    "sharpe": 0.41,
+    "calmar": 0.18,
+    "vol_pct": 11.66,
+    "orders": 22979,
+    "orders_per_day": 15.208,
+    "fees_usd": 2711.76,
+    "neg_years": 1,
+    "avg_exposure_pct": 63.6,
+    "days_flat": 0
+   },
+   "2021_2026": {
+    "cagr_pct": 6.34,
+    "max_dd_pct": -24.48,
+    "sharpe": 0.555,
+    "calmar": 0.26,
+    "vol_pct": 12.53,
+    "orders": 22729,
+    "orders_per_day": 15.525,
+    "fees_usd": 932.72,
+    "neg_years": 1,
+    "avg_exposure_pct": 48.3,
+    "days_flat": 0
+   },
+   "todo": {
+    "cagr_pct": 5.26,
+    "max_dd_pct": -24.48,
+    "sharpe": 0.485,
+    "calmar": 0.21,
+    "vol_pct": 12.09,
+    "orders": 45708,
+    "orders_per_day": 15.364,
+    "fees_usd": 3644.48,
+    "neg_years": 2,
+    "avg_exposure_pct": 56.1,
+    "days_flat": 0
+   }
+  },
+  "v24_progresiva": {
+   "2015_2020": {
+    "cagr_pct": 3.29,
+    "max_dd_pct": -21.99,
+    "sharpe": 0.361,
+    "calmar": 0.15,
+    "vol_pct": 10.49,
+    "orders": 23121,
+    "orders_per_day": 15.302,
+    "fees_usd": 2192.61,
+    "neg_years": 1,
+    "avg_exposure_pct": 56.1,
+    "days_flat": 0
+   },
+   "2021_2026": {
+    "cagr_pct": 6.36,
+    "max_dd_pct": -21.48,
+    "sharpe": 0.63,
+    "calmar": 0.3,
+    "vol_pct": 10.72,
+    "orders": 22729,
+    "orders_per_day": 15.525,
+    "fees_usd": 756.64,
+    "neg_years": 1,
+    "avg_exposure_pct": 39.4,
+    "days_flat": 0
+   },
+   "todo": {
+    "cagr_pct": 4.81,
+    "max_dd_pct": -21.99,
+    "sharpe": 0.497,
+    "calmar": 0.22,
+    "vol_pct": 10.6,
+    "orders": 45850,
+    "orders_per_day": 15.412,
+    "fees_usd": 2949.25,
+    "neg_years": 2,
+    "avg_exposure_pct": 47.8,
+    "days_flat": 0
+   }
+  },
+  "v24_progresiva_banda10": {
+   "2015_2020": {
+    "cagr_pct": 3.59,
+    "max_dd_pct": -21.51,
+    "sharpe": 0.39,
+    "calmar": 0.17,
+    "vol_pct": 10.44,
+    "orders": 4346,
+    "orders_per_day": 2.876,
+    "fees_usd": 2029.78,
+    "neg_years": 1,
+    "avg_exposure_pct": 56.7,
+    "days_flat": 0
+   },
+   "2021_2026": {
+    "cagr_pct": 6.12,
+    "max_dd_pct": -21.43,
+    "sharpe": 0.613,
+    "calmar": 0.29,
+    "vol_pct": 10.64,
+    "orders": 4329,
+    "orders_per_day": 2.957,
+    "fees_usd": 659.84,
+    "neg_years": 1,
+    "avg_exposure_pct": 39.4,
+    "days_flat": 0
+   },
+   "todo": {
+    "cagr_pct": 4.85,
+    "max_dd_pct": -21.51,
+    "sharpe": 0.503,
+    "calmar": 0.23,
+    "vol_pct": 10.53,
+    "orders": 8675,
+    "orders_per_day": 2.916,
+    "fees_usd": 2689.62,
+    "neg_years": 2,
+    "avg_exposure_pct": 48.2,
+    "days_flat": 0
+   }
+  },
+  "v24_progresiva_ma100": {
+   "2015_2020": {
+    "cagr_pct": 1.4,
+    "max_dd_pct": -20.42,
+    "sharpe": 0.214,
+    "calmar": 0.07,
+    "vol_pct": 7.99,
+    "orders": 23323,
+    "orders_per_day": 15.435,
+    "fees_usd": 1992.09,
+    "neg_years": 1,
+    "avg_exposure_pct": 38.0,
+    "days_flat": 0
+   },
+   "2021_2026": {
+    "cagr_pct": 5.8,
+    "max_dd_pct": -21.49,
+    "sharpe": 0.644,
+    "calmar": 0.27,
+    "vol_pct": 9.47,
+    "orders": 22729,
+    "orders_per_day": 15.525,
+    "fees_usd": 592.63,
+    "neg_years": 2,
+    "avg_exposure_pct": 32.2,
+    "days_flat": 0
+   },
+   "todo": {
+    "cagr_pct": 3.56,
+    "max_dd_pct": -21.49,
+    "sharpe": 0.445,
+    "calmar": 0.17,
+    "vol_pct": 8.75,
+    "orders": 46052,
+    "orders_per_day": 15.48,
+    "fees_usd": 2584.72,
+    "neg_years": 3,
+    "avg_exposure_pct": 35.1,
+    "days_flat": 0
+   }
+  },
+  "v24_progresiva_rank_mensual": {
+   "2015_2020": {
+    "cagr_pct": 4.52,
+    "max_dd_pct": -19.68,
+    "sharpe": 0.436,
+    "calmar": 0.23,
+    "vol_pct": 11.73,
+    "orders": 22635,
+    "orders_per_day": 14.98,
+    "fees_usd": 2165.26,
+    "neg_years": 1,
+    "avg_exposure_pct": 64.2,
+    "days_flat": 0
+   },
+   "2021_2026": {
+    "cagr_pct": 4.77,
+    "max_dd_pct": -24.86,
+    "sharpe": 0.469,
+    "calmar": 0.19,
+    "vol_pct": 11.35,
+    "orders": 22380,
+    "orders_per_day": 15.287,
+    "fees_usd": 666.78,
+    "neg_years": 2,
+    "avg_exposure_pct": 39.8,
+    "days_flat": 0
+   },
+   "todo": {
+    "cagr_pct": 4.59,
+    "max_dd_pct": -24.86,
+    "sharpe": 0.448,
+    "calmar": 0.18,
+    "vol_pct": 11.54,
+    "orders": 45015,
+    "orders_per_day": 15.131,
+    "fees_usd": 2832.04,
+    "neg_years": 3,
+    "avg_exposure_pct": 52.2,
+    "days_flat": 0
+   }
+  },
+  "control_v24_base_rank_mensual": {
+   "2015_2020": {
+    "cagr_pct": 8.04,
+    "max_dd_pct": -18.66,
+    "sharpe": 0.603,
+    "calmar": 0.43,
+    "vol_pct": 14.62,
+    "orders": 21970,
+    "orders_per_day": 14.54,
+    "fees_usd": 3409.02,
+    "neg_years": 1,
+    "avg_exposure_pct": 82.2,
+    "days_flat": 0
+   },
+   "2021_2026": {
+    "cagr_pct": 5.37,
+    "max_dd_pct": -33.51,
+    "sharpe": 0.411,
+    "calmar": 0.16,
+    "vol_pct": 15.79,
+    "orders": 21878,
+    "orders_per_day": 14.944,
+    "fees_usd": 1563.58,
+    "neg_years": 2,
+    "avg_exposure_pct": 64.7,
+    "days_flat": 0
+   },
+   "todo": {
+    "cagr_pct": 6.66,
+    "max_dd_pct": -33.51,
+    "sharpe": 0.501,
+    "calmar": 0.2,
+    "vol_pct": 15.2,
+    "orders": 43848,
+    "orders_per_day": 14.739,
+    "fees_usd": 4972.6,
+    "neg_years": 3,
+    "avg_exposure_pct": 73.6,
+    "days_flat": 0
+   }
+  },
+  "control_placebo_aleatorio_mensual_s1": {
+   "2015_2020": {
+    "cagr_pct": 7.46,
+    "max_dd_pct": -21.78,
+    "sharpe": 0.6,
+    "calmar": 0.34,
+    "vol_pct": 13.53,
+    "orders": 21540,
+    "orders_per_day": 14.255,
+    "fees_usd": 5607.61,
+    "neg_years": 1,
+    "avg_exposure_pct": 87.5,
+    "days_flat": 0
+   },
+   "2021_2026": {
+    "cagr_pct": 9.36,
+    "max_dd_pct": -17.79,
+    "sharpe": 0.692,
+    "calmar": 0.53,
+    "vol_pct": 14.48,
+    "orders": 21321,
+    "orders_per_day": 14.564,
+    "fees_usd": 4750.33,
+    "neg_years": 1,
+    "avg_exposure_pct": 87.6,
+    "days_flat": 0
+   },
+   "todo": {
+    "cagr_pct": 8.32,
+    "max_dd_pct": -21.78,
+    "sharpe": 0.642,
+    "calmar": 0.38,
+    "vol_pct": 14.0,
+    "orders": 42861,
+    "orders_per_day": 14.407,
+    "fees_usd": 10357.95,
+    "neg_years": 2,
+    "avg_exposure_pct": 87.6,
+    "days_flat": 0
+   }
+  },
+  "control_placebo_aleatorio_mensual_s2": {
+   "2015_2020": {
+    "cagr_pct": 4.02,
+    "max_dd_pct": -22.58,
+    "sharpe": 0.359,
+    "calmar": 0.18,
+    "vol_pct": 13.58,
+    "orders": 21581,
+    "orders_per_day": 14.283,
+    "fees_usd": 3932.07,
+    "neg_years": 1,
+    "avg_exposure_pct": 87.5,
+    "days_flat": 0
+   },
+   "2021_2026": {
+    "cagr_pct": 8.89,
+    "max_dd_pct": -20.57,
+    "sharpe": 0.681,
+    "calmar": 0.43,
+    "vol_pct": 13.97,
+    "orders": 21046,
+    "orders_per_day": 14.376,
+    "fees_usd": 3497.0,
+    "neg_years": 1,
+    "avg_exposure_pct": 88.9,
+    "days_flat": 0
+   },
+   "todo": {
+    "cagr_pct": 6.31,
+    "max_dd_pct": -22.58,
+    "sharpe": 0.515,
+    "calmar": 0.28,
+    "vol_pct": 13.77,
+    "orders": 42627,
+    "orders_per_day": 14.328,
+    "fees_usd": 7429.07,
+    "neg_years": 2,
+    "avg_exposure_pct": 88.2,
+    "days_flat": 0
+   }
+  },
+  "control_placebo_aleatorio_mensual_s3": {
+   "2015_2020": {
+    "cagr_pct": 7.43,
+    "max_dd_pct": -19.81,
+    "sharpe": 0.595,
+    "calmar": 0.37,
+    "vol_pct": 13.62,
+    "orders": 21619,
+    "orders_per_day": 14.308,
+    "fees_usd": 3764.18,
+    "neg_years": 2,
+    "avg_exposure_pct": 86.5,
+    "days_flat": 0
+   },
+   "2021_2026": {
+    "cagr_pct": 1.06,
+    "max_dd_pct": -24.06,
+    "sharpe": 0.146,
+    "calmar": 0.04,
+    "vol_pct": 14.27,
+    "orders": 21186,
+    "orders_per_day": 14.471,
+    "fees_usd": 3031.36,
+    "neg_years": 2,
+    "avg_exposure_pct": 89.2,
+    "days_flat": 0
+   },
+   "todo": {
+    "cagr_pct": 4.12,
+    "max_dd_pct": -24.06,
+    "sharpe": 0.36,
+    "calmar": 0.17,
+    "vol_pct": 13.94,
+    "orders": 42805,
+    "orders_per_day": 14.388,
+    "fees_usd": 6795.54,
+    "neg_years": 4,
+    "avg_exposure_pct": 87.8,
+    "days_flat": 0
+   }
+  }
+ },
+ "comisiones": [
+  {
+   "fee_min": 0.35,
+   "min_order": 0.0,
+   "cagr_pct": 5.1,
+   "max_dd_pct": -21.54,
+   "sharpe": 0.51,
+   "calmar": 0.24,
+   "vol_pct": 10.93,
+   "orders": 13962,
+   "orders_per_day": 3.185,
+   "fees_usd": 8359.25,
+   "neg_years": 4,
+   "avg_exposure_pct": 51.7,
+   "days_flat": 1
+  },
+  {
+   "fee_min": 0.5,
+   "min_order": 0.0,
+   "cagr_pct": 5.04,
+   "max_dd_pct": -21.6,
+   "sharpe": 0.506,
+   "calmar": 0.23,
+   "vol_pct": 10.91,
+   "orders": 13914,
+   "orders_per_day": 3.175,
+   "fees_usd": 9969.39,
+   "neg_years": 4,
+   "avg_exposure_pct": 51.6,
+   "days_flat": 1
+  },
+  {
+   "fee_min": 1.0,
+   "min_order": 0.0,
+   "cagr_pct": 4.62,
+   "max_dd_pct": -22.43,
+   "sharpe": 0.471,
+   "calmar": 0.21,
+   "vol_pct": 10.87,
+   "orders": 13789,
+   "orders_per_day": 3.146,
+   "fees_usd": 15806.99,
+   "neg_years": 5,
+   "avg_exposure_pct": 51.4,
+   "days_flat": 1
+  }
+ ],
+ "benchmark_spy": {
+  "2015_2020": {
+   "cagr_pct": 12.69,
+   "max_dd_pct": -33.7
+  },
+  "2021_2026": {
+   "cagr_pct": 14.63,
+   "max_dd_pct": -24.5
+  },
+  "todo": {
+   "cagr_pct": 13.5,
+   "max_dd_pct": -33.7
+  }
+ },
+ "control_igualponderado_sp500": {
+  "2015_2020": {
+   "cagr_pct": 10.73,
+   "max_dd_pct": -40.02
+  },
+  "2021_2026": {
+   "cagr_pct": 12.39,
+   "max_dd_pct": -20.94
+  },
+  "todo": {
+   "cagr_pct": 11.39,
+   "max_dd_pct": -40.02
+  }
+ },
+ "anti_bloqueo": {
+  "ultima_orden": "2026-10-30",
+  "efectivo_final": 92602.11,
+  "patrimonio_final": 242946.44,
+  "mayor_periodo_sin_operar_dias": 19
+ }
+}
