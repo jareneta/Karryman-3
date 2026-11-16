@@ -40,3 +40,8 @@ Si no hay candidatas, la conclusión es "no se encontraron anomalías explotable
 
 ## 6. Qué NO se hará
 Añadir variables o horizontes después de ver resultados, cambiar umbrales (BH 5 %, |IC| ≥ 0,01, p < 0,05), elegir periodos a posteriori, presentar una variable no replicada o no neta de costes como anomalía, mirar 2021-2026.
+
+## Enmienda (2026-11-16, antes de ejecutar nada): recuento exacto de la lista
+El encabezado de la sección 1 decía "50 variables" y la suma "47"; al fijar los nombres exactos la lista queda en **45 variables** (niveles de precio: 10, no 11; velas: 7, porque "sesiones consecutivas al alza/baja" es una sola variable con signo). La familia A pasa a **45 × 3 = 135 pruebas por periodo**. Sin otros cambios.
+Lista exacta: `r1 r2 r3 r5 r10 r21 r63 r126 r252 r126m21 r252m21 | vol10 vol21 vol63 atr14pct dvol63 skew63 max21 min21 beta126 ivol63 | dh252 dl252 dh20 dh50 c_sma10 c_sma20 c_sma50 c_sma200 sma50_200 logp |
+vratio1_50 vratio5_50 logdv amihud63 obv21 | gap intraday clv1 clv5 nr7 inside run | rev5_x_vol21 mom126m21_x_lowvol`.
