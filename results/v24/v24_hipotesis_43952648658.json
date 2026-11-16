@@ -1,0 +1,282 @@
+{
+ "regimen": "2015",
+ "commit": "a9d8c63ec3810f576e02afc214f2c97a0d184949",
+ "datos": {
+  "tag": "snapshot-2026-11",
+  "sha256": {
+   "prices.parquet": "7b58eeafc855a502469fc5090eb703f76516172deebe13d51609fd6eb2c5f3f5",
+   "membership_intervals.parquet": "1e22ffca5e15d52872912413c55e64ead85bbb835e2148f5bbaaf84f33ea7cd0"
+  },
+  "filas_precios_usadas": 3286424,
+  "series": 886,
+  "por_fuente": {
+   "yahoo": 2720569,
+   "tiingo": 415269,
+   "wiki": 101090,
+   "crsp": 38261,
+   "kaggle": 7301,
+   "kaggle-splice": 2225,
+   "archive-tsaustin": 1321,
+   "crsp-patch": 187,
+   "archive-patch": 183,
+   "nasdaq-patch": 9,
+   "wiki-patch": 5,
+   "tiingo-patch": 4
+  },
+  "miembros_con_precio_por_dia": {
+   "media": 502.6,
+   "min": 498,
+   "max": 509
+  },
+  "ultimo_dia_cargado": "2026-10-30",
+  "bloqueo": "datos posteriores a 2026-10-31 no cargados"
+ },
+ "criterios": "docs/V24_HIPOTESIS.md",
+ "spy": {
+  "train": {
+   "cagr_pct": 12.69,
+   "max_dd_pct": -33.7,
+   "sharpe": 0.744,
+   "calmar": 0.38
+  },
+  "valid": {
+   "cagr_pct": 14.63,
+   "max_dd_pct": -24.5,
+   "sharpe": 0.908,
+   "calmar": 0.6
+  },
+  "todo_2010_2020": {
+   "cagr_pct": 13.5,
+   "max_dd_pct": -33.7,
+   "sharpe": 0.813,
+   "calmar": 0.4
+  }
+ },
+ "hipotesis": {
+  "H1_mom_12_1": {
+   "metricas": {
+    "train": {
+     "cagr_pct": 6.37,
+     "max_dd_pct": -43.08,
+     "sharpe": 0.375,
+     "calmar": 0.15,
+     "orders": 19256,
+     "avg_exposure_pct": 100.0
+    },
+    "valid": {
+     "cagr_pct": 19.18,
+     "max_dd_pct": -30.73,
+     "sharpe": 0.691,
+     "calmar": 0.62,
+     "orders": 17900,
+     "avg_exposure_pct": 100.0
+    },
+    "todo_2010_2020": {
+     "cagr_pct": 12.39,
+     "max_dd_pct": -43.08,
+     "sharpe": 0.546,
+     "calmar": 0.29,
+     "orders": 37156,
+     "avg_exposure_pct": 100.0
+    }
+   },
+   "criterios": {
+    "C1_cagr_sobre_mediana_placebo_en_train_y_valid": false,
+    "C2_ic_diferencia_mensual_vs_placebo": {
+     "nivel": 0.9964285714285714,
+     "low": -0.01120012155463779,
+     "high": 0.01732239724706665,
+     "media": 0.0036234956389880483,
+     "pasa": false
+    },
+    "C3_supera_al_indice": false,
+    "candidata": false,
+    "supera_al_indice": false
+   }
+  },
+  "H2_baja_volatilidad": {
+   "metricas": {
+    "train": {
+     "cagr_pct": 11.9,
+     "max_dd_pct": -25.38,
+     "sharpe": 0.882,
+     "calmar": 0.47,
+     "orders": 19467,
+     "avg_exposure_pct": 100.0
+    },
+    "valid": {
+     "cagr_pct": 7.87,
+     "max_dd_pct": -15.27,
+     "sharpe": 0.697,
+     "calmar": 0.52,
+     "orders": 18737,
+     "avg_exposure_pct": 100.0
+    },
+    "todo_2010_2020": {
+     "cagr_pct": 9.83,
+     "max_dd_pct": -25.38,
+     "sharpe": 0.792,
+     "calmar": 0.39,
+     "orders": 38204,
+     "avg_exposure_pct": 100.0
+    }
+   },
+   "criterios": {
+    "C1_cagr_sobre_mediana_placebo_en_train_y_valid": false,
+    "C2_ic_diferencia_mensual_vs_placebo": {
+     "nivel": 0.9964285714285714,
+     "low": -0.008728277843272972,
+     "high": 0.00833447472680516,
+     "media": -0.000605244609734461,
+     "pasa": false
+    },
+    "C3_supera_al_indice": false,
+    "candidata": false,
+    "supera_al_indice": false
+   }
+  },
+  "H3_mom_12_1_con_filtro": {
+   "metricas": {
+    "train": {
+     "cagr_pct": 3.42,
+     "max_dd_pct": -31.25,
+     "sharpe": 0.279,
+     "calmar": 0.11,
+     "orders": 16748,
+     "avg_exposure_pct": 84.8
+    },
+    "valid": {
+     "cagr_pct": 9.7,
+     "max_dd_pct": -33.31,
+     "sharpe": 0.466,
+     "calmar": 0.29,
+     "orders": 15096,
+     "avg_exposure_pct": 81.3
+    },
+    "todo_2010_2020": {
+     "cagr_pct": 6.38,
+     "max_dd_pct": -33.31,
+     "sharpe": 0.379,
+     "calmar": 0.19,
+     "orders": 31844,
+     "avg_exposure_pct": 83.1
+    }
+   },
+   "criterios": {
+    "C1_cagr_sobre_mediana_placebo_en_train_y_valid": true,
+    "C2_ic_diferencia_mensual_vs_placebo": {
+     "nivel": 0.9964285714285714,
+     "low": -0.011713756632654726,
+     "high": 0.013691459565006206,
+     "media": 0.0019223033754515574,
+     "pasa": false
+    },
+    "C3_supera_al_indice": false,
+    "candidata": false,
+    "supera_al_indice": false
+   }
+  },
+  "H4_igualponderada_con_filtro": {
+   "metricas": {
+    "train": {
+     "cagr_pct": 4.51,
+     "max_dd_pct": -22.41,
+     "sharpe": 0.41,
+     "calmar": 0.2,
+     "orders": 537990,
+     "avg_exposure_pct": 84.8
+    },
+    "valid": {
+     "cagr_pct": 9.05,
+     "max_dd_pct": -21.15,
+     "sharpe": 0.815,
+     "calmar": 0.43,
+     "orders": 508773,
+     "avg_exposure_pct": 81.3
+    },
+    "todo_2010_2020": {
+     "cagr_pct": 6.57,
+     "max_dd_pct": -22.41,
+     "sharpe": 0.586,
+     "calmar": 0.29,
+     "orders": 1046763,
+     "avg_exposure_pct": 83.1
+    }
+   },
+   "criterios": {
+    "ref_igualponderada_sin_filtro_2010_2020": {
+     "cagr_pct": 11.27,
+     "max_dd_pct": -39.46,
+     "sharpe": 0.681,
+     "calmar": 0.29
+    },
+    "reduce_caida_y_cagr_ge_80pct": false,
+    "candidata": false
+   }
+  },
+  "REF_igualponderada_sin_filtro": {
+   "metricas": {
+    "train": {
+     "cagr_pct": 10.73,
+     "max_dd_pct": -39.46,
+     "sharpe": 0.609,
+     "calmar": 0.27,
+     "orders": 617465,
+     "avg_exposure_pct": 100.0
+    },
+    "valid": {
+     "cagr_pct": 12.15,
+     "max_dd_pct": -21.21,
+     "sharpe": 0.801,
+     "calmar": 0.57,
+     "orders": 603308,
+     "avg_exposure_pct": 100.0
+    },
+    "todo_2010_2020": {
+     "cagr_pct": 11.27,
+     "max_dd_pct": -39.46,
+     "sharpe": 0.681,
+     "calmar": 0.29,
+     "orders": 1220773,
+     "avg_exposure_pct": 100.0
+    }
+   }
+  }
+ },
+ "placebos": {
+  "placebo_sin_filtro": {
+   "train": {
+    "cagr_mediana": 8.8,
+    "cagr_min": 3.05,
+    "cagr_max": 12.73
+   },
+   "valid": {
+    "cagr_mediana": 11.9,
+    "cagr_min": 7.32,
+    "cagr_max": 16.35
+   },
+   "todo_2010_2020": {
+    "cagr_mediana": 9.84,
+    "cagr_min": 4.94,
+    "cagr_max": 12.4
+   }
+  },
+  "placebo_con_filtro": {
+   "train": {
+    "cagr_mediana": 1.6,
+    "cagr_min": -1.27,
+    "cagr_max": 5.73
+   },
+   "valid": {
+    "cagr_mediana": 9.03,
+    "cagr_min": 4.97,
+    "cagr_max": 12.96
+   },
+   "todo_2010_2020": {
+    "cagr_mediana": 5.58,
+    "cagr_min": 2.47,
+    "cagr_max": 7.19
+   }
+  }
+ }
+}
