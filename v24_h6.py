@@ -10,6 +10,7 @@ import numpy as np
 import pandas as pd
 
 import v24_backtest as vb
+import v24_regimen as rg
 import v24_engine as ve
 import v24_hipotesis as vh
 
@@ -55,7 +56,17 @@ def main():
     a = ap.parse_args()
     t0 = time.time()
     paths, sha = vb.download_sp500data(a.tag)
-    out = {'commit': os.environ.get('GITHUB_SHA'), 'registro': 'docs/V24_H6_MOMENTUM_63.md', 'datos': {'tag': a.tag, 'sha256': sha}}
+    out = {'regimen': rg.ACTIVE, 'commit': os.environ.get('GITHUB_SHA'), 'registro': 'docs/V24_H6_MOMENTUM_63.md', 'datos': {'tag': a.tag, 'sha256': sha}}
+    if rg.ACTIVE == '2015':
+        pN, mN, bN, iN = vb.load_sp500data(paths['prices.parquet'], paths['membership_intervals.parquet'], start='2013-06-01', end=rg.END_2015)
+        assert pN['close'].index.max() <= pd.Timestamp(rg.END_2015)
+        out['N_2015_2026'] = {'universo': iN, **run_period(pN, mN, bN, {'S1_2015_2020': rg.S1, 'S2_2021_2026': rg.S2, 'todo': None}, 1 - 0.05 / K, 'N')}
+        ok = out['N_2015_2026']['criterios']['pasa']
+        out['veredicto'] = {'candidata': bool(ok), 'supera_al_indice': bool(ok and list(out['N_2015_2026']['criterios'].values())[2])}
+        print('RESUMEN_H6 ' + json.dumps(out, default=float), flush=True)
+        os.makedirs(os.path.dirname(a.output) or '.', exist_ok=True)
+        json.dump(out, open(a.output, 'w'), indent=1, default=float)
+        return
     pA, mA, bA, iA = vb.load_sp500data(paths['prices.parquet'], paths['membership_intervals.parquet'], start='2008-01-01', end='2020-12-31')
     assert pA['close'].index.max() <= pd.Timestamp('2020-12-31')
     out['A_2010_2020'] = {'universo': iA, **run_period(pA, mA, bA, {'train_2010_16': ('2010-01-01', '2016-12-31'), 'valid_2017_20': ('2017-01-01', '2020-12-31'), 'todo': None}, 1 - 0.05 / K, 'A')}

@@ -9,12 +9,19 @@ import pandas as pd
 
 import index_leverage as il
 import v24_h5 as h5
+import v24_regimen as rg
 import v24_hipotesis as vh
 
 K = 14
 LOCK_END = '2020-12-31'
 PERIODS = {'P1_1961_1989': ('1961-01-01', '1989-12-31'), 'P2_1990_2009': ('1990-01-01', '2009-12-31'), 'P3_2010_2020': ('2010-01-01', LOCK_END)}
 FULL = ('1961-01-01', LOCK_END)
+FULL_KEY = 'todo_1961_2020'
+if rg.ACTIVE == '2015':
+    LOCK_END = rg.END_2015
+    PERIODS = {'S1_2015_2020': rg.S1, 'S2_2021_2026': rg.S2}
+    FULL = rg.FULL_2015
+    FULL_KEY = 'todo_2015_2026'
 SWITCH_COST = 0.001
 
 
@@ -48,7 +55,7 @@ def run_all(px, rate, tnx=None):
         t = tnx.reindex(px.index).ffill() / 100
         sens['sens_curva_10a_menos_3m_positiva'] = simulate_on(px, rate, (t - rate) > 0)
     eqs.update(sens)
-    wins = {**PERIODS, 'todo_1961_2020': FULL}
+    wins = {**PERIODS, FULL_KEY: FULL}
     out = {'ultimo_dia_usado': str(px.index.max().date()), 'metricas': {n: {k: h5.curve(h5.sl(e, w)) for k, w in wins.items()} for n, e in eqs.items()},
            'dias_en_regimen_de_endurecimiento_pct': round(float(tightening(rate).loc[FULL[0]:FULL[1]].mean() * 100), 1)}
     level = 1 - 0.05 / K
@@ -58,8 +65,8 @@ def run_all(px, rate, tnx=None):
     m, bm = out['metricas']['S_no_pelees_contra_la_Fed'], out['metricas']['B_1x_comprar_y_mantener']
     m1 = bool(all(m[k]['cagr_pct'] > bm[k]['cagr_pct'] for k in PERIODS))
     m2 = bool(lo > 0)
-    m3 = bool(m['todo_1961_2020']['sharpe'] >= bm['todo_1961_2020']['sharpe'])
-    m4 = bool(m['todo_1961_2020']['max_dd_pct'] >= bm['todo_1961_2020']['max_dd_pct'])
+    m3 = bool(m[FULL_KEY]['sharpe'] >= bm[FULL_KEY]['sharpe'])
+    m4 = bool(m[FULL_KEY]['max_dd_pct'] >= bm[FULL_KEY]['max_dd_pct'])
     out['criterios'] = {'M1_cagr_mayor_en_los_tres_periodos': m1, 'M2_ic_exceso_mensual': {'nivel': level, 'low': lo, 'high': hi, 'media': mean, 'pasa': m2},
                         'M3_sharpe_no_peor': m3, 'M4_caida_maxima_no_peor': m4,
                         'supera_al_sp500': bool(m1 and m2 and m3 and m4), 'reduce_riesgo_sin_superar_en_rentabilidad': bool((not (m1 and m2)) and m3 and m4)}
@@ -80,7 +87,7 @@ def main():
     ap.add_argument('--output', default='data/v24_macro.json')
     a = ap.parse_args()
     px, rate = il.load()
-    out = {'commit': os.environ.get('GITHUB_SHA'), 'registro': 'docs/V24_H14_LIQUIDEZ_FED.md', **run_all(px, rate, load_tnx())}
+    out = {'regimen': rg.ACTIVE, 'commit': os.environ.get('GITHUB_SHA'), 'registro': 'docs/V24_H14_LIQUIDEZ_FED.md', **run_all(px, rate, load_tnx())}
     print('RESUMEN_H14 ' + json.dumps(out, default=float), flush=True)
     os.makedirs(os.path.dirname(a.output) or '.', exist_ok=True)
     json.dump(out, open(a.output, 'w'), indent=1, default=float)

@@ -10,6 +10,8 @@ import pandas as pd
 
 import system_backtest as sb
 import v24_backtest as vb
+from v24_regimen import period_list
+import v24_regimen as rg
 import v24_h5 as h5
 import v24_h7 as h7
 
@@ -34,11 +36,11 @@ def main():
     t0 = time.time()
     paths, sha = vb.download_sp500data(a.tag)
     tm = tech_map()
-    out = {'commit': os.environ.get('GITHUB_SHA'), 'registro': 'docs/V24_H9B_CAIDAS_SP500.md', 'datos': {'tag': a.tag, 'sha256': sha}}
+    out = {'regimen': rg.ACTIVE, 'commit': os.environ.get('GITHUB_SHA'), 'registro': 'docs/V24_H9B_CAIDAS_SP500.md', 'datos': {'tag': a.tag, 'sha256': sha}}
     flags = {}
-    for name, start, end, segs, level in (
+    for name, start, end, segs, level in period_list((
             ('A_2010_2020', '2007-01-01', '2020-12-31', [('train', ('2010-01-01', '2016-12-31')), ('valid', ('2017-01-01', '2020-12-31'))], 1 - 0.05 / K),
-            ('B_1997_2009', '1996-01-01', '2009-12-31', [('P1', ('1997-01-01', '2002-12-31')), ('P2', ('2003-01-01', '2009-12-31'))], 0.95)):
+            ('B_1997_2009', '1996-01-01', '2009-12-31', [('P1', ('1997-01-01', '2002-12-31')), ('P2', ('2003-01-01', '2009-12-31'))], 0.95)), K):
         p, member, bench, info = vb.load_sp500data(paths['prices.parquet'], paths['membership_intervals.parquet'], start=start, end=end)
         assert p['close'].index.max() <= pd.Timestamp(end), 'datos posteriores al bloqueo cargados'
         prepared, regime = h7.prepare_all(p, member, bench)

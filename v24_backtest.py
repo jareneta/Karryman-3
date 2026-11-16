@@ -14,10 +14,13 @@ import numpy as np
 import pandas as pd
 
 import system_backtest as sb
+import v24_regimen as _rg
 import v24_engine as ve
 
 SEGS = {'entrenamiento_2010_16': ('2010-01-01', '2016-12-31'), 'validacion_2017_20': ('2017-01-01', '2020-12-31'),
         'prueba_2021_26': ('2021-01-01', None), 'todo': (None, None)}
+if _rg.ACTIVE == '2015':
+    SEGS = {'2015_2020': _rg.S1, '2021_2026': _rg.S2, 'todo': _rg.FULL_2015}
 
 
 def to_wide(frames):
@@ -156,7 +159,7 @@ def main():
         'control_placebo_aleatorio_mensual_s3': replace(base, protection='none', rank_every=21, score_mode='random', seed=3),
     }
     import os as _os
-    out = {'commit': _os.environ.get('GITHUB_SHA'), 'parametros': {'capital': a.capital, 'fee_min': a.fee_min, 'min_order': a.min_order, 'fractional': a.fractional, 'symbols': a.symbols, 'seed': a.seed},
+    out = {'regimen': _rg.ACTIVE, 'commit': _os.environ.get('GITHUB_SHA'), 'parametros': {'capital': a.capital, 'fee_min': a.fee_min, 'min_order': a.min_order, 'fractional': a.fractional, 'symbols': a.symbols, 'seed': a.seed},
            'datos': meta, 'universo': {'series': len(keep), 'nota': 'acciones cotizadas hoy: sesgo de supervivencia; filtro de liquidez vigente día a día'},
            'calidad_datos': {'series_con_saltos_diarios_mayores_40pct': len(sus), 'detalle': dict(list(sus.items())[:30]), 'nota': 'posibles splits sin ajustar o errores de datos'},
            'modelos': {}, 'comisiones': [], 'benchmark_spy': benchmark(spy)}

@@ -12,6 +12,8 @@ from dataclasses import replace
 import numpy as np
 import pandas as pd
 
+import v24_regimen as rg
+
 import v24_backtest as vb
 import v24_engine as ve
 
@@ -19,8 +21,10 @@ LOCK_END = '2020-12-31'
 TRAIN = ('2010-01-01', '2016-12-31')
 VALID = ('2017-01-01', '2020-12-31')
 ALL = ('2010-01-01', LOCK_END)
+if rg.ACTIVE == '2015':
+    LOCK_END, TRAIN, VALID, ALL = rg.END_2015, rg.S1, rg.S2, rg.FULL_2015
 N_PLACEBO = 10
-K_HIPOTESIS = 4
+K_HIPOTESIS = 14 if rg.ACTIVE == '2015' else 4
 BOOT = 5000
 
 
@@ -83,7 +87,7 @@ def main():
     print(f'placebos ejecutados · {time.time()-t0:.0f}s', flush=True)
 
     spy = bench[(bench.index >= ALL[0]) & (bench.index <= ALL[1])]
-    out = {'commit': os.environ.get('GITHUB_SHA'), 'datos': {'tag': a.tag, 'sha256': sha, **info, 'ultimo_dia_cargado': str(p['close'].index.max().date()),
+    out = {'regimen': rg.ACTIVE, 'commit': os.environ.get('GITHUB_SHA'), 'datos': {'tag': a.tag, 'sha256': sha, **info, 'ultimo_dia_cargado': str(p['close'].index.max().date()),
            'bloqueo': f'datos posteriores a {LOCK_END} no cargados'}, 'criterios': 'docs/V24_HIPOTESIS.md', 'spy': {k: series_metrics(spy.loc[s:e]) for k, (s, e) in
            {'train': TRAIN, 'valid': VALID, 'todo_2010_2020': ALL}.items()}, 'hipotesis': {}, 'placebos': {}}
     for name, grp in (('placebo_sin_filtro', plac), ('placebo_con_filtro', plac_f)):

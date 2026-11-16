@@ -10,6 +10,8 @@ from dataclasses import replace
 import numpy as np
 import pandas as pd
 
+import v24_regimen as rg
+
 import system_backtest as sb
 import v24_backtest as vb
 import v24_hipotesis as vh
@@ -18,6 +20,8 @@ LOCK_END = '2020-12-31'
 TRAIN = ('2010-01-01', '2016-12-31')
 VALID = ('2017-01-01', '2020-12-31')
 ALL = ('2010-01-01', LOCK_END)
+if rg.ACTIVE == '2015':
+    LOCK_END, TRAIN, VALID, ALL = rg.END_2015, rg.S1, rg.S2, rg.FULL_2015
 N_PLACEBO = 10
 BOOT = 5000
 
@@ -40,13 +44,18 @@ def rstats(r):
             'win_rate_pct': round(float((r > 0).mean() * 100), 1)}
 
 
-def diff_ci(a, b, seed=2):
+LEVEL = 1 - 0.05 / 14 if rg.ACTIVE == '2015' else 0.95
+
+
+def diff_ci(a, b, seed=2, level=None):
+    level = level or LEVEL
     rg = np.random.default_rng(seed)
     a, b = np.asarray(a, float), np.asarray(b, float)
     da = rg.choice(a, size=(BOOT, len(a)), replace=True).mean(axis=1)
     db = rg.choice(b, size=(BOOT, len(b)), replace=True).mean(axis=1)
     d = da - db
-    return float(np.percentile(d, 2.5)), float(np.percentile(d, 97.5)), float(a.mean() - b.mean())
+    al = (1 - level) / 2 * 100
+    return float(np.percentile(d, al)), float(np.percentile(d, 100 - al)), float(a.mean() - b.mean())
 
 
 def curve(eq):
@@ -94,7 +103,7 @@ def main():
     plc = pd.concat(pl)
     print(f'operaciones H5={len(tr)} · placebo agrupado={len(plc)} · {time.time()-t0:.0f}s', flush=True)
 
-    out = {'commit': os.environ.get('GITHUB_SHA'), 'registro': 'docs/V24_H5_PLAN_HTML.md',
+    out = {'regimen': rg.ACTIVE, 'commit': os.environ.get('GITHUB_SHA'), 'registro': 'docs/V24_H5_PLAN_HTML.md',
            'datos': {'tag': a.tag, 'sha256': sha, **info, 'ultimo_dia_cargado': str(p['close'].index.max().date()), 'bloqueo': f'datos posteriores a {LOCK_END} no cargados'},
            'operaciones': {k: rstats(in_win(tr, w).r) for k, w in {'train': TRAIN, 'valid': VALID, 'todo_2010_2020': ALL}.items()},
            'placebo_agrupado': {k: rstats(in_win(plc, w).r) for k, w in {'train': TRAIN, 'valid': VALID, 'todo_2010_2020': ALL}.items()}}
