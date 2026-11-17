@@ -1,0 +1,274 @@
+{
+ "commit": "b512cfb7a940370c6de945c4b8687095188279e5",
+ "ultima_sesion": "2026-11-17",
+ "miembros_actuales_con_datos": 498,
+ "spy_sobre_sma200": true,
+ "spy_caida_vs_max60_pct": -6.0,
+ "senales_ultimas_5_sesiones": [
+  {
+   "ticker": "CTSH",
+   "fecha_senal": "2026-11-16",
+   "sesiones_desde_la_senal": 1,
+   "cierre_senal": 62.29,
+   "ultimo_cierre": 59.99,
+   "caida_vs_max60_pct": -15.1,
+   "dias_desde_max60": 17,
+   "ret5_pct": -1.6,
+   "vol_vs_media50": 0.67,
+   "dist_max252_pct": -26.8,
+   "sobre_sma200_pct": 8.9,
+   "gap_apertura_pct": 1.3,
+   "sma20_ultima": 65.28,
+   "stop_12pct_sobre_ultimo_cierre": 52.79,
+   "spy_sobre_sma200": true,
+   "proximos_resultados": "2026-10-29",
+   "nombre": "Cognizant Technology Solutions ",
+   "sector": "Technology"
+  },
+  {
+   "ticker": "IFF",
+   "fecha_senal": "2026-11-16",
+   "sesiones_desde_la_senal": 1,
+   "cierre_senal": 79.99,
+   "ultimo_cierre": 80.06,
+   "caida_vs_max60_pct": -15.5,
+   "dias_desde_max60": 10,
+   "ret5_pct": -5.3,
+   "vol_vs_media50": 0.98,
+   "dist_max252_pct": -16.0,
+   "sobre_sma200_pct": 1.6,
+   "gap_apertura_pct": 0.5,
+   "sma20_ultima": 87.78,
+   "stop_12pct_sobre_ultimo_cierre": 70.45,
+   "spy_sobre_sma200": true,
+   "proximos_resultados": "2026-11-03",
+   "nombre": "International Flavors & Fragran",
+   "sector": "Basic Materials"
+  },
+  {
+   "ticker": "MPC",
+   "fecha_senal": "2026-11-16",
+   "sesiones_desde_la_senal": 1,
+   "cierre_senal": 402.19,
+   "ultimo_cierre": 403.04,
+   "caida_vs_max60_pct": -17.1,
+   "dias_desde_max60": 23,
+   "ret5_pct": 3.2,
+   "vol_vs_media50": 0.82,
+   "dist_max252_pct": -18.6,
+   "sobre_sma200_pct": 33.1,
+   "gap_apertura_pct": -1.0,
+   "sma20_ultima": 421.23,
+   "stop_12pct_sobre_ultimo_cierre": 354.68,
+   "spy_sobre_sma200": true,
+   "proximos_resultados": "2027-02-02",
+   "nombre": "Marathon Petroleum Corporation",
+   "sector": "Energy"
+  },
+  {
+   "ticker": "AMD",
+   "fecha_senal": "2026-11-13",
+   "sesiones_desde_la_senal": 2,
+   "cierre_senal": 534.06,
+   "ultimo_cierre": 495.77,
+   "caida_vs_max60_pct": -17.8,
+   "dias_desde_max60": 28,
+   "ret5_pct": 18.9,
+   "vol_vs_media50": 1.88,
+   "dist_max252_pct": -18.9,
+   "sobre_sma200_pct": 26.2,
+   "gap_apertura_pct": -3.2,
+   "sma20_ultima": 515.38,
+   "stop_12pct_sobre_ultimo_cierre": 436.27,
+   "spy_sobre_sma200": true,
+   "proximos_resultados": "2027-02-02",
+   "nombre": "Advanced Micro Devices, Inc.",
+   "sector": "Technology"
+  },
+  {
+   "ticker": "MRNA",
+   "fecha_senal": "2026-11-13",
+   "sesiones_desde_la_senal": 2,
+   "cierre_senal": 223.37,
+   "ultimo_cierre": 209.81,
+   "caida_vs_max60_pct": -17.0,
+   "dias_desde_max60": 4,
+   "ret5_pct": -12.1,
+   "vol_vs_media50": 0.51,
+   "dist_max252_pct": -20.5,
+   "sobre_sma200_pct": 131.7,
+   "gap_apertura_pct": -2.8,
+   "sma20_ultima": 228.28,
+   "stop_12pct_sobre_ultimo_cierre": 184.63,
+   "spy_sobre_sma200": true,
+   "proximos_resultados": "2026-11-06",
+   "nombre": "Moderna, Inc.",
+   "sector": "Healthcare"
+  },
+  {
+   "ticker": "IFF",
+   "fecha_senal": "2026-11-12",
+   "sesiones_desde_la_senal": 3,
+   "cierre_senal": 80.38,
+   "ultimo_cierre": 80.06,
+   "caida_vs_max60_pct": -15.1,
+   "dias_desde_max60": 8,
+   "ret5_pct": -6.9,
+   "vol_vs_media50": 1.14,
+   "dist_max252_pct": -15.6,
+   "sobre_sma200_pct": 2.3,
+   "gap_apertura_pct": 0.4,
+   "sma20_ultima": 87.78,
+   "stop_12pct_sobre_ultimo_cierre": 70.45,
+   "spy_sobre_sma200": true,
+   "proximos_resultados": "2026-11-03",
+   "nombre": "International Flavors & Fragran",
+   "sector": "Basic Materials"
+  },
+  {
+   "ticker": "NEM",
+   "fecha_senal": "2026-11-12",
+   "sesiones_desde_la_senal": 3,
+   "cierre_senal": 112.64,
+   "ultimo_cierre": 112.65,
+   "caida_vs_max60_pct": -16.5,
+   "dias_desde_max60": 56,
+   "ret5_pct": -5.9,
+   "vol_vs_media50": 1.36,
+   "dist_max252_pct": -16.6,
+   "sobre_sma200_pct": 0.7,
+   "gap_apertura_pct": -2.9,
+   "sma20_ultima": 114.16,
+   "stop_12pct_sobre_ultimo_cierre": 99.13,
+   "spy_sobre_sma200": true,
+   "proximos_resultados": "2026-10-22",
+   "nombre": "Newmont Corporation",
+   "sector": "Basic Materials"
+  },
+  {
+   "ticker": "BX",
+   "fecha_senal": "2026-11-11",
+   "sesiones_desde_la_senal": 4,
+   "cierre_senal": 122.01,
+   "ultimo_cierre": 115.97,
+   "caida_vs_max60_pct": -15.1,
+   "dias_desde_max60": 59,
+   "ret5_pct": -2.8,
+   "vol_vs_media50": 0.54,
+   "dist_max252_pct": -23.1,
+   "sobre_sma200_pct": 1.3,
+   "gap_apertura_pct": 0.0,
+   "sma20_ultima": 118.64,
+   "stop_12pct_sobre_ultimo_cierre": 102.06,
+   "spy_sobre_sma200": true,
+   "proximos_resultados": "2027-01-28",
+   "nombre": "Blackstone Inc.",
+   "sector": "Financial Services"
+  }
+ ],
+ "cerca_de_la_senal": [
+  {
+   "ticker": "APH",
+   "caida_vs_max60_pct": -14.4,
+   "ultimo_cierre": 75.83,
+   "precio_que_activa_la_senal": 75.33
+  },
+  {
+   "ticker": "ANET",
+   "caida_vs_max60_pct": -13.9,
+   "ultimo_cierre": 186.72,
+   "precio_que_activa_la_senal": 184.23
+  },
+  {
+   "ticker": "IVZ",
+   "caida_vs_max60_pct": -13.8,
+   "ultimo_cierre": 28.51,
+   "precio_que_activa_la_senal": 28.1
+  },
+  {
+   "ticker": "CF",
+   "caida_vs_max60_pct": -13.6,
+   "ultimo_cierre": 119.74,
+   "precio_que_activa_la_senal": 117.81
+  },
+  {
+   "ticker": "STT",
+   "caida_vs_max60_pct": -13.6,
+   "ultimo_cierre": 167.0,
+   "precio_que_activa_la_senal": 164.25
+  },
+  {
+   "ticker": "GPN",
+   "caida_vs_max60_pct": -13.5,
+   "ultimo_cierre": 87.88,
+   "precio_que_activa_la_senal": 86.35
+  },
+  {
+   "ticker": "PSX",
+   "caida_vs_max60_pct": -13.2,
+   "ultimo_cierre": 258.06,
+   "precio_que_activa_la_senal": 252.7
+  },
+  {
+   "ticker": "WDAY",
+   "caida_vs_max60_pct": -11.6,
+   "ultimo_cierre": 185.7,
+   "precio_que_activa_la_senal": 178.49
+  },
+  {
+   "ticker": "BXP",
+   "caida_vs_max60_pct": -11.4,
+   "ultimo_cierre": 63.15,
+   "precio_que_activa_la_senal": 60.62
+  },
+  {
+   "ticker": "GPC",
+   "caida_vs_max60_pct": -11.4,
+   "ultimo_cierre": 122.66,
+   "precio_que_activa_la_senal": 117.65
+  },
+  {
+   "ticker": "ADI",
+   "caida_vs_max60_pct": -11.2,
+   "ultimo_cierre": 384.62,
+   "precio_que_activa_la_senal": 368.29
+  },
+  {
+   "ticker": "AMCR",
+   "caida_vs_max60_pct": -10.9,
+   "ultimo_cierre": 43.69,
+   "precio_que_activa_la_senal": 41.67
+  },
+  {
+   "ticker": "GDDY",
+   "caida_vs_max60_pct": -10.7,
+   "ultimo_cierre": 107.31,
+   "precio_que_activa_la_senal": 102.1
+  },
+  {
+   "ticker": "CRL",
+   "caida_vs_max60_pct": -10.3,
+   "ultimo_cierre": 337.4,
+   "precio_que_activa_la_senal": 319.69
+  },
+  {
+   "ticker": "ISRG",
+   "caida_vs_max60_pct": -10.2,
+   "ultimo_cierre": 432.84,
+   "precio_que_activa_la_senal": 409.79
+  },
+  {
+   "ticker": "OXY",
+   "caida_vs_max60_pct": -10.2,
+   "ultimo_cierre": 57.6,
+   "precio_que_activa_la_senal": 54.54
+  },
+  {
+   "ticker": "APA",
+   "caida_vs_max60_pct": -10.1,
+   "ultimo_cierre": 47.46,
+   "precio_que_activa_la_senal": 44.9
+  }
+ ],
+ "nota": "Solo lectura. La regla probada compra a la apertura de la sesi\u00f3n siguiente a la se\u00f1al; una se\u00f1al de hace varias sesiones ya no es una entrada de la regla."
+}
