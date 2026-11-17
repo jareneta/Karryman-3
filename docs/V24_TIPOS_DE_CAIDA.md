@@ -37,3 +37,6 @@ Añadir características o grupos después de ver resultados, cambiar los cortes
 
 ## 6. Limitaciones declaradas
 Solo S&P 500 (grandes y líquidas); las tres épocas ya se han visto con H9b; coste y deslizamiento hipotéticos; muchos grupos con pocas operaciones tendrán intervalos amplios.
+
+## Enmienda (2026-11-17, antes de ejecutar nada): recuento exacto de grupos
+Al fijar los grupos en el código, el recuento correcto es **21** (3 + 2 + 3 + 3 + 2 + 3 + 2 + 3), no 23. La corrección Benjamini-Hochberg se aplica sobre **21 contrastes** y el número esperado de falsos positivos al 5 % es ≈ 1,05. Sin otros cambios.
