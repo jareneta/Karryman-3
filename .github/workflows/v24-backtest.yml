@@ -7,7 +7,7 @@ on:
         required: false
         default: 'legacy'
       mode:
-        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor | h8 | sic | h9b | h10 | h11 | h12 | h13 | h14 | snapshot | escaneo | dip_tipos'
+        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor | h8 | sic | h9b | h10 | h11 | h12 | h13 | h14 | snapshot | escaneo | dip_tipos | dip_hoy'
         required: false
         default: 'backtest'
       symbols:
@@ -127,6 +127,9 @@ jobs:
       - name: Tipos de caída dentro de H9b (subgrupos, BH y replicación en tres épocas)
         if: ${{ inputs.mode == 'dip_tipos' }}
         run: python v24_dip_tipos.py --output data/v24_dip_tipos.json
+      - name: Señales de caída de H9b a día de hoy (solo lectura)
+        if: ${{ inputs.mode == 'dip_hoy' }}
+        run: python v24_dip_hoy.py --output data/v24_dip_hoy.json
       - name: Clasificación SIC (SEC) del S&P 500 point-in-time y cobertura
         if: ${{ inputs.mode == 'sic' }}
         env:
