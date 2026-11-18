@@ -90,6 +90,8 @@ def build_universe(d, intervals, start='2009-06-01', end=None, benchmark='SPY', 
     d['close'] = d['adj_close']
     srcs = d['source'].value_counts().to_dict() if 'source' in d else {}
     wide = {k: d.pivot(index='date', columns='ticker', values=k).sort_index() for k in ('open', 'high', 'low', 'close', 'volume')}
+    if 'dividends' in d.columns:
+        wide['dividends'] = d.pivot(index='date', columns='ticker', values='dividends').sort_index().reindex(index=wide['close'].index, columns=wide['close'].columns).fillna(0.0)
     idx, cols = wide['close'].index, wide['close'].columns
     mem = membership_mask(iv, idx, cols)
     priced = (mem & wide['close'].notna()).sum(axis=1)

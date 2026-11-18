@@ -7,7 +7,7 @@ on:
         required: false
         default: 'legacy'
       mode:
-        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor | h8 | sic | h9b | h10 | h11 | h12 | h13 | h14 | snapshot | escaneo | dip_tipos | dip_hoy'
+        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor | h8 | sic | h9b | h10 | h11 | h12 | h13 | h14 | snapshot | escaneo | dip_tipos | dip_hoy | h15'
         required: false
         default: 'backtest'
       symbols:
@@ -57,7 +57,7 @@ jobs:
           python-version: '3.11'
       - run: pip install -r requirements.txt lxml pyarrow
       - name: Pruebas del motor V24 y auditoría independiente
-        run: python -m unittest tests.test_v24_engine tests.test_v24_audit tests.test_v24_sp500data tests.test_v24_h5 tests.test_v24_h6 tests.test_v24_h7 tests.test_v24_kell tests.test_v24_dip tests.test_v24_oneil tests.test_v24_overlay tests.test_v24_lev tests.test_v24_statarb tests.test_v24_macro tests.test_v24_scan tests.test_v24_regimen tests.test_v24_dip_tipos tests.test_system_backtest -v
+        run: python -m unittest tests.test_v24_engine tests.test_v24_audit tests.test_v24_sp500data tests.test_v24_h5 tests.test_v24_h6 tests.test_v24_h7 tests.test_v24_kell tests.test_v24_dip tests.test_v24_oneil tests.test_v24_overlay tests.test_v24_lev tests.test_v24_statarb tests.test_v24_macro tests.test_v24_scan tests.test_v24_regimen tests.test_v24_dip_tipos tests.test_v24_screener tests.test_system_backtest -v
       - name: Backtest V24 (investigación, sin órdenes)
         if: ${{ inputs.mode == 'backtest' || inputs.mode == '' }}
         env:
@@ -130,6 +130,9 @@ jobs:
       - name: Señales de caída de H9b a día de hoy (solo lectura)
         if: ${{ inputs.mode == 'dip_hoy' }}
         run: python v24_dip_hoy.py --output data/v24_dip_hoy.json
+      - name: H15, réplica parcial del screener (15 acciones, salir al dejar de aparecer)
+        if: ${{ inputs.mode == 'h15' }}
+        run: python v24_screener.py --output data/v24_screener.json
       - name: Clasificación SIC (SEC) del S&P 500 point-in-time y cobertura
         if: ${{ inputs.mode == 'sic' }}
         env:
