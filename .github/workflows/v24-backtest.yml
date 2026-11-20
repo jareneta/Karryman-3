@@ -7,7 +7,7 @@ on:
         required: false
         default: 'legacy'
       mode:
-        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor | h8 | sic | h9b | h10 | h11 | h12 | h13 | h14 | snapshot | escaneo | dip_tipos | dip_hoy | h15 | h16 | mercado_hoy'
+        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor | h8 | sic | h9b | h10 | h11 | h12 | h13 | h14 | snapshot | escaneo | dip_tipos | dip_hoy | h15 | h16 | mercado_hoy | dip_burbujas'
         required: false
         default: 'backtest'
       symbols:
@@ -57,7 +57,7 @@ jobs:
           python-version: '3.11'
       - run: pip install -r requirements.txt lxml pyarrow
       - name: Pruebas del motor V24 y auditoría independiente
-        run: python -m unittest tests.test_v24_engine tests.test_v24_audit tests.test_v24_sp500data tests.test_v24_h5 tests.test_v24_h6 tests.test_v24_h7 tests.test_v24_kell tests.test_v24_dip tests.test_v24_oneil tests.test_v24_overlay tests.test_v24_lev tests.test_v24_statarb tests.test_v24_macro tests.test_v24_scan tests.test_v24_regimen tests.test_v24_dip_tipos tests.test_v24_screener tests.test_v24_exposure tests.test_v24_mercado_hoy tests.test_system_backtest -v
+        run: python -m unittest tests.test_v24_engine tests.test_v24_audit tests.test_v24_sp500data tests.test_v24_h5 tests.test_v24_h6 tests.test_v24_h7 tests.test_v24_kell tests.test_v24_dip tests.test_v24_oneil tests.test_v24_overlay tests.test_v24_lev tests.test_v24_statarb tests.test_v24_macro tests.test_v24_scan tests.test_v24_regimen tests.test_v24_dip_tipos tests.test_v24_screener tests.test_v24_exposure tests.test_v24_mercado_hoy tests.test_v24_dip_burbujas tests.test_system_backtest -v
       - name: Backtest V24 (investigación, sin órdenes)
         if: ${{ inputs.mode == 'backtest' || inputs.mode == '' }}
         env:
@@ -113,6 +113,9 @@ jobs:
       - name: Análisis descriptivo punto com frente a hoy
         if: ${{ inputs.mode == 'mercado_hoy' }}
         run: python v24_mercado_hoy.py --output data/v24_mercado_hoy.json
+      - name: H9b en la burbuja punto com y correcciones recientes (exploratorio)
+        if: ${{ inputs.mode == 'dip_burbujas' }}
+        run: python v24_dip_burbujas.py --output data/v24_dip_burbujas.json
       - name: Contraste de H12, S&P 500 2x con filtro de tendencia (prueba final bloqueada)
         if: ${{ inputs.mode == 'h12' }}
         run: python v24_lev.py --output data/v24_lev.json
