@@ -34,7 +34,7 @@ class Mercado(unittest.TestCase):
         pd.testing.assert_series_equal(e1.iloc[:200], e2.iloc[:200])
 
     def test_forward(self):
-        s = pd.Series(np.arange(1, 400, dtype=float), index=self.c.index)
+        s = pd.Series(np.arange(1, 401, dtype=float), index=self.c.index)
         f = mh.forward(s, s, s.index[10])
         self.assertIn('12m', f)
 
