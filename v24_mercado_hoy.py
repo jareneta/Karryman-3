@@ -96,10 +96,11 @@ def today_part(members, liquid):
     mem = [t for t in members if t in d.columns and d[t].notna().iloc[-1]]
     sub = d[mem]
     out['miembros_con_dato'] = len(mem)
+    out['filas_con_hueco_total_ultimos_200d'] = int(sub.iloc[-200:].isna().all(axis=1).sum())
     out['pct_miembros_cayendo_hoy'] = round(float((r1[mem] < 0).mean() * 100), 1)
     out['pct_miembros_cayendo_mas_3pct_hoy'] = round(float((r1[mem] < -3).mean() * 100), 1)
-    out['pct_miembros_sobre_sma200'] = round(float((sub.iloc[-1] > sub.rolling(200).mean().iloc[-1]).mean() * 100), 1)
-    out['pct_miembros_sobre_sma50'] = round(float((sub.iloc[-1] > sub.rolling(50).mean().iloc[-1]).mean() * 100), 1)
+    out['pct_miembros_sobre_sma200'] = round(float((sub.iloc[-1] > sub.rolling(200, min_periods=180).mean().iloc[-1]).mean() * 100), 1)
+    out['pct_miembros_sobre_sma50'] = round(float((sub.iloc[-1] > sub.rolling(50, min_periods=45).mean().iloc[-1]).mean() * 100), 1)
     out['pct_miembros_cerca_max_52s_10pct'] = round(float((sub.iloc[-1] >= sub.iloc[-252:].max() * 0.9).mean() * 100), 1)
     spy = d['SPY'].dropna()
     out['spy'] = {'cierre': round(float(spy.iloc[-1]), 2), 'caida_desde_max_52s_pct': round(float((spy.iloc[-1] / spy.iloc[-252:].max() - 1) * 100), 1),
