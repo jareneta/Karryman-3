@@ -1,0 +1,357 @@
+{
+ "commit": "9d2d763c5f4c036a9f14ffbb46ac02212b2916fc",
+ "registro": "docs/V24_H9B_BURBUJAS.md",
+ "datos": {
+  "tag": "snapshot-2026-11",
+  "sha256": {
+   "prices.parquet": "7b58eeafc855a502469fc5090eb703f76516172deebe13d51609fd6eb2c5f3f5",
+   "membership_intervals.parquet": "1e22ffca5e15d52872912413c55e64ead85bbb835e2148f5bbaaf84f33ea7cd0"
+  }
+ },
+ "universo": {
+  "filas_precios_usadas": 5988890,
+  "series": 1228,
+  "por_fuente": {
+   "yahoo": 4141991,
+   "tiingo": 803431,
+   "crsp": 713405,
+   "wiki": 254197,
+   "crsp-splice": 42412,
+   "crsp-patch": 13350,
+   "kaggle": 13343,
+   "kaggle-splice": 5206,
+   "archive-tsaustin": 1321,
+   "archive-patch": 187,
+   "carried-patch": 29,
+   "nasdaq-patch": 9,
+   "wiki-patch": 5,
+   "tiingo-patch": 4
+  },
+  "miembros_con_precio_por_dia": {
+   "media": 501.6,
+   "min": 498,
+   "max": 509
+  }
+ },
+ "tipo": "exploratorio, sin correcci\u00f3n por multiplicidad",
+ "ventanas": {
+  "D0_burbuja_alcista": {
+   "n": 586,
+   "nivel": "evaluable",
+   "esperanza_R": 0.123,
+   "ganadoras_pct": 68.1,
+   "placebo_mediana_R": -0.0005,
+   "placebo_n_medio": 629,
+   "vs_placebo": {
+    "dif_R": 0.1185,
+    "ic95": [
+     0.0351,
+     0.204
+    ]
+   },
+   "senal_de_ventaja_sin_corregir": true
+  },
+  "D1_caida_2000_2002": {
+   "n": 1247,
+   "nivel": "evaluable",
+   "esperanza_R": 0.0686,
+   "ganadoras_pct": 67.7,
+   "placebo_mediana_R": -0.0297,
+   "placebo_n_medio": 1411,
+   "vs_placebo": {
+    "dif_R": 0.0985,
+    "ic95": [
+     0.0127,
+     0.1677
+    ]
+   },
+   "senal_de_ventaja_sin_corregir": true
+  },
+  "D2_recuperacion": {
+   "n": 464,
+   "nivel": "evaluable",
+   "esperanza_R": 0.1529,
+   "ganadoras_pct": 75.6,
+   "placebo_mediana_R": 0.0269,
+   "placebo_n_medio": 1442,
+   "vs_placebo": {
+    "dif_R": 0.1265,
+    "ic95": [
+     0.0361,
+     0.2036
+    ]
+   },
+   "senal_de_ventaja_sin_corregir": true
+  },
+  "C2018": {
+   "n": 114,
+   "nivel": "indicativo",
+   "esperanza_R": -0.1574,
+   "ganadoras_pct": 61.4,
+   "placebo_mediana_R": -0.0888,
+   "placebo_n_medio": 314,
+   "vs_placebo": {
+    "dif_R": -0.0682,
+    "ic95": [
+     -0.1549,
+     0.0096
+    ]
+   },
+   "senal_de_ventaja_sin_corregir": false
+  },
+  "C2020": {
+   "n": 104,
+   "nivel": "indicativo",
+   "esperanza_R": -0.7675,
+   "ganadoras_pct": 22.1,
+   "placebo_mediana_R": -0.6727,
+   "placebo_n_medio": 86,
+   "vs_placebo": {
+    "dif_R": -0.0758,
+    "ic95": [
+     -0.1275,
+     -0.012
+    ]
+   },
+   "senal_de_ventaja_sin_corregir": false
+  },
+  "C2022": {
+   "n": 345,
+   "nivel": "evaluable",
+   "esperanza_R": -0.0047,
+   "ganadoras_pct": 58.8,
+   "placebo_mediana_R": 0.0019,
+   "placebo_n_medio": 1066,
+   "vs_placebo": {
+    "dif_R": -0.0084,
+    "ic95": [
+     -0.1531,
+     0.152
+    ]
+   },
+   "senal_de_ventaja_sin_corregir": false
+  },
+  "C2026_hasta_30oct": {
+   "n": 56,
+   "nivel": "no_concluyente",
+   "esperanza_R": -0.2512,
+   "ganadoras_pct": 41.1,
+   "placebo_mediana_R": 0.0122,
+   "placebo_n_medio": 70,
+   "vs_placebo": {
+    "dif_R": -0.2499,
+    "ic95": [
+     -0.2499,
+     -0.2499
+    ]
+   },
+   "senal_de_ventaja_sin_corregir": false
+  }
+ },
+ "por_estado_del_mercado": {
+  "1998_2004": {
+   "mayor_-5": {
+    "n": 1020,
+    "nivel": "evaluable",
+    "esperanza_R": 0.055,
+    "ganadoras_pct": 68.4,
+    "placebo_mediana_R": 0.0015,
+    "placebo_n_medio": 1782,
+    "vs_placebo": {
+     "dif_R": 0.054,
+     "ic95": [
+      -0.0092,
+      0.1154
+     ]
+    },
+    "senal_de_ventaja_sin_corregir": false
+   },
+   "-5_a_-10": {
+    "n": 474,
+    "nivel": "evaluable",
+    "esperanza_R": 0.1539,
+    "ganadoras_pct": 70.9,
+    "placebo_mediana_R": 0.019,
+    "placebo_n_medio": 425,
+    "vs_placebo": {
+     "dif_R": 0.1331,
+     "ic95": [
+      -0.0153,
+      0.2841
+     ]
+    },
+    "senal_de_ventaja_sin_corregir": false
+   },
+   "-10_a_-20": {
+    "n": 698,
+    "nivel": "evaluable",
+    "esperanza_R": 0.1298,
+    "ganadoras_pct": 69.6,
+    "placebo_mediana_R": 0.0008,
+    "placebo_n_medio": 871,
+    "vs_placebo": {
+     "dif_R": 0.1338,
+     "ic95": [
+      0.0334,
+      0.215
+     ]
+    },
+    "senal_de_ventaja_sin_corregir": true
+   },
+   "menor_-20": {
+    "n": 306,
+    "nivel": "evaluable",
+    "esperanza_R": -0.0063,
+    "ganadoras_pct": 66.3,
+    "placebo_mediana_R": -0.0167,
+    "placebo_n_medio": 675,
+    "vs_placebo": {
+     "dif_R": 0.0108,
+     "ic95": [
+      -0.1632,
+      0.1656
+     ]
+    },
+    "senal_de_ventaja_sin_corregir": false
+   }
+  },
+  "2015_2026": {
+   "mayor_-5": {
+    "n": 2575,
+    "nivel": "evaluable",
+    "esperanza_R": 0.0427,
+    "ganadoras_pct": 64.5,
+    "placebo_mediana_R": -0.0015,
+    "placebo_n_medio": 8727,
+    "vs_placebo": {
+     "dif_R": 0.043,
+     "ic95": [
+      -0.0177,
+      0.1006
+     ]
+    },
+    "senal_de_ventaja_sin_corregir": false
+   },
+   "-5_a_-10": {
+    "n": 675,
+    "nivel": "evaluable",
+    "esperanza_R": 0.1257,
+    "ganadoras_pct": 73.0,
+    "placebo_mediana_R": 0.0128,
+    "placebo_n_medio": 1557,
+    "vs_placebo": {
+     "dif_R": 0.1099,
+     "ic95": [
+      0.0226,
+      0.1898
+     ]
+    },
+    "senal_de_ventaja_sin_corregir": true
+   },
+   "-10_a_-20": {
+    "n": 418,
+    "nivel": "evaluable",
+    "esperanza_R": 0.0377,
+    "ganadoras_pct": 62.7,
+    "placebo_mediana_R": 0.025,
+    "placebo_n_medio": 1155,
+    "vs_placebo": {
+     "dif_R": 0.0133,
+     "ic95": [
+      -0.1659,
+      0.1791
+     ]
+    },
+    "senal_de_ventaja_sin_corregir": false
+   },
+   "menor_-20": {
+    "n": 90,
+    "nivel": "no_concluyente",
+    "esperanza_R": 0.0459,
+    "ganadoras_pct": 65.6,
+    "placebo_mediana_R": 0.1712,
+    "placebo_n_medio": 205,
+    "vs_placebo": {
+     "dif_R": -0.1154,
+     "ic95": [
+      -0.523,
+      0.4344
+     ]
+    },
+    "senal_de_ventaja_sin_corregir": false
+   }
+  }
+ },
+ "tecnologicas_sesgado": {
+  "1998_2004": {
+   "tecnologicas_clasificadas": {
+    "n": 477,
+    "nivel": "evaluable",
+    "esperanza_R": 0.1283,
+    "ganadoras_pct": 72.3,
+    "placebo_mediana_R": -0.0053,
+    "placebo_n_medio": 363,
+    "vs_placebo": {
+     "dif_R": 0.1394,
+     "ic95": [
+      0.0486,
+      0.2206
+     ]
+    },
+    "senal_de_ventaja_sin_corregir": true
+   },
+   "resto_o_sin_clasificar": {
+    "n": 2021,
+    "nivel": "evaluable",
+    "esperanza_R": 0.0775,
+    "ganadoras_pct": 68.2,
+    "placebo_mediana_R": 0.0009,
+    "placebo_n_medio": 3392,
+    "vs_placebo": {
+     "dif_R": 0.0775,
+     "ic95": [
+      0.0173,
+      0.1335
+     ]
+    },
+    "senal_de_ventaja_sin_corregir": true
+   },
+   "cobertura_clasificadas_pct": 100.0
+  },
+  "2015_2026": {
+   "tecnologicas_clasificadas": {
+    "n": 869,
+    "nivel": "evaluable",
+    "esperanza_R": 0.0623,
+    "ganadoras_pct": 65.8,
+    "placebo_mediana_R": 0.0174,
+    "placebo_n_medio": 1190,
+    "vs_placebo": {
+     "dif_R": 0.0432,
+     "ic95": [
+      -0.0452,
+      0.1318
+     ]
+    },
+    "senal_de_ventaja_sin_corregir": false
+   },
+   "resto_o_sin_clasificar": {
+    "n": 2889,
+    "nivel": "evaluable",
+    "esperanza_R": 0.0556,
+    "ganadoras_pct": 65.9,
+    "placebo_mediana_R": 0.0057,
+    "placebo_n_medio": 10455,
+    "vs_placebo": {
+     "dif_R": 0.0498,
+     "ic95": [
+      -0.0043,
+      0.1011
+     ]
+    },
+    "senal_de_ventaja_sin_corregir": false
+   },
+   "cobertura_clasificadas_pct": 100.0
+  }
+ }
+}
