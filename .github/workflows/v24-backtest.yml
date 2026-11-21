@@ -7,7 +7,7 @@ on:
         required: false
         default: 'legacy'
       mode:
-        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor | h8 | sic | h9b | h10 | h11 | h12 | h13 | h14 | snapshot | escaneo | dip_tipos | dip_hoy | h15 | h16 | mercado_hoy | dip_burbujas'
+        description: 'backtest | fuentes | tests | hipotesis | replica_h2 | tiingo | tiingo_limites | h5 | h6 | h7 | h7_explor | h8 | sic | h9b | h10 | h11 | h12 | h13 | h14 | snapshot | escaneo | dip_tipos | dip_hoy | h15 | h16 | mercado_hoy | dip_burbujas | fng_descarga'
         required: false
         default: 'backtest'
       symbols:
@@ -116,6 +116,9 @@ jobs:
       - name: H9b en la burbuja punto com y correcciones recientes (exploratorio)
         if: ${{ inputs.mode == 'dip_burbujas' }}
         run: python v24_dip_burbujas.py --output data/v24_dip_burbujas.json
+      - name: Descarga del historial CNN Fear and Greed
+        if: ${{ inputs.mode == 'fng_descarga' }}
+        run: python fng_fetch.py data/v24_fng_historial.json
       - name: Contraste de H12, S&P 500 2x con filtro de tendencia (prueba final bloqueada)
         if: ${{ inputs.mode == 'h12' }}
         run: python v24_lev.py --output data/v24_lev.json
