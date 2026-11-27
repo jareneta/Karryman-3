@@ -1,6 +1,6 @@
 {
  "schema_version": 2,
- "generated_utc": "2026-11-26T00:37:14.990512+00:00",
+ "generated_utc": "2026-11-27T00:42:11.796461+00:00",
  "setups_generated_utc": "2026-11-06T11:34:57.179545+00:00",
  "source": "Yahoo Finance OHLCV vía yfinance (no oficial, puede tener retraso)",
  "rules": {
@@ -1040,7 +1040,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-03-01",
    "last_earnings_date": "2026-11-09",
-   "days_to_earnings": 95,
+   "days_to_earnings": 94,
    "blockers": [],
    "actionable": true,
    "warnings": [],
@@ -1075,7 +1075,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-25",
    "last_earnings_date": "2026-11-05",
-   "days_to_earnings": 91,
+   "days_to_earnings": 90,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1110,7 +1110,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-09",
    "last_earnings_date": "2026-11-04",
-   "days_to_earnings": 75,
+   "days_to_earnings": 74,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1145,7 +1145,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-03-09",
    "last_earnings_date": "2026-11-03",
-   "days_to_earnings": 103,
+   "days_to_earnings": 102,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1180,7 +1180,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-23",
    "last_earnings_date": "2026-10-27",
-   "days_to_earnings": 89,
+   "days_to_earnings": 88,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1215,7 +1215,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-05",
    "last_earnings_date": "2026-10-28",
-   "days_to_earnings": 71,
+   "days_to_earnings": 70,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1250,7 +1250,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-04",
    "last_earnings_date": "2026-11-05",
-   "days_to_earnings": 70,
+   "days_to_earnings": 69,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1285,7 +1285,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-02",
    "last_earnings_date": "2026-10-27",
-   "days_to_earnings": 68,
+   "days_to_earnings": 67,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1320,7 +1320,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-10",
    "last_earnings_date": "2026-11-03",
-   "days_to_earnings": 76,
+   "days_to_earnings": 75,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1355,7 +1355,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-03-10",
    "last_earnings_date": "2026-11-02",
-   "days_to_earnings": 104,
+   "days_to_earnings": 103,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1390,7 +1390,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-04",
    "last_earnings_date": "2026-10-29",
-   "days_to_earnings": 70,
+   "days_to_earnings": 69,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1425,7 +1425,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-18",
    "last_earnings_date": "2026-11-05",
-   "days_to_earnings": 84,
+   "days_to_earnings": 83,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1460,7 +1460,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-10",
    "last_earnings_date": "2026-10-28",
-   "days_to_earnings": 76,
+   "days_to_earnings": 75,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1495,7 +1495,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-25",
    "last_earnings_date": "2026-11-05",
-   "days_to_earnings": 91,
+   "days_to_earnings": 90,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1530,7 +1530,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-24",
    "last_earnings_date": "2026-11-04",
-   "days_to_earnings": 90,
+   "days_to_earnings": 89,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1565,7 +1565,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-26",
    "last_earnings_date": "2026-10-30",
-   "days_to_earnings": 92,
+   "days_to_earnings": 91,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1600,7 +1600,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-04",
    "last_earnings_date": "2026-11-04",
-   "days_to_earnings": 70,
+   "days_to_earnings": 69,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1635,7 +1635,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-25",
    "last_earnings_date": "2026-11-03",
-   "days_to_earnings": 91,
+   "days_to_earnings": 90,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1670,7 +1670,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-16",
    "last_earnings_date": "2026-11-03",
-   "days_to_earnings": 82,
+   "days_to_earnings": 81,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1705,7 +1705,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-24",
    "last_earnings_date": "2026-11-24",
-   "days_to_earnings": 90,
+   "days_to_earnings": 89,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1740,7 +1740,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-03-11",
    "last_earnings_date": "2026-11-12",
-   "days_to_earnings": 105,
+   "days_to_earnings": 104,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1775,9 +1775,9 @@
    "meets_criteria": true,
    "next_earnings_date": "2026-12-03",
    "last_earnings_date": "2026-09-03",
-   "days_to_earnings": 7,
+   "days_to_earnings": 6,
    "blockers": [
-    "Resultados el 2026-12-03 (en 7 días): no entrar a menos de 14 días de resultados"
+    "Resultados el 2026-12-03 (en 6 días): no entrar a menos de 14 días de resultados"
    ],
    "actionable": false,
    "warnings": [],
@@ -1812,7 +1812,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-02-10",
    "last_earnings_date": "2026-11-05",
-   "days_to_earnings": 76,
+   "days_to_earnings": 75,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1847,7 +1847,7 @@
    "meets_criteria": true,
    "next_earnings_date": "2027-03-23",
    "last_earnings_date": "2026-11-09",
-   "days_to_earnings": 117,
+   "days_to_earnings": 116,
    "blockers": [],
    "actionable": false,
    "warnings": [],
@@ -1867,12 +1867,12 @@
    "max_entry_price": 47.8,
    "stop_reference": 40.99,
    "risk_per_share": 4.53,
-   "risk_pct": 9.96,
-   "target_1r": 50.06,
-   "target_2r": 54.59,
+   "risk_pct": 9.95,
+   "target_1r": 50.05,
+   "target_2r": 54.58,
    "partial_r": 4.0,
-   "target_partial": 63.66,
-   "distance_to_pivot_pct": 0.93,
+   "target_partial": 63.64,
+   "distance_to_pivot_pct": 0.92,
    "criteria": {
     "tendencia": false,
     "cerca_maximos": true,
@@ -1882,7 +1882,7 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-23",
    "last_earnings_date": "2026-10-27",
-   "days_to_earnings": 89,
+   "days_to_earnings": 88,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
    ],
@@ -1919,7 +1919,7 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-02",
    "last_earnings_date": "2026-10-27",
-   "days_to_earnings": 68,
+   "days_to_earnings": 67,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
    ],
@@ -1956,7 +1956,7 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-10",
    "last_earnings_date": "2026-10-28",
-   "days_to_earnings": 76,
+   "days_to_earnings": 75,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
    ],
@@ -1993,7 +1993,7 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-24",
    "last_earnings_date": "2026-10-29",
-   "days_to_earnings": 90,
+   "days_to_earnings": 89,
    "blockers": [
     "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
    ],
@@ -2030,7 +2030,7 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-23",
    "last_earnings_date": "2026-10-27",
-   "days_to_earnings": 89,
+   "days_to_earnings": 88,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo",
     "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
@@ -2068,7 +2068,7 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-25",
    "last_earnings_date": "2026-11-03",
-   "days_to_earnings": 91,
+   "days_to_earnings": 90,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo",
     "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
@@ -2106,7 +2106,7 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-25",
    "last_earnings_date": "2026-11-05",
-   "days_to_earnings": 91,
+   "days_to_earnings": 90,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo"
    ],
@@ -2143,7 +2143,7 @@
    "meets_criteria": false,
    "next_earnings_date": "2027-02-25",
    "last_earnings_date": "2026-11-04",
-   "days_to_earnings": 91,
+   "days_to_earnings": 90,
    "blockers": [
     "No cumple Tendencia: precio > MA50 > MA200 y MA200 subiendo",
     "No cumple Cerca de máximos: a menos de un 15% del máximo de 52 semanas"
@@ -2156,9 +2156,9 @@
  "quotes": {
   "ALAB": {
    "last_session": "2026-11-25",
-   "open": 175.79,
+   "open": 176.87,
    "high": 191.95,
-   "low": 167.18,
+   "low": 167.14,
    "close": 190.34,
    "ema10": 205.98,
    "ema20": 221.91,
@@ -2704,14 +2704,14 @@
     [
      "2026-11-25",
      191.95,
-     167.18,
+     167.14,
      190.34
     ]
    ]
   },
   "AMPL": {
    "last_session": "2026-11-25",
-   "open": 16.48,
+   "open": 16.5,
    "high": 17.25,
    "low": 16.15,
    "close": 17.1,
@@ -3822,8 +3822,8 @@
   "ATRC": {
    "last_session": "2026-11-25",
    "open": 56.43,
-   "high": 57.08,
-   "low": 54.88,
+   "high": 57.22,
+   "low": 54.76,
    "close": 55.44,
    "ema10": 56.2,
    "ema20": 56.91,
@@ -4368,8 +4368,8 @@
     ],
     [
      "2026-11-25",
-     57.08,
-     54.88,
+     57.22,
+     54.76,
      55.44
     ]
    ]
@@ -4378,7 +4378,7 @@
    "last_session": "2026-11-25",
    "open": 11.7,
    "high": 12.15,
-   "low": 11.64,
+   "low": 11.62,
    "close": 11.82,
    "ema10": 11.74,
    "ema20": 12.09,
@@ -4924,7 +4924,7 @@
     [
      "2026-11-25",
      12.15,
-     11.64,
+     11.62,
      11.82
     ]
    ]
@@ -5488,7 +5488,7 @@
    "last_session": "2026-11-25",
    "open": 144.82,
    "high": 155.54,
-   "low": 136.92,
+   "low": 136.88,
    "close": 152.89,
    "ema10": 167.88,
    "ema20": 182.68,
@@ -6034,15 +6034,15 @@
     [
      "2026-11-25",
      155.54,
-     136.92,
+     136.88,
      152.89
     ]
    ]
   },
   "BIIB": {
    "last_session": "2026-11-25",
-   "open": 268.32,
-   "high": 269.42,
+   "open": 267.93,
+   "high": 269.43,
    "low": 257.25,
    "close": 261.44,
    "ema10": 255.89,
@@ -6588,7 +6588,7 @@
     ],
     [
      "2026-11-25",
-     269.42,
+     269.43,
      257.25,
      261.44
     ]
@@ -6598,7 +6598,7 @@
    "last_session": "2026-11-25",
    "open": 64.55,
    "high": 65.19,
-   "low": 63.23,
+   "low": 63.2,
    "close": 64.22,
    "ema10": 66.16,
    "ema20": 66.23,
@@ -7144,7 +7144,7 @@
     [
      "2026-11-25",
      65.19,
-     63.23,
+     63.2,
      64.22
     ]
    ]
@@ -7706,7 +7706,7 @@
   },
   "CART": {
    "last_session": "2026-11-25",
-   "open": 57.22,
+   "open": 57.3,
    "high": 58.05,
    "low": 57.1,
    "close": 57.68,
@@ -8817,7 +8817,7 @@
   "EW": {
    "last_session": "2026-11-25",
    "open": 105.41,
-   "high": 106.83,
+   "high": 106.84,
    "low": 104.62,
    "close": 106.36,
    "ema10": 104.58,
@@ -9363,7 +9363,7 @@
     ],
     [
      "2026-11-25",
-     106.83,
+     106.84,
      104.62,
      106.36
     ]
@@ -10482,7 +10482,7 @@
   "IAU": {
    "last_session": "2026-11-25",
    "open": 65.23,
-   "high": 67.39,
+   "high": 67.4,
    "low": 64.39,
    "close": 67.16,
    "ema10": 69.52,
@@ -11028,7 +11028,7 @@
     ],
     [
      "2026-11-25",
-     67.39,
+     67.4,
      64.39,
      67.16
     ]
@@ -13812,7 +13812,7 @@
   "OSCR": {
    "last_session": "2026-11-25",
    "open": 25.5,
-   "high": 27.26,
+   "high": 27.27,
    "low": 24.75,
    "close": 27.12,
    "ema10": 27.83,
@@ -14358,7 +14358,7 @@
     ],
     [
      "2026-11-25",
-     27.26,
+     27.27,
      24.75,
      27.12
     ]
@@ -14367,8 +14367,8 @@
   "PAYS": {
    "last_session": "2026-11-25",
    "open": 10.65,
-   "high": 10.76,
-   "low": 10.34,
+   "high": 10.79,
+   "low": 10.33,
    "close": 10.74,
    "ema10": 10.62,
    "ema20": 11.42,
@@ -14913,15 +14913,15 @@
     ],
     [
      "2026-11-25",
-     10.76,
-     10.34,
+     10.79,
+     10.33,
      10.74
     ]
    ]
   },
   "PCTY": {
    "last_session": "2026-11-25",
-   "open": 175.28,
+   "open": 174.98,
    "high": 181.27,
    "low": 173.49,
    "close": 179.33,
@@ -16031,7 +16031,7 @@
   },
   "PRCH": {
    "last_session": "2026-11-25",
-   "open": 21.33,
+   "open": 21.51,
    "high": 21.87,
    "low": 20.5,
    "close": 21.49,
@@ -16587,7 +16587,7 @@
   "QNST": {
    "last_session": "2026-11-25",
    "open": 18.32,
-   "high": 18.92,
+   "high": 18.93,
    "low": 18.15,
    "close": 18.53,
    "ema10": 18.64,
@@ -17133,7 +17133,7 @@
     ],
     [
      "2026-11-25",
-     18.92,
+     18.93,
      18.15,
      18.53
     ]
@@ -17142,8 +17142,8 @@
   "QTWO": {
    "last_session": "2026-11-25",
    "open": 67.32,
-   "high": 70.9,
-   "low": 66.28,
+   "high": 70.92,
+   "low": 66.19,
    "close": 69.64,
    "ema10": 69.35,
    "ema20": 69.38,
@@ -17688,8 +17688,8 @@
     ],
     [
      "2026-11-25",
-     70.9,
-     66.28,
+     70.92,
+     66.19,
      69.64
     ]
    ]
@@ -17697,7 +17697,7 @@
   "RBRK": {
    "last_session": "2026-11-25",
    "open": 104.92,
-   "high": 108.79,
+   "high": 108.84,
    "low": 101.39,
    "close": 107.97,
    "ema10": 110.05,
@@ -18243,7 +18243,7 @@
     ],
     [
      "2026-11-25",
-     108.79,
+     108.84,
      101.39,
      107.97
     ]
@@ -20471,7 +20471,7 @@
   },
   "TGTX": {
    "last_session": "2026-11-25",
-   "open": 70.01,
+   "open": 70.0,
    "high": 70.56,
    "low": 67.02,
    "close": 68.37,
@@ -21582,7 +21582,7 @@
   "URBN": {
    "last_session": "2026-11-25",
    "open": 77.11,
-   "high": 78.1,
+   "high": 78.17,
    "low": 74.25,
    "close": 76.74,
    "ema10": 83.9,
@@ -22128,7 +22128,7 @@
     ],
     [
      "2026-11-25",
-     78.1,
+     78.17,
      74.25,
      76.74
     ]
